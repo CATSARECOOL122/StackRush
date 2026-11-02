@@ -24,6 +24,14 @@
   canvas{position:fixed;inset:0;width:100vw;height:100vh;display:block}
   #ui{position:fixed;inset:0;pointer-events:none}
   .hidden{display:none!important}
+  .ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.14em;flex:none}
+  .ic.fill{fill:currentColor;stroke:none}
+  .ic-gold{color:var(--gold)}.ic-red{color:#ff4d6d}.ic-cyan{color:#7fe8ff}.ic-green{color:#7dff9b}.ic-orange{color:#ff9a3d}
+  .nb i .ic{width:24px;height:24px}.ibtn i .ic{width:22px;height:22px}.mode i .ic{width:30px;height:30px}
+  .pill .ic,.card .ic,.sub .ic,.btn .ic,.set span .ic{width:1.1em;height:1.1em}
+  .set span .ic{margin-right:6px;vertical-align:-.2em}
+  #aux .ic{width:.95em;height:.95em}
+  #aux .heart .ic{fill:currentColor;stroke:none}
   .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   button{font-family:inherit}
   button:focus-visible,a:focus-visible{outline:3px solid #7fe8ff;outline-offset:2px}
@@ -61,7 +69,7 @@
   .pill.lvl .xp{display:block;height:4px;border-radius:3px;background:#ffffff33;overflow:hidden}
   .pill.lvl .xp u{display:block;height:100%;width:0;text-decoration:none;background:linear-gradient(90deg,#ff5fa2,#ffc83d);transition:width .5s}
   .modechip{display:flex;align-items:center;gap:6px;background:#ffffff14;border:1px solid var(--line);border-radius:999px;padding:4px}
-  .mc{pointer-events:auto;width:42px;height:42px;border-radius:50%;border:0;background:#ffffff1a;color:#fff;font-size:24px;line-height:1;cursor:pointer;padding:0 0 3px}
+  .mc{pointer-events:auto;width:42px;height:42px;border-radius:50%;border:0;background:#ffffff1a;color:#fff;font-size:22px;line-height:1;cursor:pointer;padding:0;display:grid;place-items:center}
   .mc:active{transform:scale(.9)}
   #modeName{min-width:170px;text-align:center;font-weight:900;font-size:16px}
   .navbar{position:sticky;bottom:0;z-index:3;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px 10px calc(env(safe-area-inset-bottom) + 8px);background:linear-gradient(#0a0620d9,#0a0620f5);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
@@ -72,7 +80,7 @@
   .playbtn:active{animation:none}
   @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
   .tiles .mode.tile:last-child:nth-child(odd){grid-column:1/-1}
-  #hand{position:absolute;left:50%;top:56%;font-size:56px;transform:translateX(-50%);animation:tapHand 1s ease-in-out infinite;pointer-events:none;filter:drop-shadow(0 6px 10px #0008)}
+  #hand{position:absolute;left:50%;top:56%;font-size:56px;color:#fff;transform:translateX(-50%);animation:tapHand 1s ease-in-out infinite;pointer-events:none;filter:drop-shadow(0 6px 10px #0008)}
   @keyframes tapHand{0%,100%{transform:translate(-50%,0) scale(1)}50%{transform:translate(-50%,-16px) scale(.92)}}
   /* screens */
   .screen{position:absolute;inset:0;display:flex;flex-direction:column;pointer-events:auto;
@@ -86,7 +94,7 @@
   .topbar{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 12px) 14px 10px;
     background:linear-gradient(#0a0620f5,#0a0620d9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .topbar h2{flex:1;text-align:center;margin:0 44px 0 0;font-size:20px;letter-spacing:3px}
-  .back{pointer-events:auto;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#ffffff1a;color:#fff;font-size:26px;line-height:1;cursor:pointer;padding:0 0 3px}
+  .back{pointer-events:auto;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#ffffff1a;color:#fff;font-size:22px;line-height:1;cursor:pointer;padding:0;display:grid;place-items:center}
   .back:active{transform:scale(.92)}
   .screen.peeking{opacity:0;pointer-events:none}
   .logo{margin:0;display:flex;flex-direction:column;align-items:center;line-height:.86;font-size:68px;font-weight:900;letter-spacing:-2px;
@@ -116,7 +124,8 @@
   .bar{width:min(360px,100%);height:10px;border-radius:99px;background:#ffffff22;overflow:hidden}
   .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff5fa2,#ffc83d);border-radius:99px;transition:width .5s}
   .big-score{font-size:96px;font-weight:900;line-height:1;text-shadow:0 6px 24px #0008}
-  .big-score.stars{color:var(--gold);font-size:72px;letter-spacing:6px}
+  .big-score.stars{color:var(--gold);font-size:72px;display:flex;gap:6px;justify-content:center}
+  .big-score.stars .ic{width:.85em;height:.85em;stroke-width:1.6}
   .label{letter-spacing:4px;font-weight:800;color:var(--mute);font-size:13px}
   .newbest{color:var(--gold);font-weight:900;letter-spacing:3px;animation:pulse 1s infinite}
   .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
@@ -154,9 +163,10 @@
   /* awards + stats */
   #aList{display:flex;flex-direction:column;gap:8px;width:min(400px,100%)}
   .aw{display:flex;gap:12px;align-items:center;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
-  .aw i{font-style:normal;font-size:26px;filter:grayscale(1);opacity:.5}
+  .aw i{font-style:normal;color:#9a9ab5;opacity:.6;display:grid;place-items:center;width:34px;height:34px;flex:none}
+  .aw i .ic{width:24px;height:24px}
   .aw.on{border-color:var(--gold)}
-  .aw.on i{filter:none;opacity:1}
+  .aw.on i{color:var(--gold);opacity:1}
   .aw b{display:block}
   .aw span{font-size:12px;color:var(--mute);font-weight:700}
   .aw em{font-style:normal;margin-left:auto;font-weight:900;color:var(--gold);font-size:13px;white-space:nowrap}
@@ -169,7 +179,9 @@
   .stg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
   .stg{pointer-events:auto;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:8px 4px;color:#fff;font:inherit;text-align:center;cursor:pointer}
   .stg b{display:block;font-size:20px}
-  .stg .st{color:var(--gold);font-size:13px;letter-spacing:1px;height:16px}
+  .stg .st{color:var(--gold);height:16px;display:flex;justify-content:center;gap:2px}
+  .stg .st .ic{width:13px;height:13px}
+  .stg .st .ic:not(.fill){opacity:.4}
   .stg small{display:block;font-size:10px;color:var(--mute);font-weight:700;line-height:1.2;margin-top:2px}
   .stg.lock{opacity:.4}
   .stg.done{border-color:var(--gold)}
@@ -185,48 +197,95 @@
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="#f6b93b" stroke="#d98e0a" stroke-width="1.5"/><circle cx="12" cy="12" r="7.2" fill="none" stroke="#ffe08a" stroke-width="1.4"/><path d="M12 7.4v9.2M14.4 9.7c-.4-.9-1.3-1.4-2.4-1.4-1.3 0-2.4.7-2.4 1.8 0 2.4 4.8 1.2 4.8 3.7 0 1.1-1.1 1.9-2.4 1.9-1.2 0-2.1-.5-2.5-1.5" fill="none" stroke="#a86a00" stroke-width="1.5"/></symbol>
+<symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></symbol>
+<symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m22 9-6 6M16 9l6 6"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.8 2.8 5.9 6.4.9-4.7 4.5 1.2 6.4L12 17.5l-5.7 3 1.2-6.4L2.8 9.6l6.4-.9z"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2.5 9.5 4.8L12 12 2.5 7.3z"/><path d="m2.5 12 9.5 4.8 9.5-4.8"/><path d="m2.5 16.7 9.5 4.8 9.5-4.8"/></symbol>
+<symbol id="i-timer" viewBox="0 0 24 24"><path d="M10 2h4M12 14l3-3"/><circle cx="12" cy="14" r="8"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-8.5-5-9.7-11C1.5 6 4 3.5 7 3.5c2 0 3.8 1.1 5 3 1.2-1.9 3-3 5-3 3 0 5.5 2.5 4.7 6.5C20.5 16 12 21 12 21z"/></symbol>
+<symbol id="i-bomb" viewBox="0 0 24 24"><circle cx="11" cy="14" r="7.5"/><path d="M16.2 8.8 19 6"/><path d="M19 6l1-2.4M19 6l2.4-1M19.2 3.2l.6-1.2"/></symbol>
+<symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M16 2.5v4M8 2.5v4M3 10h18"/></symbol>
+<symbol id="i-calendar-check" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M16 2.5v4M8 2.5v4M3 10h18"/><path d="m9 16 2 2 4-4"/></symbol>
+<symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 2.5C6.5 2.5 2.5 6.5 2.5 12s4 9.5 9.5 9.5c1 0 1.7-.8 1.7-1.7 0-.5-.2-.8-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.7 1.7-1.7H16c3.2 0 5.5-2.4 5.5-5.5 0-4.7-4-8-9.5-8z"/><circle cx="7.5" cy="11.5" r="1" fill="currentColor"/><circle cx="9.5" cy="7.5" r="1" fill="currentColor"/><circle cx="14.5" cy="7" r="1" fill="currentColor"/><circle cx="17.5" cy="10.5" r="1" fill="currentColor"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16"/><path d="M10 14.7V17c0 .6-.5 1-1 1.2-1.2.6-2 2-2 3.8M14 14.7V17c0 .6.5 1 1 1.2 1.2.6 2 2 2 3.8"/><path d="M18 2H6v7a6 6 0 0 0 12 0z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1.5 14h5M9.5 8h5M17.5 16h5"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11.5 9-7.5 9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol>
+<symbol id="i-gamepad" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.3 5H6.7a4 4 0 0 0-4 3.6C2.6 9.4 2 14.5 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.4-1.4a2 2 0 0 1 1.4-.6h4.4a2 2 0 0 1 1.4.6L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.5-.6-6.6-.7-7.4A4 4 0 0 0 17.3 5z"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4M12 2v13"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.5 20 5.5V11c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5.5z"/></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4.1 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></symbol>
+<symbol id="i-grad" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
+<symbol id="i-tap" viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v6"/><path d="M13 10.5a2 2 0 0 1 4 0V12"/><path d="M17 11.5a2 2 0 0 1 4 0V15a7 7 0 0 1-7 7h-1.5c-2.3 0-3.7-.8-5-2.1L3.4 15.8a2 2 0 0 1 2.8-2.8L9 15"/></symbol>
+<symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M3 8v8M21 8v8M11 18.5h2"/></symbol>
+<symbol id="i-wind" viewBox="0 0 24 24"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2.5"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></symbol>
+<symbol id="i-chev-l" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+<symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 3v4M17 5h4M5 17v4M3 19h4"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M6 4v16l14-8z"/></symbol>
+<symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M9.5 21.5v-4h5v4M9 6.5h.01M15 6.5h.01M9 10.5h.01M15 10.5h.01M9 14h.01M15 14h.01"/></symbol>
+<symbol id="i-building2" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2M10 6h4M10 10h4M10 14h4M10 18h4"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9z"/></symbol>
+<symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="m11 3-3 6 4 13 4-13-3-6M2 9h20"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-crosshair" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M22 12h-4M6 12H2M12 6V2M12 22v-4"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></symbol>
+<symbol id="i-crown" viewBox="0 0 24 24"><path d="m2 8 5 4 5-8 5 8 5-4-2 12H4z"/></symbol>
+<symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></symbol>
+</defs></svg>
 <canvas id="c"></canvas>
 <div id="live" class="sr" aria-live="polite"></div>
 <div id="ui">
   <div id="hud" class="hidden">
-    <div id="coins" class="pill">🪙 <span id="coinN">0</span></div>
-    <div id="hudR"><button id="endZen" class="pill hidden">Finish</button><button id="pauseBtn" class="pill hidden" aria-label="Pause"><span class="pbars"></span></button><button id="mute" class="pill" aria-label="Toggle sound">🔊</button></div>
+    <div id="coins" class="pill"><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg> <span id="coinN">0</span></div>
+    <div id="hudR"><button id="endZen" class="pill hidden">Finish</button><button id="pauseBtn" class="pill hidden" aria-label="Pause"><span class="pbars"></span></button><button id="mute" class="pill" aria-label="Toggle sound"><svg class="ic" aria-hidden="true"><use href="#i-sound"/></svg></button></div>
   </div>
   <div id="scoreWrap" class="hidden"><div id="score" aria-hidden="true">0</div><div id="combo"></div><div id="aux"></div><div id="ghostD"></div></div>
   <div id="tip" class="hidden">TAP TO DROP</div>
-  <div id="hand" class="hidden" aria-hidden="true">👆</div>
+  <div id="hand" class="hidden" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-tap"/></svg></div>
   <div id="coach" class="hidden"><div id="coachText"></div><div class="dots" id="coachDots"><i></i><i></i><i></i></div></div>
-  <button id="skipTut" class="pill hidden">Skip tutorial ›</button>
+  <button id="skipTut" class="pill hidden">Skip tutorial <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
   <div id="toast" role="status"></div>
 
   <section id="menu" class="screen" aria-label="Main menu">
     <div class="mhead">
-      <div class="pill static" aria-label="Coins">🪙 <b id="mCoins">0</b></div>
-      <div class="pill static lvl" aria-label="Level"><span>⭐ Lv <b id="lvlN">1</b></span><span class="xp"><u id="xpFill"></u></span></div>
+      <div class="pill static" aria-label="Coins"><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg> <b id="mCoins">0</b></div>
+      <div class="pill static lvl" aria-label="Level"><span><svg class="ic ic-gold fill" aria-hidden="true"><use href="#i-star"/></svg> Lv <b id="lvlN">1</b></span><span class="xp"><u id="xpFill"></u></span></div>
       <span class="sp"></span>
-      <button id="mute2" class="pill" aria-label="Toggle sound">🔊</button>
+      <button id="mute2" class="pill" aria-label="Toggle sound"><svg class="ic" aria-hidden="true"><use href="#i-sound"/></svg></button>
     </div>
     <div class="sbody">
       <h1 class="logo"><span>STACK</span><span>RUSH</span></h1>
       <p class="tag">Time it right. Build it high.</p>
       <button id="play" class="btn primary big playbtn"><span>PLAY</span><small id="playSub">Classic</small></button>
       <div class="modechip" role="group" aria-label="Game mode">
-        <button id="modePrev" class="mc" aria-label="Previous mode">‹</button><span id="modeName" aria-live="polite">🏗️ Classic</span><button id="modeNext" class="mc" aria-label="Next mode">›</button>
+        <button id="modePrev" class="mc" aria-label="Previous mode"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><span id="modeName" aria-live="polite"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg> Classic</span><button id="modeNext" class="mc" aria-label="Next mode"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
       </div>
       <button id="openModes" class="btn">More game modes</button>
       <div class="card" id="dailyCard"></div>
       <div class="card slim" id="nextCard"></div>
     </div>
     <nav class="navbar" aria-label="Menu">
-      <button id="openCampaign" class="nb"><i>🗺️</i>Campaign</button>
-      <button id="openThemes" class="nb"><i>🎨</i>Themes</button>
-      <button id="openAwards" class="nb"><i>🏆</i>Awards</button>
-      <button id="openSettings" class="nb"><i>⚙️</i>Settings</button>
+      <button id="openCampaign" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg></i>Campaign</button>
+      <button id="openThemes" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg></i>Themes</button>
+      <button id="openAwards" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg></i>Awards</button>
+      <button id="openSettings" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg></i>Settings</button>
     </nav>
   </section>
 
   <section id="tutOffer" class="screen hidden" aria-label="Practice offer"><div class="sbody">
-    <div style="font-size:56px">🎓</div>
+    <div style="font-size:56px;color:var(--gold)"><svg class="ic" aria-hidden="true"><use href="#i-grad"/></svg></div>
     <h2>NEW HERE?</h2>
     <p class="lead">Try a 20-second practice round. No pressure, no game over. You can skip it, and replay it any time from Settings.</p>
     <button id="tutGo" class="btn primary big">SHOW ME</button>
@@ -234,19 +293,19 @@
   </div></section>
 
   <section id="modes" class="screen hidden" aria-label="Choose a mode">
-    <div class="topbar"><button class="back" id="closeModes" aria-label="Back">‹</button><h2>GAME MODES</h2></div>
+    <div class="topbar"><button class="back" id="closeModes" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>GAME MODES</h2></div>
     <div class="sbody" style="justify-content:flex-start"><div id="mGrid"></div></div>
   </section>
 
   <section id="stages" class="screen hidden" aria-label="Campaign">
-    <div class="topbar"><button class="back" id="closeStages" aria-label="Back">‹</button><h2>CAMPAIGN</h2></div>
+    <div class="topbar"><button class="back" id="closeStages" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>CAMPAIGN</h2></div>
     <div class="sbody" style="justify-content:flex-start"><div class="sub" id="sInfo"></div><div id="sGrid"></div></div>
   </section>
 
   <section id="over" class="screen hidden" aria-label="Round over"><div class="sbody">
     <div class="label" id="oLabel">SCORE</div>
     <div class="big-score" id="oScore">0</div>
-    <div class="newbest hidden" id="oNew">★ NEW BEST ★</div>
+    <div class="newbest hidden" id="oNew"><svg class="ic fill" aria-hidden="true"><use href="#i-star"/></svg> NEW BEST <svg class="ic fill" aria-hidden="true"><use href="#i-star"/></svg></div>
     <div class="sub" id="oBest"></div>
     <div class="sub" id="oCoins"></div>
     <div class="sub" id="oLevel"></div>
@@ -255,41 +314,41 @@
     <button id="next" class="btn primary big hidden">NEXT</button>
     <button id="again" class="btn primary big">AGAIN</button>
     <div class="ibtns">
-      <button id="toMenu" class="ibtn"><i>🏠</i>Menu</button>
-      <button id="overModes" class="ibtn"><i>🎮</i>Modes</button>
-      <button id="overThemes" class="ibtn"><i>🎨</i>Themes</button>
-      <button id="share" class="ibtn"><i>📤</i>Share</button>
+      <button id="toMenu" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></i>Menu</button>
+      <button id="overModes" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-gamepad"/></svg></i>Modes</button>
+      <button id="overThemes" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg></i>Themes</button>
+      <button id="share" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg></i>Share</button>
     </div>
   </div></section>
 
   <section id="themes" class="screen hidden" aria-label="Themes">
-    <div class="topbar"><button class="back" id="closeThemes" aria-label="Back">‹</button><h2>THEMES</h2></div>
+    <div class="topbar"><button class="back" id="closeThemes" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>THEMES</h2></div>
     <div class="sbody" style="justify-content:flex-start">
-      <div class="sub">Level <b id="tLvl">1</b> · 🪙 <b id="tCoins">0</b> · tap a theme to preview it</div>
+      <div class="sub">Level <b id="tLvl">1</b> · <svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg> <b id="tCoins">0</b> · tap a theme to preview it</div>
       <div id="tGrid"></div>
     </div>
   </section>
-  <div id="peek" class="peek hidden"><div><b id="peekName"></b><span id="peekSub"></span></div><button id="peekAct" class="btn gold"></button><button id="peekClose" class="btn" aria-label="Close preview">✕</button></div>
+  <div id="peek" class="peek hidden"><div><b id="peekName"></b><span id="peekSub"></span></div><button id="peekAct" class="btn gold"></button><button id="peekClose" class="btn" aria-label="Close preview"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button></div>
 
   <section id="awards" class="screen hidden" aria-label="Awards">
-    <div class="topbar"><button class="back" id="closeAwards" aria-label="Back">‹</button><h2>AWARDS</h2></div>
+    <div class="topbar"><button class="back" id="closeAwards" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>AWARDS</h2></div>
     <div class="sbody" style="justify-content:flex-start"><div id="aStats"></div><div class="sub" id="aCount"></div><div id="aList"></div></div>
   </section>
 
   <section id="settings" class="screen hidden" aria-label="Settings">
-    <div class="topbar"><button class="back" id="closeSettings" aria-label="Back">‹</button><h2>SETTINGS</h2></div>
+    <div class="topbar"><button class="back" id="closeSettings" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>SETTINGS</h2></div>
     <div class="sbody" style="justify-content:flex-start"><div class="setlist">
       <h4>SOUND &amp; FEEL</h4>
-      <div class="set"><span>🔊 Sound effects</span><button class="btn" data-set="sound"></button></div>
-      <div class="set"><span>🎵 Music</span><button class="btn" data-set="music"></button></div>
-      <div class="set"><span>📳 Vibration</span><button class="btn" data-set="haptics"></button></div>
-      <div class="set"><span>🌫️ Reduce shake &amp; flashes</span><button class="btn" data-set="reduce"></button></div>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-sound"/></svg>Sound effects</span><button class="btn" data-set="sound"></button></div>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-music"/></svg>Music</span><button class="btn" data-set="music"></button></div>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Vibration</span><button class="btn" data-set="haptics"></button></div>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-wind"/></svg>Reduce shake &amp; flashes</span><button class="btn" data-set="reduce"></button></div>
       <h4>HELP</h4>
-      <div class="set"><span>🎯 Timing assist<small>Wider perfect window. Auto = your first 6 games.</small></span><button class="btn" data-set="assist"></button></div>
-      <div class="set"><span>🎓 Practice round</span><button class="btn" data-set="tutorial">Replay</button></div>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>Timing assist<small>Wider perfect window. Auto = your first 6 games.</small></span><button class="btn" data-set="assist"></button></div>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-grad"/></svg>Practice round</span><button class="btn" data-set="tutorial">Replay</button></div>
       <h4>YOUR DATA</h4>
-      <div class="set"><span>💾 Save code<small>Copy your progress to move it to another device.</small></span><button class="btn" data-set="export">Copy</button></div>
-      <div class="set"><span>📥 Load code<small>Paste a save code to restore progress.</small></span><button class="btn" data-set="import">Paste</button></div>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg>Save code<small>Copy your progress to move it to another device.</small></span><button class="btn" data-set="export">Copy</button></div>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg>Load code<small>Paste a save code to restore progress.</small></span><button class="btn" data-set="import">Paste</button></div>
       <a href="privacy.html">Privacy policy</a>
     </div></div>
   </section>
@@ -336,14 +395,14 @@ const SQUARE_LINKS = { gold: "", galaxy: "", cyber: "" };
 
 /* ================= Modes ================= */
 const MODES = {
-  classic:{name:'Classic',icon:'🏗️',desc:'One life. Climb as high as you can.',lives:1,revive:true,ghost:true},
-  timed:{name:'Timed Rush',icon:'⏱️',desc:'60 seconds. Perfect drops add time.',lives:1,timer:true,ghost:true},
-  lives:{name:'Lives',icon:'❤️',desc:'3 lives. Only a full miss costs one.',lives:3,revive:true,ghost:true},
-  hazard:{name:'Hazard',icon:'💣',desc:"Bombs slide by. Don't drop on them!",lives:3,bombs:true,revive:true,ghost:true},
-  zen:{name:'Zen',icon:'🧘',desc:'No speed-up, no fail. Just stack.',lives:99,ramp:false,coins:false,soft:true,ghost:false},
-  daily:{name:'Daily Twist',icon:'📅',desc:'',lives:3,ghost:false},
-  campaign:{name:'Campaign',icon:'🗺️',desc:'24 stages. Earn up to 3 stars each.',lives:3,coins:false,noBest:true,ghost:false},
-  practice:{name:'Practice',icon:'🎓',desc:'',lives:99,ramp:false,coins:false,noBest:true,soft:true,ghost:false}
+  classic:{name:'Classic',icon:'layers',desc:'One life. Climb as high as you can.',lives:1,revive:true,ghost:true},
+  timed:{name:'Timed Rush',icon:'timer',desc:'60 seconds. Perfect drops add time.',lives:1,timer:true,ghost:true},
+  lives:{name:'Lives',icon:'heart',desc:'3 lives. Only a full miss costs one.',lives:3,revive:true,ghost:true},
+  hazard:{name:'Hazard',icon:'bomb',desc:"Bombs slide by. Don't drop on them!",lives:3,bombs:true,revive:true,ghost:true},
+  zen:{name:'Zen',icon:'leaf',desc:'No speed-up, no fail. Just stack.',lives:99,ramp:false,coins:false,soft:true,ghost:false},
+  daily:{name:'Daily Twist',icon:'calendar',desc:'',lives:3,ghost:false},
+  campaign:{name:'Campaign',icon:'map',desc:'24 stages. Earn up to 3 stars each.',lives:3,coins:false,noBest:true,ghost:false},
+  practice:{name:'Practice',icon:'grad',desc:'',lives:99,ramp:false,coins:false,noBest:true,soft:true,ghost:false}
 };
 
 /* ================= Daily twists & campaign ================= */
@@ -392,32 +451,32 @@ const SPACE = ['#04020d','#0f0828','#1c0f45'];
 const starsTotal = () => Object.values(S.camp||{}).reduce((a,b)=>a+b,0);
 const cleared = (a,b) => { for(let i=a;i<=b;i++) if(!(S.camp&&S.camp[i]>=1)) return false; return true; };
 const ACH = [
-  {id:'first',icon:'👋',name:'First Drop',desc:'Finish your first game',coins:10,test:()=>S.played>=1},
-  {id:'t20',icon:'🏢',name:'Getting Tall',desc:'Stack 20 blocks in one run',coins:15,test:x=>x.height>=20},
-  {id:'t50',icon:'🏙️',name:'Skyscraper',desc:'Stack 50 blocks in one run',coins:30,test:x=>x.height>=50},
-  {id:'t100',icon:'☁️',name:'Beyond the Clouds',desc:'Stack 100 blocks in one run',coins:60,test:x=>x.height>=100},
-  {id:'c5',icon:'🎯',name:'In the Zone',desc:'5 perfect drops in a row',coins:10,test:x=>x.combo>=5},
-  {id:'c10',icon:'✨',name:'Perfectionist',desc:'10 perfect drops in a row',coins:25,test:x=>x.combo>=10},
-  {id:'c25',icon:'💎',name:'Flawless',desc:'25 perfect drops in a row',coins:60,test:x=>x.combo>=25},
-  {id:'p100',icon:'👁️',name:'Sharp Eyes',desc:'100 perfect drops total',coins:30,test:()=>S.perfects>=100},
-  {id:'p500',icon:'🦅',name:'Eagle Eye',desc:'500 perfect drops total',coins:80,test:()=>S.perfects>=500},
-  {id:'rush',icon:'⚡',name:'Speed Demon',desc:'Score 60 in Timed Rush',coins:40,test:x=>x.mode==='timed'&&x.score>=60},
-  {id:'bomb',icon:'🧯',name:'Bomb Squad',desc:'Dodge 10 bombs total',coins:30,test:()=>S.dodged>=10},
-  {id:'zen',icon:'🧘',name:'Zen Master',desc:'Stack 40 blocks in Zen',coins:20,test:x=>x.mode==='zen'&&x.height>=40},
-  {id:'life',icon:'🩹',name:'Back From the Brink',desc:'Use a revive',coins:15,test:()=>S.revives>=1},
-  {id:'shield',icon:'🛡️',name:'Safety Net',desc:'Use a shield',coins:15,test:()=>S.shields>=1},
-  {id:'twist',icon:'📅',name:'Twist of Fate',desc:'Beat a Daily Twist',coins:25,test:()=>S.twistDone>=1},
-  {id:'camp1',icon:'🗺️',name:'Off the Map',desc:'Clear campaign stage 1',coins:15,test:()=>cleared(1,1)},
-  {id:'w1',icon:'🌼',name:'Meadow Master',desc:'Clear all of World 1',coins:40,test:()=>cleared(1,6)},
-  {id:'stars30',icon:'🌠',name:'Star Collector',desc:'Earn 30 campaign stars',coins:60,test:()=>starsTotal()>=30},
-  {id:'camp24',icon:'👑',name:'Campaign Complete',desc:'Clear all 24 stages',coins:150,test:()=>cleared(1,24)},
-  {id:'col5',icon:'🎨',name:'Collector',desc:'Own 5 themes',coins:40,test:()=>S.owned.length>=5},
-  {id:'col10',icon:'🖼️',name:'Curator',desc:'Own 10 themes',coins:100,test:()=>S.owned.length>=10},
-  {id:'st3',icon:'🔥',name:'On a Roll',desc:'3-day login streak',coins:20,test:()=>S.streak>=3},
-  {id:'st7',icon:'📅',name:'Dedicated',desc:'7-day login streak',coins:60,test:()=>S.streak>=7},
-  {id:'l5',icon:'⭐',name:'Rising Star',desc:'Reach level 5',coins:25,test:()=>levelOf(S.blocks)>=5},
-  {id:'l10',icon:'🌟',name:'Veteran',desc:'Reach level 10',coins:75,test:()=>levelOf(S.blocks)>=10},
-  {id:'rich',icon:'🐷',name:'Piggy Bank',desc:'Hold 500 coins',coins:0,test:()=>S.coins>=500}
+  {id:'first',icon:'play',name:'First Drop',desc:'Finish your first game',coins:10,test:()=>S.played>=1},
+  {id:'t20',icon:'building',name:'Getting Tall',desc:'Stack 20 blocks in one run',coins:15,test:x=>x.height>=20},
+  {id:'t50',icon:'building2',name:'Skyscraper',desc:'Stack 50 blocks in one run',coins:30,test:x=>x.height>=50},
+  {id:'t100',icon:'cloud',name:'Beyond the Clouds',desc:'Stack 100 blocks in one run',coins:60,test:x=>x.height>=100},
+  {id:'c5',icon:'target',name:'In the Zone',desc:'5 perfect drops in a row',coins:10,test:x=>x.combo>=5},
+  {id:'c10',icon:'sparkles',name:'Perfectionist',desc:'10 perfect drops in a row',coins:25,test:x=>x.combo>=10},
+  {id:'c25',icon:'gem',name:'Flawless',desc:'25 perfect drops in a row',coins:60,test:x=>x.combo>=25},
+  {id:'p100',icon:'eye',name:'Sharp Eyes',desc:'100 perfect drops total',coins:30,test:()=>S.perfects>=100},
+  {id:'p500',icon:'crosshair',name:'Eagle Eye',desc:'500 perfect drops total',coins:80,test:()=>S.perfects>=500},
+  {id:'rush',icon:'zap',name:'Speed Demon',desc:'Score 60 in Timed Rush',coins:40,test:x=>x.mode==='timed'&&x.score>=60},
+  {id:'bomb',icon:'bomb',name:'Bomb Squad',desc:'Dodge 10 bombs total',coins:30,test:()=>S.dodged>=10},
+  {id:'zen',icon:'leaf',name:'Zen Master',desc:'Stack 40 blocks in Zen',coins:20,test:x=>x.mode==='zen'&&x.height>=40},
+  {id:'life',icon:'heart',name:'Back From the Brink',desc:'Use a revive',coins:15,test:()=>S.revives>=1},
+  {id:'shield',icon:'shield',name:'Safety Net',desc:'Use a shield',coins:15,test:()=>S.shields>=1},
+  {id:'twist',icon:'calendar',name:'Twist of Fate',desc:'Beat a Daily Twist',coins:25,test:()=>S.twistDone>=1},
+  {id:'camp1',icon:'map',name:'Off the Map',desc:'Clear campaign stage 1',coins:15,test:()=>cleared(1,1)},
+  {id:'w1',icon:'leaf',name:'Meadow Master',desc:'Clear all of World 1',coins:40,test:()=>cleared(1,6)},
+  {id:'stars30',icon:'star',name:'Star Collector',desc:'Earn 30 campaign stars',coins:60,test:()=>starsTotal()>=30},
+  {id:'camp24',icon:'crown',name:'Campaign Complete',desc:'Clear all 24 stages',coins:150,test:()=>cleared(1,24)},
+  {id:'col5',icon:'palette',name:'Collector',desc:'Own 5 themes',coins:40,test:()=>S.owned.length>=5},
+  {id:'col10',icon:'award',name:'Curator',desc:'Own 10 themes',coins:100,test:()=>S.owned.length>=10},
+  {id:'st3',icon:'flame',name:'On a Roll',desc:'3-day login streak',coins:20,test:()=>S.streak>=3},
+  {id:'st7',icon:'calendar-check',name:'Dedicated',desc:'7-day login streak',coins:60,test:()=>S.streak>=7},
+  {id:'l5',icon:'star',name:'Rising Star',desc:'Reach level 5',coins:25,test:()=>levelOf(S.blocks)>=5},
+  {id:'l10',icon:'award',name:'Veteran',desc:'Reach level 10',coins:75,test:()=>levelOf(S.blocks)>=10},
+  {id:'rich',icon:'coin',name:'Piggy Bank',desc:'Hold 500 coins',coins:0,test:()=>S.coins>=500}
 ];
 
 /* ================= Save data ================= */
@@ -465,6 +524,7 @@ const reduceOn = () => S.reduceSet ? !!S.reduce : prefersReduce;
 
 /* ================= Helpers ================= */
 const $ = id => document.getElementById(id);
+const I = (n,c='') => `<svg class="ic${c?' '+c:''}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
 const rand = (a,b) => a + Math.random()*(b-a);
 let previewId = null;
@@ -476,7 +536,7 @@ const tq=[]; let tBusy=false;
 function toast(msg,ms=2200){ tq.push([msg,ms]); if(!tBusy) nextToast(); }
 function nextToast(){
   const it=tq.shift(); if(!it){ tBusy=false; return; }
-  tBusy=true; const el=$('toast'); el.textContent=it[0]; el.classList.add('show');
+  tBusy=true; const el=$('toast'); el.innerHTML=it[0]; el.classList.add('show');
   setTimeout(()=>{ el.classList.remove('show'); setTimeout(nextToast,260); }, it[1]);
 }
 const say = msg => { $('live').textContent = msg; };
@@ -662,7 +722,7 @@ function startMode(id){
   if(id==='daily'){ const tw=todaysTwist(); mod=Object.assign({lives:3},tw); }
   else mod={};
   newRun();
-  if(id==='daily') toast(`📅 ${todaysTwist().name}: ${todaysTwist().desc}`,3000);
+  if(id==='daily') toast(`${I('calendar')} ${todaysTwist().name}: ${todaysTwist().desc}`,3000);
 }
 function startStage(n){
   stage=n; mode='campaign'; mod=Object.assign({lives:3},STAGES[n-1][2]);
@@ -699,9 +759,9 @@ function setCoach(step,text){
     'Tap anywhere to drop the block onto the tower.',
     'Anything hanging over gets cut off, so the tower gets narrower.',
     'Try to land it exactly on top for a PERFECT.',
-    'Perfect streaks build a combo. 8 in a row earns a 🛡️ shield!'
+    'Perfect streaks build a combo. 8 in a row earns a '+I('shield','ic-cyan')+' shield!'
   ];
-  $('coachText').textContent = text || msgs[Math.min(step,msgs.length-1)];
+  $('coachText').innerHTML = text || msgs[Math.min(step,msgs.length-1)];
   [...$('coachDots').children].forEach((d,i)=>d.classList.toggle('on',i<=Math.min(step,2)));
 }
 function tutAfterDrop(perfect){
@@ -719,7 +779,7 @@ function tutFinish(completed){
   S.tutSeen=true; save();
   $('hand').classList.add('hidden'); $('skipTut').classList.add('hidden');
   const go=()=>{ $('coach').classList.add('hidden'); if(state==='playing'&&mode==='practice') startMode(S.lastMode); };
-  if(completed){ setCoach(2,"You've got it! Starting a real round… 🎉"); $('coachDots').children[2].classList.add('on'); setTimeout(go,1300); }
+  if(completed){ setCoach(2,"You've got it! Starting a real round… "+I('sparkles','ic-gold')); $('coachDots').children[2].classList.add('on'); setTimeout(go,1300); }
   else go();
 }
 function showTutOffer(){ hideAll(); $('tutOffer').classList.remove('hidden'); }
@@ -742,7 +802,7 @@ function checkAch(x){
   for(const a of ACH){
     if(S.ach[a.id]) continue;
     let ok=false; try{ ok=a.test(x); }catch(e){}
-    if(ok){ S.ach[a.id]=1; S.coins+=a.coins; any=true; toast(`🏆 ${a.name}${a.coins?`  +${a.coins} 🪙`:''}`,2600); sfx.up(); }
+    if(ok){ S.ach[a.id]=1; S.coins+=a.coins; any=true; toast(`${I('trophy','ic-gold')} ${a.name}${a.coins?`  +${a.coins} ${I('coin')}`:''}`,2600); sfx.up(); }
   }
   if(any){ save(); setCoins(); }
 }
@@ -757,7 +817,7 @@ function checkGoal(){
   if(mode==='campaign'){ const g=STAGES[stage-1]; if(goalVal(g)>=g[1]){ winStage(); return; } }
   else if(mode==='daily' && !S.twist.done && score>=CFG.twistGoal){
     S.twist.done=true; S.twistDone=(S.twistDone||0)+1; S.coins+=CFG.twistReward; save(); setCoins(); sfx.up();
-    toast(`Daily Twist complete! +${CFG.twistReward} 🪙`,2600); checkAch();
+    toast(`Daily Twist complete! +${CFG.twistReward} ${I('coin')}`,2600); checkAch();
   }
   setGhostD();
 }
@@ -790,11 +850,11 @@ function drop(){
     say(combo>1?`Perfect, combo ${combo}`:'Perfect');
     if(mode==='timed'){ timeLeft=Math.min(CFG.timedCap,timeLeft+CFG.timedBonus); texts.push({x:W/2,y:ty+50,vy:70,text:`+${CFG.timedBonus}s`,size:26*u,color:'#7dff9b',life:1}); }
     if(!soft() && combo%CFG.shieldEvery===0 && !shield){
-      shield=true; setAux(true); toast('🛡️ Shield earned — it blocks your next miss',2400); sfx.shield();
+      shield=true; setAux(true); toast(I('shield','ic-cyan')+' Shield earned — it blocks your next miss',2400); sfx.shield();
     }
     if(!prac && !S.daily.done){
       S.daily.perfects++;
-      if(S.daily.perfects>=CFG.dailyGoal){ S.daily.done=true; S.coins+=CFG.dailyBonus; setCoins(); sfx.up(); toast(`Daily challenge complete! +${CFG.dailyBonus} 🪙`); }
+      if(S.daily.perfects>=CFG.dailyGoal){ S.daily.done=true; S.coins+=CFG.dailyBonus; setCoins(); sfx.up(); toast(`Daily challenge complete! +${CFG.dailyBonus} ${I('coin')}`); }
       save();
     }
   } else {
@@ -914,22 +974,22 @@ function showOver(r){
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden');
   const g=camp?STAGES[stage-1]:null;
   $('oLabel').textContent = r.win ? `STAGE ${stage} CLEAR` : camp ? `STAGE ${stage} FAILED` : r.reason==='time' ? "TIME'S UP" : (mode==='zen' ? 'ZEN SESSION' : M.name.toUpperCase());
-  if(r.win) $('oScore').textContent='★'.repeat(r.stars)+'☆'.repeat(3-r.stars); else countUp($('oScore'),score);
+  if(r.win) $('oScore').innerHTML=I('star','fill').repeat(r.stars)+I('star').repeat(3-r.stars); else countUp($('oScore'),score);
   $('oScore').classList.toggle('stars',!!r.win);
   $('oNew').classList.toggle('hidden',!r.newBest);
   const h=stack.length-1;
-  if(camp) $('oBest').innerHTML = r.win ? `${goalLabel(g)} ✓ · <b>${clamp(lives,1,3)}</b> ${clamp(lives,1,3)===1?'life':'lives'} left` : `Goal: ${goalLabel(g)} · you got <b>${Math.min(goalVal(g),g[1])}/${g[1]}</b>`;
-  else if(mode==='daily') $('oBest').innerHTML=`Today's best <b>${S.twist.best||0}</b>${S.twist.done?' · ✅ twist complete':` · goal <b>${CFG.twistGoal}</b>`}`;
+  if(camp) $('oBest').innerHTML = r.win ? `${goalLabel(g)} ${I('check','ic-green')} · <b>${clamp(lives,1,3)}</b> ${clamp(lives,1,3)===1?'life':'lives'} left` : `Goal: ${goalLabel(g)} · you got <b>${Math.min(goalVal(g),g[1])}/${g[1]}</b>`;
+  else if(mode==='daily') $('oBest').innerHTML=`Today's best <b>${S.twist.best||0}</b>${S.twist.done?' · '+I('check-circle','ic-green')+' twist complete':` · goal <b>${CFG.twistGoal}</b>`}`;
   else $('oBest').innerHTML=`Best <b>${S.bests[mode]||0}</b> · Height <b>${h}</b>${bestCombo>1?` · Combo <b>x${bestCombo}</b>`:''}`;
-  $('oCoins').innerHTML = (M.coins===false && !camp) ? 'Zen earns no coins — just relax' : (camp && !r.win) ? '' : `+<b>${r.earned}</b> 🪙${r.worldBonus?` · World cleared! +<b>${r.worldBonus}</b> 🪙`:''}`;
+  $('oCoins').innerHTML = (M.coins===false && !camp) ? 'Zen earns no coins — just relax' : (camp && !r.win) ? '' : `+<b>${r.earned}</b> ${I('coin')}${r.worldBonus?` · World cleared! +<b>${r.worldBonus}</b> ${I('coin')}`:''}`;
   let lv='';
-  if(r.lvl>r.prevLvl) lv=`LEVEL UP! You're level <b>${r.lvl}</b> · +<b>${r.lvBonus}</b> 🪙`;
+  if(r.lvl>r.prevLvl) lv=`LEVEL UP! You're level <b>${r.lvl}</b> · +<b>${r.lvBonus}</b> ${I('coin')}`;
   if(r.unlocked && r.unlocked.length) lv+=`<br>Unlocked: <b>${r.unlocked.join(', ')}</b>`;
   $('oLevel').innerHTML=lv;
-  const nu=nextUnlock(); $('oNext').innerHTML = nu ? `🎯 Next unlock: <b>${nu}</b>` : '';
+  const nu=nextUnlock(); $('oNext').innerHTML = nu ? `${I('target')} Next unlock: <b>${nu}</b>` : '';
   const rv=$('revive'), showRv=M.revive && !revived && score>=5;
   rv.classList.toggle('hidden', !showRv);
-  rv.textContent=`Revive · ${CFG.reviveCost} 🪙`;
+  rv.innerHTML=`Revive · ${CFG.reviveCost} ${I('coin')}`;
   rv.classList.toggle('off', S.coins<CFG.reviveCost);
   $('next').classList.toggle('hidden', !(r.win && stage<STAGES.length));
   $('again').textContent = r.win ? 'REPLAY' : 'AGAIN';
@@ -940,7 +1000,7 @@ function showOver(r){
 }
 function revive(){
   if(state!=='over' || revived || !snap) return;
-  if(S.coins<CFG.reviveCost){ toast(`Need ${CFG.reviveCost} 🪙 to revive`); return; }
+  if(S.coins<CFG.reviveCost){ toast(`Need ${CFG.reviveCost} ${I('coin')} to revive`); return; }
   const old=JSON.parse(snap);
   for(const k of Object.keys(S)) delete S[k];
   Object.assign(S,old);
@@ -975,17 +1035,17 @@ function countUp(el,to,ms=700){
   const step=now=>{ const k=Math.min(1,(now-t0)/ms); el.textContent=Math.round(to*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(step); };
   el.textContent=0; requestAnimationFrame(step);
 }
-function setMuteIcon(){ const i=S.mute?'🔇':'🔊'; $('mute').textContent=i; $('mute2').textContent=i; }
+function setMuteIcon(){ const i=I(S.mute?'mute':'sound'); $('mute').innerHTML=i; $('mute2').innerHTML=i; }
 let auxKey='';
 function setAux(force){
   const el=$('aux'), M=MODES[mode];
   let html='', low=false;
   if(state==='playing' || state==='over'){
-    if(M.timer){ const s=Math.max(0,timeLeft); low=s<=10&&timerOn; html=`⏱ ${s<10?s.toFixed(1):Math.ceil(s)}`; }
+    if(M.timer){ const s=Math.max(0,timeLeft); low=s<=10&&timerOn; html=`${I('timer')} ${s<10?s.toFixed(1):Math.ceil(s)}`; }
     else if(mode==='zen') html='<span style="opacity:.8">~ ZEN ~</span>';
     else if(mode==='practice') html='<span style="opacity:.8">PRACTICE</span>';
-    else if(maxLives>1){ html=Array.from({length:maxLives},(_,i)=>`<span class="heart${i<lives?'':' lost'}">♥</span>`).join(''); }
-    if(shield) html+=' 🛡️';
+    else if(maxLives>1){ html=Array.from({length:maxLives},(_,i)=>`<span class="heart${i<lives?'':' lost'}">${I('heart')}</span>`).join(''); }
+    if(shield) html+=' '+I('shield','ic-cyan');
   }
   const key=html+low;
   if(force||key!==auxKey){ auxKey=key; el.innerHTML=html; el.classList.toggle('low',low); }
@@ -994,13 +1054,13 @@ function setGhostD(){
   const el=$('ghostD');
   if(state==='menu' || mode==='practice'){ el.textContent=''; el.className=''; return; }
   if(mode==='campaign'){ const g=STAGES[stage-1]; el.textContent=`${goalLabel(g)} · ${Math.min(goalVal(g),g[1])}/${g[1]}`; el.className=''; return; }
-  if(mode==='daily'){ el.textContent=S.twist.done?'Twist complete ✅':`Goal: score ${CFG.twistGoal}`; el.className=S.twist.done?'up':''; return; }
+  if(mode==='daily'){ el.innerHTML=S.twist.done?'Twist complete '+I('check-circle','ic-green'):`Goal: score ${CFG.twistGoal}`; el.className=S.twist.done?'up':''; return; }
   if(!ghost){ el.textContent=''; el.className=''; return; }
   const idx=stack.length-1;
   if(idx<ghost.scores.length){
     const d=score-ghost.scores[idx];
     el.textContent=`${d>=0?'+':''}${d} vs best`; el.className = d>=0?'up':'down';
-  } else { el.textContent='Beating your best! 🔥'; el.className='up'; }
+  } else { el.innerHTML='Beating your best! '+I('flame','ic-orange'); el.className='up'; }
 }
 
 /* ================= Update ================= */
@@ -1155,8 +1215,12 @@ function drawBomb(b){
   for(let x=b.x-BH;x<b.x+b.w+BH;x+=22*u){ ctx.beginPath(); ctx.moveTo(x,sy+BH); ctx.lineTo(x+10*u,sy+BH); ctx.lineTo(x+10*u+BH,sy); ctx.lineTo(x+BH,sy); ctx.closePath(); ctx.fill(); }
   ctx.restore();
   ctx.lineWidth=2*u; ctx.strokeStyle=`rgba(255,${90+pulse*100|0},80,1)`; rr(b.x,sy,b.w,BH-2,7*u); ctx.stroke();
-  ctx.font=`${BH*.85}px system-ui,"Apple Color Emoji","Segoe UI Emoji",sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.fillText('💣',b.x+b.w/2,sy+BH/2);
+  { const bx=b.x+b.w/2, by=sy+BH/2+1*u, r=BH*.3;
+    ctx.fillStyle='#0d0d14'; ctx.beginPath(); ctx.arc(bx,by,r,0,6.283); ctx.fill();
+    ctx.strokeStyle='#ffffff55'; ctx.lineWidth=1.5*u; ctx.beginPath(); ctx.arc(bx,by,r,0,6.283); ctx.stroke();
+    ctx.fillStyle='#ffffff40'; ctx.beginPath(); ctx.arc(bx-r*.35,by-r*.35,r*.22,0,6.283); ctx.fill();
+    ctx.strokeStyle='#d9d9e8'; ctx.lineWidth=2*u; ctx.lineCap='round'; ctx.beginPath(); ctx.moveTo(bx+r*.55,by-r*.8); ctx.quadraticCurveTo(bx+r*.9,by-r*1.3,bx+r*1.25,by-r*1.1); ctx.stroke();
+    ctx.fillStyle=`rgba(255,${170+pulse*60|0},60,1)`; ctx.beginPath(); ctx.arc(bx+r*1.3,by-r*1.1,(2.6+pulse*1.6)*u,0,6.283); ctx.fill(); }
   const k=clamp(b.ttl/CFG.bombTtl,0,1);
   ctx.fillStyle='rgba(255,255,255,.85)'; rr(b.x+4*u,sy-6*u,(b.w-8*u)*k,3*u,2*u); ctx.fill();
   ctx.restore();
@@ -1256,7 +1320,7 @@ function nextUnlock(){
     if(S.owned.includes(id)) continue;
     const un=th.unlock; let est=null, txt=null;
     if(un.t==='level'){ est=Math.max(0,levelStart(un.n)-S.blocks)/22; txt=`${th.name} · level ${un.n}${un.n>lvl?` (${un.n-lvl} to go)`:''}`; }
-    else if(un.t==='coins'){ const need=un.n-S.coins; est=Math.max(0,need)/11; txt=need<=0?`${th.name} · ready to buy for 🪙 ${un.n}!`:`${th.name} · 🪙 ${un.n} (${need} more)`; }
+    else if(un.t==='coins'){ const need=un.n-S.coins; est=Math.max(0,need)/11; txt=need<=0?`${th.name} · ready to buy for ${I('coin')} ${un.n}!`:`${th.name} · ${I('coin')} ${un.n} (${need} more)`; }
     if(est!==null && (!best||est<best.est)) best={est,txt};
   }
   return best?best.txt:'';
@@ -1265,18 +1329,18 @@ function renderMenu(){
   const lvl=levelOf(S.blocks), a=levelStart(lvl), b=levelStart(lvl+1);
   $('mCoins').textContent=S.coins; $('lvlN').textContent=lvl; $('xpFill').style.width=(clamp((S.blocks-a)/(b-a),0,1)*100)+'%';
   const lm=S.lastMode, M0=MODES[lm], best=lm==='daily'?(S.twist.best||0):(S.bests[lm]||0);
-  $('modeName').textContent=`${M0.icon} ${M0.name}`;
+  $('modeName').innerHTML=`${I(M0.icon)} ${M0.name}`;
   $('playSub').textContent = best>0 ? (lm==='daily'?`Today's best ${best}`:`Best ${best}`) : "Let's go!";
-  const nu=nextUnlock(); $('nextCard').classList.toggle('hidden',!nu); $('nextCard').innerHTML=nu?`🎯 Next unlock: <b>${nu}</b>`:'';
+  const nu=nextUnlock(); $('nextCard').classList.toggle('hidden',!nu); $('nextCard').innerHTML=nu?`${I('target')} Next unlock: <b>${nu}</b>`:'';
   const claimed=S.lastClaim===today();
   const reward=20+10*Math.min(claimed?S.streak-1:(S.lastClaim===yesterday()?S.streak:0),6);
   const prog=Math.min(S.daily.perfects,CFG.dailyGoal);
   $('dailyCard').innerHTML=
     `<h3>DAILY</h3>`+
     (claimed
-      ? `<div class="sub" style="text-align:left">🔥 Streak: <b>${S.streak}</b> day${S.streak===1?'':'s'} — come back tomorrow for more</div>`
-      : `<div class="row" style="justify-content:space-between;align-items:center"><div class="sub">🔥 Day <b>${S.lastClaim===yesterday()?S.streak+1:1}</b> reward</div><button class="btn gold" data-act="claim" style="padding:8px 16px;font-size:15px;min-height:38px">Claim +${reward} 🪙</button></div>`)+
-    `<div class="sub" style="margin-top:8px;text-align:left">${S.daily.done?'✅':'🎯'} Land <b>${CFG.dailyGoal}</b> perfect drops: <b>${prog}/${CFG.dailyGoal}</b></div>`+
+      ? `<div class="sub" style="text-align:left">${I('flame','ic-orange')} Streak: <b>${S.streak}</b> day${S.streak===1?'':'s'} — come back tomorrow for more</div>`
+      : `<div class="row" style="justify-content:space-between;align-items:center"><div class="sub">${I('flame','ic-orange')} Day <b>${S.lastClaim===yesterday()?S.streak+1:1}</b> reward</div><button class="btn gold" data-act="claim" style="padding:8px 16px;font-size:15px;min-height:38px">Claim +${reward} ${I('coin')}</button></div>`)+
+    `<div class="sub" style="margin-top:8px;text-align:left">${S.daily.done?I('check-circle','ic-green'):I('target')} Land <b>${CFG.dailyGoal}</b> perfect drops: <b>${prog}/${CFG.dailyGoal}</b></div>`+
     `<div class="bar" style="width:100%;margin-top:6px"><i style="width:${prog/CFG.dailyGoal*100}%"></i></div>`;
 }
 function claimDaily(){
@@ -1284,7 +1348,7 @@ function claimDaily(){
   S.streak = (S.lastClaim===yesterday()) ? S.streak+1 : 1;
   S.lastClaim=today();
   const reward=20+10*Math.min(S.streak-1,6);
-  S.coins+=reward; save(); sfx.coin(); toast(`+${reward} 🪙  ·  ${S.streak}-day streak!`); renderMenu(); setCoins(); checkAch();
+  S.coins+=reward; save(); sfx.coin(); toast(`+${reward} ${I('coin')}  ·  ${S.streak}-day streak!`); renderMenu(); setCoins(); checkAch();
 }
 function showMenu(){
   endPreview(true);
@@ -1298,24 +1362,25 @@ function showModes(){
   const tw=todaysTwist();
   const feat=['daily','campaign'], tiles=['classic','timed','lives','hazard','zen'];
   const card=(id,cls)=>{
-    const m=MODES[id]; let desc=m.desc, em=`BEST ${S.bests[id]||0}`, extra='';
-    if(id==='daily'){ desc=`<b style="color:#fff">${tw.name}</b> — ${tw.desc} Score ${CFG.twistGoal} for +${CFG.twistReward} 🪙`; em=S.twist.done?'DONE ✅':`TODAY ${S.twist.best||0}`; extra=S.twist.done?'':' hot'; }
-    if(id==='campaign'){ em=`★ ${starsTotal()} / ${STAGES.length*3}`; }
+    const m=MODES[id]; let desc=m.desc, em, extra='';
+    if(id==='daily'){ desc=`<b style="color:#fff">${tw.name}</b> — ${tw.desc} Score ${CFG.twistGoal} for +${CFG.twistReward} ${I('coin')}`; em=S.twist.done?`DONE<br>${I('check-circle','ic-green')}`:`TODAY<br>${S.twist.best||0}`; extra=S.twist.done?'':' hot'; }
+    else if(id==='campaign'){ em=`${I('star','ic-gold fill')} ${starsTotal()}<br>/ ${STAGES.length*3}`; }
+    else em=`BEST<br>${S.bests[id]||0}`;
     return cls==='tile'
-      ? `<button class="mode tile" data-mode="${id}"><i>${m.icon}</i><b>${m.name}</b><span>${desc}</span><em>${em}</em></button>`
-      : `<button class="mode${extra}" data-mode="${id}"><i>${m.icon}</i><div><b>${m.name}</b><span>${desc}</span></div><em>${em.replace(' ','<br>')}</em></button>`;
+      ? `<button class="mode tile" data-mode="${id}"><i>${I(m.icon)}</i><b>${m.name}</b><span>${desc}</span><em>${em.replace('<br>',' ')}</em></button>`
+      : `<button class="mode${extra}" data-mode="${id}"><i>${I(m.icon)}</i><div><b>${m.name}</b><span>${desc}</span></div><em>${em}</em></button>`;
   };
   $('mGrid').innerHTML = feat.map(id=>card(id,'feat')).join('') + `<div class="tiles">${tiles.map(id=>card(id,'tile')).join('')}</div>`;
 }
 function showStages(){
   hideAll(); $('stages').classList.remove('hidden');
-  $('sInfo').innerHTML=`<b>${starsTotal()}</b> / ${STAGES.length*3} ★ · 3 lives per stage, more lives left = more stars`;
+  $('sInfo').innerHTML=`<b>${starsTotal()}</b> / ${STAGES.length*3} ${I('star','ic-gold fill')} · 3 lives per stage, more lives left = more stars`;
   let html='';
   for(let w=0;w<4;w++){
     html+=`<div class="world"><h3>WORLD ${w+1} · ${WORLD_NAMES[w].toUpperCase()}</h3><div class="stg-grid">`;
     for(let k=0;k<6;k++){
       const n=w*6+k+1, g=STAGES[n-1], s=S.camp[n]||0, unlocked=n===1||(S.camp[n-1]>=1);
-      html+=`<button class="stg${unlocked?'':' lock'}${s?' done':''}" data-stage="${n}" aria-label="Stage ${n}, ${goalLabel(g)}${unlocked?'':', locked'}"><b>${unlocked?n:'🔒'}</b><div class="st">${s?'★'.repeat(s)+'☆'.repeat(3-s):'☆☆☆'}</div><small>${goalShort(g)}</small></button>`;
+      html+=`<button class="stg${unlocked?'':' lock'}${s?' done':''}" data-stage="${n}" aria-label="Stage ${n}, ${goalLabel(g)}${unlocked?'':', locked'}"><b>${unlocked?n:I('lock')}</b><div class="st">${I('star','fill').repeat(s)}${I('star').repeat(3-s)}</div><small>${goalShort(g)}</small></button>`;
     }
     html+='</div></div>';
   }
@@ -1328,9 +1393,9 @@ function openThemes(from){ themesFrom=from; hideAll(); $('themes').classList.rem
 function closeThemes(){ endPreview(true); if(themesFrom==='over' && state==='over'){ hideAll(); $('over').classList.remove('hidden'); } else showMenu(); }
 function themeAct(id){
   const th=THEMES[id], own=S.owned.includes(id), eq=S.theme===id, un=th.unlock;
-  if(own) return eq?{act:'none',label:'✓ Equipped',cls:'',sub:'Currently equipped',dis:true}:{act:'equip',label:'Equip',cls:'primary',sub:'Owned'};
-  if(un.t==='level') return {act:'lock',label:`🔒 Level ${un.n}`,cls:'off',sub:`Unlocks at level ${un.n} (you're level ${levelOf(S.blocks)})`};
-  if(un.t==='coins') return {act:'coin',label:`🪙 ${un.n}`,cls:S.coins>=un.n?'gold':'off',sub:`Costs ${un.n} coins (you have ${S.coins})`};
+  if(own) return eq?{act:'none',label:I('check')+' Equipped',cls:'',sub:'Currently equipped',dis:true}:{act:'equip',label:'Equip',cls:'primary',sub:'Owned'};
+  if(un.t==='level') return {act:'lock',label:`${I('lock')} Level ${un.n}`,cls:'off',sub:`Unlocks at level ${un.n} (you're level ${levelOf(S.blocks)})`};
+  if(un.t==='coins') return {act:'coin',label:`${I('coin')} ${un.n}`,cls:S.coins>=un.n?'gold':'off',sub:`Costs ${un.n} coins (you have ${S.coins})`};
   return {act:'iap',label:un.price,cls:'gold',sub:'Premium cosmetic theme'};
 }
 function renderThemes(){
@@ -1354,14 +1419,14 @@ function endPreview(silent){
 function updatePeek(){
   const id=previewId, th=THEMES[id], a=themeAct(id);
   $('peekName').textContent=th.name; $('peekSub').textContent=a.sub;
-  const b=$('peekAct'); b.textContent=a.label; b.className='btn '+a.cls; b.dataset.act=a.act; b.disabled=!!a.dis;
+  const b=$('peekAct'); b.innerHTML=a.label; b.className='btn '+a.cls; b.dataset.act=a.act; b.disabled=!!a.dis;
 }
 function themeAction(act,id){
   const th=THEMES[id]; if(!th) return false;
   if(act==='equip'){ S.theme=id; save(); initAmb(); sfx.tap(); renderThemes(); return true; }
   else if(act==='lock'){ toast(`Reach level ${th.unlock.n} to unlock ${th.name}`); }
   else if(act==='coin'){
-    if(S.coins<th.unlock.n){ toast(`Need ${th.unlock.n} 🪙 — you have ${S.coins}`); return false; }
+    if(S.coins<th.unlock.n){ toast(`Need ${th.unlock.n} ${I('coin')} — you have ${S.coins}`); return false; }
     S.coins-=th.unlock.n; S.owned.push(id); S.theme=id; save(); initAmb(); sfx.up(); setCoins(); renderThemes(); checkAch(); return true;
   }
   else if(act==='iap'){
@@ -1373,10 +1438,10 @@ function themeAction(act,id){
 function showAwards(){
   hideAll(); $('awards').classList.remove('hidden');
   const n=ACH.filter(a=>S.ach[a.id]).length;
-  $('aStats').innerHTML=[['GAMES',S.played],['BLOCKS',S.blocks],['PERFECTS',S.perfects],['BEST COMBO','x'+(S.bestCombo||0)],['MAX HEIGHT',S.maxHeight||0],['★ STARS',starsTotal()]]
+  $('aStats').innerHTML=[['GAMES',S.played],['BLOCKS',S.blocks],['PERFECTS',S.perfects],['BEST COMBO','x'+(S.bestCombo||0)],['MAX HEIGHT',S.maxHeight||0],['STARS',starsTotal()]]
     .map(([k,v])=>`<div><b>${v}</b>${k}</div>`).join('');
   $('aCount').innerHTML=`<b>${n}</b> / ${ACH.length} awards unlocked`;
-  $('aList').innerHTML=ACH.map(a=>`<div class="aw${S.ach[a.id]?' on':''}"><i aria-hidden="true">${a.icon}</i><div><b>${a.name}</b><span>${a.desc}</span></div>${a.coins?`<em>+${a.coins} 🪙</em>`:''}</div>`).join('');
+  $('aList').innerHTML=ACH.map(a=>`<div class="aw${S.ach[a.id]?' on':''}"><i aria-hidden="true">${I(a.icon)}</i><div><b>${a.name}</b><span>${a.desc}</span></div>${a.coins?`<em>+${a.coins} ${I('coin')}</em>`:''}</div>`).join('');
 }
 function showSettings(){
   hideAll(); $('settings').classList.remove('hidden');

@@ -41,6 +41,7 @@ Sunset (free), Neon, Ocean, Forest, Desert, Ice, Candy, Lava, Sakura, Retro, Dee
 - **Theme preview:** tap any theme to see it live in the game before you equip, unlock or buy it.
 - **Next-unlock hints** on the menu and game-over screen show your closest locked theme.
 - **Music:** a quiet generative background loop (key follows your theme); toggle in Settings or mute everything with the speaker button.
+- **Icons:** all UI icons are a custom inline SVG set (sprite at the top of `index.html`, used via `I('name')` in code), so the game looks the same on every device instead of depending on the phone's emoji font.
 - **Accessibility:** screen-reader announcements for perfects and results, labelled buttons, visible keyboard focus, 44px tap targets.
 - **Daily reward** with a streak, and a **daily challenge** (12 perfect drops).
 - **Revive** once per run in Classic, Lives and Hazard (40 coins).
