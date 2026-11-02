@@ -1,19 +1,39 @@
 # Stack Rush
 
-Tap to drop the sliding block onto the tower. Land it dead-center for a **PERFECT**: it keeps your block's full width, builds a combo, and after a few in a row the block grows back. Miss and the overhang falls away. Miss completely and it's over.
+Tap to drop the sliding block onto the tower. Land it dead-center for a **PERFECT**: it keeps your block's full width, builds a combo, and after a few in a row the block grows back. Overhang falls away. Miss completely and you lose.
 
 Single static file, `index.html`. No build step, no dependencies. Works on phones and desktop (Space/Enter also drops).
 
-## What's in it
-- **Game feel:** squash on landing, perfect-drop ring and sparkles, combo counter with a rising musical scale, screen shake and haptics on Android, tumbling cut-off pieces, height milestones every 25 blocks. All sound is synthesized (no audio files); there's a mute button.
-- **Look:** glossy blocks drawn in code, parallax hills, sky that fades into starfield as you climb, six themes.
-- **Progression:** levels from total blocks stacked; themes unlock at levels (Neon at 3, Ocean at 5) or with coins (Candy, 150).
-- **Retention loop:** daily reward with a streak, a daily challenge (12 perfect drops), coins earned every run, and a one-time **Revive** per run (40 coins).
-- **Purchases:** two premium cosmetic themes (Gold Rush, Galaxy, $1 each). Purely cosmetic, no random paid items, no timers or fake scarcity.
+## Modes
+| Mode | Rules |
+|---|---|
+| **Classic** | One life. Climb as high as you can. |
+| **Timed Rush** | 60 seconds, clock starts on your first tap. Perfect drops add +2s, a full miss costs -3s. |
+| **Lives** | 3 lives. Only a full miss costs one; partial overhangs are fine. |
+| **Hazard** | 3 lives plus **bomb blocks**. Don't drop on a bomb. Let it slide past for +2 bonus points; drop on it and you lose a life. |
+| **Zen** | No speed-up and no fail state. A full miss just respawns the block. No coins. Tap *Finish* to end. |
+
+Each mode keeps its own best score.
+
+## Ghost run
+Your best run in each mode is saved. Next time you play it:
+- a faint dashed outline of your best tower shows behind your stack,
+- a **BEST** line marks the height you need to beat,
+- a live "+N vs best" readout compares your score to the same point in your best run.
+
+## Themes (15)
+Sunset (free), Neon, Ocean, Forest, Desert, Ice, Candy, Lava, Sakura, Retro, Deep Sea, Winter Night, plus premium Gold Rush, Galaxy and Cyber City. Many have their own ambient effects (snow, fireflies, embers, petals, bubbles, sand, digital rain); Retro uses pixel blocks and scanlines. Unlock by level, by coins, or (premium) by purchase.
+
+## Progression and retention
+- **Levels** from total blocks stacked; each level-up gives bonus coins.
+- **20 achievements** with coin rewards (🏆 Awards screen).
+- **Daily reward** with a streak, and a **daily challenge** (12 perfect drops).
+- **Revive** once per run in Classic, Lives and Hazard (40 coins).
+- Purchases are cosmetic only: no random paid items, no timers, no fake scarcity.
 
 ## Setting up purchases (web)
-1. In Square, create a $1 one-time payment link per premium theme.
-2. Set each link's post-payment redirect to `https://<your-site>/?unlock=gold` (or `galaxy`).
+1. In Square, create a $1 one-time payment link for each premium theme (`gold`, `galaxy`, `cyber`).
+2. Set each link's post-payment redirect to `https://<your-site>/?unlock=gold` (or `galaxy`, `cyber`).
 3. Paste the links into `SQUARE_LINKS` near the top of the script in `index.html`.
 
 Card details are entered on Square's page; the game never sees them.
@@ -24,7 +44,7 @@ Card details are entered on Square's page; the game never sees them.
 Not done yet. The plan is to wrap this page (Trusted Web Activity or Capacitor) and sell the premium themes through **Google Play Billing**. Google requires Play Billing for digital goods in apps, so the Square links above are for the web version only. A Play developer account is a $25 one-time fee.
 
 ## Tuning
-Difficulty lives in the `CFG` object at the top of the script (`baseSpeed`, `ramp`, `perfectPx`, `regrowAfter`, ...). These are first guesses and need real-player testing.
+Difficulty lives in the `CFG` object at the top of the script (`baseSpeed`, `ramp`, `perfectPx`, `regrowAfter`, `bombChance`, ...). These are first guesses and need real-player testing.
 
 ## Testing hook
 Open the page with `#debug` in the URL to expose `window.__sr` for automated tests.
