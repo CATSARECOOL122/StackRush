@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b1a63"/><stop offset=".58" stop-color="#a1306b"/><stop offset="1" stop-color="#ff8f3d"/>
+    </linearGradient>
+    <radialGradient id="sun" cx=".72" cy=".78" r=".62">
+      <stop offset="0" stop-color="#ffd9a0" stop-opacity=".85"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="b1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7a52"/><stop offset="1" stop-color="#d93a2b"/></linearGradient>
+    <linearGradient id="b2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffa545"/><stop offset="1" stop-color="#e07a1f"/></linearGradient>
+    <linearGradient id="b3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd357"/><stop offset="1" stop-color="#e0a31f"/></linearGradient>
+    <linearGradient id="b4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0a0"/><stop offset="1" stop-color="#f2c744"/></linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <rect width="512" height="512" fill="url(#sun)"/>
+  <g fill="#fff">
+    <circle cx="96" cy="86" r="3.5" opacity=".8"/><circle cx="410" cy="64" r="2.6" opacity=".6"/><circle cx="450" cy="150" r="3" opacity=".7"/>
+    <circle cx="70" cy="190" r="2.4" opacity=".55"/><circle cx="330" cy="40" r="2.2" opacity=".5"/>
+  </g>
+  <!-- ground shadow -->
+  <ellipse cx="256" cy="392" rx="150" ry="14" fill="#1c0c30" opacity=".35"/>
+  <!-- tower -->
+  <g>
+    <rect x="146" y="316" width="220" height="56" rx="14" fill="url(#b1)"/>
+    <rect x="156" y="324" width="200" height="11" rx="5.5" fill="#fff" opacity=".28"/>
+    <rect x="146" y="254" width="220" height="56" rx="14" fill="url(#b2)"/>
+    <rect x="156" y="262" width="200" height="11" rx="5.5" fill="#fff" opacity=".28"/>
+    <rect x="146" y="192" width="220" height="56" rx="14" fill="url(#b3)"/>
+    <rect x="156" y="200" width="200" height="11" rx="5.5" fill="#fff" opacity=".3"/>
+  </g>
+  <!-- sliding top block with glow + motion streaks -->
+  <rect x="190" y="130" width="220" height="56" rx="14" fill="#ffe27a" opacity=".55" filter="url(#glow)"/>
+  <rect x="190" y="130" width="220" height="56" rx="14" fill="url(#b4)"/>
+  <rect x="200" y="138" width="200" height="11" rx="5.5" fill="#fff" opacity=".45"/>
+  <g stroke="#fff" stroke-linecap="round" opacity=".7">
+    <line x1="112" y1="146" x2="168" y2="146" stroke-width="7"/>
+    <line x1="92" y1="166" x2="152" y2="166" stroke-width="6" opacity=".6"/>
+  </g>
+  <!-- sparkle -->
+  <path d="M424 108 l7 18 18 7 -18 7 -7 18 -7 -18 -18 -7 18 -7z" fill="#fff" opacity=".95"/>
+</svg>

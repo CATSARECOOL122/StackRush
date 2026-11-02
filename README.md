@@ -12,8 +12,13 @@ Single static file, `index.html`. No build step, no dependencies. Works on phone
 | **Lives** | 3 lives. Only a full miss costs one; partial overhangs are fine. |
 | **Hazard** | 3 lives plus **bomb blocks**. Don't drop on a bomb. Let it slide past for +2 bonus points; drop on it and you lose a life. |
 | **Zen** | No speed-up and no fail state. A full miss just respawns the block. No coins. Tap *Finish* to end. |
+| **Daily Twist** | A new rule every day (Narrow Start, Swift, Bomb Squad, Windy, Exact, No Regrow). Score 40 for +60 coins. |
+| **Campaign** | 24 stages in 4 worlds with goals (reach a height, land perfects, score, dodge bombs, hit a combo). 3 lives per stage; more lives left means more stars (1-3). Each stage unlocks after the last; clearing a world pays a bonus. |
 
 Each mode keeps its own best score.
+
+## Power-up: Shield
+Land 8 perfects in a row and you earn a **shield** (shown under the score and as a glow on your tower). It automatically absorbs your next full miss or bomb hit. Earned only by playing, never sold.
 
 ## Ghost run
 Your best run in each mode is saved. Next time you play it:
@@ -26,7 +31,9 @@ Sunset (free), Neon, Ocean, Forest, Desert, Ice, Candy, Lava, Sakura, Retro, Dee
 
 ## Progression and retention
 - **Levels** from total blocks stacked; each level-up gives bonus coins.
-- **20 achievements** with coin rewards (🏆 Awards screen).
+- **26 achievements** with coin rewards, plus a stats page (🏆 Awards screen).
+- **Share card:** the game-over screen has a Share button that makes a score image and opens the phone's share sheet.
+- **Pause** (button, Esc/P, and automatically when you leave the app), with a short grace period after resuming. **Settings** for sound, vibration, and reduced shake/flashes.
 - **Daily reward** with a streak, and a **daily challenge** (12 perfect drops).
 - **Revive** once per run in Classic, Lives and Hazard (40 coins).
 - Purchases are cosmetic only: no random paid items, no timers, no fake scarcity.
@@ -39,6 +46,9 @@ Sunset (free), Neon, Ocean, Forest, Desert, Ice, Candy, Lava, Sakura, Retro, Dee
 Card details are entered on Square's page; the game never sees them.
 
 **Limitation:** unlocks are stored in the browser, so anyone can add `?unlock=gold` to the URL. That is fine for a first test but is not real enforcement. Verifying purchases properly needs a small backend that checks Square webhooks.
+
+## Home-screen install
+`manifest.json` and `icons/` make it installable: on iPhone use Safari's Share > Add to Home Screen; on Android use Chrome's menu > Install app. The icon source is `icons/icon.svg`; the PNGs were rendered from it.
 
 ## Android / Google Play
 Not done yet. The plan is to wrap this page (Trusted Web Activity or Capacitor) and sell the premium themes through **Google Play Billing**. Google requires Play Billing for digital goods in apps, so the Square links above are for the web version only. A Play developer account is a $25 one-time fee.
