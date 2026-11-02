@@ -1,6 +1,6 @@
 /* Stack Rush service worker: lets the installed app work offline.
    Pages are network-first (so updates arrive as soon as you're online) and fall back to the cache offline. */
-const VERSION = 'stackrush-v5';
+const VERSION = 'stackrush-v6';
 const CORE = [
   './', './index.html', './privacy.html', './manifest.json',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png'

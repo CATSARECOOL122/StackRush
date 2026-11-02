@@ -5,7 +5,7 @@ Tap to drop the sliding block onto the tower. Land it dead-center for a **PERFEC
 Single static file, `index.html`. No build step, no dependencies. Works on phones and desktop (Space/Enter also drops).
 
 ## Playing
-The big **PLAY** button starts the mode you played last in one tap; **All modes** opens the mode picker. First-time players are offered a short **practice round** (skippable, shown once, replayable from Settings). New players also get a **timing assist** (slightly wider perfect window and slower blocks) for their first 6 games; it can be set to Always/Off in Settings.
+The big **PLAY** button starts the mode you played last in one tap. Under it, a mode switcher (‹ Classic ›) changes the mode without opening any list, and **More game modes** opens the full picker with descriptions. A thumb-reach bar at the bottom holds Campaign, Themes, Awards and Settings, and the tower behind the menu builds itself as a live preview. First-time players are offered a short **practice round** (skippable, shown once, replayable from Settings). New players also get a **timing assist** (slightly wider perfect window and slower blocks) for their first 6 games; it can be set to Always/Off in Settings.
 
 ## Modes
 | Mode | Rules |

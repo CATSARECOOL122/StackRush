@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#14102b">
 <meta name="description" content="Stack Rush: time it right, build it high.">
+<meta name="format-detection" content="telephone=no">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
@@ -19,7 +20,7 @@
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;height:100%;background:#14102b;color:var(--ink);overflow:hidden;
     font-family:ui-rounded,"SF Pro Rounded","Nunito","Segoe UI",system-ui,sans-serif;
-    user-select:none;-webkit-user-select:none;touch-action:none;overscroll-behavior:none}
+    user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:none;overscroll-behavior:none}
   canvas{position:fixed;inset:0;width:100vw;height:100vh;display:block}
   #ui{position:fixed;inset:0;pointer-events:none}
   .hidden{display:none!important}
@@ -52,7 +53,24 @@
   #coach .dots i{width:7px;height:7px;border-radius:50%;background:#ffffff33}
   #coach .dots i.on{background:var(--gold)}
   #skipTut{position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom) + 14px);transform:translateX(-50%);font-size:14px}
-  #menu .sbody{padding-top:calc(env(safe-area-inset-top) + 56px)}
+  #menu .sbody{padding-top:16px}
+  .mhead{display:flex;align-items:center;gap:8px;padding:calc(env(safe-area-inset-top) + 12px) 14px 0}
+  .mhead .sp{flex:1}
+  .pill.static{cursor:default}
+  .pill.lvl{display:inline-flex;flex-direction:column;align-items:stretch;gap:3px;padding:5px 12px 6px;border-radius:16px;white-space:nowrap}
+  .pill.lvl .xp{display:block;height:4px;border-radius:3px;background:#ffffff33;overflow:hidden}
+  .pill.lvl .xp u{display:block;height:100%;width:0;text-decoration:none;background:linear-gradient(90deg,#ff5fa2,#ffc83d);transition:width .5s}
+  .modechip{display:flex;align-items:center;gap:6px;background:#ffffff14;border:1px solid var(--line);border-radius:999px;padding:4px}
+  .mc{pointer-events:auto;width:42px;height:42px;border-radius:50%;border:0;background:#ffffff1a;color:#fff;font-size:24px;line-height:1;cursor:pointer;padding:0 0 3px}
+  .mc:active{transform:scale(.9)}
+  #modeName{min-width:170px;text-align:center;font-weight:900;font-size:16px}
+  .navbar{position:sticky;bottom:0;z-index:3;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px 10px calc(env(safe-area-inset-bottom) + 8px);background:linear-gradient(#0a0620d9,#0a0620f5);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .nb{pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;color:#fff;font-weight:800;font-size:11px;letter-spacing:.5px;padding:6px 2px;border-radius:12px;cursor:pointer;touch-action:manipulation}
+  .nb i{font-style:normal;font-size:22px}
+  .nb:active{background:#ffffff1a}
+  .playbtn{animation:breathe 2.6s ease-in-out infinite}
+  .playbtn:active{animation:none}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
   .tiles .mode.tile:last-child:nth-child(odd){grid-column:1/-1}
   #hand{position:absolute;left:50%;top:56%;font-size:56px;transform:translateX(-50%);animation:tapHand 1s ease-in-out infinite;pointer-events:none;filter:drop-shadow(0 6px 10px #0008)}
   @keyframes tapHand{0%,100%{transform:translate(-50%,0) scale(1)}50%{transform:translate(-50%,-16px) scale(.92)}}
@@ -61,7 +79,8 @@
     background:radial-gradient(ellipse at 50% 30%,#150d3388,#0a0620cc);backdrop-filter:blur(3px);overflow:auto;touch-action:pan-y;
     animation:scr .22s ease-out}
   @keyframes scr{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  @media (prefers-reduced-motion:reduce){.screen{animation:none}#hand,#tip,.newbest{animation:none}}
+  @media (prefers-reduced-motion:reduce){.screen{animation:none}#hand,#tip,.newbest,.playbtn{animation:none}}
+  .calm .screen,.calm #hand,.calm #tip,.calm .newbest,.calm .playbtn{animation:none}
   .sbody{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:100%;
     padding:calc(env(safe-area-inset-top) + 24px) 20px calc(env(safe-area-inset-bottom) + 28px)}
   .topbar{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 12px) 14px 10px;
@@ -180,21 +199,31 @@
   <button id="skipTut" class="pill hidden">Skip tutorial ›</button>
   <div id="toast" role="status"></div>
 
-  <section id="menu" class="screen" aria-label="Main menu"><div class="sbody">
-    <h1 class="logo"><span>STACK</span><span>RUSH</span></h1>
-    <p class="tag">Time it right. Build it high.</p>
-    <button id="play" class="btn primary big playbtn"><span>PLAY</span><small id="playSub">Classic</small></button>
-    <button id="openModes" class="btn">🎮 All modes</button>
-    <div class="ibtns">
-      <button id="openThemes" class="ibtn"><i>🎨</i>Themes</button>
-      <button id="openAwards" class="ibtn"><i>🏆</i>Awards</button>
-      <button id="openSettings" class="ibtn"><i>⚙️</i>Settings</button>
+  <section id="menu" class="screen" aria-label="Main menu">
+    <div class="mhead">
+      <div class="pill static" aria-label="Coins">🪙 <b id="mCoins">0</b></div>
+      <div class="pill static lvl" aria-label="Level"><span>⭐ Lv <b id="lvlN">1</b></span><span class="xp"><u id="xpFill"></u></span></div>
+      <span class="sp"></span>
+      <button id="mute2" class="pill" aria-label="Toggle sound">🔊</button>
     </div>
-    <div class="card" id="dailyCard"></div>
-    <div class="card slim" id="nextCard"></div>
-    <div class="stats"><div>BEST<b id="mBest">0</b></div><div>LEVEL<b id="mLvl">1</b></div><div>🪙<b id="mCoins">0</b></div></div>
-    <div class="bar"><i id="mXp"></i></div>
-  </div></section>
+    <div class="sbody">
+      <h1 class="logo"><span>STACK</span><span>RUSH</span></h1>
+      <p class="tag">Time it right. Build it high.</p>
+      <button id="play" class="btn primary big playbtn"><span>PLAY</span><small id="playSub">Classic</small></button>
+      <div class="modechip" role="group" aria-label="Game mode">
+        <button id="modePrev" class="mc" aria-label="Previous mode">‹</button><span id="modeName" aria-live="polite">🏗️ Classic</span><button id="modeNext" class="mc" aria-label="Next mode">›</button>
+      </div>
+      <button id="openModes" class="btn">More game modes</button>
+      <div class="card" id="dailyCard"></div>
+      <div class="card slim" id="nextCard"></div>
+    </div>
+    <nav class="navbar" aria-label="Menu">
+      <button id="openCampaign" class="nb"><i>🗺️</i>Campaign</button>
+      <button id="openThemes" class="nb"><i>🎨</i>Themes</button>
+      <button id="openAwards" class="nb"><i>🏆</i>Awards</button>
+      <button id="openSettings" class="nb"><i>⚙️</i>Settings</button>
+    </nav>
+  </section>
 
   <section id="tutOffer" class="screen hidden" aria-label="Practice offer"><div class="sbody">
     <div style="font-size:56px">🎓</div>
@@ -205,7 +234,7 @@
   </div></section>
 
   <section id="modes" class="screen hidden" aria-label="Choose a mode">
-    <div class="topbar"><button class="back" id="closeModes" aria-label="Back">‹</button><h2>MODES</h2></div>
+    <div class="topbar"><button class="back" id="closeModes" aria-label="Back">‹</button><h2>GAME MODES</h2></div>
     <div class="sbody" style="justify-content:flex-start"><div id="mGrid"></div></div>
   </section>
 
@@ -610,11 +639,23 @@ function spawnCur(noBomb){
 function demoStack(){
   mod={}; baseW=Math.min(W*CFG.startFrac, CFG.maxW*u);
   stack=[]; let w=baseW, x=(W-w)/2;
-  for(let i=0;i<9;i++){
+  for(let i=0;i<4;i++){
     stack.push({x,w,y:i*BH,i,sq:0});
     const nw=w*rand(.9,.98); x+=(w-nw)/2+rand(-8,8)*u; w=nw; x=clamp(x,0,W-w);
   }
   score=0; cam=0; combo=0; ghost=null; cur=null; spawnCur(true);
+}
+/* menu "attract mode": the tower behind the menu builds itself with perfect drops */
+function demoStep(){
+  const top=stack[stack.length-1];
+  if(Math.abs(cur.x-top.x)<Math.max(4,speed()*.025)){
+    const nb={x:top.x,w:top.w,y:cur.y,i:cur.i,sq:1};
+    rings.push({x:nb.x,y:nb.y+BH,w:nb.w,life:1});
+    burst(nb.x+nb.w/2,nb.y+BH,hue(TH(),cur.i),10,200*u);
+    stack.push(nb);
+    if(stack.length>13){ demoStack(); return; }
+    spawnCur(true);
+  }
 }
 function startMode(id){
   mode=id; if(id!=='campaign' && id!=='practice') S.lastMode=id; save();
@@ -873,7 +914,7 @@ function showOver(r){
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden');
   const g=camp?STAGES[stage-1]:null;
   $('oLabel').textContent = r.win ? `STAGE ${stage} CLEAR` : camp ? `STAGE ${stage} FAILED` : r.reason==='time' ? "TIME'S UP" : (mode==='zen' ? 'ZEN SESSION' : M.name.toUpperCase());
-  $('oScore').textContent = r.win ? '★'.repeat(r.stars)+'☆'.repeat(3-r.stars) : score;
+  if(r.win) $('oScore').textContent='★'.repeat(r.stars)+'☆'.repeat(3-r.stars); else countUp($('oScore'),score);
   $('oScore').classList.toggle('stars',!!r.win);
   $('oNew').classList.toggle('hidden',!r.newBest);
   const h=stack.length-1;
@@ -922,8 +963,19 @@ function setCombo(c){
   const el=$('combo');
   if(c>=2){ el.textContent=`COMBO x${c}`; popEl(el,1.4,200); } else el.textContent='';
 }
-function setCoins(){ $('coinN').textContent=S.coins; }
-function setMuteIcon(){ $('mute').textContent=S.mute?'🔇':'🔊'; }
+function setCoins(){
+  const prev=+$('coinN').textContent||0;
+  $('coinN').textContent=S.coins; $('mCoins').textContent=S.coins;
+  if(S.coins>prev) popEl($('coins'),1.15,220);
+}
+function applyCalm(){ document.body.classList.toggle('calm',reduceOn()); }
+function countUp(el,to,ms=700){
+  if(reduceOn()||to<=0){ el.textContent=to; return; }
+  const t0=performance.now();
+  const step=now=>{ const k=Math.min(1,(now-t0)/ms); el.textContent=Math.round(to*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(step); };
+  el.textContent=0; requestAnimationFrame(step);
+}
+function setMuteIcon(){ const i=S.mute?'🔇':'🔊'; $('mute').textContent=i; $('mute2').textContent=i; }
 let auxKey='';
 function setAux(force){
   const el=$('aux'), M=MODES[mode];
@@ -990,6 +1042,7 @@ function update(dt){
   for(const tx of texts){ tx.y+=tx.vy*dt; tx.vy*=Math.pow(.2,dt); tx.life-=dt*.9; }
   texts=texts.filter(x=>x.life>0);
   if(banner){ banner.life-=dt*.7; if(banner.life<=0) banner=null; }
+  if(live && state==='menu' && cur) demoStep();
   updateAmb(dt);
 }
 
@@ -1210,9 +1263,10 @@ function nextUnlock(){
 }
 function renderMenu(){
   const lvl=levelOf(S.blocks), a=levelStart(lvl), b=levelStart(lvl+1);
-  $('mBest').textContent=S.bests[S.lastMode]||0; $('mLvl').textContent=lvl; $('mCoins').textContent=S.coins;
-  $('mXp').style.width=(clamp((S.blocks-a)/(b-a),0,1)*100)+'%';
-  $('playSub').textContent=MODES[S.lastMode].name;
+  $('mCoins').textContent=S.coins; $('lvlN').textContent=lvl; $('xpFill').style.width=(clamp((S.blocks-a)/(b-a),0,1)*100)+'%';
+  const lm=S.lastMode, M0=MODES[lm], best=lm==='daily'?(S.twist.best||0):(S.bests[lm]||0);
+  $('modeName').textContent=`${M0.icon} ${M0.name}`;
+  $('playSub').textContent = best>0 ? (lm==='daily'?`Today's best ${best}`:`Best ${best}`) : "Let's go!";
   const nu=nextUnlock(); $('nextCard').classList.toggle('hidden',!nu); $('nextCard').innerHTML=nu?`🎯 Next unlock: <b>${nu}</b>`:'';
   const claimed=S.lastClaim===today();
   const reward=20+10*Math.min(claimed?S.streak-1:(S.lastClaim===yesterday()?S.streak:0),6);
@@ -1235,7 +1289,7 @@ function claimDaily(){
 function showMenu(){
   endPreview(true);
   state='menu'; setBase(); paused=false; tut.on=false; $('pause').classList.add('hidden'); demoStack(); hideAll(); $('menu').classList.remove('hidden');
-  $('hud').classList.remove('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden');
+  $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden');
   $('hand').classList.add('hidden'); $('coach').classList.add('hidden'); $('skipTut').classList.add('hidden');
   setCoins(); renderMenu(); setGhostD();
 }
@@ -1375,7 +1429,7 @@ $('skipTut').onclick=()=>{ sfx.tap(); tutFinish(false); };
 $('closeModes').onclick=()=>{ sfx.tap(); if(state==='over'){ hideAll(); $('over').classList.remove('hidden'); } else showMenu(); };
 $('mGrid').addEventListener('click',e=>{
   const b=e.target.closest('[data-mode]'); if(!b) return; sfx.tap();
-  if(b.dataset.mode==='campaign') showStages(); else startMode(b.dataset.mode);
+  if(b.dataset.mode==='campaign'){ stagesFrom='modes'; showStages(); } else startMode(b.dataset.mode);
 });
 $('sGrid').addEventListener('click',e=>{
   const b=e.target.closest('[data-stage]'); if(!b) return;
@@ -1383,13 +1437,19 @@ $('sGrid').addEventListener('click',e=>{
   if(!(n===1||S.camp[n-1]>=1)){ toast(`Clear stage ${n-1} first`); return; }
   sfx.tap(); startStage(n);
 });
-$('closeStages').onclick=()=>{ sfx.tap(); showModes(); };
+$('closeStages').onclick=()=>{ sfx.tap(); if(stagesFrom==='menu') showMenu(); else showModes(); };
 $('again').onclick=()=>{ sfx.tap(); restart(); };
 $('next').onclick=()=>{ sfx.tap(); startStage(stage+1); };
 $('toMenu').onclick=()=>{ sfx.tap(); showMenu(); };
 $('overModes').onclick=()=>{ sfx.tap(); showModes(); };
 $('revive').onclick=revive;
 $('share').onclick=shareScore;
+const CYCLE=['classic','timed','lives','hazard','zen','daily'];
+let stagesFrom='menu';
+function cycleMode(d){ const i=Math.max(0,CYCLE.indexOf(S.lastMode)); S.lastMode=CYCLE[(i+d+CYCLE.length)%CYCLE.length]; save(); sfx.tap(); renderMenu(); }
+$('modePrev').onclick=()=>cycleMode(-1);
+$('modeNext').onclick=()=>cycleMode(1);
+$('openCampaign').onclick=()=>{ sfx.tap(); stagesFrom='menu'; showStages(); };
 $('openThemes').onclick=()=>{ sfx.tap(); openThemes('menu'); };
 $('overThemes').onclick=()=>{ sfx.tap(); openThemes('over'); };
 $('closeThemes').onclick=()=>{ sfx.tap(); closeThemes(); };
@@ -1403,7 +1463,7 @@ document.querySelector('#settings').addEventListener('click',e=>{
   if(k==='sound'){ S.mute=!S.mute; setMuteIcon(); }
   else if(k==='music'){ S.music=!S.music; }
   else if(k==='haptics'){ S.haptics=!S.haptics; }
-  else if(k==='reduce'){ S.reduceSet=true; S.reduce=!reduceOn(); }
+  else if(k==='reduce'){ S.reduceSet=true; S.reduce=!reduceOn(); applyCalm(); }
   else if(k==='assist'){ S.assist={auto:'on',on:'off',off:'auto'}[S.assist]; }
   else if(k==='tutorial'){ sfx.tap(); startPractice(); return; }
   else if(k==='export'){ exportCode(); return; }
@@ -1414,7 +1474,9 @@ $('endZen').onclick=()=>{ if(state==='playing' && mode==='zen') endRun('zen'); }
 $('pauseBtn').onclick=()=>{ sfx.tap(); pause(); };
 $('resume').onclick=()=>{ sfx.tap(); resume(); };
 $('quit').onclick=()=>{ sfx.tap(); showMenu(); };
-$('mute').onclick=()=>{ S.mute=!S.mute; save(); setMuteIcon(); if(!S.mute) sfx.tap(); };
+const toggleMute=()=>{ S.mute=!S.mute; save(); setMuteIcon(); if(!S.mute) sfx.tap(); };
+$('mute').onclick=toggleMute;
+$('mute2').onclick=toggleMute;
 $('dailyCard').addEventListener('click',e=>{ if(e.target.closest('[data-act=claim]')) claimDaily(); });
 $('tGrid').addEventListener('click',e=>{
   const b=e.target.closest('[data-act]'); if(!b) return;
@@ -1448,7 +1510,7 @@ if('serviceWorker' in navigator && /^https?:/.test(location.protocol)){
   addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
 }
 
-resize(); setMuteIcon(); showMenu(); requestAnimationFrame(loop);
+resize(); applyCalm(); setMuteIcon(); showMenu(); requestAnimationFrame(loop);
 })();
 </script>
 </body>
