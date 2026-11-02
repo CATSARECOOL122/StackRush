@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Stack Rush</title>
+<style>
+  html,body{margin:0;height:100%;background:#0f172a;color:#fff;font-family:system-ui,-apple-system,sans-serif;overflow:hidden;touch-action:manipulation;user-select:none}
+  canvas{display:block;width:100vw;height:100vh}
+  #hud{position:fixed;top:14px;left:0;right:0;text-align:center;pointer-events:none}
+  #score{font-size:56px;font-weight:800;text-shadow:0 2px 8px #0008}
+  #best{font-size:14px;opacity:.7}
+  #overlay{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f172add;gap:12px}
+  #overlay.hidden{display:none}
+  h1{margin:0;font-size:44px}
+  p{margin:0;opacity:.8}
+  button{margin-top:10px;padding:14px 28px;border:0;border-radius:14px;background:#f59e0b;color:#0f172a;font-size:20px;font-weight:800;cursor:pointer}
+  .shop{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:90vw}
+  .shop button{margin:0;padding:10px 14px;font-size:14px;background:#1e293b;color:#fff}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud"><div id="score">0</div><div id="best"></div></div>
+<div id="overlay">
+  <h1>Stack Rush</h1>
+  <p>Tap to drop the block. Stay on top of the stack.</p>
+  <button id="play">Play</button>
+  <div class="shop" id="shop"></div>
+</div>
+<script>
+/* ===== Cosmetic themes (soft-locked; see README for real payments) ===== */
+const THEMES = {
+  sunset: {name:"Sunset",bg:"#0f172a",colors:["#f97316","#f59e0b","#ef4444","#ec4899"],free:true},
+  ocean:  {name:"Ocean",bg:"#082f49",colors:["#0ea5e9","#06b6d4","#38bdf8","#2dd4bf"],free:false},
+  candy:  {name:"Candy",bg:"#2e1065",colors:["#f472b6","#c084fc","#a78bfa","#fb7185"],free:false}
+};
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const owned = new Set(JSON.parse(store.get("sr_owned")||'["sunset"]'));
+let theme = store.get("sr_theme") || "sunset";
+if(!owned.has(theme)) theme="sunset";
+
+const cv=document.getElementById("c"), ctx=cv.getContext("2d");
+let W,H,dpr;
+function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+addEventListener("resize",resize); resize();
+
+const BH=28;                 // block height
+let blocks=[], cur=null, dir, speed, score, over, running=false, particles=[], shake=0;
+
+function reset(){
+  const w0=Math.min(W*0.6,260);
+  blocks=[{x:(W-w0)/2,w:w0,y:0,color:0}];
+  cur=null; dir=1; speed=2.2; score=0; over=false; particles=[];
+  spawn();
+  updateHud();
+}
+function spawn(){
+  const top=blocks[blocks.length-1];
+  const y=top.y+BH;
+  cur={x:0,w:top.w,y:y,color:blocks.length};
+  // slide in from the side
+  cur.x = dir>0 ? 0 : W-cur.w;
+  cur.moving=true;
+}
+function colorFor(i){const c=THEMES[theme].colors;return c[i%c.length];}
+
+function drop(){
+  if(!running||over||!cur||!cur.moving) return;
+  const top=blocks[blocks.length-1];
+  const left=Math.max(cur.x, top.x);
+  const right=Math.min(cur.x+cur.w, top.x+top.w);
+  const overlap=right-left;
+  if(overlap<=0){ fail(); return; }
+  const cut=cur.w-overlap;
+  const perfect=Math.abs(cut)<4;
+  if(perfect){ shake=0; burst(cur.x+cur.w/2, cur.y, colorFor(cur.color)); }
+  const nb={x:left,w:overlap,y:cur.y,color:cur.color};
+  if(perfect){ nb.x=top.x; nb.w=top.w; score+=2; } else { score+=1; }
+  // falling piece
+  if(!perfect && cut>0){
+    const fx = cur.x < top.x ? cur.x : right;
+    particles.push({x:fx,y:cur.y,w:cut,h:BH,vy:0,life:1,color:colorFor(cur.color),fall:true});
+  }
+  blocks.push(nb);
+  cur=null;
+  if(blocks.length>5) speed=Math.min(speed+0.12,7);
+  // camera scroll handled in draw
+  dir*=-1;
+  spawn();
+  updateHud();
+}
+function fail(){
+  over=true; shake=12;
+  if(cur){ particles.push({x:cur.x,y:cur.y,w:cur.w,h:BH,vy:0,life:1,color:colorFor(cur.color),fall:true}); }
+  cur=null;
+  const best=+(store.get("sr_best")||0);
+  if(score>best) store.set("sr_best",score);
+  setTimeout(()=>showMenu(true),900);
+}
+function burst(x,y,color){
+  for(let i=0;i<14;i++) particles.push({x,y,vx:(Math.random()-.5)*5,vy:-Math.random()*4-1,w:4,h:4,life:1,color,fall:false,dot:true});
+}
+function updateHud(){
+  document.getElementById("score").textContent=score;
+  document.getElementById("best").textContent="Best "+(store.get("sr_best")||0);
+}
+function draw(){
+  if(!blocks.length){ ctx.fillStyle=THEMES[theme].bg; ctx.fillRect(0,0,W,H); return; }
+  ctx.save();
+  if(shake>0){ctx.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake); shake*=.85; if(shake<.3)shake=0;}
+  ctx.fillStyle=THEMES[theme].bg; ctx.fillRect(0,0,W,H);
+  // camera: keep top block near 60% of screen height
+  const top=blocks[blocks.length-1];
+  const camY=Math.max(0, top.y+BH - H*0.55 + (cur?BH:0));
+  const baseY=H-80;
+  const tf=(y)=>baseY-y+camY*0;  // block y is stacked upward
+  const px=(b)=>({x:b.x,y:baseY-b.y-BH+Math.max(0,camY-120)});
+  for(const b of blocks){ const p=px(b); ctx.fillStyle=colorFor(b.color); roundRect(p.x,p.y,b.w,BH-3,6); }
+  if(cur){ const p=px(cur); ctx.fillStyle=colorFor(cur.color); roundRect(cur.x,p.y,cur.w,BH-3,6); }
+  // particles
+  for(const p of particles){
+    if(p.fall){ p.vy+=0.6; p.y-=p.vy*0.6; }
+    else { p.vy+=0.25; p.x+=p.vx; p.y+=p.vy; }
+    p.life-=0.025;
+    ctx.globalAlpha=Math.max(0,p.life);
+    ctx.fillStyle=p.color;
+    const yy=baseY-p.y-BH+Math.max(0,camY-120);
+    ctx.fillRect(p.x,yy,p.w,p.h);
+    ctx.globalAlpha=1;
+  }
+  particles=particles.filter(p=>p.life>0);
+  ctx.restore();
+}
+function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();ctx.fill();}
+
+let last=0;
+function loop(t){
+  const dt=Math.min(32,t-last||16); last=t;
+  if(running && !over && cur && cur.moving){
+    cur.x+=dir*speed*dt/16;
+    if(cur.x<-cur.w-40 && dir<0){dir=1;}
+    if(cur.x>W+40 && dir>0){dir=-1;}
+    // bounce at edges
+    if(cur.x+cur.w>W+20 && dir>0) dir=-1;
+    if(cur.x<-20 && dir<0) dir=1;
+  }
+  draw();
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+/* menu */
+function showMenu(afterFail){
+  running=false;
+  const ov=document.getElementById("overlay"); ov.classList.remove("hidden");
+  const btn=document.getElementById("play");
+  btn.textContent = afterFail ? "Play again ("+score+")" : "Play";
+  renderShop();
+}
+function renderShop(){
+  const shop=document.getElementById("shop"); shop.innerHTML="";
+  for(const [id,t] of Object.entries(THEMES)){
+    const b=document.createElement("button");
+    if(owned.has(id)){ b.textContent=(theme===id?"✓ ":"")+t.name; b.onclick=()=>{theme=id;store.set("sr_theme",id);renderShop();}; }
+    else { b.textContent="Unlock "+t.name+" — $1"; b.onclick=()=>buy(id); }
+    shop.appendChild(b);
+  }
+}
+const SQUARE_LINKS={ ocean:"", candy:"" };  // paste Square payment links here
+function buy(id){
+  if(!SQUARE_LINKS[id]){ alert("Store isn't connected yet."); return; }
+  location.href=SQUARE_LINKS[id];
+}
+// returning from checkout: ?unlock=ocean
+const u=new URLSearchParams(location.search).get("unlock");
+if(u && THEMES[u]){ owned.add(u); store.set("sr_owned",JSON.stringify([...owned])); }
+
+function start(){ if(!running){ reset(); running=true; document.getElementById("overlay").classList.add("hidden"); } }
+document.getElementById("play").onclick=()=>{ start(); };
+addEventListener("pointerdown",e=>{
+  if(e.target.closest("#overlay")) return;
+  if(!running){ start(); return; }
+  if(over){ return; }
+  drop();
+});
+showMenu(false);
+updateHud();
+</script>
+</body>
+</html>
