@@ -226,4 +226,25 @@ module.exports=[
   await L.close(p);
 }],
 
+['menu mode switcher: both arrows step through every mode and the mode name stays visible and correct (the left arrow used to hide it)', async(e,L)=>{
+  const p=await L.open(e);
+  const order=['classic','timed','lives','hazard','zen','daily'];
+  const names=await p.evaluate(o=>o.map(m=>__sr.tr(__sr.MODES[m].name)),order);
+  const look=()=>p.evaluate(()=>{ const n=document.getElementById('modeName'), r=n.getBoundingClientRect(), a=document.getElementById('modePrev').getBoundingClientRect(), b=document.getElementById('modeNext').getBoundingClientRect();
+    return {text:n.textContent.trim(),w:Math.round(r.width),h:Math.round(r.height),gap:Math.round(b.left-a.right),cls:n.className,mode:__sr.S.lastMode,cs:getComputedStyle(n).position}; });
+  assert.equal((await look()).text,names[0]);
+  for(const [btn,dir,label] of [['#modeNext',1,'next'],['#modePrev',-1,'previous']]){
+    for(let k=1;k<=order.length+1;k++){                                          // a full lap and one more, so the wrap-around is covered too
+      await p.click(btn); await p.waitForTimeout(380);
+      const want=(order.indexOf(await p.evaluate(()=>__sr.S.lastMode)));
+      const r=await look(), idx=((dir>0?k:-k)%order.length+order.length)%order.length;
+      assert.equal(r.mode,order[idx],`${label} x${k}: the mode`); assert.equal(r.text,names[idx],`${label} x${k}: the name shown`);
+      assert.ok(r.w>=90&&r.h>=14&&r.gap>=90&&r.cs!=='absolute',`${label} x${k}: the name is really on screen (${JSON.stringify(r)})`);
+      assert.doesNotMatch(r.cls,/\bsr\b/,`${label} x${k}: not the screen-reader-only class`);
+    }
+    await p.evaluate(()=>{ __sr.S.lastMode='classic'; __sr.renderMenu(); });
+  }
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

@@ -380,3 +380,4 @@
 380|Colores del tema
 381|Escena del tema
 382|Estilo del tema
+383|¿Franja vacía abajo? En Ajustes copia tu Código de guardado, quita esta app de la pantalla de inicio, vuelve a añadirla y pega el código en Cargar código.

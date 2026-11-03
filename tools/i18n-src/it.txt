@@ -380,3 +380,4 @@
 380|Colori del tema
 381|Scenario del tema
 382|Stile del tema
+383|Striscia vuota in basso? In Impostazioni copia il tuo Codice di salvataggio, rimuovi questa app dalla schermata Home, aggiungila di nuovo e incolla il codice in Carica codice.

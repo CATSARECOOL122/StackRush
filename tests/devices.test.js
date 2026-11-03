@@ -25,10 +25,21 @@ async function edgeMax(e,png){
 }
 const stageRect=p=>p.evaluate(()=>{ const r=document.getElementById('stage').getBoundingClientRect(); return {l:r.left,t:r.top,w:r.width,h:r.height}; });
 const near=(a,b,tol=1.5)=>Math.abs(a-b)<=tol;
-const uiRect=p=>p.evaluate(()=>{ const r=document.getElementById('ui').getBoundingClientRect(); return {l:r.left,t:r.top,w:r.width,h:r.height}; });
 const ANDROID_UA='Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Mobile Safari/537.36';
-const DARK=[20,16,43,255];                                                        // the page's own background colour, #14102b
-const below=(p,dy)=>p.evaluate(dy=>{ const c=document.getElementById('c'), g=c.getContext('2d'), k=c.width/__sr.W, a=g.getImageData(Math.round(c.width/2),Math.round((__sr.H+dy)*k),1,1).data; return [a[0],a[1],a[2],a[3]]; },dy);
+
+/* ---- the iOS 26 "dead strip" at the bottom of a Home Screen app (WebKit bug 301108) ---- */
+const STANDALONE=()=>{ try{ delete Navigator.prototype.vibrate; }catch(e){} Object.defineProperty(navigator,'standalone',{value:true,configurable:true}); };       // opened from the Home Screen
+const SAFARI_TAB=()=>{ try{ delete Navigator.prototype.vibrate; }catch(e){} Object.defineProperty(navigator,'standalone',{value:false,configurable:true}); };       // opened in a Safari tab
+/* an iPhone 15 Pro Max whose page is h points tall on a 932 point screen, with the notch inset given */
+async function iphone(e,L,{h,inset,init=STANDALONE,fs=0,w=430,sh=932}){
+  const p=await L.open(e,{ctx:{viewport:{width:w,height:h},screen:{width:w,height:sh},deviceScaleFactor:3,hasTouch:true,isMobile:true,userAgent:IPHONE_UA},init,
+    setup:fs?(pg=>pg.addInitScript(n=>localStorage.setItem('stackrush.v2',JSON.stringify({fsHint:n})),fs)):undefined});
+  const cdp=await p.context().newCDPSession(p);
+  try{ await cdp.send('Emulation.setSafeAreaInsetsOverride',{insets:{top:inset,bottom:34,left:0,right:0}}); }catch(err){}
+  await p.evaluate(()=>__sr.checkShortViewport()); return p;
+}
+const state=p=>p.evaluate(()=>({short:__sr.shortView,minH:document.documentElement.style.minHeight,hint:document.getElementById('toast').classList.contains('show')&&/Home Screen/.test(document.getElementById('toast').textContent),fs:__sr.S.fsHint}));
+
 
 module.exports=[
 
@@ -38,9 +49,7 @@ module.exports=[
     const r=await stageRect(p), info=await p.evaluate(()=>({tablet:__sr.tablet,ios:__sr.IS_IOS,z:__sr.uiZ,
       bg:getComputedStyle(document.documentElement).backgroundColor,bodyBg:getComputedStyle(document.body).backgroundColor,scheme:getComputedStyle(document.documentElement).colorScheme,
       sw:document.documentElement.scrollWidth,sh:document.documentElement.scrollHeight}));
-    const ov=await p.evaluate(()=>__sr.OV); assert.equal(ov,120,`${name}: iPhones paint the playfield 120px further down than the page`);
-    assert.deepEqual([r.l,r.t,r.w,r.h].map(Math.round),[0,0,w,h+ov],`${name}: the stage covers the whole screen (and reaches ${ov}px under the bottom edge)`);
-    assert.deepEqual(Object.values(await uiRect(p)).map(Math.round),[0,0,w,h],`${name}: the buttons and text still fill exactly the screen`);
+    assert.deepEqual([r.l,r.t,r.w,r.h].map(Math.round),[0,0,w,h],`${name}: the stage covers the whole screen`);
     assert.equal(info.tablet,false,`${name}: a phone is not a tablet`); assert.equal(info.ios,true); assert.equal(info.z,1);
     assert.equal(info.bg,'rgb(20, 16, 43)',`${name}: html has a solid dark background colour`); assert.equal(info.bodyBg,'rgb(20, 16, 43)');
     assert.equal(info.scheme,'dark',`${name}: color-scheme is dark`);
@@ -118,8 +127,7 @@ module.exports=[
   const head=await p.evaluate(()=>parseFloat(getComputedStyle(document.querySelector('.mhead')).paddingTop)); assert.ok(head>=59+12-1,`menu header top padding ${head} clears the 59px notch`);
   await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(200);
   const top=await p.evaluate(()=>document.getElementById('hud').getBoundingClientRect().top); assert.ok(top>=59,`in-game HUD starts at ${top}, below the notch`);
-  const r=await stageRect(p); assert.deepEqual([r.l,r.t,r.w,r.h].map(Math.round),[0,0,430,932+120],'the stage still reaches every edge (and 120px under the bottom one)');
-  assert.deepEqual(Object.values(await uiRect(p)).map(Math.round),[0,0,430,932],'the buttons and text still fill exactly the screen');
+  const r=await stageRect(p); assert.deepEqual([r.l,r.t,r.w,r.h].map(Math.round),[0,0,430,932],'the stage still reaches every edge');
   assert.ok(await edgeMax(e,await p.screenshot())<200,'no bright bars at the edges with safe areas on'); await L.close(p);
 }],
 
@@ -142,30 +150,39 @@ module.exports=[
   assert.equal(await edgeMax(e,await p.screenshot())<200,true); assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
-/* ---- the playfield under the bottom of the page (an iPhone showed a plain dark band where the tower should continue) ---- */
-
-['iPhone: the playfield is painted below the bottom of the page, so a browser that stops the page short can not cut the tower off with a dark band; menus keep the plain dark colour there', async(e,L)=>{
-  const p=await L.open(e,{ctx:dev(430,932,3,IPHONE_UA),init:iosInit}); await p.waitForTimeout(300);
-  const g=await p.evaluate(()=>({OV:__sr.OV,H:__sr.H,FH:__sr.FH,w:document.getElementById('c').width,h:document.getElementById('c').height,W:__sr.W}));
-  assert.deepEqual([g.OV,g.H,g.FH],[120,932,1052],'the game still plays on a 932px tall field; 120px more is painted below it');
-  assert.deepEqual([g.w,g.h],[g.W*2,1052*2],'the canvas covers the extra area');
-  assert.deepEqual(await below(p,60),DARK,'behind the menu the area under the page is the plain dark colour (as it always was)');
-  await p.evaluate(()=>{ __sr.S.assist='off'; for(const k of Object.keys(__sr.MODES)) __sr.S.tips[k]=1; __sr.S.seenTip=true; __sr.startMode('classic'); });
-  await p.waitForTimeout(250); await L.perfects(p,14); await p.waitForTimeout(200);
-  for(const dy of [20,60,100]){ const c=await below(p,dy); assert.equal(c[3],255,`${dy}px under the page the canvas is painted`); assert.notDeepEqual(c,DARK,`${dy}px under the page it shows the world (sky, hills or tower), not the dark band: ${c}`); }
-  await p.evaluate(()=>__sr.pause()); await p.waitForTimeout(300);
-  assert.deepEqual(await below(p,60),DARK,'with the pause menu open it is dark again');
-  await p.click('#resume'); await p.waitForTimeout(3600); assert.notDeepEqual(await below(p,60),DARK,'and the world is back after resuming');
-  assert.deepEqual(p.errs,[]); await L.close(p);
+['the page asks for an opaque status bar (the translucent one is what triggers the iOS 26 dead strip) and still runs edge to edge', async()=>{
+  const html=fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8');
+  assert.match(html,/name="apple-mobile-web-app-status-bar-style" content="black"/,'opaque black status bar');
+  assert.doesNotMatch(html,/status-bar-style" content="black-translucent"/,'not the translucent one');
+  assert.match(html,/viewport-fit=cover/,'edge to edge');
 }],
 
-['no extra playfield where nothing is reserved: Android, iPad, desktop windows keep a stage that ends exactly where the page does', async(e,L)=>{
-  for(const [name,ctx] of [['Android phone',dev(412,915,2.6,ANDROID_UA)],['iPad',dev(820,1180,2,IPAD_UA)],['desktop frame',{viewport:{width:1280,height:800}}],['narrow desktop window',{viewport:{width:600,height:820}}]]){
-    const p=await L.open(e,{ctx,init:iosInit}); await p.waitForTimeout(300);
-    const r=await stageRect(p), v=await p.evaluate(()=>({OV:__sr.OV,FH:__sr.FH,H:__sr.H,ih:innerHeight}));
-    assert.equal(v.OV,0,`${name}: no extra`); assert.equal(v.FH,v.H,`${name}: canvas height equals the field`);
-    if(name!=='desktop frame') assert.ok(near(r.t,0)&&near(r.h,v.ih),`${name}: the stage ends at the bottom of the page (${JSON.stringify(r)})`);
-    assert.deepEqual(p.errs,[],name); await L.close(p);
+['iOS 26 dead strip: a Home Screen app on a notch phone whose page stops short of the screen gets the page stretched to the screen height and, if that does not help, a hint how to fix it', async(e,L)=>{
+  const p=await iphone(e,L,{h:868,inset:59}); await p.waitForTimeout(1300);
+  let st=await state(p); assert.deepEqual([st.short,st.minH,st.hint,st.fs],[true,'932px',true,1],'short page: stretched, detected, hint shown once');
+  await p.evaluate(()=>__sr.checkShortViewport()); await p.waitForTimeout(1200); assert.equal((await state(p)).fs,1,'the hint is not repeated in one session');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+  const q=await iphone(e,L,{h:868,inset:59,fs:4}); await q.waitForTimeout(1300);
+  st=await state(q); assert.deepEqual([st.short,st.hint],[true,false],'after 4 hints it stops nagging'); await L.close(q);
+}],
+
+['iOS 26 dead strip: nothing happens when the page fills the screen, when the status bar is opaque, in a Safari tab, sideways, or on Android, iPad and desktop', async(e,L)=>{
+  for(const [name,opts] of [['page fills the screen',{h:932,inset:59}],['opaque status bar (page starts below it)',{h:873,inset:0}],['Safari tab with its toolbar',{h:740,inset:0,init:SAFARI_TAB}],['sideways',{w:932,h:430,sh:932,inset:0}]]){
+    const p=await iphone(e,L,opts); await p.waitForTimeout(1300); const st=await state(p);
+    assert.deepEqual([st.short,st.minH,st.hint],[false,'',false],name); assert.deepEqual(p.errs,[],name); await L.close(p);
+  }
+  for(const [name,ctx] of [['Android',dev(412,800,2.6,ANDROID_UA)],['iPad',dev(820,1180,2,IPAD_UA)],['desktop',{viewport:{width:1280,height:800}}]]){
+    const p=await L.open(e,{ctx:ctx.screen?Object.assign({},ctx,{screen:{width:ctx.viewport.width,height:ctx.viewport.height+80}}):ctx,init:STANDALONE});
+    await p.evaluate(()=>__sr.checkShortViewport()); await p.waitForTimeout(1300); const st=await state(p);
+    assert.deepEqual([st.short,st.minH,st.hint],[false,'',false],name); await L.close(p);
+  }
+}],
+
+['the score clears the notch and the system blur under the status bar (it used to start 44px from the top whatever the phone)', async(e,L)=>{
+  for(const [name,opts,min] of [['Dynamic Island phone',{h:932,inset:59},69],['older notch phone',{h:844,inset:47,w:390,sh:844},57],['opaque status bar / no notch',{h:873,inset:0},44]]){
+    const p=await iphone(e,L,opts); await p.evaluate(()=>{ __sr.S.assist='off'; for(const k of Object.keys(__sr.MODES)) __sr.S.tips[k]=1; __sr.S.seenTip=true; __sr.startMode('classic'); }); await p.waitForTimeout(300);
+    const r=await p.evaluate(()=>document.getElementById('scoreWrap').getBoundingClientRect().top);
+    assert.ok(r>=min-0.5,`${name}: the score box starts at ${r}px, needs at least ${min}`); await L.close(p);
   }
 }],
 
@@ -180,14 +197,14 @@ module.exports=[
 }],
 
 ['layout info card: seven quick taps on the menu coin counter open it, it lists the screen numbers, a tap closes it; fewer or slow taps do nothing', async(e,L)=>{
-  const p=await L.open(e,{ctx:dev(430,932,3,IPHONE_UA),init:iosInit}); await p.waitForTimeout(300);
+  const p=await iphone(e,L,{h:868,inset:59}); await p.waitForTimeout(300);
   const open=()=>p.locator('#diag').count();
   for(let i=0;i<6;i++) await p.click('#mCoins'); assert.equal(await open(),0,'six taps are not enough');
   await p.waitForTimeout(4300); await p.click('#mCoins'); assert.equal(await open(),0,'slow taps start counting again');
   for(let i=0;i<6;i++) await p.click('#mCoins'); await p.waitForTimeout(50);
   assert.equal(await open(),1,'seven quick taps open it');
   const txt=await p.textContent('#diag');
-  for(const k of ['LAYOUT INFO','window inner','430 x 932','screen','visual viewport','100svh / lvh / dvh','safe area','stage top..bottom','0 .. 1052','buttons area','0 .. 932','extra below 120']) assert.ok(txt.includes(k),`the card shows "${k}"`);
+  for(const k of ['LAYOUT INFO','window inner        430 x 868','430 x 932','visual viewport','100svh / lvh / dvh','safe area (T R B L) 59','status bar meta     black','page short of screen','stage top..bottom','0 .. 868']) assert.ok(txt.includes(k),`the card shows "${k}"`);
   assert.doesNotMatch(txt,/undefined|NaN/); await p.click('#diag'); assert.equal(await open(),0,'a tap closes it');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],

@@ -380,3 +380,4 @@
 380|Design-Farben
 381|Design-Kulisse
 382|Design-Stil
+383|Leerer Streifen unten? Kopiere in den Einstellungen deinen Speichercode, entferne diese App vom Home-Bildschirm, füge sie erneut hinzu und füge den Code unter Code laden ein.

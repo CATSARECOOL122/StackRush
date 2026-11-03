@@ -93,7 +93,7 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false,iphone=fal
 
 module.exports=[
 ['monkey, iPhone 390x844: random taps, buttons, keys, tab switches, languages, themes, modes (bot finishes runs)', async(e)=>{
-  const r=await monkey(e,{seed:31,actions:Math.round(600*SCALE),viewport:{width:390,height:844},iphone:true});     // as an iPhone, so the extra playfield under the page is part of the walk
+  const r=await monkey(e,{seed:31,actions:Math.round(600*SCALE),viewport:{width:390,height:844},iphone:true});     // as an iPhone, so the iOS-only code paths are part of the walk
   assert.equal(r.issues.length,0,'monkey issues: '+r.issues.slice(0,3).join('  |  ')); assert.ok(r.cov.played>=2,`the monkey finished only ${r.cov.played} runs`);
 }],
 ['monkey, small phone 360x640 with constant window resizing', async(e)=>{

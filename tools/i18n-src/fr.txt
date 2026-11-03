@@ -380,3 +380,4 @@
 380|Couleurs du thème
 381|Décor du thème
 382|Style du thème
+383|Bande vide en bas ? Dans Réglages, copiez votre Code de sauvegarde, retirez cette app de l'écran d'accueil, ajoutez-la de nouveau, puis collez le code dans Charger un code.

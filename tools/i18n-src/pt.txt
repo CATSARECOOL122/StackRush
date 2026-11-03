@@ -380,3 +380,4 @@
 380|Cores do tema
 381|Cenário do tema
 382|Estilo do tema
+383|Faixa vazia embaixo? Em Ajustes copie seu Código de salvamento, remova este app da Tela de Início, adicione-o de novo e cole o código em Carregar código.

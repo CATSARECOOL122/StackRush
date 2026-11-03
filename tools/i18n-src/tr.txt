@@ -380,3 +380,4 @@
 380|Tema renkleri
 381|Tema sahnesi
 382|Tema stili
+383|Altta boş bir şerit mi var? Ayarlar'da Kayıt kodunu kopyala, bu uygulamayı Ana Ekran'dan kaldır, yeniden ekle ve kodu Kodu yükle bölümüne yapıştır.

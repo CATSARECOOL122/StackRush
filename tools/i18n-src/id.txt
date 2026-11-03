@@ -380,3 +380,4 @@
 380|Warna tema
 381|Latar tema
 382|Gaya tema
+383|Ada strip kosong di bawah? Di Pengaturan salin Kode simpan, hapus aplikasi ini dari Layar Utama, tambahkan lagi, lalu tempel kodenya di Muat kode.
