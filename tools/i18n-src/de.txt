@@ -1,0 +1,307 @@
+1| · Kombo <b>x{c}</b>
+2| · Welt abgeschlossen! +<b>{n}</b> {coin}
+3|-{n}s
+4|{d} zum Rekord
+5|{n} Ausweichmanöver
+6|{n} hoch
+7|{n} HOCH!
+8|Noch {n} Leben
+9|{n} Perfekte
+10|{n} Pkt.
+11|{name} · {coin} {n} (noch {k})
+12|{name} · Level {n}
+13|{name} · Level {n} (noch {k})
+14|{name} · bereit zum Kauf für {coin} {n}!
+15|+{n} {coin} · {s}-Tage-Serie!
+16|+{n}s
+17|+<b>{n}</b> {coin}
+18|<b>{a}</b> / {b} {star} · 3 Leben pro Stufe, mehr übrige Leben = mehr Sterne
+19|<b>{n}</b> / {m} Erfolge freigeschaltet
+20|Noch <b>{n}</b> Leben
+21|Noch <b>1</b> Leben
+22|Noch 1 Leben
+23|10 perfekte Drops in Folge
+24|100 perfekte Drops insgesamt
+25|24 Stufen. Verdiene bis zu 3 Sterne pro Stufe.
+26|25 perfekte Drops in Folge
+27|3 Leben. Nur ein kompletter Fehlwurf kostet eines.
+28|3 Tage in Folge angemeldet
+29|5 perfekte Drops in Folge
+30|500 perfekte Drops insgesamt
+31|60 Sekunden. Perfekte Drops geben Zeit.
+32|7 Tage in Folge angemeldet
+33|NOCHMAL
+34|Immer
+35|Was übersteht, wird abgeschnitten – der Turm wird schmaler.
+36|Auto
+37|Automatisch
+38|Erfolge
+39|ERFOLGE
+40|Zurück
+41|Gerade noch gerettet
+42|Schlage einen Tages-Twist
+43|Du schlägst deinen Rekord!
+44|REKORD
+45|Rekord {n}
+46|REKORD {n}
+47|Rekord <b>{n}</b> · Höhe <b>{h}</b>
+48|BESTE KOMBO
+49|Über den Wolken
+50|BLÖCKE
+51|Bombenkommando
+52|Bomben im Anflug.
+53|Bomben gleiten vorbei. Nicht draufsetzen!
+54|BUMM!
+55|Kampagne
+56|KAMPAGNE
+57|Kampagne abgeschlossen
+58|Kannst du das schlagen?
+59|Bonbon
+60|Modus wählen
+61|+{n} abholen
+62|Klassisch
+63|Schließe alle 24 Stufen ab
+64|Schließe die ganze Welt 1 ab
+65|Schließe Kampagnenstufe 1 ab
+66|Schließe zuerst Stufe {n} ab
+67|GESCHAFFT!
+68|Vorschau schließen
+69|Münzen
+70|Sammler
+71|KOMBO x{n}
+72|Kopieren
+73|Kopiere deinen Fortschritt, um ihn auf ein anderes Gerät zu übertragen.
+74|Kopiere deinen Speichercode:
+75|Kostet {n} Münzen (du hast {m})
+76|Speichercode konnte nicht erstellt werden
+77|Bild konnte nicht erstellt werden
+78|Teilen nicht möglich
+79|Kurator
+80|Aktuell ausgerüstet
+81|Abgeschnittenes wächst nie nach.
+82|Cyber City
+83|TAGESBONUS
+84|Tagesaufgabe erledigt! +{n} {coin}
+85|Tages-Twist
+86|Tages-Twist geschafft! +{n} {coin}
+87|Tag <b>{n}</b> – Belohnung
+88|Treu
+89|Tiefsee
+90|ENTSCHÄRFT!
+91|Wüste
+92|Weiche {n} Bomben aus
+93|Weiche insgesamt 10 Bomben aus
+94|AUSGEWICHEN! +{n}
+95|FERTIG
+96|Adlerauge
+97|Verdiene 30 Kampagnensterne
+98|Ausrüsten
+99|Ausgerüstet
+100|Fehler
+101|Alles ist 40 % schneller.
+102|Exakt
+103|Beenden
+104|Beende dein erstes Spiel
+105|Erster Drop
+106|Makellos
+107|Wald
+108|Galaxie
+109|Spielmodus
+110|SPIELMODI
+111|Spiel vorbei. Punktzahl {n}
+112|SPIELE
+113|Immer höher
+114|ZIEL
+115|Ziel <b>{n}</b>
+116|Ziel: {goal} · du hast <b>{a}/{b}</b> geschafft
+117|Ziel: {n} Punkte
+118|Goldrausch
+119|Gefahr
+120|HILFE
+121|Erreiche eine x{n}-Kombo
+122|Besitze 500 Münzen
+123|Ich habe Stufe {n} von Stack Rush mit {s} ★ geschafft!
+124|Ich habe {n} Punkte in Stack Rush ({mode}) erreicht! Kannst du das schlagen?
+125|Eis
+126|Bild gespeichert – teile es, wo du willst
+127|Im Flow
+128|Lande {n} perfekte Drops
+129|Lande <b>{goal}</b> perfekte Drops: <b>{prog}/{goal}</b>
+130|Sprache
+131|SPRACHE
+132|Lava
+133|Los geht's!
+134|Level
+135|Level {n}
+136|LEVEL-UP! Du bist jetzt Level <b>{n}</b> · +<b>{b}</b> {coin}
+137|Leben
+138|Code laden
+139|Lv
+140|Hauptmenü
+141|MAX. HÖHE
+142|Wiese
+143|Wiesenmeister
+144|Menü
+145|Minenfeld
+146|Modi
+147|Weitere Spielmodi
+148|Musik
+149|Schmaler Start
+150|Du brauchst {n} {coin} – du hast {m}
+151|Du brauchst {n} {coin} zum Wiederbeleben
+152|Neon
+153|NEUER REKORD
+154|NEU HIER?
+155|WEITER
+156|Nächster Modus
+157|Nächste Freischaltung: <b>{x}</b>
+158|Kein Nachwachsen
+159|Kein Tempo-Anstieg, kein Scheitern. Einfach stapeln.
+160|Ozean
+161|Aus
+162|AUS
+163|Abseits der Karte
+164|AN
+165|Auf Kurs
+166|Ein Leben. Klettere so hoch du kannst.
+167|Besitze 10 Designs
+168|Besitze 5 Designs
+169|Im Besitz
+170|Einfügen
+171|Füge einen Speichercode ein, um deinen Fortschritt wiederherzustellen.
+172|Füge deinen Speichercode ein:
+173|Pause
+174|Pausiert
+175|PAUSIERT
+176|Perfekt
+177|PERFEKT
+178|Perfekte Serien bauen eine Kombo auf. 8 in Folge bringen einen {shield} Schild!
+179|PERFEKT x{n}
+180|Perfekt, Kombo {n}
+181|Perfekt! Triffst du genau, behältst du die volle Breite.
+182|Perfektionist
+183|PERFEKTE
+184|Perfekte Drops brauchen mehr Präzision.
+185|Leistungsmodus an
+186|Sparschwein
+187|SPIELEN
+188|PUNKTE
+189|Training
+190|TRAINING
+191|Trainingsangebot
+192|Trainingsrunde
+193|Premium-Design
+194|VORSCHAU
+195|Vorschau von {name}
+196|Vorheriger Modus
+197|Datenschutzerklärung
+198|Fortschritt geladen!
+199|Lauf beenden
+200|Erreiche {n} Blöcke
+201|Erreiche Level {n}, um {name} freizuschalten
+202|Erreiche Level 10
+203|Erreiche Level 5
+204|Wackeln und Blitze reduzieren
+205|NEU LADEN
+206|Den Fortschritt auf diesem Gerät durch diesen Speichercode ersetzen?
+207|Wiederholen
+208|WIEDERHOLEN
+209|WEITER
+210|Retro
+211|Wiederbeleben · {n} {coin}
+212|Aufsteigender Stern
+213|Drehe dein Handy
+214|Runde vorbei
+215|Sicherheitsnetz
+216|Sakura
+217|Speichercode
+218|Code kopiert. Bewahre ihn sicher auf.
+219|Erreiche {goal} Punkte für +{reward} {coin}
+220|Erreiche {n} Punkte
+221|Erreiche 60 im Zeitrennen
+222|Einstellungen
+223|EINSTELLUNGEN
+224|Teilen
+225|Scharfe Augen
+226|Schild verdient – er blockt deinen nächsten Fehlwurf
+227|DER SCHILD HAT DICH GERETTET!
+228|ZEIG MIR
+229|Tutorial überspringen
+230|Überspringen, ich komm klar
+231|Skyline
+232|Wolkenkratzer
+233|Etwas ist schiefgelaufen
+234|SOUND & GEFÜHL
+235|Soundeffekte
+236|Tempo-Teufel
+237|Schneller
+238|SCHNELLER!
+239|Rennstrecke
+240|Staple 100 Blöcke in einem Durchgang
+241|Staple 20 Blöcke in einem Durchgang
+242|Staple 40 Blöcke im Zen-Modus
+243|Staple 50 Blöcke in einem Durchgang
+244|Stack Rush wird im Hochformat gespielt.
+245|STUFE {n}
+246|STUFE {n} GESCHAFFT
+247|Stufe {n} mit {s} Sternen geschafft
+248|STUFE {n} GESCHEITERT
+249|Stufe {n}, {goal}
+250|Stufe {n}, {goal}, gesperrt
+251|Stufe {n}: {goal}
+252|Sternesammler
+253|STERNE
+254|Der Shop ist noch nicht verbunden
+255|Serie: <b>{n}</b> Tag – komm morgen für mehr wieder
+256|Serie: <b>{n}</b> Tage – komm morgen für mehr wieder
+257|Sonnenuntergang
+258|Flink
+259|tippe auf ein Design für die Vorschau
+260|Tippe irgendwo, um den Block auf den Turm fallen zu lassen.
+261|ZUM FALLENLASSEN TIPPEN
+262|TIPPEN, UM DIE UHR ZU STARTEN
+263|Dieser Code hat nicht funktioniert
+264|Der Block beschleunigt und bremst.
+265|Designs
+266|DESIGNS
+267|Triff den Moment. Bau hoch.
+268|ZEIT ABGELAUFEN!
+269|Zeitrennen
+270|Zielhilfe
+271|Tipp: Bomben gleiten vorbei. Lass sie für Bonuspunkte passieren – oder tippe auf eine und verliere ein Leben!
+272|Tipp: kein Tempo-Anstieg und kein Game Over. Tippe auf Beenden, wenn du fertig bist.
+273|Tipp: Nur ein kompletter Fehlwurf kostet ein Leben. Überstand ist okay.
+274|Tipp: Die Uhr startet mit deinem ersten Tipp. Perfekte Drops geben Zeit!
+275|Tipp: Der Turm wird schneller, je höher er wird. Ziele auf perfekte Drops!
+276|HEUTE
+277|Heutiger Rekord {n}
+278|Heutiger Rekord <b>{n}</b>
+279|Ton umschalten
+280|Probiere eine 20-Sekunden-Trainingsrunde. Kein Druck, kein Game Over. Du kannst sie überspringen und jederzeit in den Einstellungen wiederholen.
+281|Versuche, genau obendrauf zu landen – für ein PERFEKT.
+282|Twist geschafft
+283|Twist geschafft
+284|Schicksalswende
+285|Freigeschaltet: <b>{names}</b>
+286|Wird bei Level {n} freigeschaltet (du bist Level {m})
+287|Update bereit – zum Neuladen tippen
+288|Benutze eine Wiederbelebung
+289|Benutze einen Schild
+290|Veteran
+291|Vibration
+292|Größeres Perfekt-Fenster. Auto = deine ersten 6 Spiele.
+293|Windig
+294|Winternacht
+295|WELT {n} · {name}
+296|x{n}-Kombo
+297|Du beginnst mit einem schmalen Turm.
+298|Du hast es drauf! Starte eine echte Runde …
+299|DEINE DATEN
+300|Dein Fortschritt ist gespeichert. Lade neu, um weiterzuspielen.
+301|Zen
+302|ZEN
+303|Zen bringt keine Münzen – einfach entspannen
+304|Zen-Meister
+305|ZEN-SITZUNG
+306|Umriss deiner Bestleistung
+307|Gestrichelter Umriss deines besten Durchgangs. Die REKORD-Linie bleibt.

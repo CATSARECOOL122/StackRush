@@ -1,0 +1,307 @@
+1| · Kombo <b>x{c}</b>
+2| · Dünya tamamlandı! +<b>{n}</b> {coin}
+3|-{n}sn
+4|Rekora göre {d}
+5|{n} kaçış
+6|{n} yükseklik
+7|{n} YÜKSEKLİK!
+8|{n} can kaldı
+9|{n} mükemmel
+10|{n} puan
+11|{name} · {coin} {n} ({k} daha)
+12|{name} · seviye {n}
+13|{name} · seviye {n} ({k} kaldı)
+14|{name} · {coin} {n} karşılığında satın almaya hazır!
+15|+{n} {coin} · {s} günlük seri!
+16|+{n}sn
+17|+<b>{n}</b> {coin}
+18|<b>{a}</b> / {b} {star} · bölüm başına 3 can, kalan can arttıkça yıldız artar
+19|<b>{n}</b> / {m} başarım açıldı
+20|<b>{n}</b> can kaldı
+21|<b>1</b> can kaldı
+22|1 can kaldı
+23|Üst üste 10 mükemmel bırakış
+24|Toplam 100 mükemmel bırakış
+25|24 bölüm. Her birinde en fazla 3 yıldız kazan.
+26|Üst üste 25 mükemmel bırakış
+27|3 can. Yalnızca tamamen ıskalamak bir can götürür.
+28|3 günlük giriş serisi
+29|Üst üste 5 mükemmel bırakış
+30|Toplam 500 mükemmel bırakış
+31|60 saniye. Mükemmel bırakışlar süre ekler.
+32|7 günlük giriş serisi
+33|TEKRAR
+34|Her zaman
+35|Dışarı taşan kısım kesilir, kule daralır.
+36|Oto
+37|Otomatik
+38|Başarımlar
+39|BAŞARIMLAR
+40|Geri
+41|Kılpayı kurtuluş
+42|Bir Günün Kuralı'nı geç
+43|Rekorunu geçiyorsun!
+44|REKOR
+45|Rekor {n}
+46|REKOR {n}
+47|Rekor <b>{n}</b> · Yükseklik <b>{h}</b>
+48|EN İYİ KOMBO
+49|Bulutların ötesi
+50|BLOKLAR
+51|Bomba imha ekibi
+52|Bombalar geliyor.
+53|Bombalar kayarak geçer. Üstlerine bırakma!
+54|PATLAMA!
+55|Kampanya
+56|KAMPANYA
+57|Kampanya tamamlandı
+58|Bunu geçebilir misin?
+59|Şeker
+60|Bir mod seç
+61|+{n} al
+62|Klasik
+63|24 bölümün hepsini tamamla
+64|Dünya 1'in tamamını bitir
+65|Kampanyanın 1. bölümünü tamamla
+66|Önce {n}. bölümü tamamla
+67|TAMAMLANDI!
+68|Önizlemeyi kapat
+69|Altın
+70|Koleksiyoncu
+71|KOMBO x{n}
+72|Kopyala
+73|İlerlemeni başka bir cihaza taşımak için kopyala.
+74|Kayıt kodunu kopyala:
+75|{n} altın (sende {m} var)
+76|Kayıt kodu oluşturulamadı
+77|Görsel oluşturulamadı
+78|Paylaşılamadı
+79|Küratör
+80|Şu anda takılı
+81|Kesilen kısımlar bir daha uzamaz.
+82|Siber Şehir
+83|GÜNLÜK BONUS
+84|Günlük görev tamamlandı! +{n} {coin}
+85|Günün Kuralı
+86|Günün Kuralı tamamlandı! +{n} {coin}
+87|<b>{n}</b>. gün ödülü
+88|Bağlı
+89|Derin Deniz
+90|ETKİSİZ!
+91|Çöl
+92|{n} bombadan kaç
+93|Toplam 10 bombadan kaç
+94|KAÇTIN! +{n}
+95|BİTTİ
+96|Kartal Gözü
+97|30 kampanya yıldızı kazan
+98|Tak
+99|Takılı
+100|Hata
+101|Her şey %40 daha hızlı.
+102|Tam
+103|Bitir
+104|İlk oyununu bitir
+105|İlk Bırakış
+106|Kusursuz
+107|Orman
+108|Galaksi
+109|Oyun modu
+110|OYUN MODLARI
+111|Oyun bitti. Skor {n}
+112|OYUNLAR
+113|Gitgide Yükseliyor
+114|HEDEF
+115|hedef <b>{n}</b>
+116|Hedef: {goal} · <b>{a}/{b}</b> yaptın
+117|Hedef: {n} puan
+118|Altına Hücum
+119|Tehlike
+120|YARDIM
+121|x{n} kombo yap
+122|500 altın biriktir
+123|Stack Rush'ta {n}. bölümü {s} ★ ile bitirdim!
+124|Stack Rush'ta ({mode}) {n} puan yaptım! Bunu geçebilir misin?
+125|Buz
+126|Görsel kaydedildi — istediğin yerde paylaş
+127|Akışta
+128|{n} mükemmel yap
+129|<b>{goal}</b> mükemmel bırakış yap: <b>{prog}/{goal}</b>
+130|Dil
+131|DİL
+132|Lav
+133|Hadi başlayalım!
+134|Seviye
+135|Seviye {n}
+136|SEVİYE ATLADIN! Artık <b>{n}</b>. seviyesin · +<b>{b}</b> {coin}
+137|Canlar
+138|Kodu yükle
+139|Sv
+140|Ana menü
+141|MAKS. YÜKSEKLİK
+142|Çayır
+143|Çayır Ustası
+144|Menü
+145|Mayın Tarlası
+146|Modlar
+147|Daha fazla oyun modu
+148|Müzik
+149|Dar Başlangıç
+150|{n} {coin} gerekli — sende {m} var
+151|Canlanmak için {n} {coin} gerekli
+152|Neon
+153|YENİ REKOR
+154|YENİ MİSİN?
+155|SONRAKİ
+156|Sonraki mod
+157|Sıradaki kilit: <b>{x}</b>
+158|Uzamaz
+159|Hızlanma yok, kaybetme yok. Sadece üst üste diz.
+160|Okyanus
+161|Kapalı
+162|KAPALI
+163|Haritanın Dışında
+164|AÇIK
+165|Seride
+166|Tek can. Çıkabildiğin kadar yüksel.
+167|10 tema edin
+168|5 tema edin
+169|Sahip
+170|Yapıştır
+171|İlerlemeni geri yüklemek için bir kayıt kodu yapıştır.
+172|Kayıt kodunu yapıştır:
+173|Duraklat
+174|Duraklatıldı
+175|DURAKLATILDI
+176|Mükemmel
+177|MÜKEMMEL
+178|Mükemmel seriler kombo yapar. Üst üste 8 mükemmel sana bir {shield} kalkan verir!
+179|MÜKEMMEL x{n}
+180|Mükemmel, kombo {n}
+181|Mükemmel! Tam oturtursan tüm genişliğini korursun.
+182|Mükemmeliyetçi
+183|MÜKEMMELLER
+184|Mükemmel bırakışlar daha hassas olmayı gerektirir.
+185|Performans modu açık
+186|Kumbara
+187|OYNA
+188|PUAN
+189|Alıştırma
+190|ALIŞTIRMA
+191|Alıştırma teklifi
+192|Alıştırma turu
+193|Premium görünüm teması
+194|ÖNİZLEME
+195|{name} önizlemesi
+196|Önceki mod
+197|Gizlilik politikası
+198|İlerleme yüklendi!
+199|Oyundan çık
+200|{n} blok yüksekliğe ulaş
+201|{name} temasını açmak için {n}. seviyeye ulaş
+202|10. seviyeye ulaş
+203|5. seviyeye ulaş
+204|Sarsıntı ve parlamaları azalt
+205|YENİLE
+206|Bu cihazdaki ilerleme bu kayıt koduyla değiştirilsin mi?
+207|Tekrar
+208|TEKRAR
+209|DEVAM
+210|Retro
+211|Canlan · {n} {coin}
+212|Yükselen Yıldız
+213|Telefonunu döndür
+214|Tur bitti
+215|Güvenlik Ağı
+216|Sakura
+217|Kayıt kodu
+218|Kod kopyalandı. Güvenli bir yerde sakla.
+219|{goal} puan yap, +{reward} {coin} kazan
+220|{n} puan yap
+221|Zamana Karşı modunda 60 yap
+222|Ayarlar
+223|AYARLAR
+224|Paylaş
+225|Keskin Gözler
+226|Kalkan kazanıldı — bir sonraki ıskalamanı engeller
+227|KALKAN SENİ KURTARDI!
+228|GÖSTER
+229|Eğitimi atla
+230|Atla, kendim çözerim
+231|Gökyüzü Silüeti
+232|Gökdelen
+233|Bir şeyler ters gitti
+234|SES VE HİSSİYAT
+235|Ses efektleri
+236|Hız Canavarı
+237|Hızlandı
+238|HIZLANDI!
+239|Hız Pisti
+240|Tek seferde 100 blok diz
+241|Tek seferde 20 blok diz
+242|Zen'de 40 blok diz
+243|Tek seferde 50 blok diz
+244|Stack Rush dikey modda oynanır.
+245|BÖLÜM {n}
+246|BÖLÜM {n} TAMAMLANDI
+247|{n}. bölüm {s} yıldızla tamamlandı
+248|BÖLÜM {n} BAŞARISIZ
+249|Bölüm {n}, {goal}
+250|Bölüm {n}, {goal}, kilitli
+251|Bölüm {n}: {goal}
+252|Yıldız Koleksiyoncusu
+253|YILDIZLAR
+254|Mağaza henüz bağlı değil
+255|Seri: <b>{n}</b> gün — daha fazlası için yarın tekrar gel
+256|Seri: <b>{n}</b> gün — daha fazlası için yarın tekrar gel
+257|Gün Batımı
+258|Çevik
+259|önizlemek için bir temaya dokun
+260|Bloğu kuleye bırakmak için herhangi bir yere dokun.
+261|BIRAKMAK İÇİN DOKUN
+262|SAATİ BAŞLATMAK İÇİN DOKUN
+263|Bu kod işe yaramadı
+264|Blok hızlanıp yavaşlar.
+265|Temalar
+266|TEMALAR
+267|Zamanlamayı tutturup yükseğe çık.
+268|SÜRE DOLDU!
+269|Zamana Karşı
+270|Nişan yardımı
+271|İpucu: bombalar kayarak geçer. Bonus puan için geçmelerine izin ver ya da birine dokunup can kaybet!
+272|İpucu: hızlanma yok, oyun sonu yok. Bitirince Bitir'e dokun.
+273|İpucu: yalnızca tamamen ıskalamak can götürür. Taşmak sorun değil.
+274|İpucu: saat ilk dokunuşunda başlar. Mükemmel bırakışlar süre ekler!
+275|İpucu: kule büyüdükçe hızlanır. Mükemmel bırakışları hedefle!
+276|BUGÜN
+277|Bugünün rekoru {n}
+278|Bugünün rekoru <b>{n}</b>
+279|Sesi aç/kapat
+280|20 saniyelik bir alıştırma turu dene. Baskı yok, oyun sonu yok. Atlayabilir ve istediğin zaman Ayarlar'dan tekrar oynayabilirsin.
+281|MÜKEMMEL için tam üstüne bırakmaya çalış.
+282|kural tamamlandı
+283|Kural tamamlandı
+284|Kaderin Cilvesi
+285|Açıldı: <b>{names}</b>
+286|{n}. seviyede açılır (sen {m}. seviyedesin)
+287|Güncelleme hazır — yenilemek için dokun
+288|Bir canlanma kullan
+289|Bir kalkan kullan
+290|Kıdemli
+291|Titreşim
+292|Daha geniş mükemmel aralığı. Otomatik = ilk 6 oyunun.
+293|Rüzgârlı
+294|Kış Gecesi
+295|DÜNYA {n} · {name}
+296|x{n} kombo
+297|İnce bir kuleyle başlarsın.
+298|Anladın! Gerçek bir tur başlıyor…
+299|VERİLERİN
+300|İlerlemen kaydedildi. Oynamaya devam etmek için yenile.
+301|Zen
+302|ZEN
+303|Zen altın kazandırmaz — sadece rahatla
+304|Zen Ustası
+305|ZEN OTURUMU
+306|En iyi oyunun ana hatları
+307|En iyi oyununun kesik çizgili ana hatları. REKOR çizgisi kalır.

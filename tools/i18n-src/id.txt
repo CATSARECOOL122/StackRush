@@ -1,0 +1,307 @@
+1| · Kombo <b>x{c}</b>
+2| · Dunia selesai! +<b>{n}</b> {coin}
+3|-{n}dtk
+4|{d} vs rekor
+5|{n} hindaran
+6|tinggi {n}
+7|TINGGI {n}!
+8|Sisa {n} nyawa
+9|{n} sempurna
+10|{n} poin
+11|{name} · {coin} {n} (kurang {k})
+12|{name} · level {n}
+13|{name} · level {n} (kurang {k})
+14|{name} · siap dibeli seharga {coin} {n}!
+15|+{n} {coin} · beruntun {s} hari!
+16|+{n}dtk
+17|+<b>{n}</b> {coin}
+18|<b>{a}</b> / {b} {star} · 3 nyawa per tahap, makin banyak nyawa tersisa = makin banyak bintang
+19|<b>{n}</b> / {m} pencapaian terbuka
+20|Sisa <b>{n}</b> nyawa
+21|Sisa <b>1</b> nyawa
+22|Sisa 1 nyawa
+23|10 drop sempurna berturut-turut
+24|Total 100 drop sempurna
+25|24 tahap. Raih hingga 3 bintang di tiap tahap.
+26|25 drop sempurna berturut-turut
+27|3 nyawa. Hanya meleset total yang mengurangi satu.
+28|Masuk 3 hari berturut-turut
+29|5 drop sempurna berturut-turut
+30|Total 500 drop sempurna
+31|60 detik. Drop sempurna menambah waktu.
+32|Masuk 7 hari berturut-turut
+33|ULANGI
+34|Selalu
+35|Bagian yang menjorok akan terpotong, jadi menara makin sempit.
+36|Auto
+37|Otomatis
+38|Pencapaian
+39|PENCAPAIAN
+40|Kembali
+41|Nyaris celaka
+42|Kalahkan Twist Harian
+43|Melampaui rekormu!
+44|REKOR
+45|Rekor {n}
+46|REKOR {n}
+47|Rekor <b>{n}</b> · Tinggi <b>{h}</b>
+48|KOMBO TERBAIK
+49|Melampaui awan
+50|BALOK
+51|Pasukan penjinak bom
+52|Bom akan datang.
+53|Bom meluncur lewat. Jangan jatuhkan di atasnya!
+54|DUAR!
+55|Kampanye
+56|KAMPANYE
+57|Kampanye tamat
+58|Bisakah kamu mengalahkannya?
+59|Permen
+60|Pilih mode
+61|Klaim +{n}
+62|Klasik
+63|Selesaikan semua 24 tahap
+64|Selesaikan seluruh Dunia 1
+65|Selesaikan tahap 1 kampanye
+66|Selesaikan tahap {n} dulu
+67|SELESAI!
+68|Tutup pratinjau
+69|Koin
+70|Kolektor
+71|KOMBO x{n}
+72|Salin
+73|Salin progresmu untuk memindahkannya ke perangkat lain.
+74|Salin kode simpanmu:
+75|Harga {n} koin (kamu punya {m})
+76|Tidak bisa membuat kode simpan
+77|Tidak bisa membuat gambar
+78|Tidak bisa membagikan
+79|Kurator
+80|Sedang dipakai
+81|Potongan tidak akan tumbuh lagi.
+82|Cyber City
+83|BONUS HARIAN
+84|Tantangan harian selesai! +{n} {coin}
+85|Twist Harian
+86|Twist Harian selesai! +{n} {coin}
+87|Hadiah hari ke-<b>{n}</b>
+88|Setia
+89|Laut dalam
+90|DIJINAKKAN!
+91|Gurun
+92|Hindari {n} bom
+93|Hindari total 10 bom
+94|BERHASIL MENGHINDAR! +{n}
+95|SELESAI
+96|Mata elang
+97|Raih 30 bintang kampanye
+98|Pakai
+99|Dipakai
+100|Kesalahan
+101|Semuanya bergerak 40% lebih cepat.
+102|Tepat
+103|Selesai
+104|Selesaikan permainan pertamamu
+105|Jatuhan pertama
+106|Tanpa cela
+107|Hutan
+108|Galaksi
+109|Mode permainan
+110|MODE PERMAINAN
+111|Permainan berakhir. Skor {n}
+112|GIM
+113|Makin tinggi
+114|TARGET
+115|target <b>{n}</b>
+116|Target: {goal} · kamu mencapai <b>{a}/{b}</b>
+117|Target: skor {n}
+118|Demam emas
+119|Bahaya
+120|BANTUAN
+121|Capai kombo x{n}
+122|Miliki 500 koin
+123|Aku menyelesaikan tahap {n} Stack Rush dengan {s} ★!
+124|Aku dapat {n} di Stack Rush ({mode})! Bisakah kamu mengalahkannya?
+125|Es
+126|Gambar tersimpan — bagikan ke mana saja
+127|Lagi fokus
+128|Capai {n} sempurna
+129|Capai <b>{goal}</b> drop sempurna: <b>{prog}/{goal}</b>
+130|Bahasa
+131|BAHASA
+132|Lava
+133|Ayo mulai!
+134|Level
+135|Level {n}
+136|NAIK LEVEL! Kamu level <b>{n}</b> · +<b>{b}</b> {coin}
+137|Nyawa
+138|Muat kode
+139|Lv
+140|Menu utama
+141|TINGGI MAKS
+142|Padang rumput
+143|Master padang rumput
+144|Menu
+145|Ladang ranjau
+146|Mode
+147|Mode permainan lainnya
+148|Musik
+149|Awal sempit
+150|Butuh {n} {coin} — kamu punya {m}
+151|Butuh {n} {coin} untuk hidup lagi
+152|Neon
+153|REKOR BARU
+154|BARU DI SINI?
+155|LANJUT
+156|Mode berikutnya
+157|Buka berikutnya: <b>{x}</b>
+158|Tanpa tumbuh lagi
+159|Tanpa percepatan, tanpa gagal. Tumpuk saja.
+160|Samudra
+161|Mati
+162|MATI
+163|Di luar peta
+164|NYALA
+165|Lagi di atas angin
+166|Satu nyawa. Naik setinggi mungkin.
+167|Miliki 10 tema
+168|Miliki 5 tema
+169|Dimiliki
+170|Tempel
+171|Tempel kode simpan untuk memulihkan progres.
+172|Tempel kode simpanmu:
+173|Jeda
+174|Dijeda
+175|DIJEDA
+176|Sempurna
+177|SEMPURNA
+178|Rentetan sempurna membentuk kombo. 8 berturut-turut memberi {shield} perisai!
+179|SEMPURNA x{n}
+180|Sempurna, kombo {n}
+181|Sempurna! Jatuh tepat, lebarnya tetap penuh.
+182|Perfeksionis
+183|TOTAL SEMPURNA
+184|Drop sempurna butuh ketepatan lebih tinggi.
+185|Mode performa aktif
+186|Celengan
+187|MAIN
+188|POIN
+189|Latihan
+190|LATIHAN
+191|Tawaran latihan
+192|Ronde latihan
+193|Tema kosmetik premium
+194|PRATINJAU
+195|Pratinjau {name}
+196|Mode sebelumnya
+197|Kebijakan privasi
+198|Progres dimuat!
+199|Keluar dari permainan
+200|Capai {n} balok
+201|Capai level {n} untuk membuka {name}
+202|Capai level 10
+203|Capai level 5
+204|Kurangi getaran & kilatan
+205|MUAT ULANG
+206|Ganti progres di perangkat ini dengan kode simpan ini?
+207|Ulangi
+208|ULANGI
+209|LANJUTKAN
+210|Retro
+211|Hidup lagi · {n} {coin}
+212|Bintang baru
+213|Putar ponselmu
+214|Ronde berakhir
+215|Jaring pengaman
+216|Sakura
+217|Kode simpan
+218|Kode tersalin. Simpan di tempat aman.
+219|Capai skor {goal} untuk +{reward} {coin}
+220|Capai skor {n}
+221|Capai 60 di Balapan Waktu
+222|Pengaturan
+223|PENGATURAN
+224|Bagikan
+225|Mata tajam
+226|Perisai didapat — memblokir mesetmu berikutnya
+227|PERISAI MENYELAMATKANMU!
+228|TUNJUKKAN
+229|Lewati tutorial
+230|Lewati, aku bisa sendiri
+231|Cakrawala
+232|Pencakar langit
+233|Terjadi kesalahan
+234|SUARA & GETAR
+235|Efek suara
+236|Setan kecepatan
+237|Lebih cepat
+238|LEBIH CEPAT!
+239|Sirkuit
+240|Tumpuk 100 balok dalam satu permainan
+241|Tumpuk 20 balok dalam satu permainan
+242|Tumpuk 40 balok di Zen
+243|Tumpuk 50 balok dalam satu permainan
+244|Stack Rush dimainkan secara vertikal.
+245|TAHAP {n}
+246|TAHAP {n} SELESAI
+247|Tahap {n} selesai dengan {s} bintang
+248|TAHAP {n} GAGAL
+249|Tahap {n}, {goal}
+250|Tahap {n}, {goal}, terkunci
+251|Tahap {n}: {goal}
+252|Kolektor bintang
+253|BINTANG
+254|Toko belum terhubung
+255|Beruntun: <b>{n}</b> hari — kembali besok untuk lebih banyak
+256|Beruntun: <b>{n}</b> hari — kembali besok untuk lebih banyak
+257|Senja
+258|Gesit
+259|ketuk tema untuk melihat pratinjau
+260|Ketuk di mana saja untuk menjatuhkan balok ke menara.
+261|KETUK UNTUK MENJATUHKAN
+262|KETUK UNTUK MEMULAI WAKTU
+263|Kode itu tidak berhasil
+264|Balok bergerak cepat lalu melambat.
+265|Tema
+266|TEMA
+267|Tepat waktu. Bangun tinggi.
+268|WAKTU HABIS!
+269|Balapan Waktu
+270|Bantuan bidik
+271|Tips: bom meluncur lewat. Biarkan lewat untuk poin bonus, atau ketuk satu dan kehilangan nyawa!
+272|Tips: tanpa percepatan dan tanpa game over. Ketuk Selesai kalau sudah.
+273|Tips: hanya meleset total yang mengurangi nyawa. Menjorok tidak apa-apa.
+274|Tips: waktu mulai saat ketukan pertamamu. Drop sempurna menambah waktu!
+275|Tips: menara makin cepat saat makin tinggi. Incar drop sempurna!
+276|HARI INI
+277|Rekor hari ini {n}
+278|Rekor hari ini <b>{n}</b>
+279|Nyalakan/matikan suara
+280|Coba ronde latihan 20 detik. Tanpa tekanan, tanpa game over. Bisa dilewati dan diulang kapan saja lewat Pengaturan.
+281|Coba mendarat tepat di atas untuk SEMPURNA.
+282|twist selesai
+283|Twist selesai
+284|Takdir berbalik
+285|Terbuka: <b>{names}</b>
+286|Terbuka di level {n} (kamu level {m})
+287|Pembaruan siap — ketuk untuk memuat ulang
+288|Gunakan hidup lagi
+289|Gunakan perisai
+290|Veteran
+291|Getaran
+292|Jendela sempurna lebih lebar. Auto = 6 permainan pertamamu.
+293|Berangin
+294|Malam musim dingin
+295|DUNIA {n} · {name}
+296|kombo x{n}
+297|Kamu mulai dengan menara yang kurus.
+298|Kamu sudah bisa! Memulai ronde sungguhan…
+299|DATAMU
+300|Progresmu tersimpan. Muat ulang untuk lanjut bermain.
+301|Zen
+302|ZEN
+303|Zen tidak memberi koin — santai saja
+304|Master Zen
+305|SESI ZEN
+306|Garis tepi permainan terbaik
+307|Garis tepi putus-putus dari permainan terbaikmu. Garis REKOR tetap tampil.

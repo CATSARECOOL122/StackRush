@@ -1,0 +1,21 @@
+{
+  "name": "stack-rush",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Stack Rush: a one-tap stacking game (static web app).",
+  "license": "UNLICENSED",
+  "scripts": {
+    "test": "node tests/run.js",
+    "test:i18n": "node tests/run.js i18n",
+    "serve": "node tools/serve.js 8080",
+    "keys": "node tools/i18n-keys.js --write --quiet",
+    "lang": "node tools/build-lang.js",
+    "assets": "node tools/make-store-assets.js --lang all",
+    "video": "node tools/make-promo-video.js",
+    "splash": "node tools/make-splash.js",
+    "listing": "node tools/make-listing.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}

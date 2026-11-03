@@ -1,0 +1,307 @@
+1| · Combo <b>x{c}</b>
+2| · Mundo concluído! +<b>{n}</b> {coin}
+3|-{n}s
+4|{d} vs recorde
+5|{n} desvios
+6|{n} de altura
+7|{n} DE ALTURA!
+8|Restam {n} vidas
+9|{n} perfeitos
+10|{n} pts
+11|{name} · {coin} {n} (faltam {k})
+12|{name} · nível {n}
+13|{name} · nível {n} (faltam {k})
+14|{name} · pronto para comprar por {coin} {n}!
+15|+{n} {coin} · sequência de {s} dias!
+16|+{n}s
+17|+<b>{n}</b> {coin}
+18|<b>{a}</b> / {b} {star} · 3 vidas por fase, mais vidas restantes = mais estrelas
+19|<b>{n}</b> / {m} conquistas desbloqueadas
+20|Restam <b>{n}</b> vidas
+21|Resta <b>1</b> vida
+22|Resta 1 vida
+23|10 perfeitos seguidos
+24|100 perfeitos no total
+25|24 fases. Ganhe até 3 estrelas em cada uma.
+26|25 perfeitos seguidos
+27|3 vidas. Só errar por completo custa uma.
+28|Sequência de 3 dias
+29|5 perfeitos seguidos
+30|500 perfeitos no total
+31|60 segundos. Os perfeitos adicionam tempo.
+32|Sequência de 7 dias
+33|DE NOVO
+34|Sempre
+35|O que sobra para fora é cortado, então a torre fica mais estreita.
+36|Auto
+37|Automático
+38|Conquistas
+39|CONQUISTAS
+40|Voltar
+41|No limite
+42|Vença uma Variante do dia
+43|Superando seu recorde!
+44|RECORDE
+45|Recorde {n}
+46|RECORDE {n}
+47|Recorde <b>{n}</b> · Altura <b>{h}</b>
+48|MELHOR COMBO
+49|Além das nuvens
+50|BLOCOS
+51|Esquadrão antibombas
+52|Vêm aí bombas.
+53|As bombas passam deslizando. Não solte em cima!
+54|BUM!
+55|Campanha
+56|CAMPANHA
+57|Campanha completa
+58|Consegue superar?
+59|Doce
+60|Escolha um modo
+61|Resgatar +{n}
+62|Clássico
+63|Conclua as 24 fases
+64|Conclua todo o Mundo 1
+65|Conclua a fase 1 da campanha
+66|Conclua antes a fase {n}
+67|CONCLUÍDO!
+68|Fechar pré-visualização
+69|Moedas
+70|Colecionador
+71|COMBO x{n}
+72|Copiar
+73|Copie seu progresso para levá-lo a outro dispositivo.
+74|Copie seu código de salvamento:
+75|Custa {n} moedas (você tem {m})
+76|Não foi possível gerar o código de salvamento
+77|Não foi possível criar a imagem
+78|Não foi possível compartilhar
+79|Curador
+80|Equipado no momento
+81|Os cortes nunca voltam.
+82|Cidade Cibernética
+83|BÔNUS DIÁRIO
+84|Desafio diário concluído! +{n} {coin}
+85|Variante do dia
+86|Variante do dia concluída! +{n} {coin}
+87|Recompensa do dia <b>{n}</b>
+88|Dedicado
+89|Mar profundo
+90|DESARMADA!
+91|Deserto
+92|Desvie de {n} bombas
+93|Desvie de 10 bombas no total
+94|DESVIOU! +{n}
+95|FEITO
+96|Olho de águia
+97|Ganhe 30 estrelas na campanha
+98|Equipar
+99|Equipado
+100|Erro
+101|Tudo se move 40% mais rápido.
+102|Exato
+103|Terminar
+104|Termine sua primeira partida
+105|Primeira queda
+106|Impecável
+107|Floresta
+108|Galáxia
+109|Modo de jogo
+110|MODOS DE JOGO
+111|Fim de jogo. Pontuação {n}
+112|PARTIDAS
+113|Cada vez mais alto
+114|META
+115|meta <b>{n}</b>
+116|Meta: {goal} · você fez <b>{a}/{b}</b>
+117|Meta: {n} pontos
+118|Corrida do ouro
+119|Perigo
+120|AJUDA
+121|Faça um combo x{n}
+122|Acumule 500 moedas
+123|Concluí a fase {n} do Stack Rush com {s} ★!
+124|Fiz {n} no Stack Rush ({mode})! Consegue superar?
+125|Gelo
+126|Imagem salva — compartilhe onde quiser
+127|Em sintonia
+128|Faça {n} perfeitos
+129|Faça <b>{goal}</b> quedas perfeitas: <b>{prog}/{goal}</b>
+130|Idioma
+131|IDIOMA
+132|Lava
+133|Vamos lá!
+134|Nível
+135|Nível {n}
+136|SUBIU DE NÍVEL! Você é nível <b>{n}</b> · +<b>{b}</b> {coin}
+137|Vidas
+138|Carregar código
+139|Nv
+140|Menu principal
+141|ALTURA MÁX.
+142|Campina
+143|Mestre da campina
+144|Menu
+145|Campo minado
+146|Modos
+147|Mais modos de jogo
+148|Música
+149|Começo estreito
+150|Precisa de {n} {coin} — você tem {m}
+151|Precisa de {n} {coin} para reviver
+152|Neon
+153|NOVO RECORDE
+154|PRIMEIRA VEZ?
+155|PRÓXIMA
+156|Próximo modo
+157|Próximo desbloqueio: <b>{x}</b>
+158|Sem recuperação
+159|Sem aceleração e sem perder. Só empilhe.
+160|Oceano
+161|Não
+162|NÃO
+163|Fora do mapa
+164|SIM
+165|Embalado
+166|Uma vida. Suba o mais alto que puder.
+167|Tenha 10 temas
+168|Tenha 5 temas
+169|Adquirido
+170|Colar
+171|Cole um código de salvamento para restaurar o progresso.
+172|Cole seu código de salvamento:
+173|Pausar
+174|Pausado
+175|PAUSADO
+176|Perfeito
+177|PERFEITO
+178|Sequências perfeitas formam um combo. 8 seguidas dão um {shield} escudo!
+179|PERFEITO x{n}
+180|Perfeito, combo {n}
+181|Perfeito! Caindo exatamente, você mantém toda a largura.
+182|Perfeccionista
+183|PERFEITOS
+184|Os perfeitos exigem uma queda mais precisa.
+185|Modo de desempenho ativado
+186|Cofrinho
+187|JOGAR
+188|PONTOS
+189|Treino
+190|TREINO
+191|Oferta de treino
+192|Rodada de treino
+193|Tema cosmético premium
+194|PRÉVIA
+195|Prévia de {name}
+196|Modo anterior
+197|Política de privacidade
+198|Progresso carregado!
+199|Sair da partida
+200|Alcance {n} blocos
+201|Alcance o nível {n} para desbloquear {name}
+202|Alcance o nível 10
+203|Alcance o nível 5
+204|Reduzir tremores e flashes
+205|RECARREGAR
+206|Substituir o progresso deste dispositivo por este código de salvamento?
+207|Repetir
+208|REPETIR
+209|CONTINUAR
+210|Retrô
+211|Reviver · {n} {coin}
+212|Estrela em ascensão
+213|Gire o celular
+214|Fim da rodada
+215|Rede de segurança
+216|Sakura
+217|Código de salvamento
+218|Código copiado. Guarde em um lugar seguro.
+219|Faça {goal} pontos e ganhe +{reward} {coin}
+220|Faça {n} pontos
+221|Faça 60 no Corrida contra o tempo
+222|Ajustes
+223|AJUSTES
+224|Compartilhar
+225|Vista de lince
+226|Escudo ganho — ele bloqueia seu próximo erro
+227|O ESCUDO SALVOU VOCÊ!
+228|ME MOSTRE
+229|Pular tutorial
+230|Pular, eu me viro
+231|Horizonte
+232|Arranha-céu
+233|Algo deu errado
+234|SOM E TOQUE
+235|Efeitos sonoros
+236|Demônio da velocidade
+237|Mais velocidade
+238|MAIS RÁPIDO!
+239|Autódromo
+240|Empilhe 100 blocos em uma partida
+241|Empilhe 20 blocos em uma partida
+242|Empilhe 40 blocos no Zen
+243|Empilhe 50 blocos em uma partida
+244|Stack Rush se joga na vertical.
+245|FASE {n}
+246|FASE {n} CONCLUÍDA
+247|Fase {n} concluída com {s} estrelas
+248|FASE {n} FALHOU
+249|Fase {n}, {goal}
+250|Fase {n}, {goal}, bloqueada
+251|Fase {n}: {goal}
+252|Colecionador de estrelas
+253|ESTRELAS
+254|A loja ainda não está conectada
+255|Sequência: <b>{n}</b> dia — volte amanhã para mais
+256|Sequência: <b>{n}</b> dias — volte amanhã para mais
+257|Pôr do sol
+258|Veloz
+259|toque em um tema para visualizar
+260|Toque em qualquer lugar para soltar o bloco sobre a torre.
+261|TOQUE PARA SOLTAR
+262|TOQUE PARA INICIAR O RELÓGIO
+263|Esse código não funcionou
+264|O bloco acelera e desacelera.
+265|Temas
+266|TEMAS
+267|Acerte o tempo. Construa alto.
+268|TEMPO ESGOTADO!
+269|Contra o tempo
+270|Ajuda de mira
+271|Dica: as bombas passam deslizando. Deixe-as passar para ganhar pontos extras ou toque em uma e perca uma vida!
+272|Dica: sem aceleração e sem fim de jogo. Toque em Terminar quando quiser parar.
+273|Dica: só errar por completo custa uma vida. Sobrar para fora não tem problema.
+274|Dica: o relógio começa no seu primeiro toque. Os perfeitos adicionam tempo!
+275|Dica: a torre acelera conforme cresce. Mire em quedas perfeitas!
+276|HOJE
+277|Recorde de hoje {n}
+278|Recorde de hoje <b>{n}</b>
+279|Ativar ou desativar som
+280|Faça uma rodada de treino de 20 segundos. Sem pressão, sem fim de jogo. Você pode pular e repetir quando quiser em Configurações.
+281|Tente cair exatamente em cima para um PERFEITO.
+282|variante concluída
+283|Variante concluída
+284|Reviravolta do destino
+285|Desbloqueado: <b>{names}</b>
+286|Desbloqueia no nível {n} (você é nível {m})
+287|Atualização pronta — toque para recarregar
+288|Use um reviver
+289|Use um escudo
+290|Veterano
+291|Vibração
+292|Janela de perfeito mais ampla. Auto = suas 6 primeiras partidas.
+293|Ventoso
+294|Noite de inverno
+295|MUNDO {n} · {name}
+296|combo x{n}
+297|Você começa com uma torre fina.
+298|Você conseguiu! Começando uma rodada de verdade…
+299|SEUS DADOS
+300|Seu progresso está salvo. Recarregue para continuar jogando.
+301|Zen
+302|ZEN
+303|O Zen não dá moedas — só relaxe
+304|Mestre zen
+305|SESSÃO ZEN
+306|Contorno da melhor partida
+307|Contorno tracejado da sua melhor partida. A linha de RECORDE continua.
