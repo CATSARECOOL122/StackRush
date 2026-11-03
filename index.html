@@ -140,8 +140,8 @@
   .tag{margin:2px 0 8px;color:var(--mute);font-weight:700}
   .btn{pointer-events:auto;border:0;border-radius:16px;padding:13px 24px;font:inherit;font-weight:900;font-size:17px;color:#fff;background:#ffffff1f;border:1px solid var(--line);cursor:pointer;transition:transform .08s;min-height:44px}
   .btn:active{transform:scale(.96)}
-  .btn.primary{background:linear-gradient(180deg,#ffb23d,#ff6a3d);color:#2a0d00;border:0;box-shadow:0 6px 0 #a63d14,0 14px 24px #0007}
-  .btn.primary:active{box-shadow:0 2px 0 #a63d14,0 6px 12px #0007;transform:translateY(4px)}
+  .btn.primary{background:linear-gradient(180deg,var(--cta1,#ffb23d),var(--cta2,#ff6a3d));color:var(--ctaink,#2a0d00);border:0;box-shadow:0 6px 0 var(--ctash,#a63d14),0 14px 24px #0007}
+  .btn.primary:active{box-shadow:0 2px 0 var(--ctash,#a63d14),0 6px 12px #0007;transform:translateY(4px)}
   .btn.big{font-size:26px;padding:16px 56px;letter-spacing:2px}
   .btn.playbtn{display:flex;flex-direction:column;align-items:center;line-height:1.05;padding:14px 64px}
   .btn.playbtn small{font-size:13px;font-weight:800;letter-spacing:1px;opacity:.75;margin-top:3px}
@@ -171,6 +171,33 @@
   .lead{max-width:300px;text-align:center;color:var(--mute);font-weight:700;line-height:1.4;text-wrap:balance}
   /* themes sheet */
   #tGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:min(420px,100%)}
+  .boostpill{min-height:44px;padding:0 12px;display:flex;align-items:center;gap:6px;font-size:15px}
+  .boostpill.has{border-color:var(--gold)} .boostpill.has b{color:var(--gold)}
+  .sheet{justify-content:flex-end;background:#0a0620b8;animation:none}
+  .shbg{flex:1;min-height:24px;cursor:pointer}
+  .shcard{background:linear-gradient(180deg,#1d1245,#150d33);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;padding:16px 16px calc(env(safe-area-inset-bottom) + 16px);width:min(520px,100%);align-self:center;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 -20px 50px #0009}
+  .shcard h2{margin:0;letter-spacing:3px;font-size:16px}
+  #boostList{display:flex;flex-direction:column;gap:8px;width:100%}
+  .bpick{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:8px 12px;border-radius:16px;border:2px solid var(--line);background:#ffffff10;color:#fff;font:inherit;text-align:left;cursor:pointer}
+  .bpick.on{border-color:var(--gold);background:#ffc83d1c}
+  .bpick i{font-style:normal;width:42px;height:42px;flex:none;border-radius:12px;display:grid;place-items:center;background:#ffffff1a;font-size:24px}
+  .bpick div{flex:1;min-width:0} .bpick b{display:block;font-size:15px} .bpick span{display:block;font-size:12px;color:var(--mute);font-weight:700;line-height:1.25}
+  .bpick em{font-style:normal;font-weight:900;font-size:14px;color:var(--gold);flex:none}
+  .bpick.empty{opacity:.7}
+  .tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:min(420px,100%);padding:2px 0 4px;pointer-events:auto;flex:none}
+  .tab{flex:none;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#ffffff14;color:#fff;font:inherit;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap}
+  .tab.on{background:linear-gradient(180deg,#ffd36b,#ffb23d);color:#2a1a00;border-color:transparent}
+  .tabh{grid-column:1/-1;margin:6px 2px 0;font-size:11px;letter-spacing:2px;color:var(--mute);font-weight:900;text-align:left}
+  .sw img{display:block;width:100%;height:100%;object-fit:cover}
+  .sw .ico{position:absolute;inset:0;display:grid;place-items:center;font-size:30px}
+  .bst{grid-column:1/-1;display:flex;align-items:center;gap:12px;background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:left}
+  .bst>i{font-style:normal;width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;background:#ffffff1a;font-size:26px}
+  .bst>div{flex:1;min-width:0}
+  .bst b{display:block;font-size:16px}
+  .bst span{display:block;font-size:12px;color:var(--mute);font-weight:700;line-height:1.3}
+  .bst small{display:block;margin-top:2px;font-size:12px;font-weight:900;color:var(--gold)}
+  .bst .bb{display:flex;flex-direction:column;gap:6px;flex:none;width:112px}
+  .bst .btn{padding:6px 8px;font-size:13px;min-height:44px;width:100%}
   .th{background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:10px;text-align:center}
   .th.eq{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
   .sw{height:64px;border-radius:10px;position:relative;overflow:hidden;margin-bottom:8px;cursor:pointer}
@@ -265,7 +292,7 @@ button{position:relative;overflow:hidden;touch-action:manipulation}
 .pill{background:linear-gradient(180deg,#ffffff1a,#ffffff08),#0b0720b0;border:1px solid #ffffff2c;box-shadow:inset 0 1px 0 #ffffff2a,0 8px 22px #0006}
 .card,.mode,.th,.set,.aw,#aStats div,.peek{background:linear-gradient(180deg,#ffffff10,#ffffff04),var(--glass);box-shadow:inset 0 1px 0 #ffffff1f,0 12px 28px #0003}
 .btn{box-shadow:inset 0 1px 0 #ffffff2a}
-.btn.primary{box-shadow:inset 0 2px 0 #ffffff70,0 6px 0 #a63d14,0 18px 34px #ff6a3d55}
+.btn.primary{box-shadow:inset 0 2px 0 #ffffff70,0 6px 0 var(--ctash,#a63d14),0 18px 34px color-mix(in srgb,var(--cta2,#ff6a3d) 33%,transparent)}
 .btn.gold{box-shadow:inset 0 2px 0 #fff8,0 4px 0 #9a6a00,0 12px 24px #ffb30044}
 .navbar{box-shadow:0 -10px 30px #0006}
 .back,.mc,.ibtn{background:linear-gradient(180deg,#ffffff1e,#ffffff0a);box-shadow:inset 0 1px 0 #ffffff2a}
@@ -435,7 +462,10 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 <symbol id="i-crown" viewBox="0 0 24 24"><path d="m2 8 5 4 5-8 5 8 5-4-2 12H4z"/></symbol>
 <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
 <symbol id="i-fast" viewBox="0 0 24 24"><path d="m6 13 6-6 6 6M6 19l6-6 6 6"/></symbol>
-<symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></symbol>
+<symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l1 12H5L6 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
+  <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M7 3h10M7 21h10"/><path d="M8 3c0 5 4 5 4 9s-4 4-4 9M16 3c0 5-4 5-4 9s4 4 4 9"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 12h16M7 8l-3 4 3 4M17 8l3 4-3 4"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></symbol>
 </defs></svg>
 <div id="stage">
 <canvas id="c"></canvas>
@@ -460,6 +490,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <div class="pill static" aria-label="Coins"><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg> <b id="mCoins">0</b></div>
       <div class="pill static lvl" aria-label="Level"><span><svg class="ic ic-gold fill" aria-hidden="true"><use href="#i-star"/></svg> Lv <b id="lvlN">1</b></span><span class="xp"><u id="xpFill"></u></span></div>
       <span class="sp"></span>
+      <button id="openBoosts" class="pill boostpill" aria-label="Boosts"><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg><b id="boostN">0</b></button>
       <button id="mute2" class="pill iconbtn" aria-label="Toggle sound"><svg class="ic" aria-hidden="true"><use href="#i-sound"/></svg></button>
     </div>
     <div class="sbody">
@@ -475,7 +506,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     </div>
     <nav class="navbar" aria-label="Menu">
       <button id="openCampaign" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg></i>Campaign</button>
-      <button id="openThemes" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg></i>Themes</button>
+      <button id="openThemes" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-bag"/></svg></i>Shop</button>
       <button id="openAwards" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg></i>Awards</button>
       <button id="openSettings" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg></i>Settings</button>
     </nav>
@@ -513,15 +544,16 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     <div class="ibtns">
       <button id="toMenu" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></i>Menu</button>
       <button id="overModes" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-gamepad"/></svg></i>Modes</button>
-      <button id="overThemes" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg></i>Themes</button>
+      <button id="overThemes" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-bag"/></svg></i>Shop</button>
       <button id="share" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg></i>Share</button>
     </div>
   </div></section>
 
-  <section id="themes" class="screen hidden" aria-label="Themes">
-    <div class="topbar"><button class="back" id="closeThemes" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>THEMES</h2></div>
+  <section id="themes" class="screen hidden" aria-label="Shop">
+    <div class="topbar"><button class="back" id="closeThemes" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>SHOP</h2></div>
     <div class="sbody" style="justify-content:flex-start">
       <div class="sub" id="tInfo"></div>
+      <div id="tTabs" class="tabs" role="tablist"></div>
       <div id="tGrid"></div>
     </div>
   </section>
@@ -556,6 +588,16 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
   <section id="langs" class="screen hidden" aria-label="Language">
     <div class="topbar"><button class="back" id="closeLangs" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>LANGUAGE</h2></div>
     <div class="sbody" style="justify-content:flex-start"><div id="lGrid"></div></div>
+  </section>
+
+  <section id="boosts" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Boosts">
+    <div class="shbg" id="boostBg"></div>
+    <div class="shcard">
+      <h2>BOOSTS</h2>
+      <p class="lead" id="boostNote"></p>
+      <div id="boostList"></div>
+      <div class="row"><button id="boostShop" class="btn">Get more</button><button id="boostDone" class="btn primary">Done</button></div>
+    </div>
   </section>
 
   <section id="crash" class="screen hidden" style="background:#0a0620f2" aria-label="Error"><div class="sbody">
@@ -606,10 +648,39 @@ const CFG = {
 };
 
 /* Square payment links for premium themes (see README). Leave empty until created. */
-const SQUARE_LINKS = { gold: "", galaxy: "", cyber: "" };
+const SQUARE_LINKS = { gold: "", galaxy: "", cyber: "", "style:foil": "", "topper:gold": "" };
 
 /* languages (native names). Each non-English language lives in lang/<code>.json */
 const LANGS = {en:'English',es:'Español',pt:'Português',fr:'Français',de:'Deutsch',it:'Italiano',id:'Bahasa Indonesia',tr:'Türkçe',ru:'Русский',hi:'हिन्दी',ja:'日本語',ko:'한국어',zh:'中文'};
+
+/* ================= Shop catalogue =================
+   Every cosmetic is a slot + id. Free ones are always owned. coins = price in coins, iap = real-money price (Google Play Billing in the
+   Android app, a Square link on the web); those stay locked until the store is connected. Scenes are the scenery of the themes you own. */
+const SHOP = {
+  style:{
+    auto:{name:'Theme style',free:1}, classic:{name:'Classic',free:1}, flat:{name:'Flat',coins:150}, glass:{name:'Glass',coins:400},
+    neon:{name:'Neon',coins:500}, pixel:{name:'Pixel',coins:300}, foil:{name:'Foil',iap:'$0.99'} },
+  palette:{
+    auto:{name:'Theme colors',free:1},
+    rainbow:{name:'Rainbow',coins:200,h0:0,hr:360,hs:.45,s:88,l:58},
+    pastel:{name:'Pastel',coins:200,h0:300,hr:210,hs:.35,s:68,l:76},
+    mono:{name:'Mono',coins:150,h0:215,hr:0,hs:.4,s:10,l:58,ls:14},
+    ember:{name:'Ember',coins:250,h0:2,hr:48,hs:.3,s:96,l:55},
+    frost:{name:'Frost',coins:250,h0:178,hr:60,hs:.3,s:88,l:64} },
+  scene:{ auto:{name:'Theme scene',free:1} },
+  sfx:{ classic:{name:'Classic',free:1}, retro:{name:'Retro',coins:150}, soft:{name:'Soft',coins:150} },
+  music:{ classic:{name:'Classic',free:1}, chill:{name:'Chill',coins:200}, chiptune:{name:'Chiptune',coins:200} },
+  fx:{ sparkle:{name:'Sparkle',free:1}, confetti:{name:'Confetti',coins:200}, stars:{name:'Stars',coins:250} },
+  topper:{ none:{name:'No topper',free:1}, black:{name:'Black cat',coins:300,fur:'#26262f'}, orange:{name:'Orange cat',coins:300,fur:'#f2994a'}, gold:{name:'Golden cat',iap:'$0.99',fur:'#ffc83d'} },
+  accent:{
+    sunset:{name:'Sunset',free:1,c1:'#ffb23d',c2:'#ff6a3d',sh:'#a63d14',ink:'#2a0d00'},
+    ocean:{name:'Ocean',coins:150,c1:'#7ad8ff',c2:'#2f7bff',sh:'#1b4aa6',ink:'#021a3d'},
+    mint:{name:'Mint',coins:150,c1:'#8dffb0',c2:'#1fbf72',sh:'#0f7a47',ink:'#032413'},
+    rose:{name:'Rose',coins:150,c1:'#ff9ad0',c2:'#e0388f',sh:'#8f1f5b',ink:'#32041f'} }
+};
+const SHOP_DEFAULT = {style:'auto',palette:'auto',scene:'auto',sfx:'classic',music:'classic',fx:'sparkle',topper:'none',accent:'sunset'};
+const has = (o,k) => Object.prototype.hasOwnProperty.call(o,k);
+const itemOk = (slot,id) => has(SHOP,slot) && (has(SHOP[slot],id) || (slot==='scene' && has(THEMES,id)));
 
 /* ================= Modes ================= */
 const MODES = {
@@ -702,6 +773,7 @@ const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:''
              coins:0,blocks:0,perfects:0,played:0,revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,
+             shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0},pick:[],gift:false,tokens:[]},boostBests:{},
              lastClaim:'',streak:0,daily:{day:'',perfects:0,done:false},seenTip:false};
 const store = {
   get(){ try{ return JSON.parse(localStorage.getItem('stackrush.v2')||'{}'); }catch(e){ return {}; } },
@@ -733,6 +805,16 @@ function cleanSave(raw){
       out.ghosts[id]={score:num(g.score),blocks:g.blocks.map(b=>({x:f(b&&b.x),w:f(b&&b.w)})),scores:g.scores.slice(0,400).map(v=>num(v))};
     }
   }
+  if(raw.shop && typeof raw.shop==='object'){                                           // cosmetics, boosters, loadout
+    const sh=raw.shop, o=out.shop;
+    if(Array.isArray(sh.owned)) o.owned=[...new Set(sh.owned.filter(k=>{ if(typeof k!=='string') return false; if(k==='product:starter') return true; const i=k.indexOf(':'); return i>0 && k.slice(0,i)!=='scene' && itemOk(k.slice(0,i),k.slice(i+1)); }))];
+    if(sh.equip && typeof sh.equip==='object') for(const sl of Object.keys(SHOP_DEFAULT)){ const v=sh.equip[sl]; if(typeof v==='string' && itemOk(sl,v)) o.equip[sl]=v; }
+    if(sh.boosts && typeof sh.boosts==='object') for(const k of Object.keys(o.boosts)) o.boosts[k]=num(sh.boosts[k],999);
+    if(Array.isArray(sh.pick)) o.pick=[...new Set(sh.pick.filter(k=>typeof k==='string' && own(o.boosts,k)))].slice(0,2);
+    o.gift=!!sh.gift;
+    if(Array.isArray(sh.tokens)) o.tokens=sh.tokens.filter(k=>typeof k==='string' && k.length>0 && k.length<=400).slice(-40);
+  }
+  if(raw.boostBests && typeof raw.boostBests==='object') for(const id of Object.keys(MODES)) if(own(raw.boostBests,id)) out.boostBests[id]=num(raw.boostBests[id]);
   if(raw.daily && typeof raw.daily==='object') out.daily={day:dateOk(raw.daily.day)?raw.daily.day:'',perfects:num(raw.daily.perfects,999),done:!!raw.daily.done};
   if(raw.twist && typeof raw.twist==='object') out.twist={day:dateOk(raw.twist.day)?raw.twist.day:'',done:!!raw.twist.done,best:num(raw.twist.best)};
   return out;
@@ -743,6 +825,7 @@ function sanitize(){
   const lv=levelOf(S.blocks||0);
   for(const [id,th] of Object.entries(THEMES)) if(th.unlock.t==='level' && lv>=th.unlock.n && !S.owned.includes(id)) S.owned.push(id);
   if(!THEMES[S.theme] || !S.owned.includes(S.theme)) S.theme = 'sunset';
+  for(const sl of Object.keys(SHOP_DEFAULT)) if(!ownsItem(sl,S.shop.equip[sl])) S.shop.equip[sl]=SHOP_DEFAULT[sl];
   for(const k of ['bests','ghosts','ach','camp','worldDone']) if(!S[k] || typeof S[k]!=='object') S[k]={};
   if(S.best && !S.bests.classic) S.bests.classic=S.best;
   if(!MODES[S.lastMode] || S.lastMode==='campaign' || S.lastMode==='practice') S.lastMode='classic';
@@ -751,6 +834,12 @@ function sanitize(){
   if(!S.twist || S.twist.day !== today()) S.twist = {day:today(), done:false, best:0};
 }
 const save = () => store.set(S);
+/* is a shop item usable? free ones always, scenes with their theme, the rest once bought */
+function ownsItem(slot,id){
+  const it=SHOP[slot] && SHOP[slot][id];
+  if(slot==='scene') return id==='auto' || S.owned.includes(id);
+  return !!(it && (it.free || S.shop.owned.includes(slot+':'+id)));
+}
 /* a game left open past midnight: start the new day's challenge and twist from zero */
 function rollDay(){
   if(!S.daily || S.daily.day !== today()) S.daily = {day:today(), perfects:0, done:false};
@@ -765,10 +854,13 @@ const levelOf = b => Math.floor(Math.sqrt(b/12)) + 1;
 const levelStart = L => 12*(L-1)*(L-1);
 sanitize();
 
-/* return from checkout: ?unlock=gold */
+/* return from a Square checkout: ?unlock=gold (a premium theme) or ?unlock=style:foil (a premium cosmetic).
+   There is no server on the web version, so this is an honour system: anyone who knows the address can unlock these, which is why
+   the web version only sells cosmetics here and never coins or boosts. The Android app uses Google Play Billing instead. */
 try{
   const u = new URLSearchParams(location.search).get('unlock');
-  if(u && THEMES[u] && THEMES[u].unlock.t==='iap' && !S.owned.includes(u)){ S.owned.push(u); S.theme=u; }
+  if(u && has(THEMES,u) && THEMES[u].unlock.t==='iap'){ if(!S.owned.includes(u)) S.owned.push(u); S.theme=u; }
+  else if(u && has(SQUARE_LINKS,u)){ const [sl,id]=u.split(':'); if(id && itemOk(sl,id) && SHOP[sl][id].iap){ if(!S.shop.owned.includes(u)) S.shop.owned.push(u); S.shop.equip[sl]=id; } }
 }catch(e){}
 save();
 
@@ -781,8 +873,28 @@ function stagger(sel){ document.querySelectorAll(sel).forEach((el,i)=>el.style.s
 const I = (n,c='') => `<svg class="ic${c?' '+c:''}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
 const rand = (a,b) => a + Math.random()*(b-a);
-let previewId = null;
-const TH = () => THEMES[previewId||S.theme];
+let previewId = null, previewSlot = null;      // trying something out: a whole theme (previewSlot null) or one shop item
+/* the look in use: the theme (or the one being previewed) with the equipped block style, colours and scene laid over it */
+let LK=null, lkT='', lkSt='', lkPa='', lkSc='';
+function buildLook(theme,style,pal,scene){
+  const T=THEMES[theme]||THEMES.sunset, SC=(scene!=='auto' && THEMES[scene]) ? THEMES[scene] : T, P=(pal!=='auto' && SHOP.palette[pal]) || null;
+  const L=Object.assign({},T,{bg:SC.bg,sun:SC.sun,hill:SC.hill,ground:SC.ground,stars:SC.stars,amb:SC.amb,scan:SC.scan});
+  if(P){ L.h0=P.h0; L.hr=P.hr; L.hs=P.hs; L.s=P.s; L.l=P.l; L.ls=P.ls||0; }
+  L.style = style==='auto' ? (T.pixel?'pixel':'classic') : style;
+  L.glow = style==='auto' ? !!T.glow : false;
+  L.pixel = L.style==='pixel';
+  return L;
+}
+function TH(){
+  let theme=S.theme, style=S.shop.equip.style, pal=S.shop.equip.palette, scene=S.shop.equip.scene;
+  if(previewId){
+    if(!previewSlot){ theme=previewId; style=pal=scene='auto'; }                     // a whole theme replaces the tweaks
+    else if(previewSlot==='style') style=previewId; else if(previewSlot==='palette') pal=previewId; else if(previewSlot==='scene') scene=previewId;
+  }
+  if(!LK || theme!==lkT || style!==lkSt || pal!==lkPa || scene!==lkSc){ lkT=theme; lkSt=style; lkPa=pal; lkSc=scene; LK=buildLook(theme,style,pal,scene); }
+  return LK;
+}
+const eqv = slot => (previewSlot===slot && previewId) ? previewId : S.shop.equip[slot];     // what is in use for a slot (or being previewed)
 function hue(th,i){ return (((th.h0 + th.hr*(.5+.5*Math.sin(i*th.hs))) % 360) + 360) % 360; }
 const hsl = (h,s,l,a=1) => `hsla(${h.toFixed(1)},${s}%,${l}%,${a})`;
 function popEl(el,scale=1.22,ms=170){ if(reduceOn()) return; try{ el.animate([{transform:`scale(${scale})`},{transform:'scale(1)'}],{duration:ms,easing:'ease-out'}); }catch(e){} }
@@ -824,7 +936,7 @@ async function loadLang(code){
   }catch(e){ dict={}; return 'en'; }
 }
 /* containers whose content is generated by JS (already passed through tr()) */
-const I18N_SKIP='#mGrid,#sGrid,#tGrid,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
+const I18N_SKIP='#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
 const origText=new WeakMap(), origAttr=new WeakMap();
 function staticTextNodes(root){
   const out=[];
@@ -893,8 +1005,11 @@ for(const type of ['pointerup','touchend','click','keydown'])               // r
   addEventListener(type,()=>{ if(!S.mute){ if(!ac) audio(); else if(ac.state!=='running') kickAudio(); } },{capture:true,passive:true});
 document.addEventListener('visibilitychange',()=>{ if(!document.hidden && ac && ac.state!=='running') kickAudio(); });
 addEventListener('pageshow',()=>{ if(ac && ac.state!=='running') kickAudio(); });
+/* sound effect packs (Shop > Sounds): the same effects with different waveforms, loudness and length */
+const SFXP={ classic:null, retro:{wave:()=>'square',v:.55,d:.8}, soft:{wave:t=>(t==='sawtooth'||t==='square')?'triangle':t,v:.8,d:1.12} };
 function tone(f,d=.15,type='sine',v=.25,slide=0,delay=0){
   const a=audio(); if(!a || a.state!=='running') return;
+  const pk=SFXP[eqv('sfx')]; if(pk){ type=pk.wave(type); v*=pk.v; d*=pk.d; }
   const t0=a.currentTime+delay, o=a.createOscillator(), g=a.createGain();
   o.type=type; o.frequency.setValueAtTime(f,t0);
   if(slide) o.frequency.exponentialRampToValueAtTime(Math.max(30,f+slide),t0+d);
@@ -929,20 +1044,33 @@ function mnote(f,d,type,v,when){
   g.gain.setValueAtTime(0,when); g.gain.linearRampToValueAtTime(v,when+.03); g.gain.exponentialRampToValueAtTime(.0001,when+d);
   o.connect(g); g.connect(mus.gain); o.start(when); o.stop(when+d+.05);
 }
+/* music styles (Shop > Sounds) */
+const MUSIC={
+  classic:{bpm:86,prog:[0,-4,3,-2],pent:[0,3,5,7,10],pad:'triangle',pluck:'sine',padV:.045,pluckV:.04,act:[.45,.8]},
+  chill:{bpm:66,prog:[0,-5,-3,-7],pent:[0,3,5,7,10],pad:'sine',pluck:'sine',padV:.05,pluckV:.03,act:[.3,.55]},
+  chiptune:{bpm:124,prog:[0,-4,3,-2],pent:[0,4,7,12],pad:'square',pluck:'square',padV:.016,pluckV:.02,act:[.7,.95],arp:true}
+};
 function musicTick(){
   if(!ac || !mus.gain) return;
   if(ac.state!=='running' || !(S.music && !S.mute && !paused && !document.hidden)){ mus.next=0; return; }
   const now=ac.currentTime; if(mus.next<now) mus.next=now+.05;
-  const eighth=60/86/2, key=KEYS[Object.keys(THEMES).indexOf(S.theme)%KEYS.length];
+  const M=MUSIC[eqv('music')]||MUSIC.classic, eighth=60/M.bpm/2, key=KEYS[Object.keys(THEMES).indexOf(S.theme)%KEYS.length];
   const f=semi=>220*Math.pow(2,semi/12);
   while(mus.next<now+.35){
-    const s=mus.step++, bar=Math.floor(s/8)%4, p=s%8, root=PROG[bar]+key, t0=mus.next;
-    if(p===0){ for(const iv of [0,3,7,12]) mnote(f(root+iv),eighth*8,'triangle',.045,t0); mnote(f(root-12),eighth*3,'sine',.11,t0); }
+    const s=mus.step++, bar=Math.floor(s/8)%4, p=s%8, root=M.prog[bar]+key, t0=mus.next;
+    if(p===0){ for(const iv of [0,3,7,12]) mnote(f(root+iv),eighth*8,M.pad,M.padV,t0); mnote(f(root-12),eighth*3,'sine',.11,t0); }
     if(p===4) mnote(f(root-12),eighth*2.5,'sine',.08,t0);
-    const act = state==='playing' ? .8 : .45;
-    if(p%2===0 && Math.random()<act){ const n=PENTA[(Math.random()*5)|0]+12*(Math.random()<.3?2:1); mnote(f(root+n),eighth*2.2,'sine',.04,t0); }
+    if(M.arp) mnote(f(root+[0,4,7,12][s%4]+12),eighth*.9,'square',.02,t0);
+    const act = state==='playing' ? M.act[1] : M.act[0];
+    if(p%2===0 && Math.random()<act){ const n=M.pent[(Math.random()*M.pent.length)|0]+12*(Math.random()<.3?2:1); mnote(f(root+n),eighth*2.2,M.pluck,M.pluckV,t0); }
     mus.next+=eighth;
   }
+}
+
+/* the app colour (Shop > Extras) tints the main buttons */
+function applyAccent(){
+  const a=SHOP.accent[eqv('accent')]||SHOP.accent.sunset, r=document.documentElement.style;
+  r.setProperty('--cta1',a.c1); r.setProperty('--cta2',a.c2); r.setProperty('--ctash',a.sh); r.setProperty('--ctaink',a.ink);
 }
 
 /* ================= Canvas / world ================= */
@@ -986,6 +1114,14 @@ let state='menu';   // menu | playing | over
 let mode='classic', stage=1, mod={};
 let stack=[], cur=null, dir=1, score=0, combo=0, bestCombo=0, perfectsRun=0, runBlocks=0, dodgedRun=0, baseW=200, revived=false;
 let lives=1, maxLives=1, timeLeft=0, timerOn=false, lastBomb=false, shield=false, forceBomb=false;
+/* boosters armed for this run: they are only used up (taken from the inventory) when they actually help */
+let armed={}, boosted=false, slowLeft=0, regrowUsed=0, boostShield=false;
+const BOOST_MODES=['classic','timed','lives','hazard','campaign'];
+const boostsAllowed=m=>BOOST_MODES.includes(m);
+function useBoost(id){
+  S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); boosted=true; armed[id]=false; save();
+  const bo=BOOSTS[id]; toast(`${I(bo.icon,'ic-cyan')} ${tr(bo.name)} · ${tr('{n} left',{n:S.shop.boosts[id]})}`,1800);
+}
 let paused=false, grace=0;
 let lowFx=false, fpsAcc=0, fpsN=0, slowWin=0;
 /* device: iPadOS 13+ reports itself as a Mac, so an iPad is "a Mac with a touch screen" */
@@ -1063,6 +1199,7 @@ function speed(){
   if(mod.speed) m*=mod.speed;
   if(mod.wind) m*=1+.42*Math.sin(t*1.7);
   if(cur && cur.bomb) m*=1.25;
+  if(slowLeft>0) m*=.6;
   return W*CFG.baseSpeed*m;
 }
 function spawnCur(noBomb){
@@ -1128,6 +1265,9 @@ function newRun(){
   score=0; combo=0; bestCombo=0; perfectsRun=0; runBlocks=0; dodgedRun=0; revived=false; cam=0; shake=0; flash=0; lastBomb=false; shield=false;
   paused=false; grace=0; clearCount(); $('pause').classList.add('hidden');
   lives=mod.lives||M.lives; maxLives=lives; timeLeft=CFG.timedSeconds; timerOn=false;
+  armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false;
+  if(boostsAllowed(mode)) for(const id of S.shop.pick) if((S.shop.boosts[id]||0)>0) armed[id]=true;
+  if(armed.shield){ shield=true; boostShield=true; }
   pieces=[]; parts=[]; rings=[]; texts=[]; banner=null; speedCue=null; speedTier=Math.floor(rampOf(1)*4);
   ghost = (M.ghost && S.ghosts[mode] && S.ghosts[mode].blocks && S.ghosts[mode].blocks.length>2) ? S.ghosts[mode] : null;
   runRec={blocks:[{x:+(stack[0].x/W).toFixed(3),w:+(stack[0].w/W).toFixed(3)}],scores:[0]};
@@ -1179,9 +1319,10 @@ function startPractice(){ S.tutSeen=true; save(); startMode('practice'); }
 /* ================= Effects ================= */
 function burst(x,wy,h,n,power,grav=900){
   if(lowFx) n=Math.ceil(n/2);
+  const fx=eqv('fx'), shape=fx==='confetti'?1:fx==='stars'?2:0;
   for(let i=0;i<n;i++){
     const a=rand(0,Math.PI*2), sp=power*rand(.35,1);
-    parts.push({x,y:wy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp+power*.35,life:1,dec:rand(.9,1.8),s:rand(2,5)*u,h:h+rand(-25,25),grav});
+    parts.push({x,y:wy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp+power*.35,life:1,dec:rand(.9,1.8)*(shape?.7:1),s:rand(2,5)*u*(shape?1.5:1),h:shape===1?rand(0,360):shape===2?rand(38,58):h+rand(-25,25),grav:shape===1?grav*1.1:grav,shape,rot:rand(0,6.283),vr:rand(-9,9)});
   }
 }
 function floatText(x,wy,text,size,color){ texts.length=0; texts.push({x,y:wy,vy:90,text,size,color,life:1}); }
@@ -1189,7 +1330,7 @@ function floatText(x,wy,text,size,color){ texts.length=0; texts.push({x,y:wy,vy:
 /* ================= Achievements ================= */
 function checkAch(x){
   if(mode==='practice') return;
-  x=Object.assign({mode,height:Math.max(0,stack.length-1),combo:bestCombo,score},x||{});
+  x=Object.assign({mode,height:Math.max(0,stack.length-1),combo:bestCombo,score},boosted?{height:0,combo:0,score:0}:{},x||{});    // a boosted run does not count for height / combo / score awards
   let any=false;
   for(const a of ACH){
     if(S.ach[a.id]) continue;
@@ -1260,10 +1401,20 @@ function drop(){
     }
     score+=1; shake=Math.max(shake,3*u); sfx.land(); vib(8);
   }
-  runBlocks++;
+  if(armed.regrow && regrowUsed<2 && nb.w<baseW*.55 && !soft()){                          // Regrow boost: back to the full starting width
+    const cxn=nb.x+nb.w/2; nb.w=baseW; nb.x=clamp(cxn-baseW/2,0,W-baseW); regrowUsed++; useBoost('regrow');
+    if((S.shop.boosts.regrow||0)>0 && regrowUsed<2) armed.regrow=true;
+    texts.length=0; texts.push({x:cxn,y:cur.y+BH*2,vy:80,text:tr('REGROW!'),size:26*u,color:'#7fe8ff',life:1}); burst(cxn,cur.y+BH,190,26,300*u,500); sfx.shield();
+  }
+  runBlocks++; hopT=t;
   stack.push(nb);
   runRec.blocks.push({x:+(nb.x/W).toFixed(3),w:+(nb.w/W).toFixed(3)}); runRec.scores.push(score);
   setScore(score); setCombo(combo); setSpeedBadge(true);
+  if(slowLeft>0) slowLeft--;
+  if(armed.slow && slowLeft===0 && rampOf(stack.length)>=1.5){                                 // Slow-Mo boost: once the speed has picked up
+    slowLeft=6; useBoost('slow'); texts.length=0; texts.push({x:W/2,y:stack.length*BH+BH*2,vy:80,text:tr('SLOW-MO!'),size:26*u,color:'#7fe8ff',life:1}); sfx.speed();
+  }
+  setAux();
   if(!prac && (stack.length-1)%CFG.milestone===0){
     banner={text:tr('{n} HIGH!',{n:stack.length-1}),life:1}; sfx.up(); vib([20,30,20]);
     burst(W/2,cur.y+BH*2,hue(TH(),cur.i),40,420*u,500);
@@ -1274,6 +1425,7 @@ function drop(){
   if(state==='playing') spawnCur();
 }
 function useShield(what){
+  if(boostShield){ boostShield=false; useBoost('shield'); }
   shield=false; S.shields=(S.shields||0)+1; setAux(true); save();
   burst(W/2,stack.length*BH+BH,190,34,330*u,500);
   texts.length=0; texts.push({x:W/2,y:stack.length*BH+60,vy:80,text:what,size:28*u,color:'#7fe8ff',life:1});
@@ -1323,19 +1475,22 @@ function endRun(reason){
   state='over'; $('tip').classList.add('hidden');
   const M=MODES[mode];
   if(reason==='fail'){ shake=Math.max(shake,14*u); }
-  const before=JSON.parse(JSON.stringify({coins:S.coins,perfects:S.perfects,played:S.played,blocks:S.blocks,bestCombo:S.bestCombo,maxHeight:S.maxHeight,best:S.best,bests:S.bests,ghosts:S.ghosts,ach:S.ach,twistBest:S.twist&&S.twist.best}));
+  const before=JSON.parse(JSON.stringify({coins:S.coins,perfects:S.perfects,played:S.played,blocks:S.blocks,bestCombo:S.bestCombo,maxHeight:S.maxHeight,best:S.best,bests:S.bests,boostBests:S.boostBests,ghosts:S.ghosts,ach:S.ach,twistBest:S.twist&&S.twist.best}));
   const earned = M.coins===false ? 0 : Math.floor(score/4)+perfectsRun;
   S.coins+=earned; S.perfects+=perfectsRun; S.played++;
   const xp=applyXp(runBlocks);
-  S.bestCombo=Math.max(S.bestCombo||0,bestCombo); S.maxHeight=Math.max(S.maxHeight||0,stack.length-1);
+  if(!boosted){ S.bestCombo=Math.max(S.bestCombo||0,bestCombo); S.maxHeight=Math.max(S.maxHeight||0,stack.length-1); }
   if(mode==='daily') S.twist.best=Math.max(S.twist.best||0,score);
-  const prevBest=S.bests[mode]||0;
+  const prevBest=boosted?(S.boostBests[mode]||0):(S.bests[mode]||0);
   const newBest=!M.noBest && score>prevBest && score>0;
   if(newBest){
-    S.bests[mode]=score; if(mode==='classic') S.best=score;
-    if(M.ghost) S.ghosts[mode]={score,blocks:runRec.blocks.slice(0,400),scores:runRec.scores.slice(0,400)};
+    if(boosted) S.boostBests[mode]=score;                                              // a boosted run keeps its own record
+    else{
+      S.bests[mode]=score; if(mode==='classic') S.best=score;
+      if(M.ghost) S.ghosts[mode]={score,blocks:runRec.blocks.slice(0,400),scores:runRec.scores.slice(0,400)};
+    }
   }
-  checkAch({height:stack.length-1,combo:bestCombo,score});
+  checkAch(boosted?{height:0,combo:0,score:0}:{height:stack.length-1,combo:bestCombo,score});
   snap=Object.assign(before,{gain:S.coins-before.coins});
   save(); setCoins();
   if(reason==='time'){ flash=.25; sfx.up(); }
@@ -1355,8 +1510,8 @@ function winStage(){
   snap=null;
   S.coins+=reward+worldBonus; S.perfects+=perfectsRun; S.played++;
   const xp=applyXp(runBlocks);
-  S.bestCombo=Math.max(S.bestCombo||0,bestCombo); S.maxHeight=Math.max(S.maxHeight||0,stack.length-1);
-  checkAch({height:stack.length-1,combo:bestCombo,score});
+  if(!boosted){ S.bestCombo=Math.max(S.bestCombo||0,bestCombo); S.maxHeight=Math.max(S.maxHeight||0,stack.length-1); }
+  checkAch(boosted?{height:0,combo:0,score:0}:{height:stack.length-1,combo:bestCombo,score});
   save(); setCoins();
   flash=.2; sfx.up(); burst(W/2,stack.length*BH,50,60,520*u,600); vib([30,40,30]);
   setTimeout(()=>showOver(Object.assign({reason:'win',win:true,stars:st,earned:reward,worldBonus,newBest:false},xp)),700);
@@ -1374,7 +1529,7 @@ function showOver(r){
   const livesLeft=clamp(lives,1,3);
   if(camp) $('oBest').innerHTML = r.win ? `${goalLabel(g)} ${I('check','ic-green')} · ${livesLeft===1?tr('<b>1</b> life left'):tr('<b>{n}</b> lives left',{n:livesLeft})}` : tr('Goal: {goal} · you got <b>{a}/{b}</b>',{goal:goalLabel(g),a:Math.min(goalVal(g),g[1]),b:g[1]});
   else if(mode==='daily') $('oBest').innerHTML=tr("Today's best <b>{n}</b>",{n:S.twist.best||0})+' · '+(S.twist.done?I('check-circle','ic-green')+' '+tr('twist complete'):tr('goal <b>{n}</b>',{n:CFG.twistGoal}));
-  else $('oBest').innerHTML=tr('Best <b>{n}</b> · Height <b>{h}</b>',{n:S.bests[mode]||0,h})+(bestCombo>1?tr(' · Combo <b>x{c}</b>',{c:bestCombo}):'');
+  else $('oBest').innerHTML=(boosted?`${I('zap','ic-cyan')} ${tr('Boosted run')} · `:'')+tr('Best <b>{n}</b> · Height <b>{h}</b>',{n:(boosted?S.boostBests[mode]:S.bests[mode])||0,h})+(bestCombo>1?tr(' · Combo <b>x{c}</b>',{c:bestCombo}):'');
   $('oCoins').innerHTML = (M.coins===false && !camp) ? tr('Zen earns no coins — just relax') : (camp && !r.win) ? '' : tr('+<b>{n}</b> {coin}',{n:r.earned,coin:I('coin')})+(r.worldBonus?tr(' · World cleared! +<b>{n}</b> {coin}',{n:r.worldBonus,coin:I('coin')}):'');
   let lv='';
   if(r.lvl>r.prevLvl) lv=tr("LEVEL UP! You're level <b>{n}</b> · +<b>{b}</b> {coin}",{n:r.lvl,b:r.lvBonus,coin:I('coin')});
@@ -1397,7 +1552,7 @@ function revive(){
   if(S.coins<CFG.reviveCost){ toast(tr('Need {n} {coin} to revive',{n:CFG.reviveCost,coin:I('coin')})); return; }
   const o=snap;
   S.coins=Math.max(0,S.coins-o.gain);                                           // take back the run's coins (also any award coins)...
-  Object.assign(S,{perfects:o.perfects,played:o.played,blocks:o.blocks,bestCombo:o.bestCombo,maxHeight:o.maxHeight,best:o.best,bests:o.bests,ghosts:o.ghosts,ach:o.ach});
+  Object.assign(S,{perfects:o.perfects,played:o.played,blocks:o.blocks,bestCombo:o.bestCombo,maxHeight:o.maxHeight,best:o.best,bests:o.bests,boostBests:o.boostBests,ghosts:o.ghosts,ach:o.ach});
   if(S.twist && o.twistBest!==undefined) S.twist.best=o.twistBest;               // ...but keep anything the player did since (a theme bought or equipped, settings)
   S.coins-=CFG.reviveCost; S.revives=(S.revives||0)+1; revived=true;
   lives=1; state='playing'; combo=0; setCombo(0);
@@ -1450,6 +1605,8 @@ function setAux(force){
     else if(mode==='practice') html='<span style="opacity:.8">'+tr('PRACTICE')+'</span>';
     else if(maxLives>1){ html=Array.from({length:maxLives},(_,i)=>`<span class="heart${i<lives?'':' lost'}">${I('heart')}</span>`).join(''); }
     if(shield) html+=' '+I('shield','ic-cyan');
+    if(slowLeft>0) html+=` <span class="ic-cyan">${I('hourglass')}${slowLeft}</span>`; else if(armed.slow) html+=` <span style="opacity:.55">${I('hourglass')}</span>`;
+    if(armed.regrow) html+=` <span style="opacity:.55">${I('expand')}</span>`;
   }
   const key=html+low;
   if(force||key!==auxKey){ auxKey=key; el.innerHTML=html; el.classList.toggle('low',low); }
@@ -1524,7 +1681,7 @@ function update(dt){
 }
 
 /* ================= Draw ================= */
-function rr(x,y,w,h,r){ r=Math.min(r,w/2,h/2); ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+function rr(x,y,w,h,r,g=ctx){ r=Math.min(r,w/2,h/2); g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
 function text(s,x,y,size,color,alpha=1){
   ctx.save(); ctx.globalAlpha=alpha; ctx.font=`900 ${size}px ui-rounded,"SF Pro Rounded",system-ui,sans-serif`;
   ctx.textAlign='center'; ctx.lineJoin='round'; ctx.lineWidth=size*.2; ctx.strokeStyle='rgba(0,0,0,.5)';
@@ -1600,28 +1757,75 @@ function drawGoalLine(){
     ctx.fillText(tr('GOAL'),10,ly-6*u); ctx.restore();
   }
 }
+/* paints one block in the look's style onto any canvas context (the game, and the little pictures in the shop) */
+function paintBlock(g,x,sy,w,bh,i,sq,th,uu,alpha){
+  const h=hue(th,i), L0=th.l+(th.ls?th.ls*Math.sin(i*.7):0), st=th.style, bb=bh-2;
+  g.save(); g.globalAlpha=alpha;
+  if(sq>0){ const cx=x+w/2, by=sy+bh; g.translate(cx,by); g.scale(1+.07*sq,1-.14*sq); g.translate(-cx,-by); }
+  if(st==='pixel'){
+    const px=Math.max(2,Math.round(3*uu));
+    g.fillStyle='#0e0f1c'; g.fillRect(x-px,sy-px,w+px*2,bb+px*2-px);
+    g.fillStyle=hsl(h,th.s,L0); g.fillRect(x,sy,w,bb-px);
+    g.fillStyle=hsl(h,th.s,L0+16); g.fillRect(x,sy,w,px*1.5);
+    g.fillStyle=hsl(h,th.s,L0-16); g.fillRect(x,sy+bb-px*3,w,px*2);
+  } else if(st==='flat'){
+    g.fillStyle=hsl(h,th.s,L0); rr(x,sy,w,bb,5*uu,g); g.fill();
+    g.strokeStyle=hsl(h,th.s,L0-16); g.lineWidth=1.5*uu; g.stroke();
+  } else if(st==='glass'){
+    g.fillStyle=hsl(h,th.s,L0+8,.46); rr(x,sy,w,bb,8*uu,g); g.fill();
+    g.strokeStyle=hsl(h,th.s,L0+28,.95); g.lineWidth=2*uu; g.stroke();
+    g.fillStyle='rgba(255,255,255,.3)'; rr(x+3*uu,sy+3*uu,Math.max(0,w-6*uu),bb*.34,5*uu,g); g.fill();
+  } else if(st==='neon'){
+    g.fillStyle='rgba(8,8,24,.84)'; rr(x,sy,w,bb,7*uu,g); g.fill();
+    if(!lowFx){ g.shadowColor=hsl(h,100,60,.95); g.shadowBlur=14*uu; }
+    g.strokeStyle=hsl(h,100,64); g.lineWidth=2.5*uu; g.stroke(); g.shadowBlur=0;
+  } else if(st==='foil'){
+    const gr=g.createLinearGradient(0,sy,0,sy+bh);
+    gr.addColorStop(0,hsl(h,th.s,L0+26)); gr.addColorStop(.38,hsl(h,th.s,L0-6)); gr.addColorStop(.62,hsl(h,th.s,L0+16)); gr.addColorStop(1,hsl(h,th.s,L0-18));
+    g.fillStyle=gr; rr(x,sy,w,bb,6*uu,g); g.fill();
+    g.fillStyle='rgba(255,255,255,.34)'; rr(x+3*uu,sy+2*uu,Math.max(0,w*.42),3*uu,2*uu,g); g.fill();
+    g.strokeStyle='rgba(255,255,255,.35)'; g.lineWidth=1*uu; rr(x,sy,w,bb,6*uu,g); g.stroke();
+  } else {
+    const gr=g.createLinearGradient(0,sy,0,sy+bh);
+    gr.addColorStop(0,hsl(h,th.s,L0+12)); gr.addColorStop(1,hsl(h,th.s,L0-10));
+    if(th.glow && !lowFx){ g.shadowColor=hsl(h,100,60,.9); g.shadowBlur=16*uu; }
+    g.fillStyle=gr; rr(x,sy,w,bb,7*uu,g); g.fill();
+    g.shadowBlur=0;
+    g.fillStyle='rgba(255,255,255,.26)'; rr(x+4*uu,sy+3*uu,Math.max(0,w-8*uu),5*uu,3*uu,g); g.fill();
+    g.fillStyle='rgba(0,0,0,.17)'; rr(x+2*uu,sy+bh-2-7*uu,Math.max(0,w-4*uu),5*uu,3*uu,g); g.fill();
+  }
+  g.restore();
+}
 function drawBlock(b,alpha=1){
   const sy=Y(b.y+BH);
   if(sy>H+BH || sy<-BH*2) return;
-  const th=TH(), h=hue(th,b.i);
-  ctx.save(); ctx.globalAlpha=alpha;
-  if(b.sq>0){ const k=b.sq, cx=b.x+b.w/2, by=sy+BH; ctx.translate(cx,by); ctx.scale(1+.07*k,1-.14*k); ctx.translate(-cx,-by); }
-  if(th.pixel){
-    const px=Math.max(2,Math.round(3*u));
-    ctx.fillStyle='#0e0f1c'; ctx.fillRect(b.x-px,sy-px,b.w+px*2,BH-2+px*2-px);
-    ctx.fillStyle=hsl(h,th.s,th.l); ctx.fillRect(b.x,sy,b.w,BH-2-px);
-    ctx.fillStyle=hsl(h,th.s,th.l+16); ctx.fillRect(b.x,sy,b.w,px*1.5);
-    ctx.fillStyle=hsl(h,th.s,th.l-16); ctx.fillRect(b.x,sy+BH-2-px*3,b.w,px*2);
-  } else {
-    const g=ctx.createLinearGradient(0,sy,0,sy+BH);
-    g.addColorStop(0,hsl(h,th.s,th.l+12)); g.addColorStop(1,hsl(h,th.s,th.l-10));
-    if(th.glow && !lowFx){ ctx.shadowColor=hsl(h,100,60,.9); ctx.shadowBlur=16*u; }
-    ctx.fillStyle=g; rr(b.x,sy,b.w,BH-2,7*u); ctx.fill();
-    ctx.shadowBlur=0;
-    ctx.fillStyle='rgba(255,255,255,.26)'; rr(b.x+4*u,sy+3*u,Math.max(0,b.w-8*u),5*u,3*u); ctx.fill();
-    ctx.fillStyle='rgba(0,0,0,.17)'; rr(b.x+2*u,sy+BH-2-7*u,Math.max(0,b.w-4*u),5*u,3*u); ctx.fill();
+  paintBlock(ctx,b.x,sy,b.w,BH,b.i,b.sq,TH(),u,alpha);
+}
+/* a cat that sits on top of the tower (a shop item) */
+function paintCat(g,cx,sy,s0,fur,tt,blink){
+  const dark=fur==='#26262f';
+  g.save(); g.translate(cx,sy); g.lineCap='round';
+  g.strokeStyle=fur; g.lineWidth=s0*.16; g.beginPath(); g.moveTo(s0*.34,-s0*.14); g.quadraticCurveTo(s0*.8,-s0*.1+Math.sin(tt*3)*s0*.1,s0*.62,-s0*.64+Math.sin(tt*3)*s0*.12); g.stroke();
+  g.fillStyle=fur; g.beginPath(); g.ellipse(0,-s0*.34,s0*.44,s0*.36,0,0,6.283); g.fill();
+  g.beginPath(); g.arc(0,-s0*.86,s0*.34,0,6.283); g.fill();
+  for(const k of [-1,1]){
+    g.fillStyle=fur; g.beginPath(); g.moveTo(k*s0*.31,-s0*.98); g.lineTo(k*s0*.2,-s0*1.32); g.lineTo(k*s0*.02,-s0*1.12); g.closePath(); g.fill();
+    g.fillStyle='#ff9bb0'; g.beginPath(); g.moveTo(k*s0*.25,-s0*1.02); g.lineTo(k*s0*.2,-s0*1.2); g.lineTo(k*s0*.1,-s0*1.1); g.closePath(); g.fill();
+    if(blink){ g.strokeStyle='rgba(0,0,0,.6)'; g.lineWidth=s0*.04; g.beginPath(); g.moveTo(k*s0*.15-s0*.07,-s0*.88); g.lineTo(k*s0*.15+s0*.07,-s0*.88); g.stroke(); }
+    else { g.fillStyle=dark?'#e9ff7a':'#fff'; g.beginPath(); g.ellipse(k*s0*.15,-s0*.88,s0*.075,s0*.09,0,0,6.283); g.fill(); g.fillStyle='#111'; g.beginPath(); g.ellipse(k*s0*.15,-s0*.88,s0*.032,s0*.075,0,0,6.283); g.fill(); }
   }
-  ctx.restore();
+  g.fillStyle='#ff8fa3'; g.beginPath(); g.moveTo(-s0*.05,-s0*.78); g.lineTo(s0*.05,-s0*.78); g.lineTo(0,-s0*.72); g.closePath(); g.fill();
+  g.strokeStyle='rgba(255,255,255,.55)'; g.lineWidth=s0*.02;
+  for(const k of [-1,1]) for(const dy of [-.04,.03]){ g.beginPath(); g.moveTo(k*s0*.1,-s0*.74+s0*dy); g.lineTo(k*s0*.36,-s0*.76+s0*dy*2.2); g.stroke(); }
+  g.restore();
+}
+let hopT=-9;
+function drawTopper(){
+  const it=SHOP.topper[eqv('topper')]; if(!it || !it.fur || !stack.length) return;
+  const top=stack[stack.length-1], sy=Y(top.y+BH);
+  if(sy<-BH*3 || sy>H+BH) return;
+  const hk=Math.max(0,1-(t-hopT)*3.2), hop=Math.sin(hk*Math.PI)*BH*.5;
+  paintCat(ctx,top.x+top.w/2,sy+1-hop,BH*1.25,it.fur,t,(t*.7)%5<.14);
 }
 function drawBomb(b){
   const sy=Y(b.y+BH);
@@ -1659,6 +1863,7 @@ function draw(){
   drawGoalLine();
   for(const b of stack) drawBlock(b);
   drawShieldAura();
+  drawTopper();
   for(const p of pieces){
     const sy=Y(p.y+BH); ctx.save(); ctx.translate(p.x+p.w/2,sy+BH/2); ctx.rotate(p.rot);
     ctx.translate(-(p.x+p.w/2),-(sy+BH/2)); drawBlock({x:p.x,y:p.y,w:p.w,i:p.i,sq:0},p.a); ctx.restore();
@@ -1669,10 +1874,13 @@ function draw(){
     ctx.save(); ctx.globalAlpha=r.life*.9; ctx.strokeStyle='#fff'; ctx.lineWidth=3*u*r.life+1;
     rr(r.x-k*18*u,sy-BH-k*10*u,r.w+k*36*u,BH+k*14*u,8*u); ctx.stroke(); ctx.restore();
   }
-  ctx.globalCompositeOperation='lighter';
   for(const p of parts){
-    ctx.globalAlpha=clamp(p.life,0,1); ctx.fillStyle=hsl(p.h,95,62);
-    ctx.beginPath(); ctx.arc(p.x,Y(p.y),p.s*clamp(p.life+.3,0,1),0,6.283); ctx.fill();
+    const sz=p.s*clamp(p.life+.3,0,1); ctx.globalAlpha=clamp(p.life,0,1); ctx.fillStyle=hsl(p.h,95,p.shape===2?68:62);
+    if(!p.shape){ ctx.globalCompositeOperation='lighter'; ctx.beginPath(); ctx.arc(p.x,Y(p.y),sz,0,6.283); ctx.fill(); continue; }
+    ctx.globalCompositeOperation='source-over'; ctx.save(); ctx.translate(p.x,Y(p.y)); ctx.rotate(p.rot+p.vr*(1-p.life));
+    if(p.shape===1) ctx.fillRect(-sz,-sz*.55,sz*2,sz*1.1);
+    else { ctx.beginPath(); for(let k=0;k<10;k++){ const r=k%2?sz*.45:sz*1.25, a=k*Math.PI/5-Math.PI/2; ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r); } ctx.closePath(); ctx.fill(); }
+    ctx.restore();
   }
   ctx.globalCompositeOperation='source-over'; ctx.globalAlpha=1;
   for(const tx of texts) text(tx.text,tx.x,Y(tx.y),tx.size,tx.color,clamp(tx.life*1.4,0,1));
@@ -1749,7 +1957,7 @@ async function shareScore(){
 }
 
 /* ================= Menu / UI ================= */
-const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs'];
+const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts'];
 function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
@@ -1768,6 +1976,7 @@ function renderMenu(){
   const lm=S.lastMode, M0=MODES[lm], best=lm==='daily'?(S.twist.best||0):(S.bests[lm]||0);
   $('modeName').innerHTML=`${I(M0.icon)} ${tr(M0.name)}`;
   $('playSub').textContent = best>0 ? (lm==='daily'?tr("Today's best {n}",{n:best}):tr('Best {n}',{n:best})) : tr("Let's go!");
+  const armedN=S.shop.pick.filter(id=>(S.shop.boosts[id]||0)>0).length; $('boostN').textContent=armedN; $('openBoosts').classList.toggle('has',armedN>0);
   const nu=nextUnlock(); $('nextCard').classList.toggle('hidden',!nu); $('nextCard').innerHTML=nu?`${I('target')} ${tr('Next unlock: <b>{x}</b>',{x:nu})}`:'';
   const claimed=S.lastClaim===today();
   const reward=20+10*Math.min(claimed?S.streak-1:(S.lastClaim===yesterday()?S.streak:0),6);
@@ -1785,10 +1994,14 @@ function claimDaily(){
   S.streak = (S.lastClaim===yesterday()) ? S.streak+1 : 1;
   S.lastClaim=today();
   const reward=20+10*Math.min(S.streak-1,6);
-  S.coins+=reward; save(); sfx.coin(); toast(tr('+{n} {coin} · {s}-day streak!',{n:reward,coin:I('coin'),s:S.streak})); renderMenu(); setCoins(); checkAch();
+  S.coins+=reward;
+  const gift=[null,null,null,'shield',null,'slow',null,'regrow'][((S.streak-1)%7)+1];            // streak days 3, 5 and 7 each bring a boost
+  if(gift) S.shop.boosts[gift]=Math.min(999,(S.shop.boosts[gift]||0)+1);
+  save(); sfx.coin(); toast(tr('+{n} {coin} · {s}-day streak!',{n:reward,coin:I('coin'),s:S.streak})+(gift?` · ${I(BOOSTS[gift].icon,'ic-cyan')} ${tr('+1 {name}',{name:tr(BOOSTS[gift].name)})}`:'')); renderMenu(); setCoins(); checkAch();
 }
 function showMenu(){
   rollDay(); endPreview(true); clearCount();
+  if(!S.shop.gift && S.played>=1){ S.shop.gift=true; for(const b of Object.keys(BOOSTS)) S.shop.boosts[b]=Math.min(999,(S.shop.boosts[b]||0)+1); save(); setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('Welcome gift: one of each boost. Pick them with the bolt button.')}`,3400),500); }
   state='menu'; setBase(); paused=false; tut.on=false; $('pause').classList.add('hidden'); demoStack(); hideAll(); $('menu').classList.remove('hidden');
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden'); $('speedB').classList.add('hidden');
   $('hand').classList.add('hidden'); $('coach').classList.add('hidden'); $('skipTut').classList.add('hidden');
@@ -1824,8 +2037,9 @@ function showStages(){
   $('sGrid').innerHTML=html; stagger('#sGrid .stg');
 }
 
-/* ----- themes with live preview ----- */
-let themesFrom='menu';
+/* ----- the shop (it grew out of the Themes screen): tabs, live preview, buying ----- */
+let themesFrom='menu', shopTab='themes';
+const TABS=[['themes','Themes'],['blocks','Blocks'],['colors','Colors'],['scenes','Scenes'],['sounds','Sounds'],['extras','Extras'],['boosts','Boosts'],['coins','Coins']];
 function openThemes(from){ themesFrom=from; hideAll(); $('themes').classList.remove('hidden'); renderThemes(); }
 function closeThemes(){ endPreview(true); if(themesFrom==='over' && state==='over'){ hideAll(); $('over').classList.remove('hidden'); } else showMenu(); }
 function themeAct(id){
@@ -1833,44 +2047,276 @@ function themeAct(id){
   if(own) return eq?{act:'none',label:I('check')+' '+tr('Equipped'),cls:'',sub:tr('Currently equipped'),dis:true}:{act:'equip',label:tr('Equip'),cls:'primary',sub:tr('Owned')};
   if(un.t==='level') return {act:'lock',label:`${I('lock')} ${tr('Level {n}',{n:un.n})}`,cls:'off',sub:tr("Unlocks at level {n} (you're level {m})",{n:un.n,m:levelOf(S.blocks)})};
   if(un.t==='coins') return {act:'coin',label:`${I('coin')} ${un.n}`,cls:S.coins>=un.n?'gold':'off',sub:tr('Costs {n} coins (you have {m})',{n:un.n,m:S.coins})};
-  return {act:'iap',label:un.price,cls:'gold',sub:tr('Premium cosmetic theme')};
+  return {act:'iap',label:priceOf(id,un.price),cls:'gold',sub:tr('Premium cosmetic theme')};
 }
+const itemName=(slot,id)=> (slot==='scene' && THEMES[id]) ? THEMES[id].name : ((SHOP[slot]||{})[id]||{}).name||id;
+function itemAct(slot,id){
+  const it=SHOP[slot][id]||{}, eq=S.shop.equip[slot]===id;
+  if(ownsItem(slot,id)) return eq?{act:'none',label:I('check')+' '+tr('Equipped'),cls:'',sub:tr('Currently equipped'),dis:true}:{act:'equip',label:tr('Equip'),cls:'primary',sub:(it.free||slot==='scene')?tr('Included'):tr('Owned')};
+  if(it.coins) return {act:'buy',label:`${I('coin')} ${it.coins}`,cls:S.coins>=it.coins?'gold':'off',sub:tr('Costs {n} coins (you have {m})',{n:it.coins,m:S.coins})};
+  return {act:'iap',label:priceOf(slot+':'+id,it.iap),cls:'gold',sub:tr('Premium cosmetic')};
+}
+const sceneIds=()=>['auto',...Object.keys(THEMES).filter(id=>S.owned.includes(id))];
+
+/* little pictures for the shop cards, drawn with the game's own painters and cached */
+const picCache={};
+function pic(key,w,h,draw){
+  if(picCache[key]) return picCache[key];
+  const c=document.createElement('canvas'); c.width=w*2; c.height=h*2; const g=c.getContext('2d'); g.scale(2,2); draw(g,w,h);
+  return picCache[key]=c.toDataURL();
+}
+const darkBg=(g,w,h,look)=>{ const gr=g.createLinearGradient(0,0,0,h); gr.addColorStop(0,look.bg[0]); gr.addColorStop(.6,look.bg[1]); gr.addColorStop(1,look.bg[2]); g.fillStyle=gr; g.fillRect(0,0,w,h); };
+function stylePic(id){
+  const look=buildLook(S.theme,id,S.shop.equip.palette,'auto');
+  return pic(`st|${id}|${S.theme}|${S.shop.equip.palette}`,160,64,(g,w,h)=>{ darkBg(g,w,h,look);
+    [[84,0],[70,7],[58,-4]].forEach(([bw,dx],k)=> paintBlock(g,(w-bw)/2+dx,h-6-(k+1)*18,bw,18,k+2,0,look,.8,1)); });
+}
+function fxPic(id){
+  const look=buildLook(S.theme,'auto','auto','auto');
+  return pic('fx|'+id,160,64,(g,w,h)=>{ darkBg(g,w,h,look); let r=7; const rnd=()=>(r=(r*9301+49297)%233280)/233280;
+    for(let k=0;k<26;k++){ const x=20+rnd()*(w-40), y=8+rnd()*(h-16), sz=2+rnd()*3.2, hu=id==='confetti'?rnd()*360:id==='stars'?48:hue(look,k);
+      g.fillStyle=hsl(hu,95,id==='stars'?68:62); g.save(); g.translate(x,y); g.rotate(rnd()*6);
+      if(id==='confetti') g.fillRect(-sz,-sz*.55,sz*2,sz*1.1);
+      else if(id==='stars'){ g.beginPath(); for(let q=0;q<10;q++){ const r0=q%2?sz*.45:sz*1.4, an=q*Math.PI/5-Math.PI/2; g.lineTo(Math.cos(an)*r0,Math.sin(an)*r0); } g.closePath(); g.fill(); }
+      else { g.beginPath(); g.arc(0,0,sz,0,6.283); g.fill(); }
+      g.restore(); } });
+}
+function topperPic(id){
+  const look=buildLook(S.theme,'auto',S.shop.equip.palette,'auto'), fur=(SHOP.topper[id]||{}).fur;
+  return pic(`tp|${id}|${S.theme}|${S.shop.equip.palette}`,160,64,(g,w,h)=>{ darkBg(g,w,h,look); paintBlock(g,w/2-44,h-22,88,18,3,0,look,.8,1); if(fur) paintCat(g,w/2,h-22,32,fur,0,false); });
+}
+function accentPic(id){ const a=SHOP.accent[id]; return pic('ac|'+id,160,64,(g,w,h)=>{ g.fillStyle='#150d33'; g.fillRect(0,0,w,h); const gr=g.createLinearGradient(0,0,0,h); gr.addColorStop(0,a.c1); gr.addColorStop(1,a.c2); g.fillStyle=gr; rr(34,14,92,32,12,g); g.fill(); g.fillStyle=a.sh; rr(34,44,92,5,3,g); g.fill(); }); }
+
+function itemCard(slot,id,sw){
+  const a=itemAct(slot,id), eq=S.shop.equip[slot]===id, name=tr(itemName(slot,id));
+  return `<div class="th${eq?' eq':''}"><div class="sw" data-act="preview" data-slot="${slot}" data-id="${id}" role="button" tabindex="0" aria-label="${tr('Preview {name}',{name})}">${sw}<em>${tr('PREVIEW')}</em></div><b>${name}</b><button class="btn ${a.cls}" ${a.dis?'disabled':''} data-act="${a.act}" data-slot="${slot}" data-id="${id}">${a.label}</button></div>`;
+}
+const nf=n=>{ try{ return Number(n).toLocaleString(lang); }catch(e){ return String(n); } };       // 1800 -> 1,800
+const sceneBg=th=>`linear-gradient(180deg,${th.bg[0]},${th.bg[1]},${th.bg[2]})`;
+const SHOP_TABS={
+  themes(){
+    return Object.entries(THEMES).map(([id,th])=>{
+      const eq=S.theme===id, a=themeAct(id);
+      const chips=[0,1,2,3,4].map(k=>`<span style="width:${14+k*2}px;margin-left:${-40+k*16}px;background:${hsl(hue(th,k*3),th.s,th.l)}"></span>`).join('');
+      const btn=`<button class="btn ${a.cls}" ${a.dis?'disabled':''} data-act="${a.act}" data-id="${id}">${a.label}</button>`;
+      return `<div class="th${eq?' eq':''}"><div class="sw" data-act="preview" data-id="${id}" role="button" tabindex="0" aria-label="${tr('Preview {name}',{name:tr(th.name)})}" style="background:${sceneBg(th)}">${chips}<em>${tr('PREVIEW')}</em></div><b>${tr(th.name)}</b>${btn}</div>`;
+    }).join('');
+  },
+  blocks(){ return Object.keys(SHOP.style).map(id=>itemCard('style',id,`<img alt="" src="${stylePic(id==='auto'?buildLook(S.theme,'auto','auto','auto').style:id)}">`)).join(''); },
+  colors(){
+    const T=THEMES[S.theme];
+    return Object.entries(SHOP.palette).map(([id,pl])=>{
+      const th=id==='auto'?T:Object.assign({},T,pl);
+      const chips=[0,1,2,3,4].map(k=>`<span style="width:${14+k*2}px;margin-left:${-40+k*16}px;background:${hsl(hue(th,k*3),th.s,th.l+(th.ls?th.ls*Math.sin(k*2.1):0))}"></span>`).join('');
+      return itemCard('palette',id,`<div style="position:absolute;inset:0;background:${sceneBg(T)}"></div>${chips}`);
+    }).join('');
+  },
+  scenes(){
+    return sceneIds().map(id=>itemCard('scene',id,`<div class="ico" style="background:${sceneBg(id==='auto'?THEMES[S.theme]:THEMES[id])}"></div>`)).join('')
+      + `<div class="sub" style="grid-column:1/-1">${tr('Every theme you unlock adds its scenery here.')}</div>`;
+  },
+  sounds(){
+    const ico=(name,bg)=>`<div class="ico" style="background:${bg}">${I(name)}</div>`;
+    return `<div class="tabh">${tr('SOUND EFFECTS')}</div>`+Object.keys(SHOP.sfx).map(id=>itemCard('sfx',id,ico('sound','linear-gradient(135deg,#3b2a7a,#1b1044)'))).join('')
+      + `<div class="tabh">${tr('MUSIC')}</div>`+Object.keys(SHOP.music).map(id=>itemCard('music',id,ico('music','linear-gradient(135deg,#7a2a5a,#2a1044)'))).join('');
+  },
+  extras(){
+    return `<div class="tabh">${tr('LANDING EFFECTS')}</div>`+Object.keys(SHOP.fx).map(id=>itemCard('fx',id,`<img alt="" src="${fxPic(id)}">`)).join('')
+      + `<div class="tabh">${tr('TOWER TOPPER')}</div>`+Object.keys(SHOP.topper).map(id=>itemCard('topper',id,`<img alt="" src="${topperPic(id)}">`)).join('')
+      + `<div class="tabh">${tr('APP COLOR')}</div>`+Object.keys(SHOP.accent).map(id=>itemCard('accent',id,`<img alt="" src="${accentPic(id)}">`)).join('');
+  },
+  boosts(){
+    return Object.entries(BOOSTS).map(([id,bo])=>{
+      const n=S.shop.boosts[id]||0, [p1,p3]=bo.price;
+      return `<div class="bst"><i>${I(bo.icon)}</i><div><b>${tr(bo.name)}</b><span>${tr(bo.desc)}</span><small>${tr('You have {n}',{n})}</small></div><div class="bb">
+        <button class="btn ${S.coins>=p1?'gold':'off'}" data-act="boost" data-id="${id}" data-n="1">×1 · ${I('coin')} ${p1}</button>
+        <button class="btn ${S.coins>=p3?'gold':'off'}" data-act="boost" data-id="${id}" data-n="3">×3 · ${I('coin')} ${p3}</button></div></div>`;
+    }).join('') + `<div class="sub" style="grid-column:1/-1">${tr('Boosts are only used up when they actually help you. Pick up to 2 for a round with the Boosts button on the menu.')}</div>`;
+  },
+  coins(){
+    const packs=Object.entries(PRODUCTS).filter(([k,p])=>!p.boosts).map(([k,p])=>`<div class="th"><div class="sw" style="cursor:default"><div class="ico" style="background:linear-gradient(135deg,#6b4a00,#2a1a00);color:var(--gold)">${I('coin')}<b style="margin-left:6px;font-size:22px">${nf(p.coins)}</b></div></div><b>${tr('{n} coins',{n:nf(p.coins)})}</b><button class="btn gold" data-act="pack" data-id="${k}">${priceOf(k,p.price)}</button></div>`).join('');
+    const st=PRODUCTS.starter, owned=S.shop.owned.includes('product:starter');
+    return `<div class="bst"><i>${I('gem')}</i><div><b>${tr('Starter pack')}</b><span>${tr('{coins} coins, {n} of each boost and 2 cosmetics. One time only.',{coins:nf(st.coins),n:2})}</span></div><div class="bb"><button class="btn ${owned?'':'gold'}" ${owned?'disabled':''} data-act="pack" data-id="starter">${owned?I('check')+' '+tr('Owned'):priceOf('starter',st.price)}</button></div></div>`
+      + packs + `<div class="bst" style="flex-direction:column;align-items:stretch"><div><span>${tr('Coins can also be earned by playing, from the daily reward and from awards.')}</span></div><button class="btn" data-act="restore">${tr('Restore purchases')}</button></div>`;
+  }
+};
+const TAB_HINT={themes:'tap a theme to preview it',blocks:'tap an item to try it',colors:'tap an item to try it',scenes:'tap an item to try it',sounds:'tap an item to hear it',extras:'tap an item to try it',boosts:'Boosts help you through a tough round',coins:'Coins buy themes, looks and boosts'};
 function renderThemes(){
   const lvl=levelOf(S.blocks);
-  $('tInfo').innerHTML=`${tr('Level {n}',{n:lvl})} · ${I('coin')} <b>${S.coins}</b> · ${tr('tap a theme to preview it')}`;
-  $('tGrid').innerHTML=Object.entries(THEMES).map(([id,th])=>{
-    const eq=S.theme===id, a=themeAct(id);
-    const chips=[0,1,2,3,4].map(k=>`<span style="width:${14+k*2}px;margin-left:${-40+k*16}px;background:${hsl(hue(th,k*3),th.s,th.l)}"></span>`).join('');
-    const btn=`<button class="btn ${a.cls}" ${a.dis?'disabled':''} data-act="${a.act}" data-id="${id}">${a.label}</button>`;
-    return `<div class="th${eq?' eq':''}"><div class="sw" data-act="preview" data-id="${id}" role="button" tabindex="0" aria-label="${tr('Preview {name}',{name:tr(th.name)})}" style="background:linear-gradient(180deg,${th.bg[0]},${th.bg[1]},${th.bg[2]})">${chips}<em>${tr('PREVIEW')}</em></div><b>${tr(th.name)}</b>${btn}</div>`;
-  }).join(''); stagger('#tGrid .th');
+  $('tInfo').innerHTML=`${tr('Level {n}',{n:lvl})} · ${I('coin')} <b>${S.coins}</b> · ${tr(TAB_HINT[shopTab])}`;
+  if(shopTab==='coins' && !coinsTabOn()) shopTab='themes';
+  $('tTabs').innerHTML=TABS.filter(([id])=>id!=='coins' || coinsTabOn()).map(([id,name])=>`<button class="tab${id===shopTab?' on':''}" role="tab" aria-selected="${id===shopTab}" data-tab="${id}">${tr(name)}</button>`).join('');
+  $('tGrid').innerHTML=SHOP_TABS[shopTab](); stagger('#tGrid .th');
 }
-function startPreview(id){
-  previewId=id; initAmb(); $('themes').classList.add('peeking'); updatePeek(); $('peek').classList.remove('hidden');
+function startPreview(id,slot=null){
+  previewId=id; previewSlot=slot; initAmb(); applyAccent(); $('themes').classList.add('peeking'); updatePeek(); $('peek').classList.remove('hidden');
+  if(slot==='sfx'){ sfx.land(); setTimeout(()=>sfx.perfect(3),170); setTimeout(()=>sfx.perfect(5),330); }
 }
 function endPreview(silent){
   if(previewId===null) return;
-  previewId=null; initAmb(); $('themes').classList.remove('peeking'); $('peek').classList.add('hidden');
+  previewId=null; previewSlot=null; initAmb(); applyAccent(); $('themes').classList.remove('peeking'); $('peek').classList.add('hidden');
   if(!silent) renderThemes();
 }
 function updatePeek(){
-  const id=previewId, th=THEMES[id], a=themeAct(id);
-  $('peekName').textContent=tr(th.name); $('peekSub').textContent=a.sub;
+  const id=previewId, slot=previewSlot, a=slot?itemAct(slot,id):themeAct(id);
+  $('peekName').textContent=tr(slot?itemName(slot,id):THEMES[id].name); $('peekSub').textContent=a.sub;
   const b=$('peekAct'); b.innerHTML=a.label; b.className='btn '+a.cls; b.dataset.act=a.act; b.disabled=!!a.dis;
 }
+/* choosing a whole theme replaces any block style / colour / scene tweaks */
+const resetTweaks=()=>{ Object.assign(S.shop.equip,{style:'auto',palette:'auto',scene:'auto'}); };
 function themeAction(act,id){
   const th=THEMES[id]; if(!th) return false;
-  if(act==='equip'){ S.theme=id; save(); initAmb(); sfx.tap(); renderThemes(); return true; }
+  if(act==='equip'){ S.theme=id; resetTweaks(); save(); initAmb(); sfx.tap(); renderThemes(); return true; }
   else if(act==='lock'){ toast(tr('Reach level {n} to unlock {name}',{n:th.unlock.n,name:tr(th.name)})); }
   else if(act==='coin'){
     if(S.coins<th.unlock.n){ toast(tr('Need {n} {coin} — you have {m}',{n:th.unlock.n,coin:I('coin'),m:S.coins})); return false; }
-    S.coins-=th.unlock.n; S.owned.push(id); S.theme=id; save(); initAmb(); sfx.up(); setCoins(); renderThemes(); checkAch(); return true;
+    S.coins-=th.unlock.n; S.owned.push(id); S.theme=id; resetTweaks(); save(); initAmb(); sfx.up(); setCoins(); renderThemes(); checkAch(); return true;
   }
-  else if(act==='iap'){
-    if(!SQUARE_LINKS[id]){ toast(tr('Store is not connected yet')); return false; }
-    location.href=SQUARE_LINKS[id];
-  }
+  else if(act==='iap') return buyIap(id);
   return false;
+}
+function itemAction(act,slot,id){
+  const it=(SHOP[slot]||{})[id]; if(!itemOk(slot,id)) return false;
+  if(act==='equip'){ if(!ownsItem(slot,id)) return false; S.shop.equip[slot]=id; save(); if(slot==='scene') initAmb(); if(slot==='accent') applyAccent(); sfx.tap(); renderThemes(); return true; }
+  if(act==='buy'){
+    if(!it || !it.coins || ownsItem(slot,id)) return false;
+    if(S.coins<it.coins){ toast(tr('Need {n} {coin} — you have {m}',{n:it.coins,coin:I('coin'),m:S.coins})); return false; }
+    S.coins-=it.coins; S.shop.owned.push(slot+':'+id); S.shop.equip[slot]=id; save(); if(slot==='accent') applyAccent(); sfx.up(); setCoins(); renderThemes(); checkAch(); return true;
+  }
+  if(act==='iap') return buyIap(slot+':'+id);
+  return false;
+}
+function boostAction(id,n){
+  const bo=BOOSTS[id]; if(!bo) return false;
+  const price=bo.price[n===3?1:0];
+  if(S.coins<price){ toast(tr('Need {n} {coin} — you have {m}',{n:price,coin:I('coin'),m:S.coins})); return false; }
+  S.coins-=price; S.shop.boosts[id]=Math.min(999,(S.shop.boosts[id]||0)+n); save(); sfx.up(); setCoins(); renderThemes();
+  toast(`${I(bo.icon,'ic-cyan')} ${tr('{name} ×{n} added',{name:tr(bo.name),n})}`); return true;
+}
+
+/* ----- the Boosts sheet on the menu: pick up to 2 for the next round ----- */
+function renderBoosts(){
+  $('boostNote').textContent=boostsAllowed(S.lastMode)?tr('Pick up to 2 for your next round. A boost is only used up when it actually helps.'):tr('Boosts do not work in Daily Twist or Zen.');
+  $('boostList').innerHTML=Object.entries(BOOSTS).map(([id,bo])=>{
+    const n=S.shop.boosts[id]||0, on=S.shop.pick.includes(id)&&n>0;
+    return `<button class="bpick${on?' on':''}${n?'':' empty'}" data-boost="${id}" aria-pressed="${on}"><i>${I(bo.icon)}</i><div><b>${tr(bo.name)}</b><span>${tr(bo.desc)}</span></div><em>${on?I('check')+' ':''}×${n}</em></button>`;
+  }).join('');
+}
+function openBoosts(){ $('boosts').classList.remove('hidden'); renderBoosts(); }
+function closeBoosts(){ $('boosts').classList.add('hidden'); renderMenu(); }
+$('openBoosts').onclick=()=>{ sfx.tap(); openBoosts(); };
+$('boostBg').onclick=$('boostDone').onclick=()=>{ sfx.tap(); closeBoosts(); };
+$('boostShop').onclick=()=>{ sfx.tap(); $('boosts').classList.add('hidden'); shopTab='boosts'; openThemes('menu'); };
+$('boostList').addEventListener('click',e=>{
+  const b=e.target.closest('[data-boost]'); if(!b) return; const id=b.dataset.boost;
+  if(!(S.shop.boosts[id]>0)){ sfx.tap(); $('boosts').classList.add('hidden'); shopTab='boosts'; openThemes('menu'); return; }     // none left: go and get some
+  const pick=S.shop.pick, i=pick.indexOf(id);
+  if(i>=0) pick.splice(i,1); else { if(pick.filter(k=>S.shop.boosts[k]>0).length>=2){ toast(tr('Pick up to 2')); return; } pick.push(id); }
+  save(); sfx.tap(); renderBoosts(); renderMenu();
+});
+
+/* ----- boosters and real-money purchases -----
+   Cosmetics and coin packs that cost dollars: in the Android app they go through Google Play Billing (the Digital Goods API of a
+   Trusted Web Activity); on the web only the cosmetics can have a Square link. Until a store is connected, tapping one just says so. */
+const BOOSTS={
+  shield:{name:'Shield',icon:'shield',desc:'Start the round with a shield that blocks one miss or bomb.',price:[60,150]},
+  slow:{name:'Slow-Mo',icon:'hourglass',desc:'Slows the blocks for 6 drops when the speed picks up.',price:[80,200]},
+  regrow:{name:'Regrow',icon:'expand',desc:'Restores your full width when your tower gets thin.',price:[100,250]}
+};
+const PRODUCTS={ coins_s:{coins:600,price:'$0.99'}, coins_m:{coins:1800,price:'$2.99'}, coins_l:{coins:4000,price:'$4.99'}, coins_xl:{coins:9000,price:'$9.99'},
+                 starter:{coins:1000,boosts:{shield:2,slow:2,regrow:2},items:['style:neon','topper:black'],price:'$2.99'} };
+const PLAY_BILLING='https://play.google.com/billing';
+const skuOf=key=>'item_'+String(key).replace(/[^a-z0-9]+/g,'_');          // Play product ids: lowercase letters, digits, underscores
+/* everything that costs real money: coin packs, the starter pack, premium themes and premium cosmetics */
+const iapKeys=()=>[...Object.keys(PRODUCTS),...Object.keys(THEMES).filter(id=>THEMES[id].unlock.t==='iap'),
+                   ...Object.keys(SHOP).flatMap(sl=>Object.keys(SHOP[sl]).filter(id=>SHOP[sl][id].iap).map(id=>sl+':'+id))];
+const isCoinPack=key=>has(PRODUCTS,key) && !PRODUCTS[key].items;           // bought again and again ("consumed"); everything else is bought once
+/* what a successful purchase gives (also used by tests). restore=true gives it back without switching what you have equipped */
+function grantProduct(key,restore){
+  const p=has(PRODUCTS,key)?PRODUCTS[key]:null;
+  if(p){
+    S.coins+=p.coins||0;
+    if(p.boosts) for(const [b,n] of Object.entries(p.boosts)) S.shop.boosts[b]=Math.min(999,(S.shop.boosts[b]||0)+n);
+    if(p.items) for(const k of p.items) if(!S.shop.owned.includes(k)) S.shop.owned.push(k);
+    if(key==='starter' && !S.shop.owned.includes('product:starter')) S.shop.owned.push('product:starter');
+  } else if(has(THEMES,key) && THEMES[key].unlock.t==='iap'){ if(!S.owned.includes(key)) S.owned.push(key); if(!restore){ S.theme=key; resetTweaks(); } }
+  else {
+    const [sl,id]=String(key).split(':'), it=sl && id && itemOk(sl,id) && has(SHOP[sl],id) ? SHOP[sl][id] : null;
+    if(!it || !it.iap) return false;                                       // only items that really cost money can be granted
+    if(!S.shop.owned.includes(key)) S.shop.owned.push(key);
+    if(!restore) S.shop.equip[sl]=id;
+  }
+  save(); setCoins(); initAmb(); applyAccent(); if(!restore) sfx.up(); if(!$('themes').classList.contains('hidden')) renderThemes(); return true;
+}
+/* A purchase is granted once per purchase token, even if the app is closed before it could tell Google. */
+function claimPurchase(key,token,restore){
+  if(token && S.shop.tokens.includes(token)) return true;
+  if(!grantProduct(key,restore)) return false;
+  if(token){ S.shop.tokens.push(token); S.shop.tokens=S.shop.tokens.slice(-40); save(); }
+  return true;
+}
+const inAndroidApp=()=>/^android-app:/.test(document.referrer||'');                     // opened from the Android app (a Trusted Web Activity)
+const inPlayApp=()=>inAndroidApp() && ('getDigitalGoodsService' in window);              // ...and Google Play Billing is available there
+let playSvc=null;
+async function playService(){ if(playSvc) return playSvc; try{ return inPlayApp() ? (playSvc=await window.getDigitalGoodsService(PLAY_BILLING)) : null; }catch(e){ return null; } }
+/* Coins and the starter pack can only be bought in the Android app; the web build shows them as a preview until a web store exists. */
+const webStore=()=>Object.values(SQUARE_LINKS).some(Boolean);
+const coinsTabOn=()=>inPlayApp() || (!inAndroidApp() && !webStore());
+/* prices in the player's own currency, as Google Play reports them (the dollar prices in the catalogue are only the fallback) */
+const playPrice={};
+const priceOf=(key,fallback)=>playPrice[key]||fallback;
+async function loadPlayPrices(){
+  const svc=await playService(); if(!svc) return;
+  try{
+    const keys=iapKeys();
+    for(const d of (await svc.getDetails(keys.map(skuOf)))||[]){
+      const key=keys.find(k=>skuOf(k)===d.itemId); if(!key || !d.price) continue;
+      try{ playPrice[key]=new Intl.NumberFormat(lang,{style:'currency',currency:d.price.currency}).format(+d.price.value); }catch(e){ playPrice[key]=d.price.value+' '+d.price.currency; }
+    }
+    if(!$('themes').classList.contains('hidden')) renderThemes();
+  }catch(e){}
+}
+/* Consumable coin packs are consumed (which also acknowledges them, and lets the player buy again); everything else is acknowledged.
+   Google refunds a purchase that is not acknowledged within 3 days. NOT TESTED against the real store: see android/README.md. */
+async function finishPurchase(svc,key,token){
+  if(!token) return;
+  try{ if(isCoinPack(key)) await svc.consume(token); else if(typeof svc.acknowledge==='function') await svc.acknowledge(token,'onetime'); }catch(e){}
+}
+let buying=false;
+async function playBuy(key){
+  if(buying) return false;                                                  // a second tap while the Google sheet is open
+  buying=true;
+  try{
+    const svc=await playService(); if(!svc) return false;
+    const req=new PaymentRequest([{supportedMethods:PLAY_BILLING,data:{sku:skuOf(key)}}],{total:{label:'Total',amount:{currency:'USD',value:'0'}}});
+    const res=await req.show(), token=res.details && res.details.purchaseToken;
+    /* TODO before launch: send `token` to a small server that verifies it with the Google Play Developer API, and grant only on success */
+    const ok=claimPurchase(key,token);
+    if(ok) await finishPurchase(svc,key,token);
+    await res.complete(ok?'success':'fail'); return ok;
+  }catch(e){ return false; }
+  finally{ buying=false; }
+}
+function buyIap(key){
+  if(inPlayApp()){ playBuy(key); return true; }
+  if(!inAndroidApp() && has(SQUARE_LINKS,key) && SQUARE_LINKS[key]){ location.href=SQUARE_LINKS[key]; return true; }   // never send the Android app to an outside checkout: Google Play requires Play Billing there
+  toast(tr('Store is not connected yet')); return false;
+}
+/* On start-up (silently) and from the "Restore purchases" button: give back what Google says the player owns */
+async function syncPurchases(manual){
+  const svc=await playService();
+  if(!svc){ if(manual) toast(tr('Nothing to restore')); return; }
+  try{
+    const keys=iapKeys(); let n=0;
+    for(const pu of (await svc.listPurchases())||[]){
+      const key=keys.find(k=>skuOf(k)===pu.itemId); if(!key) continue;
+      if(isCoinPack(key) && !pu.purchaseToken) continue;                  // without a token a coin pack could be granted twice
+      const fresh=!(pu.purchaseToken && S.shop.tokens.includes(pu.purchaseToken));
+      if(claimPurchase(key,pu.purchaseToken,true) && fresh) n++;
+      await finishPurchase(svc,key,pu.purchaseToken);
+    }
+    if(manual) toast(n?tr('Purchases restored'):tr('Nothing to restore'));
+  }catch(e){ if(manual) toast(tr('Could not restore purchases')); }
 }
 function showAwards(){
   hideAll(); $('awards').classList.remove('hidden');
@@ -1933,6 +2379,7 @@ addEventListener('pointerdown',e=>{
 });
 addEventListener('keydown',e=>{
   if(e.code==='Space'||e.code==='Enter'){ if(state==='playing'){ e.preventDefault(); drop(); } }
+  if(e.code==='Escape' && !$('boosts').classList.contains('hidden')){ closeBoosts(); return; }
   if(e.code==='Escape'||e.code==='KeyP'){ if(state==='playing'){ paused?resume():pause(); } else if(previewId!==null) endPreview(); }
   if((e.code==='Enter'||e.code==='Space') && e.target && e.target.getAttribute && e.target.getAttribute('role')==='button'){ e.preventDefault(); e.target.click(); }
 });
@@ -2004,16 +2451,21 @@ const toggleMute=()=>{ S.mute=!S.mute; save(); setMuteIcon(); if(!S.mute) sfx.ta
 $('mute').onclick=toggleMute;
 $('mute2').onclick=toggleMute;
 $('dailyCard').addEventListener('click',e=>{ if(e.target.closest('[data-act=claim]')) claimDaily(); });
+$('tTabs').addEventListener('click',e=>{ const b=e.target.closest('[data-tab]'); if(!b) return; sfx.tap(); shopTab=b.dataset.tab; renderThemes(); });
 $('tGrid').addEventListener('click',e=>{
   const b=e.target.closest('[data-act]'); if(!b) return;
-  if(b.dataset.act==='preview'){ sfx.tap(); startPreview(b.dataset.id); return; }
-  if(b.dataset.act==='none') return;
-  themeAction(b.dataset.act,b.dataset.id);
+  const act=b.dataset.act, id=b.dataset.id, slot=b.dataset.slot||null;
+  if(act==='preview'){ sfx.tap(); startPreview(id,slot); return; }
+  if(act==='none') return;
+  if(act==='boost'){ boostAction(id,+b.dataset.n); return; }
+  if(act==='pack'){ buyIap(id); return; }
+  if(act==='restore'){ syncPurchases(true); return; }
+  if(slot) itemAction(act,slot,id); else themeAction(act,id);
 });
 $('peekAct').onclick=()=>{
-  const id=previewId, act=$('peekAct').dataset.act; if(!id||act==='none') return;
-  const ok=themeAction(act,id);
-  if(ok && S.theme===id){ endPreview(); } else if(previewId!==null){ updatePeek(); }
+  const id=previewId, slot=previewSlot, act=$('peekAct').dataset.act; if(!id||act==='none') return;
+  const ok=slot?itemAction(act,slot,id):themeAction(act,id);
+  if(ok && (slot?S.shop.equip[slot]===id:S.theme===id)){ endPreview(); } else if(previewId!==null){ updatePeek(); }
 };
 $('peekClose').onclick=()=>{ sfx.tap(); endPreview(); };
 
@@ -2033,6 +2485,9 @@ if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.ho
     get ghostOutline(){ return S.ghostOutline!==false; }, CFG, get u(){ return u; }, get tablet(){ return tablet; }, get uiZ(){ return uiZ; }, IS_IPAD, IS_IOS, HAS_VIBRATE, get speedCue(){ return speedCue; }, get banner(){ return banner; },
     showMenu, showModes, showStages, openThemes, showAwards, showSettings, renderMenu, resize,
     giveShield(){ shield=true; setAux(true); }, bombNext(){ forceBomb=true; },
+    get boosted(){ return boosted; }, get armed(){ return armed; }, get slowLeft(){ return slowLeft; }, get regrowUsed(){ return regrowUsed; }, get baseW(){ return baseW; }, SQUARE_LINKS, openBoosts, closeBoosts, boostsAllowed,
+    SHOP, BOOSTS, PRODUCTS, TABS, TAB_HINT, ownsItem, itemAction, boostAction, themeAction, grantProduct, claimPurchase, syncPurchases, loadPlayPrices, iapKeys, skuOf, isCoinPack, coinsTabOn, inPlayApp, inAndroidApp, buyIap, renderThemes, openThemes, startPreview, endPreview,
+    setTab(t){ shopTab=t; renderThemes(); }, get tab(){ return shopTab; }, get look(){ return TH(); }, applyAccent,
     staticKeys(){
       const keys=new Set();
       for(const n of staticTextNodes(document.body)) keys.add((origText.get(n)||n.nodeValue).trim());
@@ -2051,8 +2506,8 @@ if('serviceWorker' in navigator && /^https?:/.test(location.protocol)){
 $('updBtn').onclick=()=>location.reload();
 $('crashBtn').onclick=()=>location.reload();
 
-resize(); applyCalm(); setMuteIcon(); requestAnimationFrame(loop);
-loadLang(detectLang()).then(code=>{ lang=code; applyI18n(); showMenu(); setMuteIcon(); document.body.classList.add('ready'); });
+resize(); applyCalm(); applyAccent(); setMuteIcon(); requestAnimationFrame(loop);
+loadLang(detectLang()).then(code=>{ lang=code; applyI18n(); showMenu(); setMuteIcon(); document.body.classList.add('ready'); if(inPlayApp()){ syncPurchases(false); loadPlayPrices(); } });
 })();
 </script>
 <div id="rotate" role="alert"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><b>Rotate your phone</b><span>Stack Rush plays in portrait.</span></div>

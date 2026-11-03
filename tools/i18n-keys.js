@@ -32,6 +32,11 @@ const {serve}=require('./serve');
     for(const t of Object.values(sr.THEMES)) out.add(t.name);
     for(const a of sr.ACH){ out.add(a.name); out.add(a.desc); }
     for(const w of sr.WORLD_NAMES) out.add(w);
+    /* the shop: item names (blocks, colours, sounds, extras), boosts, tab labels and hints */
+    for(const slot of Object.values(sr.SHOP)) for(const it of Object.values(slot)) if(it.name) out.add(it.name);
+    for(const b of Object.values(sr.BOOSTS)){ out.add(b.name); out.add(b.desc); }
+    for(const [, name] of sr.TABS) out.add(name);
+    for(const hint of Object.values(sr.TAB_HINT)) out.add(hint);
     return [...out];
   });
   await b.close(); srv.close();

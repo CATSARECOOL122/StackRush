@@ -5,7 +5,7 @@ _Türkçe (tr): paste each section into the matching field of the Play Console l
 ## Short description (74/80)
 Doğru anda dokun, kuleyi istifle, mükemmeli yakala. Reklamsız, çevrimdışı.
 
-## Full description (1531/4000)
+## Full description (1799/4000)
 Kayan bloğu kulenin üzerine bırakmak için dokun. Tam ortaya denk gelirse MÜKEMMEL olur ve tüm genişliğini korursun. Kenarı kaçırırsan taşan kısım kesilir. Ne kadar yükseğe çıkabilirsin?
 
 NASIL OYNANIR
@@ -29,7 +29,7 @@ REKORUNU KIR
 • Skor kartını arkadaşlarınla tek dokunuşla paylaş.
 
 15 TEMA
-Gün Batımı, Neon, Okyanus, Orman, Çöl, Buz, Şeker, Lav, Sakura, Retro, Derin Deniz, Kış Gecesi ve premium Altına Hücum, Galaksi ve Siber Şehir. Temaları oynayarak, kazandığın jetonlarla açabilir ya da satın alabilirsin. Satın alımlar yalnızca görseldir: aldığın hiçbir şey oyunu kolaylaştırmaz.
+Gün Batımı, Neon, Okyanus, Orman, Çöl, Buz, Şeker, Lav, Sakura, Retro, Derin Deniz, Kış Gecesi ve premium Altına Hücum, Galaksi ve Siber Şehir. Temaları oynayarak, kazandığın jetonlarla açabilir ya da satın alabilirsin. Mağazada ayrıca blok stillerini, renkleri, manzaraları, sesleri ve müziği değiştirebilirsin. İsteğe bağlı güçlendiriciler (Kalkan, Ağır çekim ve Genişlet) zor bir turda yardımcı olur ve yalnızca gerçekten işe yaradığında harcanır; güçlendiricili turun kendi rekoru vardır. Satın alımlar her zaman isteğe bağlıdır, rastgele ücretli öğe yoktur.
 
 ADİL VE RAHAT
 • Reklam yok.

@@ -7,11 +7,16 @@ const run=(...a)=>execFileSync('node',a,{cwd:root,encoding:'utf8',stdio:['ignore
 
 /* elements whose text is wider than their box (clipped), or a page that scrolls sideways */
 const overflow=p=>p.evaluate(()=>{
-  const bad=[];
-  for(const el of document.querySelectorAll('#stage button,#stage .pill,#stage .nb,#stage .mode,#stage .set,#stage .ibtn,#stage h2,#stage .stg,#stage .th,#stage .card,#stage .lead,#stage .sub,#stage .lang')){
+  const bad=[]; document.querySelectorAll('.rip').forEach(r=>r.remove());          // (the tap ripple of a button that was just pressed is wider than the button, that is not a layout fault)
+  for(const el of document.querySelectorAll('#stage button,#stage .pill,#stage .nb,#stage .mode,#stage .set,#stage .ibtn,#stage h2,#stage .stg,#stage .th,#stage .card,#stage .lead,#stage .sub,#stage .lang,#stage .tab,#stage .bst,#stage .bpick,#stage .sheet h3')){
     const r=el.getBoundingClientRect(); if(!r.width||!r.height) continue;
     const cs=getComputedStyle(el);
     if(el.scrollWidth>el.clientWidth+2 && (cs.overflowX!=='visible'||cs.whiteSpace==='nowrap')) bad.push(`${el.tagName.toLowerCase()}.${String(el.className).slice(0,18)} "${(el.textContent||'').trim().slice(0,28)}"`);
+  }
+  for(const box of document.querySelectorAll('#stage .bst,#stage .bpick,#stage .th')){                      // text must stay inside its shop card / boost row
+    const q=box.getBoundingClientRect(); if(!q.width) continue;
+    for(const k of box.querySelectorAll('b,span,small,em,button')){ const r=k.getBoundingClientRect(); if(!r.width) continue;
+      if(r.right>q.right+2||r.left<q.left-2) bad.push(`${box.className.slice(0,8)} "${(k.textContent||'').trim().slice(0,24)}" sticks out of its card`); }
   }
   if(document.documentElement.scrollWidth>innerWidth+1) bad.push('PAGE scrolls horizontally');
   return bad;
@@ -27,7 +32,7 @@ module.exports=[
     assert.deepEqual(Object.keys(json).sort(),[...keys].sort(),`${code}: lang file has the same keys as the game`);
     const built={}; for(const line of fs.readFileSync(path.join(root,`tools/i18n-src/${code}.txt`),'utf8').split('\n')){ if(!line.trim()) continue; const i=line.indexOf('|'); built[keys[+line.slice(0,i)-1]]=line.slice(i+1); }
     assert.deepEqual(json,built,`${code}.json is stale: run npm run lang`);
-    const same=keys.filter(k=>json[k]===k && /[a-z]{4,}/i.test(k) && !/^(Stack Rush|STACK RUSH)$/.test(k));
+    const same=keys.filter(k=>json[k]===k && /[a-z]{4,}/i.test(k.replace(/\{\w+\}/g,'')) && !/^(Stack Rush|STACK RUSH)$/.test(k));
     if(!['id','de','tr','fr','es','pt','it'].includes(code)) assert.ok(same.length<3,`${code}: ${same.length} strings left in English: ${same.slice(0,5).join(' | ')}`);
   }
 }],
@@ -42,8 +47,13 @@ module.exports=[
     const check=async tag=>{ for(const x of await overflow(p)) problems.push(`${code} ${tag}: ${x}`); };
     await p.waitForTimeout(450); await check('menu');
     for(const [tag,open,close] of [['modes','#openModes','#closeModes'],['settings','#openSettings','#closeSettings'],['awards','#openAwards','#closeAwards'],['themes','#openThemes','#closeThemes'],['campaign','#openCampaign','#closeStages']]){
-      await p.click(open); await p.waitForTimeout(450); await check(tag); await p.click(close);
+      await p.click(open); await p.waitForTimeout(450); await check(tag);
+      if(tag==='themes') for(const id of await p.evaluate(()=>__sr.TABS.map(t=>t[0]))){ await p.evaluate(id=>__sr.setTab(id),id); await p.waitForTimeout(120); await check('shop '+id); }
+      await p.click(close);
     }
+    await p.evaluate(()=>{ Object.assign(__sr.S.shop.boosts,{shield:12,slow:3,regrow:0}); __sr.S.shop.pick=['shield']; __sr.renderMenu(); });     // the Boosts button and sheet (with a double-digit count)
+    await p.waitForTimeout(100); await check('menu with boosts'); await p.click('#openBoosts'); await p.waitForTimeout(450); await check('boosts sheet'); await p.click('#boostDone');
+    await p.evaluate(()=>{ Object.assign(__sr.S.shop.boosts,{shield:0,slow:0,regrow:0}); __sr.S.shop.pick=[]; __sr.renderMenu(); });      // (an armed Shield would save the miss the game-over check below relies on)
     await p.click('#play',{force:true}); await p.waitForTimeout(400); await check('practice offer');
     await p.click('#tutSkip'); await p.waitForTimeout(400);
     await p.evaluate(()=>__sr.pause()); await p.waitForTimeout(250); await check('pause'); await p.click('#quit');
@@ -118,7 +128,13 @@ module.exports=[
     }
     await p.evaluate(()=>__sr.startStage(1)); for(let i=0;i<9;i++){ if(await L.perfect(p)==='over') break; } await p.waitForTimeout(1200); await p.click('#toMenu');
     await p.evaluate(()=>__sr.startStage(2)); await narrow(); await narrow(); await narrow(); await p.waitForTimeout(1200); await p.click('#toMenu');
-    await p.click('#openThemes'); await p.click('.sw[data-id=lava]'); await p.click('#peekClose'); await p.click('.sw[data-id=gold]'); await p.click('#peekAct'); await p.click('#peekClose'); await p.click('#closeThemes');
+    await p.click('#openThemes'); await p.click('.sw[data-id=lava]'); await p.click('#peekClose'); await p.click('.sw[data-id=gold]'); await p.click('#peekAct'); await p.click('#peekClose');
+    for(const id of await p.evaluate(()=>__sr.TABS.map(t=>t[0]))){ await p.evaluate(id=>__sr.setTab(id),id); await p.waitForTimeout(80); }      // every shop tab, its cards, hints and headings
+    await p.evaluate(()=>{ __sr.S.coins=10; __sr.itemAction('buy','style','glass'); __sr.boostAction('shield',1); __sr.buyIap('style:foil'); __sr.S.coins=900; __sr.itemAction('buy','style','flat'); __sr.boostAction('slow',1); __sr.syncPurchases(true); });
+    await p.waitForTimeout(400); await p.click('#closeThemes');
+    await p.evaluate(()=>{ Object.assign(__sr.S.shop.boosts,{shield:2,slow:2,regrow:2}); __sr.S.shop.pick=[]; __sr.renderMenu(); });
+    await p.click('#openBoosts'); await p.click('#boostList [data-boost=shield]'); await p.click('#boostList [data-boost=slow]'); await p.click('#boostList [data-boost=regrow]'); await p.waitForTimeout(300); await p.click('#boostDone');
+    await p.evaluate(()=>{ __sr.S.lastMode='zen'; }); await p.click('#openBoosts'); await p.click('#boostDone'); await p.evaluate(()=>{ __sr.S.lastMode='classic'; });
     const left=(await miss()).filter(k=>!/^[\d\s·\-+x×/%.,:;!?()<>]+$/.test(k) && !['STACK','RUSH'].includes(k));   // numbers and the brand stay as they are
     assert.ok(left.length===0,`${code}: strings that reached the game untranslated: ${JSON.stringify(left)}`);
     assert.deepEqual(p.errs,[],`${code}: page errors`); await L.close(p);

@@ -7,7 +7,7 @@ Single static page, `index.html`, plus a few small files. No build step, no runt
 > **Status:** playable and tested in emulation, **not yet tested on real devices** (see [Known limitations](#known-limitations)). License: all rights reserved (see `LICENSE`).
 
 ## Playing
-The big **PLAY** button starts the mode you played last in one tap. Under it, a mode switcher (‹ Classic ›) changes the mode without opening any list, and **More game modes** opens the full picker with descriptions. A thumb-reach bar at the bottom holds Campaign, Themes, Awards and Settings, and the tower behind the menu builds itself as a live preview. First-time players are offered a short **practice round** (skippable, shown once, replayable from Settings). New players also get a **timing assist** (slightly wider perfect window and slower blocks) for their first 6 games; it can be set to Always/Off in Settings. The first time you open a mode you get a one-line tip.
+The big **PLAY** button starts the mode you played last in one tap. Under it, a mode switcher (‹ Classic ›) changes the mode without opening any list, and **More game modes** opens the full picker with descriptions. A thumb-reach bar at the bottom holds Campaign, Shop, Awards and Settings, and the tower behind the menu builds itself as a live preview. First-time players are offered a short **practice round** (skippable, shown once, replayable from Settings). New players also get a **timing assist** (slightly wider perfect window and slower blocks) for their first 6 games; it can be set to Always/Off in Settings. The first time you open a mode you get a one-line tip.
 
 ## It gets faster
 Every mode except Zen and Practice speeds up as the tower grows: ×1.4 at 10 blocks, ×1.7 at 20, ×2.0 at 30, flattening out toward ×2.4. A speed badge (`×1.7`) sits under the coin counter, turns orange from ×2, and a **SPEED UP** cue flashes each time you cross a step. Campaign ramps at 60% of that. Tuning lives in `CFG` (`rampMax`, `rampTau`, `rampStart`).
@@ -36,6 +36,29 @@ Your best run in each mode is saved. Next time you play it:
 
 ## Themes (15)
 Sunset (free), Neon, Ocean, Forest, Desert, Ice, Candy, Lava, Sakura, Retro, Deep Sea, Winter Night, plus premium Gold Rush, Galaxy and Cyber City. Many have their own ambient effects (snow, fireflies, embers, petals, bubbles, sand, digital rain); Retro uses pixel blocks and scanlines. Unlock by level, by coins, or (premium) by purchase. Tap any theme to preview it live before you equip, unlock or buy it.
+
+## Shop, boosts and coins
+The old Themes screen is now a **Shop** with eight tabs. Everything can be previewed live in the game before you pay for it.
+
+| Tab | What is in it |
+|---|---|
+| Themes | the 15 themes above |
+| Blocks | block styles: Classic, Flat, Glass, Neon, Pixel, and the premium **Foil** |
+| Colors | colour sets that replace the theme's block colours: Rainbow, Pastel, Mono, Ember, Frost |
+| Scenes | the scenery of any theme you own, on any theme (mix Lava blocks with the Ocean) |
+| Sounds | sound-effect packs (Classic, Retro, Soft) and music styles (Classic, Chill, Chiptune) |
+| Extras | landing effects (Sparkle, Confetti, Stars), a **tower topper** (Black cat, Orange cat, the premium Golden cat) and the **app colour** that tints the buttons |
+| Boosts | buy boosts with coins, 1 or 3 at a time |
+| Coins | coin packs and the Starter pack (Android app only, see below) |
+
+**Boosts** (three, picked from the bolt button on the menu, at most two per round):
+- **Shield**: start the round with a shield that blocks one miss or one bomb.
+- **Slow-Mo**: when the speed has passed about ×1.5, the blocks slow to ×0.6 for 6 drops.
+- **Regrow**: when your tower gets thinner than 55% of its starting width, the next block restores the full width (at most twice a round).
+
+A boost is **only used up when it actually helps** (Shield on the miss it saves, Slow-Mo when it kicks in, Regrow when it triggers); quitting a round keeps unused boosts. They are not available in Daily Twist, Zen or Practice. **A round in which a boost was used keeps its own best score** ("Boosted run" on the game-over screen) and does not touch your real best, your ghost, your height and combo records or the height, combo and score awards, so the leaderboards of your own history stay honest. You get one of each boost as a welcome gift after your first game, and one more on daily-streak days 3 (Shield), 5 (Slow-Mo) and 7 (Regrow), repeating weekly.
+
+Everything except the premium cosmetics (3 themes, Foil, Golden cat) can be bought with coins you earn by playing. Prices live in the `SHOP` and `BOOSTS` tables in `index.html`.
 
 ## Languages (13)
 English, Español, Português, Français, Deutsch, Italiano, Bahasa Indonesia, Türkçe, Русский, हिन्दी, 日本語, 한국어, 中文 (简体). The game picks the phone's language on first launch (**Settings → Language → Automatic**), you can choose another one, and it falls back to English if a language file is missing. Language packs are small JSON files in `lang/`, cached for offline play.
@@ -69,14 +92,15 @@ How it works: the English text is the key (`tr('Reach {n} blocks',{n:5})`), stat
 - **Accessibility:** screen-reader announcements for perfects and results, labelled buttons, visible keyboard focus.
 - **Daily reward** with a streak, and a **daily challenge** (12 perfect drops).
 - **Revive** once per run in Classic, Lives and Hazard (40 coins).
-- Purchases are cosmetic only: no random paid items, no timers, no fake scarcity.
+- **What money buys:** premium cosmetics, coin packs and a Starter pack (Android app). Boosts are single-player aids that cost coins. There are no random paid items (no loot boxes), no timers, no fake scarcity, and nothing is needed to finish the game. Earlier versions of this page said "cosmetic only"; that stopped being true when boosts arrived.
 
 ## Setting up purchases (web)
-1. In Square, create a $1 one-time payment link for each premium theme (`gold`, `galaxy`, `cyber`).
-2. Set each link's post-payment redirect to `https://<your-site>/?unlock=gold` (or `galaxy`, `cyber`).
-3. Paste the links into `SQUARE_LINKS` near the top of the script in `index.html`.
+The web version can sell the five premium cosmetics (themes `gold`, `galaxy`, `cyber`, and the Foil block style and Golden cat topper). Coins, coin packs, the Starter pack and boosts for real money are **Android-only** (Google Play Billing), so the web version never sells them.
+1. In Square, create a one-time payment link for each premium item.
+2. Set each link's post-payment redirect to `https://<your-site>/?unlock=<key>`, where the key is `gold`, `galaxy`, `cyber`, `style:foil` or `topper:gold` (URL-encode the colon as `%3A` if Square asks).
+3. Paste the links into `SQUARE_LINKS` near the top of the script in `index.html`, using the same keys.
 
-Card details are entered on Square's page; the game never sees them. Until the links are set, tapping a premium theme says "Store is not connected yet".
+Card details are entered on Square's page; the game never sees them. Until the links are set, tapping a premium item says "Store is not connected yet". While no web store exists, the Coins tab is shown as a preview; once you add a Square link it disappears from the web (and stays in the Android app).
 
 **Limitation:** unlocks are stored in the browser, so anyone can add `?unlock=gold` to the URL. That is fine for a first test but is not real enforcement. Verifying purchases properly needs a small backend that checks Square webhooks.
 
@@ -89,11 +113,11 @@ Card details are entered on Square's page; the game never sees them. Until the l
 ```
 npm install            # once (Playwright)
 npx playwright install chromium
-npm test               # everything, about 10 minutes
+npm test               # everything, about 15 minutes
 node tests/run.js speed            # one file
 node tests/run.js i18n "play-through"   # one test
 ```
-Browser tests (headless Chromium, through the `#debug` hook): `game` (every mode, shield, revive, ghost, campaign, pause), `speed` (the ramp), `ux` (tutorial, assist, settings, save code, themes, 44px targets, short phones, music, accessibility), `i18n` (translation files, all 13 languages on every screen with no clipped text, the picker, fallbacks, no untranslated strings during play), `devices` (tall iPhones, tablets, iPad detection, safe areas, no white edges, launch images, desktop), `audio` (interrupted/suspended/closed contexts, the iOS silent switch, a 120 s music-scheduler soak), `regress` (bugs found by review and the monkey), `monkey` (a seeded random player on the virtual clock: taps, buttons, keys, tab switches, resizes, languages, themes, modes; `MONKEY_SCALE=5 node tests/run.js monkey` for a long hunt), `security` (hostile save codes, debug hook off the public site) and `offline`. GitHub Actions runs them on every push (`.github/workflows/test.yml`). The layout checks depend on the font: GitHub's runner uses DejaVu Sans, which is wider than Inter, Roboto or SF, so if a test passes on your machine but fails in CI, the font is the first suspect.
+Browser tests (headless Chromium, through the `#debug` hook): `game` (every mode, shield, revive, ghost, campaign, pause), `speed` (the ramp), `ux` (tutorial, assist, settings, save code, themes, 44px targets, short phones, music, accessibility), `i18n` (translation files, all 13 languages on every screen with no clipped text, the picker, fallbacks, no untranslated strings during play), `devices` (tall iPhones, tablets, iPad detection, safe areas, no white edges, launch images, desktop), `audio` (interrupted/suspended/closed contexts, the iOS silent switch, a 120 s music-scheduler soak), `shop` (every tab, buying and previewing, hostile saves, every look and sound, the three boosts in play, boosted-run records, gifts, and the purchase code against a fake Google Play store), `regress` (bugs found by review and the monkey), `monkey` (a seeded random player on the virtual clock: taps, buttons, keys, tab switches, resizes, languages, themes, modes; `MONKEY_SCALE=5 node tests/run.js monkey` for a long hunt), `security` (hostile save codes, debug hook off the public site) and `offline`. GitHub Actions runs them on every push (`.github/workflows/test.yml`). The layout checks depend on the font: GitHub's runner uses DejaVu Sans, which is wider than Inter, Roboto or SF, so if a test passes on your machine but fails in CI, the font is the first suspect.
 
 ## Store assets and promo video
 All generated from the real game (a bot plays it on a virtual clock), so they stay in sync with the UI. Needs Playwright; the video also needs `ffmpeg`. For Hindi/Korean/Japanese/Chinese pictures, install fonts such as `fonts-noto-cjk` and `fonts-noto-core`.
@@ -103,26 +127,28 @@ node tools/make-store-assets.js --lang en,es --only gameplay,menu
 npm run video                        # store/promo/stack-rush-promo.mp4 (30 s, 1080x1920, with the game's own sound)
 node tools/make-promo-video.js --dry # fast low-res preview that prints the timeline
 npm run listing                      # store/listing/<lang>.md (title, short and full description, release notes; limits checked)
+npm run products                     # the in-app product ids and prices (for the Play Console)
 npm run splash                       # iOS launch images in splash/ and the <link> tags in index.html
 ```
 Captions in the pictures and the video, and the listing texts, are machine-written (see Languages). The Play Console takes the promo video as a YouTube link, so upload the MP4 to YouTube first.
 
 ## Android / Google Play
-Not done yet. The plan is to wrap this page (Trusted Web Activity or Capacitor) and sell the premium themes through **Google Play Billing**. Google requires Play Billing for digital goods in apps, so the Square links above are for the web version only. A Play developer account is a $25 one-time fee.
+The game is meant to be wrapped as a **Trusted Web Activity** (the same site in a thin Android app). The purchase code for **Google Play Billing** (through the Digital Goods API) is already in `index.html`, but it has only been run against a fake store: **nothing has touched the real Google Play yet**, and the app has not been built. Everything you have to do (accounts, the Bubblewrap build, the web-address/`assetlinks.json` catch, the ten product ids, server-side verification, testing) is in [`android/README.md`](android/README.md). `npm run products` prints the product table. Google requires Play Billing for digital goods inside the app, so the app never opens a Square link.
 
 ## Before publishing to Google Play
 - [ ] Put a real contact email in `privacy.html` (it currently has a placeholder) and host it at a public URL. The policy is English only.
 - [ ] Create a Google Play developer account ($25 one-time).
-- [ ] Wrap the site (Trusted Web Activity / Bubblewrap or Capacitor) and add Google Play Billing for premium themes. Do not use Square links inside the Android app.
+- [ ] Follow `android/README.md`: build the wrapper, create the ten in-app products, add the verification server, test every purchase in the closed-testing track with licence testers.
 - [ ] Upload `store/screenshots/<lang>/*`, `store/feature-graphic/<lang>.jpg`, the 512px icon (`icons/icon-512.png`) and the texts from `store/listing/` (have natives check them first).
 - [ ] Complete the Data safety form (this version collects no data) and the content rating questionnaire.
-- [ ] Check the name "Stack Rush" is not already a registered trademark or an existing Play Store title.
+- [ ] Choose the final name. "Stack Rush" is already the title of at least three Play Store apps, and a similar name invites impersonation or trademark complaints. The package id is what identifies the app; the title does not have to be unique, but should be distinctive. Check trademark databases for the name you pick (this project has not done a trademark search).
 - [ ] Test on a real Android phone, including install, offline, share, vibration and purchases.
 
 ## Known limitations
 - **Not tested on real devices.** All testing is headless Chromium with emulated phones/iPads. iOS Safari (WebKit) behaves differently in places: the white-bar fix, the iPad layout and the iOS audio fixes (silent switch, interrupted audio) are based on how WebKit is documented to behave and could not be checked on an iPhone here.
 - **Translations are unreviewed machine output.** Plural forms are avoided rather than handled (e.g. "days" is abbreviated in Russian).
-- **Purchases are not enforced** on the web version (see above) and the Play Billing version does not exist yet.
+- **Purchases are not enforced** on the web version (see above). The Play Billing code is written but **untested against the real store**, and there is no server to verify purchase tokens or take back refunds yet (see `android/README.md`).
+- **Boost and shop balance is a first guess:** prices, the Slow-Mo/Regrow thresholds and the gift schedule have not been tested with real players.
 - No cloud save: progress lives in the browser; the save code is the only transfer method. Clearing site data erases it.
 - Android's back button is not handled yet in the wrapped app.
 - Difficulty numbers in `CFG` are first guesses and need real-player testing.

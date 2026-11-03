@@ -307,3 +307,76 @@
 307|Contorno tracejado da sua melhor partida. A linha de RECORDE continua.
 308|Toca mesmo com a chave de toque no silencioso.
 309|Som no modo silencioso
+310|{coins} moedas, {n} de cada booster e 2 itens cosméticos. Somente uma vez.
+311|{n} moedas
+312|restam {n}
+313|{name} ×{n} adicionado
+314|+1 {name}
+315|COR DO APP
+316|Partida com booster
+317|Boosters
+318|BOOSTERS
+319|Os boosters só são gastos quando realmente ajudam você. Escolha até 2 para uma partida com o botão Boosters no menu.
+320|Os boosters não funcionam na Variante do dia nem no Zen.
+321|Você também ganha moedas jogando, com a recompensa diária e com as conquistas.
+322|Não foi possível restaurar as compras
+323|Pronto
+324|Cada tema que você desbloqueia adiciona o cenário dele aqui.
+325|Obter mais
+326|Incluído
+327|EFEITOS DE QUEDA
+328|MÚSICA
+329|Nada para restaurar
+330|Escolha até 2
+331|Escolha até 2 para a próxima partida. Um booster só é gasto quando realmente ajuda.
+332|Cosmético premium
+333|Compras restauradas
+334|REGENERAR!
+335|Restaurar compras
+336|Loja
+337|LOJA
+338|CÂMERA LENTA!
+339|EFEITOS SONOROS
+340|Pacote inicial
+341|ENFEITE DA TORRE
+342|Presente de boas-vindas: um de cada booster. Escolha-os no botão do raio.
+343|Você tem {n}
+344|Gato preto
+345|Blocos
+346|Boosters ajudam em uma partida difícil
+347|Relax
+348|Chiptune
+349|Moedas compram temas, visuais e boosters
+350|Cores
+351|Confete
+352|Brasa
+353|Extras
+354|Plano
+355|Metalizado
+356|Geada
+357|Vidro
+358|Gato dourado
+359|Menta
+360|Mono
+361|Sem enfeite
+362|Gato laranja
+363|Pastel
+364|Pixel
+365|Arco-íris
+366|Regenerar
+367|Recupera toda a largura quando a torre fica fina.
+368|Rosa
+369|Cenários
+370|Escudo
+371|Câmera lenta
+372|Deixa os blocos mais lentos por 6 blocos quando a velocidade aumenta.
+373|Suave
+374|Sons
+375|Brilhos
+376|Estrelas
+377|Comece a partida com um escudo que bloqueia um erro ou uma bomba.
+378|toque em um item para ouvir
+379|toque em um item para testar
+380|Cores do tema
+381|Cenário do tema
+382|Estilo do tema

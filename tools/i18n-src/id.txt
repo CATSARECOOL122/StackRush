@@ -307,3 +307,76 @@
 307|Garis tepi putus-putus dari permainan terbaikmu. Garis REKOR tetap tampil.
 308|Tetap berbunyi walau tombol dering disetel senyap.
 309|Suara di mode senyap
+310|{coins} koin, {n} untuk setiap booster, dan 2 item kosmetik. Hanya sekali.
+311|{n} koin
+312|sisa {n}
+313|{name} ×{n} ditambahkan
+314|+1 {name}
+315|WARNA APLIKASI
+316|Ronde ber-booster
+317|Booster
+318|BOOSTER
+319|Booster hanya terpakai saat benar-benar membantumu. Pilih hingga 2 untuk satu ronde lewat tombol Booster di menu.
+320|Booster tidak berlaku di Twist Harian atau Zen.
+321|Koin juga bisa didapat dari bermain, hadiah harian, dan pencapaian.
+322|Tidak dapat memulihkan pembelian
+323|Selesai
+324|Setiap tema yang kamu buka menambahkan latarnya di sini.
+325|Dapatkan lagi
+326|Termasuk
+327|EFEK MENDARAT
+328|MUSIK
+329|Tidak ada yang dipulihkan
+330|Pilih hingga 2
+331|Pilih hingga 2 untuk ronde berikutnya. Booster hanya terpakai saat benar-benar membantu.
+332|Kosmetik premium
+333|Pembelian dipulihkan
+334|TUMBUH LAGI!
+335|Pulihkan pembelian
+336|Toko
+337|TOKO
+338|GERAK LAMBAT!
+339|EFEK SUARA
+340|Paket pemula
+341|HIASAN MENARA
+342|Hadiah selamat datang: satu untuk tiap booster. Pilih lewat tombol petir.
+343|Kamu punya {n}
+344|Kucing hitam
+345|Balok
+346|Booster membantumu melewati ronde yang sulit
+347|Santai
+348|Chiptune
+349|Koin untuk membeli tema, tampilan, dan booster
+350|Warna
+351|Konfeti
+352|Bara
+353|Ekstra
+354|Datar
+355|Foil
+356|Embun beku
+357|Kaca
+358|Kucing emas
+359|Mint
+360|Mono
+361|Tanpa hiasan
+362|Kucing oranye
+363|Pastel
+364|Piksel
+365|Pelangi
+366|Tumbuh lagi
+367|Mengembalikan lebar penuh saat menaramu menyempit.
+368|Mawar
+369|Latar
+370|Perisai
+371|Gerak lambat
+372|Memperlambat balok selama 6 balok saat kecepatan meningkat.
+373|Lembut
+374|Suara
+375|Kilau
+376|Bintang
+377|Mulai ronde dengan perisai yang menahan satu kegagalan atau satu bom.
+378|ketuk item untuk mendengarnya
+379|ketuk item untuk mencobanya
+380|Warna tema
+381|Latar tema
+382|Gaya tema

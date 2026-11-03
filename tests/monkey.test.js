@@ -22,6 +22,11 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false}){
   await p.evaluate(vt.installBot); await p.evaluate(()=>{ __bot.on=false; });
   const trace=[], issues=[];
   for(let i=0;i<actions;i++){
+    if(i>0 && i%100===0){                       // every so often the bot plays a Classic round for real and then fails it, so runs always finish whatever the dice say
+      await p.evaluate(()=>{ const sr=window.__sr; sr.startMode('classic'); __bot.on=true; __bot.perfects=true; __vt.steps(120);
+        for(let k=0;k<4&&sr.state==='playing';k++){ sr.forceNarrow(); __bot.perfects=false; __vt.steps(160); } });
+      trace.push('interlude');
+    }
     const act=await p.evaluate(()=>{
       const R=Math.random, pick=a=>a[Math.floor(R()*a.length)], sr=window.__sr, rz=window.__RESIZE;
       const vis=[...document.querySelectorAll('button,[role=button],.sw')].filter(b=>{ const q=b.getBoundingClientRect(); return q.width>0&&q.height>0&&!b.closest('.hidden')&&!['crashBtn','updBtn'].includes(b.id); });
@@ -40,6 +45,19 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false}){
       else if(roll<.82){ act='miss'; if(sr.state==='playing'&&sr.cur&&sr.top) sr.forceNarrow(); }
       else if(roll<.83){ act='shield+bomb'; sr.giveShield(); sr.bombNext(); }
       else if(roll<.83+rz){ act='resize'; }
+      else if(roll<.9+rz){                                                                    // the shop, boosts and purchases
+        const kind=pick(['tab','tab','buy','buy','boost','stock','pick','equip','preview','iap','grant']), menuLike=sr.state!=='playing'; act='shop '+kind;
+        const slot=pick(Object.keys(sr.SHOP)), ids=Object.keys(sr.SHOP[slot]);
+        if(kind==='tab'){ if(menuLike && !document.getElementById('themes').offsetParent) sr.openThemes('menu'); sr.setTab(pick(sr.TABS.map(t=>t[0]))); }
+        else if(kind==='buy') sr.itemAction('buy',slot,pick(ids));
+        else if(kind==='equip') sr.itemAction('equip',slot,pick(ids));
+        else if(kind==='boost') sr.boostAction(pick(Object.keys(sr.BOOSTS)),pick([1,3]));
+        else if(kind==='stock') sr.S.shop.boosts[pick(Object.keys(sr.BOOSTS))]+=2;
+        else if(kind==='pick'){ if(menuLike){ sr.openBoosts(); const b=document.querySelector('#boostList .bpick'); const bs=[...document.querySelectorAll('#boostList .bpick')]; if(bs.length) pick(bs).click(); if(R()<.5) sr.closeBoosts(); } }
+        else if(kind==='preview'){ if(menuLike) sr.startPreview(pick(ids),slot==='scene'?'scene':slot); }
+        else if(kind==='iap') sr.buyIap(pick(sr.iapKeys()));
+        else sr.grantProduct(pick(sr.iapKeys()));
+      }
       else act='wait';
       return act;
     });
@@ -54,6 +72,10 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false}){
         const m=txt.match(/.{0,20}(NaN|undefined|\[object|\bnull\b).{0,20}/); if(m) out.push('bad text in the UI: '+m[0].replace(/\s+/g,' '));
         for(const k of ['coins','blocks','perfects','played','best']) if(!Number.isFinite(S[k])||S[k]<0) out.push(`${k} is ${S[k]}`);
         if(!S.owned.includes(S.theme)) out.push('equipped theme is not owned: '+S.theme);
+        for(const sl of Object.keys(sr.SHOP)) if(!sr.ownsItem(sl,S.shop.equip[sl])) out.push(`equipped ${sl}:${S.shop.equip[sl]} is not owned`);
+        for(const [k,n] of Object.entries(S.shop.boosts)) if(!Number.isInteger(n)||n<0||n>999) out.push(`boost ${k} count is ${n}`);
+        if(S.shop.pick.length>2||new Set(S.shop.pick).size!==S.shop.pick.length||S.shop.pick.some(k=>!(k in S.shop.boosts))) out.push('boost picks '+JSON.stringify(S.shop.pick));
+        for(const [k,v] of Object.entries(S.boostBests||{})) if(!Number.isFinite(v)||v<0) out.push(`boostBests.${k} is ${v}`);
         if(sr.state==='playing'){ const c=sr.cur, t=sr.top;
           if(c&&!(Number.isFinite(c.x)&&Number.isFinite(c.w)&&c.w>0)) out.push('moving block '+JSON.stringify(c));
           if(!t||!(t.w>0)||!Number.isFinite(t.x)) out.push('top block '+JSON.stringify(t));
@@ -63,6 +85,7 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false}){
     }
   }
   const cov=await p.evaluate(()=>({played:__sr.S.played,ach:Object.keys(__sr.S.ach).length}));
+  if(process.env.MONKEY_DEBUG){ const h={}; for(const a of trace) h[a.split(' ')[0]]=(h[a.split(' ')[0]]||0)+1; console.log('   monkey',JSON.stringify(cov),JSON.stringify(h)); }
   await ctx.close();
   return {issues:[...issues,...pageErrors.map(x=>'pageerror '+x)],cov};
 }

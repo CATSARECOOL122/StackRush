@@ -307,3 +307,76 @@
 307|Gestrichelter Umriss deines besten Durchgangs. Die REKORD-Linie bleibt.
 308|Spielt auch, wenn der Klingelschalter auf lautlos steht.
 309|Ton im Stummmodus
+310|{coins} Münzen, je {n} Booster und 2 Kosmetik-Items. Nur einmal erhältlich.
+311|{n} Münzen
+312|{n} übrig
+313|{name} ×{n} hinzugefügt
+314|+1 {name}
+315|APP-FARBE
+316|Booster-Runde
+317|Booster
+318|BOOSTER
+319|Booster werden nur verbraucht, wenn sie dir wirklich helfen. Wähle bis zu 2 für eine Runde über die Booster-Taste im Menü.
+320|Booster funktionieren im Tages-Twist und im Zen-Modus nicht.
+321|Münzen verdienst du auch beim Spielen, mit der täglichen Belohnung und durch Erfolge.
+322|Käufe konnten nicht wiederhergestellt werden
+323|Fertig
+324|Jedes freigeschaltete Design bringt hier seine Kulisse mit.
+325|Mehr holen
+326|Inklusive
+327|LANDE-EFFEKTE
+328|MUSIK
+329|Nichts wiederherzustellen
+330|Wähle bis zu 2
+331|Wähle bis zu 2 für deine nächste Runde. Ein Booster wird nur verbraucht, wenn er wirklich hilft.
+332|Premium-Kosmetik
+333|Käufe wiederhergestellt
+334|NACHWACHSEN!
+335|Käufe wiederherstellen
+336|Shop
+337|SHOP
+338|ZEITLUPE!
+339|SOUNDEFFEKTE
+340|Starterpaket
+341|TURMSCHMUCK
+342|Willkommensgeschenk: je ein Booster. Wähle sie über den Blitz-Button.
+343|Du hast {n}
+344|Schwarze Katze
+345|Blöcke
+346|Booster helfen dir durch eine schwere Runde
+347|Entspannt
+348|Chiptune
+349|Münzen kaufen Designs, Looks und Booster
+350|Farben
+351|Konfetti
+352|Glut
+353|Extras
+354|Flach
+355|Folie
+356|Frost
+357|Glas
+358|Goldene Katze
+359|Minze
+360|Mono
+361|Kein Schmuck
+362|Orange Katze
+363|Pastell
+364|Pixel
+365|Regenbogen
+366|Nachwachsen
+367|Stellt die volle Breite wieder her, wenn dein Turm schmal wird.
+368|Rose
+369|Szenen
+370|Schild
+371|Zeitlupe
+372|Verlangsamt die Blöcke für 6 Blöcke, sobald das Tempo anzieht.
+373|Sanft
+374|Sounds
+375|Funkeln
+376|Sterne
+377|Starte die Runde mit einem Schild, das einen Fehlwurf oder eine Bombe abfängt.
+378|tippe auf einen Eintrag zum Anhören
+379|tippe auf einen Eintrag zum Ausprobieren
+380|Design-Farben
+381|Design-Kulisse
+382|Design-Stil

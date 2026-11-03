@@ -307,3 +307,76 @@
 307|En iyi oyununun kesik çizgili ana hatları. REKOR çizgisi kalır.
 308|Zil düğmesi sessizdeyken bile çalar.
 309|Sessiz modda ses
+310|{coins} altın, her güçlendiriciden {n} adet ve 2 kozmetik. Yalnızca bir kez.
+311|{n} altın
+312|{n} kaldı
+313|{name} ×{n} eklendi
+314|+1 {name}
+315|UYGULAMA RENGİ
+316|Güçlendirilmiş tur
+317|Güçlendiriciler
+318|GÜÇLENDİRİCİLER
+319|Güçlendiriciler yalnızca gerçekten işine yaradığında harcanır. Menüdeki Güçlendiriciler düğmesiyle bir tur için en fazla 2 tane seç.
+320|Güçlendiriciler Günün Kuralı ve Zen modunda çalışmaz.
+321|Altın ayrıca oynayarak, günlük ödülle ve başarımlarla da kazanılır.
+322|Satın alımlar geri yüklenemedi
+323|Tamam
+324|Açtığın her tema, kendi manzarasını buraya ekler.
+325|Daha fazla al
+326|Dahil
+327|İNİŞ EFEKTLERİ
+328|MÜZİK
+329|Geri yüklenecek bir şey yok
+330|En fazla 2 seç
+331|Sonraki turun için en fazla 2 seç. Bir güçlendirici yalnızca gerçekten işe yaradığında harcanır.
+332|Premium görünüm
+333|Satın alımlar geri yüklendi
+334|GENİŞLET!
+335|Satın alımları geri yükle
+336|Mağaza
+337|MAĞAZA
+338|AĞIR ÇEKİM!
+339|SES EFEKTLERİ
+340|Başlangıç paketi
+341|KULE SÜSÜ
+342|Hoş geldin hediyesi: her güçlendiriciden bir tane. Şimşek düğmesinden seçebilirsin.
+343|Sende {n} var
+344|Siyah kedi
+345|Bloklar
+346|Güçlendiriciler zor bir turu atlatmana yardım eder
+347|Sakin
+348|Chiptune
+349|Altınla tema, görünüm ve güçlendirici alınır
+350|Renkler
+351|Konfeti
+352|Köz
+353|Ekstralar
+354|Düz
+355|Folyo
+356|Kırağı
+357|Cam
+358|Altın kedi
+359|Nane
+360|Mono
+361|Süs yok
+362|Turuncu kedi
+363|Pastel
+364|Piksel
+365|Gökkuşağı
+366|Genişlet
+367|Kule daraldığında tam genişliğini geri verir.
+368|Gül
+369|Sahneler
+370|Kalkan
+371|Ağır çekim
+372|Hız arttığında 6 blok boyunca blokları yavaşlatır.
+373|Yumuşak
+374|Sesler
+375|Parıltı
+376|Yıldızlar
+377|Tura, bir kaçırmayı ya da bir bombayı engelleyen kalkanla başla.
+378|dinlemek için bir öğeye dokun
+379|denemek için bir öğeye dokun
+380|Tema renkleri
+381|Tema sahnesi
+382|Tema stili

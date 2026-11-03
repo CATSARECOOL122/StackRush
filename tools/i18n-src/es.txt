@@ -307,3 +307,76 @@
 307|Contorno punteado de tu mejor partida. La línea de RÉCORD se queda.
 308|Suena aunque el interruptor de timbre esté en silencio.
 309|Sonido en modo silencio
+310|{coins} monedas, {n} de cada potenciador y 2 cosméticos. Solo una vez.
+311|{n} monedas
+312|quedan {n}
+313|{name} ×{n} añadido
+314|+1 {name}
+315|COLOR DE LA APP
+316|Partida potenciada
+317|Potenciadores
+318|POTENCIADORES
+319|Los potenciadores solo se gastan cuando realmente te ayudan. Elige hasta 2 para una partida con el botón de Potenciadores del menú.
+320|Los potenciadores no funcionan en el Giro diario ni en Zen.
+321|También puedes ganar monedas jugando, con la recompensa diaria y con los logros.
+322|No se pudieron restaurar las compras
+323|Listo
+324|Cada tema que desbloqueas añade aquí su paisaje.
+325|Conseguir más
+326|Incluido
+327|EFECTOS DE ATERRIZAJE
+328|MÚSICA
+329|Nada que restaurar
+330|Elige hasta 2
+331|Elige hasta 2 para tu próxima partida. Un potenciador solo se gasta cuando de verdad ayuda.
+332|Cosmético premium
+333|Compras restauradas
+334|¡REGENERAR!
+335|Restaurar compras
+336|Tienda
+337|TIENDA
+338|¡CÁMARA LENTA!
+339|EFECTOS DE SONIDO
+340|Pack inicial
+341|ADORNO DE LA TORRE
+342|Regalo de bienvenida: uno de cada potenciador. Elígelos con el botón del rayo.
+343|Tienes {n}
+344|Gato negro
+345|Bloques
+346|Los potenciadores te ayudan en una partida difícil
+347|Relax
+348|Chiptune
+349|Las monedas compran temas, estilos y potenciadores
+350|Colores
+351|Confeti
+352|Brasa
+353|Extras
+354|Plano
+355|Metalizado
+356|Escarcha
+357|Cristal
+358|Gato dorado
+359|Menta
+360|Mono
+361|Sin adorno
+362|Gato naranja
+363|Pastel
+364|Píxel
+365|Arcoíris
+366|Regenerar
+367|Recupera todo tu ancho cuando la torre se estrecha.
+368|Rosa
+369|Escenarios
+370|Escudo
+371|Cámara lenta
+372|Ralentiza los bloques durante 6 bloques cuando sube la velocidad.
+373|Suave
+374|Sonidos
+375|Destellos
+376|Estrellas
+377|Empieza la partida con un escudo que bloquea un fallo o una bomba.
+378|toca un elemento para oírlo
+379|toca un elemento para probarlo
+380|Colores del tema
+381|Escena del tema
+382|Estilo del tema

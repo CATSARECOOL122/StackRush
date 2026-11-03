@@ -5,7 +5,7 @@ _Español (es): paste each section into the matching field of the Play Console l
 ## Short description (69/80)
 Toca a tiempo, apila la torre y logra caídas perfectas. Sin anuncios.
 
-## Full description (1705/4000)
+## Full description (1979/4000)
 Toca para soltar el bloque deslizante sobre tu torre. Si cae justo en el centro, es PERFECTO y conservas todo el ancho. Si fallas el borde, lo que sobresale se corta. ¿Hasta dónde puedes subir?
 
 CÓMO SE JUEGA
@@ -29,7 +29,7 @@ SUPERA TU RÉCORD
 • Comparte tu puntuación con tus amigos con un solo toque.
 
 15 TEMAS
-Atardecer, Neón, Océano, Bosque, Desierto, Hielo, Caramelo, Lava, Sakura, Retro, Mar profundo, Noche de invierno, y los temas premium Fiebre del oro, Galaxia y Ciudad Cibernética. Desbloquéalos jugando, con las monedas que ganes, o cómpralos. Las compras son solo cosméticas: nada de lo que compres hace el juego más fácil.
+Atardecer, Neón, Océano, Bosque, Desierto, Hielo, Caramelo, Lava, Sakura, Retro, Mar profundo, Noche de invierno, y los temas premium Fiebre del oro, Galaxia y Ciudad Cibernética. Desbloquéalos jugando, con las monedas que ganes, o cómpralos. En la tienda también puedes cambiar estilos de bloque, colores, escenarios, sonidos y música. Los potenciadores opcionales (Escudo, Cámara lenta y Regenerar) ayudan en una partida difícil y solo se gastan cuando de verdad ayudan; una partida con potenciador guarda su propio récord. Las compras son siempre opcionales y no hay objetos de pago aleatorios.
 
 JUSTO Y SIN PRESIONES
 • Sin anuncios.

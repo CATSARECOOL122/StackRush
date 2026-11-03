@@ -307,3 +307,76 @@
 307|Contour en pointillés de votre meilleure partie. La ligne RECORD reste.
 308|Joue même si le commutateur de sonnerie est sur silencieux.
 309|Son en mode silencieux
+310|{coins} pièces, {n} de chaque booster et 2 objets cosmétiques. Une seule fois.
+311|{n} pièces
+312|{n} en stock
+313|{name} ×{n} ajouté
+314|+1 {name}
+315|COULEUR DE L'APPLI
+316|Partie boostée
+317|Boosters
+318|BOOSTERS
+319|Un booster n'est consommé que s'il vous aide vraiment. Choisissez-en jusqu'à 2 pour une partie avec le bouton Boosters du menu.
+320|Les boosters ne fonctionnent pas dans la Variante du jour ni en Zen.
+321|Vous pouvez aussi gagner des pièces en jouant, avec la récompense quotidienne et les succès.
+322|Impossible de restaurer les achats
+323|Terminé
+324|Chaque thème débloqué ajoute ici son décor.
+325|En obtenir plus
+326|Inclus
+327|EFFETS D'ATTERRISSAGE
+328|MUSIQUE
+329|Rien à restaurer
+330|Choisissez-en 2 maximum
+331|Choisissez-en jusqu'à 2 pour votre prochaine partie. Un booster n'est consommé que s'il aide vraiment.
+332|Cosmétique premium
+333|Achats restaurés
+334|REPOUSSE !
+335|Restaurer les achats
+336|Boutique
+337|BOUTIQUE
+338|RALENTI !
+339|EFFETS SONORES
+340|Pack de départ
+341|DÉCO DE LA TOUR
+342|Cadeau de bienvenue : un de chaque booster. Choisissez-les avec le bouton éclair.
+343|Vous en avez {n}
+344|Chat noir
+345|Blocs
+346|Les boosters aident à passer une partie difficile
+347|Détente
+348|Chiptune
+349|Les pièces achètent thèmes, styles et boosters
+350|Couleurs
+351|Confettis
+352|Braise
+353|Extras
+354|Aplat
+355|Métallisé
+356|Givre
+357|Verre
+358|Chat doré
+359|Menthe
+360|Mono
+361|Aucune déco
+362|Chat roux
+363|Pastel
+364|Pixel
+365|Arc-en-ciel
+366|Repousse
+367|Rend toute sa largeur à la tour quand elle devient étroite.
+368|Rose
+369|Décors
+370|Bouclier
+371|Ralenti
+372|Ralentit les blocs pendant 6 blocs quand la vitesse augmente.
+373|Doux
+374|Sons
+375|Étincelles
+376|Étoiles
+377|Démarrez la partie avec un bouclier qui bloque un raté ou une bombe.
+378|touchez un élément pour l'écouter
+379|touchez un élément pour l'essayer
+380|Couleurs du thème
+381|Décor du thème
+382|Style du thème

@@ -5,7 +5,7 @@ _English (en): paste each section into the matching field of the Play Console li
 ## Short description (75/80)
 Time your tap, stack the tower, chase perfect drops. No ads. Works offline.
 
-## Full description (1498/4000)
+## Full description (1729/4000)
 Tap to drop the sliding block onto your tower. Land it dead-center for a PERFECT and keep your full width. Miss the edge and the overhang is sliced off. How high can you build?
 
 HOW IT PLAYS
@@ -29,7 +29,7 @@ BEAT YOUR BEST
 • Share a score card with friends in one tap.
 
 15 THEMES
-Sunset, Neon, Ocean, Forest, Desert, Ice, Candy, Lava, Sakura, Retro, Deep Sea, Winter Night, plus the premium Gold Rush, Galaxy and Cyber City. Unlock themes by playing, with coins you earn, or buy them. Purchases are cosmetic only: nothing you buy makes the game easier.
+Sunset, Neon, Ocean, Forest, Desert, Ice, Candy, Lava, Sakura, Retro, Deep Sea, Winter Night, plus the premium Gold Rush, Galaxy and Cyber City. Unlock themes by playing, with coins you earn, or buy them. In the shop you can also change block styles, colors, scenery, sounds and music. Optional boosts (Shield, Slow-Mo and Regrow) help in a tough round and are only used up when they actually help; a round with a boost keeps its own best score. Purchases are always optional, with no random paid items.
 
 FAIR AND FRIENDLY
 • No ads.

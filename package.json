@@ -13,7 +13,8 @@
     "assets": "node tools/make-store-assets.js --lang all",
     "video": "node tools/make-promo-video.js",
     "splash": "node tools/make-splash.js",
-    "listing": "node tools/make-listing.js"
+    "listing": "node tools/make-listing.js",
+    "products": "node tools/list-products.js"
   },
   "devDependencies": {
     "playwright": "^1.63.0"

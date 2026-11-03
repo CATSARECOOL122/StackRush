@@ -307,3 +307,76 @@
 307|Contorno tratteggiato della tua miglior partita. La linea RECORD resta.
 308|Suona anche con l'interruttore della suoneria su silenzioso.
 309|Audio in modalità silenziosa
+310|{coins} monete, {n} per ogni booster e 2 elementi estetici. Una sola volta.
+311|{n} monete
+312|ne restano {n}
+313|{name} ×{n} aggiunto
+314|+1 {name}
+315|COLORE DELL'APP
+316|Partita potenziata
+317|Booster
+318|BOOSTER
+319|I booster si consumano solo quando ti aiutano davvero. Scegline fino a 2 per una partita con il pulsante Booster nel menu.
+320|I booster non funzionano nella Variante del giorno né in Zen.
+321|Puoi guadagnare monete anche giocando, con il premio giornaliero e con i traguardi.
+322|Impossibile ripristinare gli acquisti
+323|Fatto
+324|Ogni tema che sblocchi aggiunge qui il suo scenario.
+325|Ottieni altri
+326|Incluso
+327|EFFETTI DI ATTERRAGGIO
+328|MUSICA
+329|Niente da ripristinare
+330|Scegline fino a 2
+331|Scegline fino a 2 per la prossima partita. Un booster si consuma solo quando aiuta davvero.
+332|Cosmetico premium
+333|Acquisti ripristinati
+334|RICRESCITA!
+335|Ripristina acquisti
+336|Negozio
+337|NEGOZIO
+338|RALLENTATORE!
+339|EFFETTI SONORI
+340|Pacchetto iniziale
+341|DECORO DELLA TORRE
+342|Regalo di benvenuto: uno per ogni booster. Sceglili con il pulsante del fulmine.
+343|Ne hai {n}
+344|Gatto nero
+345|Blocchi
+346|I booster ti aiutano nelle partite difficili
+347|Relax
+348|Chiptune
+349|Le monete comprano temi, stili e booster
+350|Colori
+351|Coriandoli
+352|Brace
+353|Extra
+354|Piatto
+355|Metallizzato
+356|Gelo
+357|Vetro
+358|Gatto dorato
+359|Menta
+360|Mono
+361|Nessun decoro
+362|Gatto arancione
+363|Pastello
+364|Pixel
+365|Arcobaleno
+366|Ricrescita
+367|Ripristina tutta la larghezza quando la torre diventa stretta.
+368|Rosa
+369|Scenari
+370|Scudo
+371|Rallentatore
+372|Rallenta i blocchi per 6 blocchi quando la velocità aumenta.
+373|Morbido
+374|Suoni
+375|Scintille
+376|Stelle
+377|Inizia la partita con uno scudo che blocca un errore o una bomba.
+378|tocca un elemento per ascoltarlo
+379|tocca un elemento per provarlo
+380|Colori del tema
+381|Scenario del tema
+382|Stile del tema

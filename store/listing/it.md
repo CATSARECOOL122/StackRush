@@ -5,7 +5,7 @@ _Italiano (it): paste each section into the matching field of the Play Console l
 ## Short description (80/80)
 Tocca al momento giusto, impila la torre, centra ogni blocco. Niente pubblicità.
 
-## Full description (1750/4000)
+## Full description (2008/4000)
 Tocca per far cadere il blocco scorrevole sulla tua torre. Se cade esattamente al centro è PERFETTO e mantieni tutta la larghezza. Se sbagli il bordo, la parte che sporge viene tagliata. Quanto in alto riesci ad arrivare?
 
 COME SI GIOCA
@@ -29,7 +29,7 @@ BATTI IL TUO RECORD
 • Condividi il tuo punteggio con gli amici con un tocco.
 
 15 TEMI
-Tramonto, Neon, Oceano, Foresta, Deserto, Ghiaccio, Caramella, Lava, Sakura, Retrò, Abissi, Notte d'inverno, più i temi premium Corsa all'oro, Galassia e Cyber City. Sbloccali giocando, con le monete che guadagni, oppure acquistali. Gli acquisti sono solo estetici: niente di ciò che compri rende il gioco più facile.
+Tramonto, Neon, Oceano, Foresta, Deserto, Ghiaccio, Caramella, Lava, Sakura, Retrò, Abissi, Notte d'inverno, più i temi premium Corsa all'oro, Galassia e Cyber City. Sbloccali giocando, con le monete che guadagni, oppure acquistali. Nel negozio puoi anche cambiare stile dei blocchi, colori, scenari, suoni e musica. I booster facoltativi (Scudo, Rallentatore e Ricrescita) aiutano in una partita difficile e si consumano solo quando aiutano davvero; una partita con un booster ha il suo record. Gli acquisti sono sempre facoltativi e non ci sono oggetti a pagamento casuali.
 
 CORRETTO E SENZA PRESSIONI
 • Niente pubblicità.
