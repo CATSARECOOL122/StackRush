@@ -1220,8 +1220,9 @@ let lives=1, maxLives=1, timeLeft=0, timerOn=false, lastBomb=false, shield=false
 let armed={}, boosted=false, slowLeft=0, regrowUsed=0, boostShield=false;
 const BOOST_MODES=['classic','timed','lives','hazard','campaign'];
 const boostsAllowed=m=>BOOST_MODES.includes(m);
+const prunePicks=()=>{ S.shop.pick=S.shop.pick.filter((k,i,a)=>(S.shop.boosts[k]||0)>0 && a.indexOf(k)===i).slice(0,2); };   // only boosts you still have can stay picked, at most two
 function useBoost(id){
-  S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); boosted=true; armed[id]=false; save();
+  S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); boosted=true; armed[id]=false; prunePicks(); save();
   const bo=BOOSTS[id]; toast(`${I(bo.icon,'ic-cyan')} ${tr(bo.name)} · ${tr('{n} left',{n:S.shop.boosts[id]})}`,1800);
 }
 let paused=false, grace=0;
@@ -1416,6 +1417,7 @@ function newRun(){
   armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
   if(challenge && challenge.mode!==mode) challenge=null;
   runSeed=challenge?challenge.seed:(Math.random()*2147483647)|0; assisted=assistOn();
+  prunePicks();
   if(boostsAllowed(mode) && !challenge) for(const id of S.shop.pick) if((S.shop.boosts[id]||0)>0 && (id!=='time' || mode==='timed')) armed[id]=true;
   if(armed.shield){ shield=true; boostShield=true; }
   pieces=[]; parts=[]; rings=[]; texts=[]; banner=null; speedCue=null; speedTier=Math.floor(rampOf(1)*4);
@@ -2563,8 +2565,8 @@ $('boostShop').onclick=()=>{ sfx.tap(); $('boosts').classList.add('hidden'); sho
 $('boostList').addEventListener('click',e=>{
   const b=e.target.closest('[data-boost]'); if(!b) return; const id=b.dataset.boost;
   if(!(S.shop.boosts[id]>0)){ sfx.tap(); $('boosts').classList.add('hidden'); shopTab='boosts'; openThemes('menu'); return; }     // none left: go and get some
-  const pick=S.shop.pick, i=pick.indexOf(id);
-  if(i>=0) pick.splice(i,1); else { if(pick.filter(k=>S.shop.boosts[k]>0).length>=2){ toast(tr('Pick up to 2')); return; } pick.push(id); }
+  prunePicks(); const pick=S.shop.pick, i=pick.indexOf(id);
+  if(i>=0) pick.splice(i,1); else { if(pick.length>=2){ toast(tr('Pick up to 2')); return; } pick.push(id); }
   save(); sfx.tap(); renderBoosts(); renderMenu();
 });
 

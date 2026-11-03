@@ -497,4 +497,18 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+
+['boosts: a boost that runs out leaves the pick list, so the two-boost limit holds and a reload never drops the wrong pick (found by the monkey in CI)', async(e,L)=>{
+  const p=await L.open(e); await stock(p,{shield:1,slow:1,regrow:1,time:0},['shield','slow']);
+  await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(150); await L.perfects(p,2); await L.miss(p); await p.waitForTimeout(500);   // the Shield saves the miss and is used up
+  assert.equal(await inv(p,'shield'),0); assert.deepEqual(await p.evaluate(()=>__sr.S.shop.pick),['slow'],'the used-up Shield is no longer picked');
+  await p.evaluate(()=>{ __sr.pause(); }); await p.click('#quit'); await p.waitForTimeout(300);
+  await p.click('#openBoosts'); await p.click('#boostList [data-boost=regrow]'); assert.deepEqual(await p.evaluate(()=>__sr.S.shop.pick),['slow','regrow'],'two picks again');
+  await p.evaluate(()=>{ __sr.S.shop.pick=['shield','slow']; });                                                         // a stale pick of something you no longer have (an old save, or any other way in)
+  await p.click('#boostList [data-boost=regrow]'); assert.deepEqual(await p.evaluate(()=>__sr.S.shop.pick),['slow','regrow'],'the stale one is cleaned out first, so the pick fits');
+  await p.click('#boostDone'); await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
+  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.pick),['slow','regrow'],'and a reload keeps exactly what you picked');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];
