@@ -305,5 +305,7 @@
  "Zen Master",
  "ZEN SESSION",
  "Best-run outline",
- "Dashed outline of your best run. The BEST line stays."
+ "Dashed outline of your best run. The BEST line stays.",
+ "Plays even when the ringer switch is on silent.",
+ "Sound in silent mode"
 ]

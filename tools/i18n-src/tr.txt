@@ -305,3 +305,5 @@
 305|ZEN OTURUMU
 306|En iyi oyunun ana hatları
 307|En iyi oyununun kesik çizgili ana hatları. REKOR çizgisi kalır.
+308|Zil düğmesi sessizdeyken bile çalar.
+309|Sessiz modda ses

@@ -1,6 +1,6 @@
 /* Stack Rush service worker: lets the installed app work offline.
    Pages are network-first (so updates arrive as soon as you're online) and fall back to the cache offline. */
-const VERSION = 'stackrush-v10';
+const VERSION = 'stackrush-v11';
 const CORE = [
   './', './index.html', './privacy.html', './manifest.json',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png',
@@ -30,14 +30,15 @@ self.addEventListener('fetch', e => {
   if (isPage) {
     e.respondWith(
       fetch(req)
-        .then(res => { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); return res; })
+        .then(res => { if (res.ok && res.status === 200) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); } return res; })
         .catch(() => caches.match(req, { ignoreSearch: true }).then(r => r || caches.match('./index.html')))
     );
     return;
   }
   e.respondWith(
     caches.match(req).then(r => r || fetch(req).then(res => {
-      const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); return res;
+      if (res.ok && res.status === 200) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); }   // never keep a 404/500
+      return res;
     }))
   );
 });

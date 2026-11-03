@@ -305,3 +305,5 @@
 305|SESSIONE ZEN
 306|Contorno della miglior partita
 307|Contorno tratteggiato della tua miglior partita. La linea RECORD resta.
+308|Suona anche con l'interruttore della suoneria su silenzioso.
+309|Audio in modalità silenziosa

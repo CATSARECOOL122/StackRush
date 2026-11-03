@@ -305,3 +305,5 @@
 305|SESIÓN ZEN
 306|Contorno de tu mejor partida
 307|Contorno punteado de tu mejor partida. La línea de RÉCORD se queda.
+308|Suena aunque el interruptor de timbre esté en silencio.
+309|Sonido en modo silencio

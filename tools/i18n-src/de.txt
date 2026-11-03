@@ -305,3 +305,5 @@
 305|ZEN-SITZUNG
 306|Umriss deiner Bestleistung
 307|Gestrichelter Umriss deines besten Durchgangs. Die REKORD-Linie bleibt.
+308|Spielt auch, wenn der Klingelschalter auf lautlos steht.
+309|Ton im Stummmodus

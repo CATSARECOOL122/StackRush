@@ -305,3 +305,5 @@
 305|SESI ZEN
 306|Garis tepi permainan terbaik
 307|Garis tepi putus-putus dari permainan terbaikmu. Garis REKOR tetap tampil.
+308|Tetap berbunyi walau tombol dering disetel senyap.
+309|Suara di mode senyap

@@ -35,7 +35,7 @@ module.exports=[
 ['all 13 languages: menu, modes, settings, awards, themes, campaign, practice offer, pause and game over render with no errors and no clipped text', async(e,L)=>{
   const problems=[];
   for(const code of CODES){
-    const p=await L.open(e,{seen:false,ctx:{locale:code==='zh'?'zh-CN':code}});
+    const p=await L.open(e,{seen:false,ctx:{locale:code==='zh'?'zh-CN':code},init:()=>{ Object.defineProperty(navigator,'audioSession',{value:{type:'auto'},configurable:true}); }});   // (as on an iPhone: shows the silent-mode row too)
     const got=await p.evaluate(()=>({lang:__sr.lang,html:document.documentElement.lang,play:document.querySelector('#play span').textContent.trim()}));
     if(got.lang!==code||got.html!==code) problems.push(`${code}: expected lang ${code}, got ${got.lang}/${got.html}`);
     if(code!=='en' && got.play==='PLAY') problems.push(`${code}: PLAY button not translated`);

@@ -305,3 +305,5 @@
 305|SESSION ZEN
 306|Contour de la meilleure partie
 307|Contour en pointillés de votre meilleure partie. La ligne RECORD reste.
+308|Joue même si le commutateur de sonnerie est sur silencieux.
+309|Son en mode silencieux

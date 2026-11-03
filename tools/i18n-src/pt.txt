@@ -305,3 +305,5 @@
 305|SESSÃO ZEN
 306|Contorno da melhor partida
 307|Contorno tracejado da sua melhor partida. A linha de RECORDE continua.
+308|Toca mesmo com a chave de toque no silencioso.
+309|Som no modo silencioso
