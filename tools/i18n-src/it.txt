@@ -388,3 +388,32 @@
 388|Campo di fiori
 389|Stella
 390|Solo in Contro il tempo: quando il tempo scade, ottieni altri 30 secondi.
+391|Un amico ha fatto {n} in {mode}. Riesci a battere il suo punteggio?
+392|Pareggio!
+393|Accetta
+394|Batti {n}
+395|Sfida
+396|SFIDA
+397|Link della sfida copiato
+398|Forziere aperto! +{n} {coin}, {name} ×{k}
+399|Riscattato
+400|Completa le 3 missioni per aprire il forziere.
+401|Non ora
+402|Apri forziere
+403|Gioca una partita per esporre una torre.
+404|Museo delle torri
+405|MUSEO DELLE TORRI
+406|Forziere settimanale
+407|Forziere settimanale pronto: tocca per aprirlo
+408|Forziere settimanale pronto!
+409|Missione settimanale completata!
+410|MISSIONI SETTIMANALI
+411|Hai battuto il tuo amico!
+412|La tua torre migliore di ogni modalità, salvata su questo telefono.
+413|Il tuo amico vince {a} a {b}.
+414|Finisci {n} partite questa settimana
+415|Fai {n} perfetti questa settimana
+416|Raggiungi {n} blocchi di altezza in una partita
+417|Fai {n} punti in una partita
+418|Impila {n} blocchi questa settimana
+419|Gli stessi blocchi per entrambi. Booster e aiuto alla mira disattivati.

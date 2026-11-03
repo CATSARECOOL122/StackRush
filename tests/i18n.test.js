@@ -8,12 +8,12 @@ const run=(...a)=>execFileSync('node',a,{cwd:root,encoding:'utf8',stdio:['ignore
 /* elements whose text is wider than their box (clipped), or a page that scrolls sideways */
 const overflow=p=>p.evaluate(()=>{
   const bad=[]; document.querySelectorAll('.rip').forEach(r=>r.remove());          // (the tap ripple of a button that was just pressed is wider than the button, that is not a layout fault)
-  for(const el of document.querySelectorAll('#stage button,#stage .pill,#stage .nb,#stage .mode,#stage .set,#stage .ibtn,#stage h2,#stage .stg,#stage .th,#stage .card,#stage .lead,#stage .sub,#stage .lang,#stage .tab,#stage .bst,#stage .bpick,#stage .sheet h3')){
+  for(const el of document.querySelectorAll('#stage button,#stage .pill,#stage .nb,#stage .mode,#stage .set,#stage .ibtn,#stage h2,#stage .stg,#stage .th,#stage .card,#stage .lead,#stage .sub,#stage .lang,#stage .tab,#stage .bst,#stage .bpick,#stage .sheet h3,#stage .wk,#stage .mu,#stage .wkline')){
     const r=el.getBoundingClientRect(); if(!r.width||!r.height) continue;
     const cs=getComputedStyle(el);
     if(el.scrollWidth>el.clientWidth+2 && (cs.overflowX!=='visible'||cs.whiteSpace==='nowrap')) bad.push(`${el.tagName.toLowerCase()}.${String(el.className).slice(0,18)} "${(el.textContent||'').trim().slice(0,28)}"`);
   }
-  for(const box of document.querySelectorAll('#stage .bst,#stage .bpick,#stage .th')){                      // text must stay inside its shop card / boost row
+  for(const box of document.querySelectorAll('#stage .bst,#stage .bpick,#stage .th,#stage .wk,#stage .mu')){                      // text must stay inside its shop card / boost row
     const q=box.getBoundingClientRect(); if(!q.width) continue;
     for(const k of box.querySelectorAll('b,span,small,em,button')){ const r=k.getBoundingClientRect(); if(!r.width) continue;
       if(r.right>q.right+2||r.left<q.left-2) bad.push(`${box.className.slice(0,8)} "${(k.textContent||'').trim().slice(0,24)}" sticks out of its card`); }
@@ -37,7 +37,7 @@ module.exports=[
   }
 }],
 
-['all 13 languages: menu, modes, settings, awards, themes, campaign, practice offer, pause and game over render with no errors and no clipped text', async(e,L)=>{
+['all 13 languages: menu, modes, settings, awards, weekly chest, tower museum, friend challenge, themes, campaign, practice offer, pause and game over render with no errors and no clipped text', async(e,L)=>{
   const problems=[];
   for(const code of CODES){
     const p=await L.open(e,{seen:false,ctx:{locale:code==='zh'?'zh-CN':code},init:()=>{ Object.defineProperty(navigator,'audioSession',{value:{type:'auto'},configurable:true}); }});   // (as on an iPhone: shows the silent-mode row too)
@@ -54,6 +54,14 @@ module.exports=[
     await p.evaluate(()=>{ Object.assign(__sr.S.shop.boosts,{shield:12,slow:3,regrow:0}); __sr.S.shop.pick=['shield']; __sr.renderMenu(); });     // the Boosts button and sheet (with a double-digit count)
     await p.waitForTimeout(100); await check('menu with boosts'); await p.click('#openBoosts'); await p.waitForTimeout(450); await check('boosts sheet'); await p.click('#boostDone');
     await p.evaluate(()=>{ Object.assign(__sr.S.shop.boosts,{shield:0,slow:0,regrow:0}); __sr.S.shop.pick=[]; __sr.renderMenu(); });      // (an armed Shield would save the miss the game-over check below relies on)
+    await p.evaluate(()=>{ const s=__sr, bl=Array.from({length:10},(_,i)=>({x:.12+(i%3)*.04,w:.7}));                                       // the weekly chest ready, four towers on display, a friend's challenge
+      s.ensureWeek(); s.S.weekly.p=s.weekMissions().map(m=>m.n); s.S.weekly.claimed=false;
+      s.S.ghosts={classic:{score:42,blocks:bl,scores:[],th:'neon',ts:Date.now()},timed:{score:77,blocks:bl,scores:[],th:'flower',tp:'star',ts:Date.now()},lives:{score:19,blocks:bl,scores:[],ts:Date.now()},hazard:{score:30,blocks:bl,scores:[]}}; s.renderMenu(); });
+    await p.waitForTimeout(100); await check('menu with the weekly chest ready');
+    await p.click('#openAwards'); await p.waitForTimeout(450); await check('awards with the weekly chest ready');
+    await p.click('#openMuseum'); await p.waitForTimeout(450); await check('tower museum'); await p.click('#closeMuseum'); await p.waitForTimeout(300); await p.click('#closeAwards'); await p.waitForTimeout(300);
+    await p.evaluate(()=>__sr.openChallenge(__sr.parseChallenge('classic.4242.99'))); await p.waitForTimeout(450); await check('friend challenge'); await p.click('#chNo'); await p.waitForTimeout(300);
+    await p.evaluate(()=>{ __sr.S.ghosts={}; __sr.S.weekly={week:'',p:[0,0,0],claimed:false}; __sr.ensureWeek(); __sr.renderMenu(); });
     await p.click('#play',{force:true}); await p.waitForTimeout(400); await check('practice offer');
     await p.click('#tutSkip'); await p.waitForTimeout(400);
     await p.evaluate(()=>__sr.pause()); await p.waitForTimeout(250); await check('pause'); await p.click('#quit');

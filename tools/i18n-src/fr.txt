@@ -388,3 +388,32 @@
 388|Champ de fleurs
 389|Étoile
 390|Uniquement en Contre-la-montre : quand le temps est écoulé, vous gagnez 30 secondes de plus.
+391|Un ami a fait {n} en {mode}. Saurez-vous faire mieux ?
+392|Égalité !
+393|Accepter
+394|Battez {n}
+395|Défi
+396|DÉFI
+397|Lien du défi copié
+398|Coffre ouvert ! +{n} {coin}, {name} ×{k}
+399|Récupéré
+400|Terminez les 3 missions pour ouvrir le coffre.
+401|Pas maintenant
+402|Ouvrir le coffre
+403|Jouez une partie pour exposer une tour.
+404|Musée des tours
+405|MUSÉE DES TOURS
+406|Coffre hebdomadaire
+407|Coffre hebdomadaire prêt : touchez pour l'ouvrir
+408|Coffre hebdomadaire prêt !
+409|Mission hebdomadaire terminée !
+410|MISSIONS HEBDOMADAIRES
+411|Vous avez battu votre ami !
+412|Votre meilleure tour de chaque mode, enregistrée sur ce téléphone.
+413|Votre ami gagne {a} à {b}.
+414|Terminez {n} parties cette semaine
+415|Réalisez {n} parfaits cette semaine
+416|Atteignez {n} blocs de haut en une partie
+417|Marquez {n} points en une partie
+418|Empilez {n} blocs cette semaine
+419|Les mêmes blocs pour vous deux. Boosters et aide à la visée désactivés.

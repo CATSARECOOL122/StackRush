@@ -388,3 +388,32 @@
 388|Blumenwiese
 389|Stern
 390|Nur im Zeitrennen: Läuft die Zeit ab, bekommst du 30 Sekunden dazu.
+391|Ein Freund hat {n} in {mode} erreicht. Kannst du das schlagen?
+392|Unentschieden!
+393|Annehmen
+394|Schlage {n}
+395|Herausforderung
+396|HERAUSFORDERUNG
+397|Link zur Herausforderung kopiert
+398|Truhe geöffnet! +{n} {coin}, {name} ×{k}
+399|Abgeholt
+400|Schließe alle 3 Missionen ab, um die Truhe zu öffnen.
+401|Nicht jetzt
+402|Truhe öffnen
+403|Spiele eine Runde, um einen Turm auszustellen.
+404|Turmmuseum
+405|TURMMUSEUM
+406|Wochentruhe
+407|Wochentruhe bereit: zum Öffnen tippen
+408|Wochentruhe bereit!
+409|Wochenmission abgeschlossen!
+410|WOCHENMISSIONEN
+411|Du hast deinen Freund geschlagen!
+412|Dein bester Turm in jedem Modus, gespeichert auf diesem Handy.
+413|Dein Freund gewinnt {a} zu {b}.
+414|Beende diese Woche {n} Runden
+415|Lande diese Woche {n} perfekte Drops
+416|Erreiche in einer Runde {n} Blöcke Höhe
+417|Erreiche in einer Runde {n} Punkte
+418|Staple diese Woche {n} Blöcke
+419|Dieselben Blöcke für euch beide. Booster und Zielhilfe sind aus.

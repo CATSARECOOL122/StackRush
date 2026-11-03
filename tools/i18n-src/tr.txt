@@ -388,3 +388,32 @@
 388|Çiçek tarlası
 389|Yıldız
 390|Yalnızca Zamana Karşı'da: süre bittiğinde 30 saniye daha kazanırsın.
+391|Bir arkadaşın {mode} modunda {n} puan yaptı. Geçebilir misin?
+392|Berabere!
+393|Kabul et
+394|{n} puanı geç
+395|Meydan okuma
+396|MEYDAN OKUMA
+397|Meydan okuma bağlantısı kopyalandı
+398|Sandık açıldı! +{n} {coin}, {name} ×{k}
+399|Alındı
+400|Sandığı açmak için 3 görevi de tamamla.
+401|Şimdi değil
+402|Sandığı aç
+403|Bir kule sergilemek için bir tur oyna.
+404|Kule müzesi
+405|KULE MÜZESİ
+406|Haftalık sandık
+407|Haftalık sandık hazır: açmak için dokun
+408|Haftalık sandık hazır!
+409|Haftalık görev tamamlandı!
+410|HAFTALIK GÖREVLER
+411|Arkadaşını geçtin!
+412|Her moddaki en iyi kulen, bu telefonda saklı.
+413|Arkadaşın {a} - {b} kazandı.
+414|Bu hafta {n} tur bitir
+415|Bu hafta {n} mükemmel yap
+416|Tek turda {n} blok yüksekliğe ulaş
+417|Tek turda {n} puan yap
+418|Bu hafta {n} blok diz
+419|İkiniz için de aynı bloklar. Güçlendiriciler ve nişan yardımı kapalı.

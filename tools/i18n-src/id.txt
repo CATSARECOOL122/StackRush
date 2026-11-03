@@ -388,3 +388,32 @@
 388|Ladang bunga
 389|Bintang
 390|Hanya di Balapan Waktu: saat waktu habis, kamu dapat 30 detik lagi.
+391|Temanmu meraih {n} di {mode}. Bisakah kamu mengalahkannya?
+392|Seri!
+393|Terima
+394|Kalahkan {n}
+395|Tantangan
+396|TANTANGAN
+397|Tautan tantangan disalin
+398|Peti terbuka! +{n} {coin}, {name} ×{k}
+399|Diklaim
+400|Selesaikan 3 misi untuk membuka peti.
+401|Nanti saja
+402|Buka peti
+403|Mainkan satu ronde untuk memajang sebuah menara.
+404|Museum menara
+405|MUSEUM MENARA
+406|Peti mingguan
+407|Peti mingguan siap: ketuk untuk membuka
+408|Peti mingguan siap!
+409|Misi mingguan selesai!
+410|MISI MINGGUAN
+411|Kamu mengalahkan temanmu!
+412|Menara terbaikmu di setiap mode, tersimpan di ponsel ini.
+413|Temanmu menang {a} lawan {b}.
+414|Selesaikan {n} ronde minggu ini
+415|Capai {n} sempurna minggu ini
+416|Capai tinggi {n} balok dalam satu ronde
+417|Capai skor {n} dalam satu ronde
+418|Tumpuk {n} balok minggu ini
+419|Balok yang sama untuk kalian berdua. Booster dan bantuan bidik dimatikan.

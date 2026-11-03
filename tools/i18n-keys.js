@@ -37,6 +37,7 @@ const {serve}=require('./serve');
     for(const b of Object.values(sr.BOOSTS)){ out.add(b.name); out.add(b.desc); }
     for(const [, name] of sr.TABS) out.add(name);
     for(const hint of Object.values(sr.TAB_HINT)) out.add(hint);
+    for(const m of sr.WEEKLY) out.add(m.text);                                      // weekly mission texts
     return [...out];
   });
   await b.close(); srv.close();

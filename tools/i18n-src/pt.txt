@@ -388,3 +388,32 @@
 388|Campo de flores
 389|Estrela
 390|Só em Contra o tempo: quando o relógio zera, você ganha mais 30 segundos.
+391|Um amigo fez {n} em {mode}. Você consegue superar?
+392|Empate!
+393|Aceitar
+394|Supere {n}
+395|Desafio
+396|DESAFIO
+397|Link do desafio copiado
+398|Baú aberto! +{n} {coin}, {name} ×{k}
+399|Resgatado
+400|Complete as 3 missões para abrir o baú.
+401|Agora não
+402|Abrir baú
+403|Jogue uma partida para expor uma torre.
+404|Museu de torres
+405|MUSEU DE TORRES
+406|Baú semanal
+407|Baú semanal pronto: toque para abrir
+408|Baú semanal pronto!
+409|Missão semanal concluída!
+410|MISSÕES SEMANAIS
+411|Você superou seu amigo!
+412|Sua melhor torre de cada modo, salva neste celular.
+413|Seu amigo vence por {a} a {b}.
+414|Termine {n} partidas esta semana
+415|Faça {n} perfeitos esta semana
+416|Alcance {n} blocos de altura em uma partida
+417|Faça {n} pontos em uma partida
+418|Empilhe {n} blocos esta semana
+419|Os mesmos blocos para os dois. Boosters e ajuda de mira desligados.

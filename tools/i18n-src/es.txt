@@ -388,3 +388,32 @@
 388|Campo de flores
 389|Estrella
 390|Solo en Contrarreloj: cuando se acaba el tiempo, ganas 30 segundos más.
+391|Un amigo logró {n} en {mode}. ¿Puedes superarlo?
+392|¡Empate!
+393|Aceptar
+394|Supera {n}
+395|Desafío
+396|DESAFÍO
+397|Enlace del desafío copiado
+398|¡Cofre abierto! +{n} {coin}, {name} ×{k}
+399|Reclamado
+400|Completa las 3 misiones para abrir el cofre.
+401|Ahora no
+402|Abrir cofre
+403|Juega una partida para exponer una torre.
+404|Museo de torres
+405|MUSEO DE TORRES
+406|Cofre semanal
+407|Cofre semanal listo: toca para abrirlo
+408|¡Cofre semanal listo!
+409|¡Misión semanal completada!
+410|MISIONES SEMANALES
+411|¡Superaste a tu amigo!
+412|Tu mejor torre de cada modo, guardada en este teléfono.
+413|Tu amigo gana {a} a {b}.
+414|Termina {n} partidas esta semana
+415|Logra {n} perfectos esta semana
+416|Alcanza {n} bloques de altura en una partida
+417|Logra {n} puntos en una partida
+418|Apila {n} bloques esta semana
+419|Los mismos bloques para los dos. Sin potenciadores ni ayuda de puntería.
