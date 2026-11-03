@@ -33,10 +33,10 @@ module.exports=[
 ['timed: the clock waits for the first tap, perfects add time, time-up ends the run', async(e,L)=>{
   const p=await L.open(e);
   await p.evaluate(()=>__sr.startMode('timed')); await p.waitForTimeout(200);
-  const t0=await p.evaluate(()=>__sr.timeLeft); await p.waitForTimeout(700);
+  const t0=await p.evaluate(()=>__sr.timeLeft); assert.equal(t0,30,'Timed Rush starts at 30 seconds'); await p.waitForTimeout(700);
   assert.equal(await p.evaluate(()=>__sr.timeLeft),t0,'clock not running before the first tap');
   await L.perfects(p,5);
-  assert.ok(await p.evaluate(()=>__sr.timeLeft)>62,'time was added');
+  assert.ok(await p.evaluate(()=>__sr.timeLeft)>32,'time was added');
   await p.evaluate(()=>__sr.setTime(0.3)); await p.waitForTimeout(1400);
   assert.equal(await p.evaluate(()=>__sr.state),'over');
   assert.equal((await p.textContent('#oLabel')).trim(),"TIME'S UP");

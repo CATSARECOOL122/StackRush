@@ -633,11 +633,11 @@ const CFG = {
   regrowPct: 0.07,
   maxW: 300,
   startFrac: 0.62,
-  reviveCost: 40,
+  reviveCost: 60,
   dailyGoal: 12,
   dailyBonus: 50,
   milestone: 25,
-  timedSeconds: 60, timedBonus: 2, timedCap: 90, timedMissPenalty: 3,
+  timedSeconds: 30, timedBonus: 2, timedCap: 90, timedMissPenalty: 3, timedExtra: 30,
   bombChance: 0.26, bombTtl: 2.8, bombDodgePts: 2,
   zenMinFrac: 0.3,
   shieldEvery: 8,        // earn a shield every N perfects in a row
@@ -660,25 +660,26 @@ const LANGS = {en:'English',es:'Español',pt:'Português',fr:'Français',de:'Deu
    Android app, a Square link on the web); those stay locked until the store is connected. Scenes are the scenery of the themes you own. */
 const SHOP = {
   style:{
-    auto:{name:'Theme style',free:1}, classic:{name:'Classic',free:1}, flat:{name:'Flat',coins:150}, glass:{name:'Glass',coins:400},
-    neon:{name:'Neon',coins:500}, pixel:{name:'Pixel',coins:300}, foil:{name:'Foil',iap:'$0.99'} },
+    auto:{name:'Theme style',free:1}, classic:{name:'Classic',free:1}, flat:{name:'Flat',coins:300}, glass:{name:'Glass',coins:800},
+    neon:{name:'Neon',coins:1000}, pixel:{name:'Pixel',coins:600}, foil:{name:'Foil',iap:'$0.99'} },
   palette:{
     auto:{name:'Theme colors',free:1},
-    rainbow:{name:'Rainbow',coins:200,h0:0,hr:360,hs:.45,s:88,l:58},
-    pastel:{name:'Pastel',coins:200,h0:300,hr:210,hs:.35,s:68,l:76},
-    mono:{name:'Mono',coins:150,h0:215,hr:0,hs:.4,s:10,l:58,ls:14},
-    ember:{name:'Ember',coins:250,h0:2,hr:48,hs:.3,s:96,l:55},
-    frost:{name:'Frost',coins:250,h0:178,hr:60,hs:.3,s:88,l:64} },
+    rainbow:{name:'Rainbow',coins:400,h0:0,hr:360,hs:.45,s:88,l:58},
+    pastel:{name:'Pastel',coins:400,h0:300,hr:210,hs:.35,s:68,l:76},
+    mono:{name:'Mono',coins:300,h0:215,hr:0,hs:.4,s:10,l:58,ls:14},
+    ember:{name:'Ember',coins:500,h0:2,hr:48,hs:.3,s:96,l:55},
+    frost:{name:'Frost',coins:500,h0:178,hr:60,hs:.3,s:88,l:64} },
   scene:{ auto:{name:'Theme scene',free:1} },
-  sfx:{ classic:{name:'Classic',free:1}, retro:{name:'Retro',coins:150}, soft:{name:'Soft',coins:150} },
-  music:{ classic:{name:'Classic',free:1}, chill:{name:'Chill',coins:200}, chiptune:{name:'Chiptune',coins:200} },
-  fx:{ sparkle:{name:'Sparkle',free:1}, confetti:{name:'Confetti',coins:200}, stars:{name:'Stars',coins:250} },
-  topper:{ none:{name:'No topper',free:1}, black:{name:'Black cat',coins:300,fur:'#26262f'}, orange:{name:'Orange cat',coins:300,fur:'#f2994a'}, gold:{name:'Golden cat',iap:'$0.99',fur:'#ffc83d'} },
+  sfx:{ classic:{name:'Classic',free:1}, retro:{name:'Retro',coins:300}, soft:{name:'Soft',coins:300} },
+  music:{ classic:{name:'Classic',free:1}, chill:{name:'Chill',coins:400}, chiptune:{name:'Chiptune',coins:400} },
+  fx:{ sparkle:{name:'Sparkle',free:1}, confetti:{name:'Confetti',coins:400}, stars:{name:'Stars',coins:500} },
+  topper:{ none:{name:'No topper',free:1}, black:{name:'Black cat',coins:600,fur:'#26262f'}, orange:{name:'Orange cat',coins:600,fur:'#f2994a'},
+           flag:{name:'Flag',coins:800,kind:'flag',c1:'#ff4d6d',c2:'#ffffff'}, star:{name:'Star',coins:1000,kind:'star',c1:'#ffd54a',c2:'#fff6c2'}, gold:{name:'Golden cat',iap:'$0.99',fur:'#ffc83d'} },
   accent:{
     sunset:{name:'Sunset',free:1,c1:'#ffb23d',c2:'#ff6a3d',sh:'#a63d14',ink:'#2a0d00'},
-    ocean:{name:'Ocean',coins:150,c1:'#7ad8ff',c2:'#2f7bff',sh:'#1b4aa6',ink:'#021a3d'},
-    mint:{name:'Mint',coins:150,c1:'#8dffb0',c2:'#1fbf72',sh:'#0f7a47',ink:'#032413'},
-    rose:{name:'Rose',coins:150,c1:'#ff9ad0',c2:'#e0388f',sh:'#8f1f5b',ink:'#32041f'} }
+    ocean:{name:'Ocean',coins:300,c1:'#7ad8ff',c2:'#2f7bff',sh:'#1b4aa6',ink:'#021a3d'},
+    mint:{name:'Mint',coins:300,c1:'#8dffb0',c2:'#1fbf72',sh:'#0f7a47',ink:'#032413'},
+    rose:{name:'Rose',coins:300,c1:'#ff9ad0',c2:'#e0388f',sh:'#8f1f5b',ink:'#32041f'} }
 };
 const SHOP_DEFAULT = {style:'auto',palette:'auto',scene:'auto',sfx:'classic',music:'classic',fx:'sparkle',topper:'none',accent:'sunset'};
 const has = (o,k) => Object.prototype.hasOwnProperty.call(o,k);
@@ -687,7 +688,7 @@ const itemOk = (slot,id) => has(SHOP,slot) && (has(SHOP[slot],id) || (slot==='sc
 /* ================= Modes ================= */
 const MODES = {
   classic:{name:'Classic',icon:'layers',desc:'One life. Climb as high as you can.',lives:1,revive:true,ghost:true},
-  timed:{name:'Timed Rush',icon:'timer',desc:'60 seconds. Perfect drops add time.',lives:1,timer:true,ghost:true},
+  timed:{name:'Timed Rush',icon:'timer',desc:'30 seconds. Perfect drops add time.',lives:1,timer:true,ghost:true},
   lives:{name:'Lives',icon:'heart',desc:'3 lives. Only a full miss costs one.',lives:3,revive:true,ghost:true},
   hazard:{name:'Hazard',icon:'bomb',desc:"Bombs slide by. Don't drop on them!",lives:3,bombs:true,revive:true,ghost:true},
   zen:{name:'Zen',icon:'leaf',desc:'No speed-up, no fail. Just stack.',lives:99,ramp:false,coins:false,soft:true,ghost:false},
@@ -724,14 +725,15 @@ const THEMES = {
   neon:{name:'Neon',unlock:{t:'level',n:3},bg:['#05010f','#0b0630','#1a0752'],sun:'rgba(120,90,255,.45)',hill:['#12062e','#0a0320'],ground:'#070217',h0:0,hr:360,hs:.2,s:100,l:58,glow:true},
   ocean:{name:'Ocean',unlock:{t:'level',n:5},bg:['#052a4d','#0b5f93','#35bccf'],sun:'rgba(200,252,255,.55)',hill:['#07395f','#052a4a'],ground:'#031f39',h0:182,hr:60,hs:.3,s:85,l:58,amb:{type:'bubbles',n:26}},
   forest:{name:'Forest',unlock:{t:'level',n:7},bg:['#06221a','#14532d','#7bbf6a'],sun:'rgba(230,255,170,.5)',hill:['#0f3d2a','#0a2c1f'],ground:'#07231a',h0:95,hr:70,hs:.3,s:55,l:55,amb:{type:'fireflies',hue:70,n:30}},
-  desert:{name:'Desert',unlock:{t:'coins',n:250},bg:['#7c3a1d','#e08a3d','#ffd98a'],sun:'rgba(255,240,190,.75)',hill:['#a8531f','#7f3a14'],ground:'#5a2a10',h0:18,hr:36,hs:.28,s:70,l:62,amb:{type:'sand',n:26}},
+  desert:{name:'Desert',unlock:{t:'coins',n:500},bg:['#7c3a1d','#e08a3d','#ffd98a'],sun:'rgba(255,240,190,.75)',hill:['#a8531f','#7f3a14'],ground:'#5a2a10',h0:18,hr:36,hs:.28,s:70,l:62,amb:{type:'sand',n:26}},
   ice:{name:'Ice',unlock:{t:'level',n:9},bg:['#0a2540','#3b82b8','#cfeeff'],sun:'rgba(255,255,255,.65)',hill:['#7fb2d6','#5a93bd'],ground:'#2d5f86',h0:195,hr:40,hs:.3,s:70,l:74,amb:{type:'snow',n:46}},
-  candy:{name:'Candy',unlock:{t:'coins',n:150},bg:['#4a1a78','#c54aa9','#ffb6da'],sun:'rgba(255,232,250,.65)',hill:['#702b92','#541f7c'],ground:'#3b1262',h0:305,hr:70,hs:.35,s:90,l:68},
-  lava:{name:'Lava',unlock:{t:'coins',n:300},bg:['#140404','#5c0f0a','#ff5a1f'],sun:'rgba(255,150,60,.6)',hill:['#2a0a08','#1a0605'],ground:'#0f0302',h0:2,hr:50,hs:.3,s:95,l:55,glow:true,amb:{type:'embers',hue:20,n:40}},
-  sakura:{name:'Sakura',unlock:{t:'coins',n:350},bg:['#3a1c4a','#c9689b','#ffd1dc'],sun:'rgba(255,240,245,.7)',hill:['#7a3a6a','#5a2a52'],ground:'#3a1a40',h0:335,hr:30,hs:.3,s:80,l:78,amb:{type:'petals',n:32}},
+  candy:{name:'Candy',unlock:{t:'coins',n:300},bg:['#4a1a78','#c54aa9','#ffb6da'],sun:'rgba(255,232,250,.65)',hill:['#702b92','#541f7c'],ground:'#3b1262',h0:305,hr:70,hs:.35,s:90,l:68},
+  lava:{name:'Lava',unlock:{t:'coins',n:600},bg:['#140404','#5c0f0a','#ff5a1f'],sun:'rgba(255,150,60,.6)',hill:['#2a0a08','#1a0605'],ground:'#0f0302',h0:2,hr:50,hs:.3,s:95,l:55,glow:true,amb:{type:'embers',hue:20,n:40}},
+  sakura:{name:'Sakura',unlock:{t:'coins',n:700},bg:['#3a1c4a','#c9689b','#ffd1dc'],sun:'rgba(255,240,245,.7)',hill:['#7a3a6a','#5a2a52'],ground:'#3a1a40',h0:335,hr:30,hs:.3,s:80,l:78,amb:{type:'petals',n:32}},
   retro:{name:'Retro',unlock:{t:'level',n:12},bg:['#1a1c2c','#5d275d','#b13e53'],sun:'rgba(255,205,117,.5)',hill:['#29366f','#1a1c2c'],ground:'#0e0f1c',h0:20,hr:200,hs:.5,s:75,l:58,pixel:true,scan:true},
   deepsea:{name:'Deep Sea',unlock:{t:'level',n:15},bg:['#00060f','#021b3a','#06518c'],sun:'rgba(40,200,255,.35)',hill:['#02152e','#010c1c'],ground:'#010812',h0:195,hr:50,hs:.3,s:90,l:58,glow:true,amb:{type:'fireflies',hue:190,n:34}},
-  winter:{name:'Winter Night',unlock:{t:'coins',n:400},bg:['#0b1330','#27407a','#a9c4f0'],sun:'rgba(255,230,180,.55)',hill:['#e8f1ff','#c8d9f2'],ground:'#dbe7f7',h0:200,hr:40,hs:.3,s:70,l:76,amb:{type:'snow',n:60}},
+  winter:{name:'Winter Night',unlock:{t:'coins',n:800},bg:['#0b1330','#27407a','#a9c4f0'],sun:'rgba(255,230,180,.55)',hill:['#e8f1ff','#c8d9f2'],ground:'#dbe7f7',h0:200,hr:40,hs:.3,s:70,l:76,amb:{type:'snow',n:60}},
+  flower:{name:'Flower Field',unlock:{t:'coins',n:1400},bg:['#4aa8e8','#9fe0c0','#ffc6dc'],sun:'rgba(255,244,180,.85)',hill:['#6ccf7a','#47b162'],ground:'#2f8f4b',h0:325,hr:70,hs:.35,s:88,l:66,amb:{type:'blossom',n:22}},
   gold:{name:'Gold Rush',unlock:{t:'iap',price:'$1.00'},bg:['#0b0b0b','#1e1709','#3d2c0b'],sun:'rgba(255,205,90,.4)',hill:['#251b08','#170f04'],ground:'#0d0902',h0:38,hr:16,hs:.3,s:92,l:56,glow:true,amb:{type:'fireflies',hue:45,n:26}},
   galaxy:{name:'Galaxy',unlock:{t:'iap',price:'$1.00'},bg:['#02010a','#150a37','#2c1062'],sun:'rgba(175,115,255,.5)',hill:['#1b0c3f','#0f0626'],ground:'#080321',h0:250,hr:90,hs:.3,s:85,l:62,stars:2},
   cyber:{name:'Cyber City',unlock:{t:'iap',price:'$1.00'},bg:['#050510','#0a1a3a','#1b0a4a'],sun:'rgba(0,255,220,.35)',hill:['#0a0f2a','#060a1c'],ground:'#04060f',h0:170,hr:140,hs:.35,s:100,l:55,glow:true,amb:{type:'matrix',n:34}}
@@ -775,7 +777,7 @@ const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:''
              coins:0,blocks:0,perfects:0,played:0,revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,
-             shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0},pick:[],gift:false,tokens:[]},boostBests:{},
+             shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0},pick:[],gift:false,tokens:[]},boostBests:{},
              lastClaim:'',streak:0,daily:{day:'',perfects:0,done:false},seenTip:false};
 const store = {
   get(){ try{ return JSON.parse(localStorage.getItem('stackrush.v2')||'{}'); }catch(e){ return {}; } },
@@ -1053,9 +1055,12 @@ const MUSIC={
   chill:{bpm:66,prog:[0,-5,-3,-7],pent:[0,3,5,7,10],pad:'sine',pluck:'sine',padV:.05,pluckV:.03,act:[.3,.55]},
   chiptune:{bpm:124,prog:[0,-4,3,-2],pent:[0,4,7,12],pad:'square',pluck:'square',padV:.016,pluckV:.02,act:[.7,.95],arp:true}
 };
+/* the music builds with your combo: musLvl (0..1) chases the live perfect streak, a streak of about 18 is full; a miss lets it fall back within a second or two */
+let musLvl=0;
 function musicTick(){
   if(!ac || !mus.gain) return;
   if(ac.state!=='running' || !(S.music && !S.mute && !paused && !document.hidden)){ mus.next=0; return; }
+  const goal=(state==='playing' && !paused) ? clamp(combo/18,0,1) : 0; musLvl+=(goal-musLvl)*(goal>musLvl?.25:.12); if(musLvl<.01) musLvl=0;
   const now=ac.currentTime; if(mus.next<now) mus.next=now+.05;
   const M=MUSIC[eqv('music')]||MUSIC.classic, eighth=60/M.bpm/2, key=KEYS[Object.keys(THEMES).indexOf(S.theme)%KEYS.length];
   const f=semi=>220*Math.pow(2,semi/12);
@@ -1064,7 +1069,10 @@ function musicTick(){
     if(p===0){ for(const iv of [0,3,7,12]) mnote(f(root+iv),eighth*8,M.pad,M.padV,t0); mnote(f(root-12),eighth*3,'sine',.11,t0); }
     if(p===4) mnote(f(root-12),eighth*2.5,'sine',.08,t0);
     if(M.arp) mnote(f(root+[0,4,7,12][s%4]+12),eighth*.9,'square',.02,t0);
-    const act = state==='playing' ? M.act[1] : M.act[0];
+    if(musLvl>.25 && p%2===1) mnote(5200,.05,'triangle',.008+.012*musLvl,t0);                                                     // a light tick on the off-beats
+    if(musLvl>.5 && !M.arp) mnote(f(root+[0,4,7,12][s%4]+24),eighth*.8,'triangle',.012+.012*musLvl,t0);                           // a high arpeggio joins in
+    if(musLvl>.75 && p%4===0) mnote(f(root-24),eighth*.9,'sine',.07+.05*musLvl,t0);                                                // and a low pulse on the beat
+    const act = Math.min(1,(state==='playing' ? M.act[1] : M.act[0])+musLvl*.3);
     if(p%2===0 && Math.random()<act){ const n=M.pent[(Math.random()*M.pent.length)|0]+12*(Math.random()<.3?2:1); mnote(f(root+n),eighth*2.2,M.pluck,M.pluckV,t0); }
     mus.next+=eighth;
   }
@@ -1185,6 +1193,7 @@ function updateAmb(dt){
       case 'bubbles': q.y-=(24+q.v*40)*u*dt; q.x+=Math.sin(t*1.3+q.p)*12*u*dt; if(q.y<-12){q.y=H+12;q.x=Math.random()*W;} break;
       case 'petals': q.y+=(30+q.v*34)*u*dt; q.x+=(Math.sin(t*.7+q.p)*26+16)*u*dt;
         if(q.y>H+10){q.y=-10;q.x=Math.random()*W;} if(q.x>W+10)q.x=-10; break;
+      case 'blossom': q.y+=(22+q.v*26)*u*dt; q.x+=(Math.sin(t*.6+q.p)*22+8)*u*dt; if(q.y>H+12){q.y=-12;q.x=Math.random()*W;} if(q.x>W+12)q.x=-12; break;
       case 'sand': q.x+=(160+q.v*160)*u*dt; q.y+=Math.sin(t+q.p)*6*u*dt; if(q.x>W+30){q.x=-30;q.y=Math.random()*H;} break;
       case 'matrix': q.y+=(170+q.v*230)*u*dt; if(q.y>H+50){q.y=-50;q.x=Math.random()*W;} break;
     }
@@ -1198,6 +1207,9 @@ function drawAmb(){
       case 'snow': ctx.fillStyle='rgba(255,255,255,.8)'; ctx.beginPath(); ctx.arc(q.x,q.y,q.s*1.6*u,0,6.283); ctx.fill(); break;
       case 'bubbles': ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.lineWidth=1.2*u; ctx.beginPath(); ctx.arc(q.x,q.y,q.s*3.6*u,0,6.283); ctx.stroke(); break;
       case 'petals': ctx.fillStyle='rgba(255,190,215,.85)'; ctx.save(); ctx.translate(q.x,q.y); ctx.rotate(q.p+t*.8); ctx.beginPath(); ctx.ellipse(0,0,q.s*4*u,q.s*2.2*u,0,0,6.283); ctx.fill(); ctx.restore(); break;
+      case 'blossom': { const hu=[330,48,300,12,200][(q.p*10|0)%5], r=q.s*3.4*u; ctx.save(); ctx.translate(q.x,q.y); ctx.rotate(q.p+t*.5);
+        ctx.fillStyle=hsl(hu,90,hu===200?86:72,.92); for(let k=0;k<5;k++){ ctx.rotate(1.2566); ctx.beginPath(); ctx.ellipse(0,-r*.62,r*.46,r*.7,0,0,6.283); ctx.fill(); }
+        ctx.fillStyle='#ffe066'; ctx.beginPath(); ctx.arc(0,0,r*.34,0,6.283); ctx.fill(); ctx.restore(); break; }
       case 'sand': ctx.strokeStyle='rgba(255,236,190,.22)'; ctx.lineWidth=1.4*u; ctx.beginPath(); ctx.moveTo(q.x,q.y); ctx.lineTo(q.x-(18+q.v*16)*u,q.y); ctx.stroke(); break;
       case 'embers': ctx.globalCompositeOperation='lighter'; ctx.fillStyle=hsl(a.hue||20,100,58,.45+.4*Math.sin(t*5+q.p)); ctx.beginPath(); ctx.arc(q.x,q.y,q.s*1.8*u,0,6.283); ctx.fill(); ctx.globalCompositeOperation='source-over'; break;
       case 'fireflies': { const al=.25+.7*(.5+.5*Math.sin(t*2+q.p)); ctx.globalCompositeOperation='lighter';
@@ -1292,7 +1304,7 @@ function newRun(){
   paused=false; grace=0; clearCount(); $('pause').classList.add('hidden');
   lives=mod.lives||M.lives; maxLives=lives; timeLeft=CFG.timedSeconds; timerOn=false;
   armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false;
-  if(boostsAllowed(mode)) for(const id of S.shop.pick) if((S.shop.boosts[id]||0)>0) armed[id]=true;
+  if(boostsAllowed(mode)) for(const id of S.shop.pick) if((S.shop.boosts[id]||0)>0 && (id!=='time' || mode==='timed')) armed[id]=true;
   if(armed.shield){ shield=true; boostShield=true; }
   pieces=[]; parts=[]; rings=[]; texts=[]; banner=null; speedCue=null; speedTier=Math.floor(rampOf(1)*4);
   ghost = (M.ghost && S.ghosts[mode] && S.ghosts[mode].blocks && S.ghosts[mode].blocks.length>2) ? S.ghosts[mode] : null;
@@ -1450,6 +1462,13 @@ function drop(){
   tutAfterDrop(perfect);
   if(state==='playing') spawnCur();
 }
+/* the Extra Time boost: the clock hit zero in Timed Rush, so instead of ending the run it gives CFG.timedExtra more seconds (used up only now) */
+function extraTime(){
+  if(!armed.time) return false;
+  timeLeft=CFG.timedExtra; useBoost('time'); armed.time=false; setAux(true);
+  texts.length=0; texts.push({x:W/2,y:stack.length*BH+BH*2,vy:80,text:tr('EXTRA TIME!'),size:28*u,color:'#7fe8ff',life:1}); flash=.25; sfx.speed();
+  return true;
+}
 function useShield(what){
   if(boostShield){ boostShield=false; useBoost('shield'); }
   shield=false; S.shields=(S.shields||0)+1; setAux(true); save();
@@ -1464,7 +1483,7 @@ function miss(){
   if(soft()){ tutAfterDrop(false); spawnCur(); return; }
   if(mode==='timed'){
     timeLeft-=CFG.timedMissPenalty; texts.length=0; texts.push({x:W/2,y:stack.length*BH+60,vy:70,text:tr('-{n}s',{n:CFG.timedMissPenalty}),size:26*u,color:'#ff8f8f',life:1});
-    if(timeLeft<=0){ timeLeft=0; endRun('time'); return; }
+    if(timeLeft<=0){ if(extraTime()){ spawnCur(true); return; } timeLeft=0; endRun('time'); return; }
     spawnCur(); return;
   }
   loseLife();
@@ -1502,7 +1521,7 @@ function endRun(reason){
   const M=MODES[mode];
   if(reason==='fail'){ shake=Math.max(shake,14*u); }
   const before=JSON.parse(JSON.stringify({coins:S.coins,perfects:S.perfects,played:S.played,blocks:S.blocks,bestCombo:S.bestCombo,maxHeight:S.maxHeight,best:S.best,bests:S.bests,boostBests:S.boostBests,ghosts:S.ghosts,ach:S.ach,twistBest:S.twist&&S.twist.best}));
-  const earned = M.coins===false ? 0 : Math.floor(score/4)+perfectsRun;
+  const earned = M.coins===false ? 0 : Math.floor(score/5)+Math.floor(perfectsRun/2);
   S.coins+=earned; S.perfects+=perfectsRun; S.played++;
   const xp=applyXp(runBlocks);
   if(!boosted){ S.bestCombo=Math.max(S.bestCombo||0,bestCombo); S.maxHeight=Math.max(S.maxHeight||0,stack.length-1); }
@@ -1634,6 +1653,7 @@ function setAux(force){
     if(shield) html+=' '+I('shield','ic-cyan');
     if(slowLeft>0) html+=` <span class="ic-cyan">${I('hourglass')}${slowLeft}</span>`; else if(armed.slow) html+=` <span style="opacity:.55">${I('hourglass')}</span>`;
     if(armed.regrow) html+=` <span style="opacity:.55">${I('expand')}</span>`;
+    if(armed.time) html+=` <span class="ic-cyan" style="opacity:.7">${tr('+{n}s',{n:CFG.timedExtra})}</span>`;
   }
   const key=html+low;
   if(force||key!==auxKey){ auxKey=key; el.innerHTML=html; el.classList.toggle('low',low); }
@@ -1684,7 +1704,7 @@ function update(dt){
   if(live && state==='playing' && mode==='timed' && timerOn){
     const before=Math.ceil(timeLeft);
     timeLeft-=dt;
-    if(timeLeft<=0){ timeLeft=0; setAux(true); endRun('time'); }
+    if(timeLeft<=0){ if(!extraTime()){ timeLeft=0; setAux(true); endRun('time'); } }
     else { if(timeLeft<=5 && Math.ceil(timeLeft)!==before) sfx.tick(); setAux(); }
   }
   for(const b of stack) if(b.sq>0) b.sq=Math.max(0,b.sq-dt*4);
@@ -1847,12 +1867,30 @@ function paintCat(g,cx,sy,s0,fur,tt,blink){
   g.restore();
 }
 let hopT=-9;
+/* a flag or a star on a pole/glow, drawn standing on (cx, sy) like the cats */
+function paintTopper(g,it,cx,sy,s0,tt,blink){
+  if(it.fur){ paintCat(g,cx,sy,s0,it.fur,tt,blink); return; }
+  g.save(); g.translate(cx,sy); g.lineCap='round'; g.lineJoin='round';
+  if(it.kind==='flag'){
+    const ph=Math.sin(tt*5)*s0*.07, hgt=s0*1.5;
+    g.strokeStyle='#e9e9f2'; g.lineWidth=s0*.1; g.beginPath(); g.moveTo(0,0); g.lineTo(0,-hgt); g.stroke();
+    g.fillStyle='#ffd54a'; g.beginPath(); g.arc(0,-hgt-s0*.04,s0*.1,0,6.283); g.fill();
+    g.fillStyle=it.c1; g.beginPath(); g.moveTo(s0*.05,-hgt+s0*.02); g.quadraticCurveTo(s0*.5,-hgt-s0*.1+ph,s0*.95,-hgt+s0*.2+ph*.5); g.quadraticCurveTo(s0*.55,-hgt+s0*.28-ph,s0*.05,-hgt+s0*.62); g.closePath(); g.fill();
+    g.strokeStyle=it.c2; g.lineWidth=s0*.07; g.beginPath(); g.moveTo(s0*.12,-hgt+s0*.32); g.quadraticCurveTo(s0*.5,-hgt+s0*.2+ph,s0*.78,-hgt+s0*.3+ph*.5); g.stroke();
+  } else if(it.kind==='star'){
+    const r=s0*.62, cy=-s0*.78+Math.sin(tt*2.4)*s0*.06;
+    g.shadowColor=it.c1; g.shadowBlur=s0*.5;
+    g.fillStyle=it.c1; g.beginPath(); for(let k=0;k<10;k++){ const rr0=k%2?r*.46:r, an=k*Math.PI/5-Math.PI/2+Math.sin(tt*1.7)*.08; g.lineTo(Math.cos(an)*rr0,cy+Math.sin(an)*rr0); } g.closePath(); g.fill();
+    g.shadowBlur=0; g.fillStyle=it.c2; g.beginPath(); for(let k=0;k<10;k++){ const rr0=k%2?r*.2:r*.52, an=k*Math.PI/5-Math.PI/2+Math.sin(tt*1.7)*.08; g.lineTo(Math.cos(an)*rr0,cy-r*.04+Math.sin(an)*rr0); } g.closePath(); g.fill();
+  }
+  g.restore();
+}
 function drawTopper(){
-  const it=SHOP.topper[eqv('topper')]; if(!it || !it.fur || !stack.length) return;
+  const it=SHOP.topper[eqv('topper')]; if(!it || !(it.fur||it.kind) || !stack.length) return;
   const top=stack[stack.length-1], sy=Y(top.y+BH);
   if(sy<-BH*3 || sy>H+BH) return;
   const hk=Math.max(0,1-(t-hopT)*3.2), hop=Math.sin(hk*Math.PI)*BH*.5;
-  paintCat(ctx,top.x+top.w/2,sy+1-hop,BH*1.25,it.fur,t,(t*.7)%5<.14);
+  paintTopper(ctx,it,top.x+top.w/2,sy+1-hop,BH*1.25,t,(t*.7)%5<.14);
 }
 function drawBomb(b){
   const sy=Y(b.y+BH);
@@ -1890,12 +1928,12 @@ function draw(){
   drawGoalLine();
   for(const b of stack) drawBlock(b);
   drawShieldAura();
-  drawTopper();
   for(const p of pieces){
     const sy=Y(p.y+BH); ctx.save(); ctx.translate(p.x+p.w/2,sy+BH/2); ctx.rotate(p.rot);
     ctx.translate(-(p.x+p.w/2),-(sy+BH/2)); drawBlock({x:p.x,y:p.y,w:p.w,i:p.i,sq:0},p.a); ctx.restore();
   }
   if(cur){ if(cur.bomb) drawBomb(cur); else drawBlock(cur); }
+  drawTopper();                                                   // in front of the moving block: the flag, star or cat stays in view while the next block slides past
   for(const r of rings){
     const k=1-r.life, sy=Y(r.y);
     ctx.save(); ctx.globalAlpha=r.life*.9; ctx.strokeStyle='#fff'; ctx.lineWidth=3*u*r.life+1;
@@ -2109,8 +2147,8 @@ function fxPic(id){
       g.restore(); } });
 }
 function topperPic(id){
-  const look=buildLook(S.theme,'auto',S.shop.equip.palette,'auto'), fur=(SHOP.topper[id]||{}).fur;
-  return pic(`tp|${id}|${S.theme}|${S.shop.equip.palette}`,160,64,(g,w,h)=>{ darkBg(g,w,h,look); paintBlock(g,w/2-44,h-22,88,18,3,0,look,.8,1); if(fur) paintCat(g,w/2,h-22,32,fur,0,false); });
+  const look=buildLook(S.theme,'auto',S.shop.equip.palette,'auto'), it=SHOP.topper[id]||{};
+  return pic(`tp|${id}|${S.theme}|${S.shop.equip.palette}`,160,64,(g,w,h)=>{ darkBg(g,w,h,look); paintBlock(g,w/2-44,h-22,88,18,3,0,look,.8,1); if(it.fur||it.kind) paintTopper(g,it,w/2,h-22,32,0,false); });
 }
 function accentPic(id){ const a=SHOP.accent[id]; return pic('ac|'+id,160,64,(g,w,h)=>{ g.fillStyle='#150d33'; g.fillRect(0,0,w,h); const gr=g.createLinearGradient(0,0,0,h); gr.addColorStop(0,a.c1); gr.addColorStop(1,a.c2); g.fillStyle=gr; rr(34,14,92,32,12,g); g.fill(); g.fillStyle=a.sh; rr(34,44,92,5,3,g); g.fill(); }); }
 
@@ -2246,12 +2284,13 @@ $('boostList').addEventListener('click',e=>{
    Cosmetics and coin packs that cost dollars: in the Android app they go through Google Play Billing (the Digital Goods API of a
    Trusted Web Activity); on the web only the cosmetics can have a Square link. Until a store is connected, tapping one just says so. */
 const BOOSTS={
-  shield:{name:'Shield',icon:'shield',desc:'Start the round with a shield that blocks one miss or bomb.',price:[60,150]},
-  slow:{name:'Slow-Mo',icon:'hourglass',desc:'Slows the blocks for 6 drops when the speed picks up.',price:[80,200]},
-  regrow:{name:'Regrow',icon:'expand',desc:'Restores your full width when your tower gets thin.',price:[100,250]}
+  shield:{name:'Shield',icon:'shield',desc:'Start the round with a shield that blocks one miss or bomb.',price:[120,300]},
+  slow:{name:'Slow-Mo',icon:'hourglass',desc:'Slows the blocks for 6 drops when the speed picks up.',price:[160,400]},
+  regrow:{name:'Regrow',icon:'expand',desc:'Restores your full width when your tower gets thin.',price:[200,500]},
+  time:{name:'Extra Time',icon:'timer',desc:'Timed Rush only: when the clock runs out you get 30 more seconds.',price:[180,450]}
 };
 const PRODUCTS={ coins_s:{coins:600,price:'$0.99'}, coins_m:{coins:1800,price:'$2.99'}, coins_l:{coins:4000,price:'$4.99'}, coins_xl:{coins:9000,price:'$9.99'},
-                 starter:{coins:1000,boosts:{shield:2,slow:2,regrow:2},items:['style:neon','topper:black'],price:'$2.99'} };
+                 starter:{coins:1000,boosts:{shield:2,slow:2,regrow:2,time:2},items:['style:neon','topper:black'],price:'$2.99'} };
 const PLAY_BILLING='https://play.google.com/billing';
 const skuOf=key=>'item_'+String(key).replace(/[^a-z0-9]+/g,'_');          // Play product ids: lowercase letters, digits, underscores
 /* everything that costs real money: coin packs, the starter pack, premium themes and premium cosmetics */
@@ -2541,7 +2580,7 @@ if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.ho
     get ghostOutline(){ return S.ghostOutline!==false; }, CFG, get u(){ return u; }, get tablet(){ return tablet; }, get uiZ(){ return uiZ; }, IS_IPAD, IS_IOS, HAS_VIBRATE, get speedCue(){ return speedCue; }, get banner(){ return banner; },
     showMenu, showModes, showStages, openThemes, showAwards, showSettings, renderMenu, resize,
     giveShield(){ shield=true; setAux(true); }, bombNext(){ forceBomb=true; },
-    get boosted(){ return boosted; }, get armed(){ return armed; }, get slowLeft(){ return slowLeft; }, get regrowUsed(){ return regrowUsed; }, get baseW(){ return baseW; }, get shortView(){ return shortView; }, get updateReady(){ return updateReady; }, checkForUpdate, setUpdateReady, resetUpdateThrottle(){ lastUpdateCheck=0; }, layoutInfo, checkShortViewport, get H(){ return H; }, SQUARE_LINKS, openBoosts, closeBoosts, boostsAllowed,
+    get boosted(){ return boosted; }, get armed(){ return armed; }, get slowLeft(){ return slowLeft; }, get regrowUsed(){ return regrowUsed; }, get baseW(){ return baseW; }, get shortView(){ return shortView; }, get musicLevel(){ return musLvl; }, get updateReady(){ return updateReady; }, checkForUpdate, setUpdateReady, resetUpdateThrottle(){ lastUpdateCheck=0; }, layoutInfo, checkShortViewport, get H(){ return H; }, SQUARE_LINKS, openBoosts, closeBoosts, boostsAllowed,
     SHOP, BOOSTS, PRODUCTS, TABS, TAB_HINT, ownsItem, itemAction, boostAction, themeAction, grantProduct, claimPurchase, syncPurchases, loadPlayPrices, iapKeys, skuOf, isCoinPack, coinsTabOn, inPlayApp, inAndroidApp, buyIap, renderThemes, openThemes, startPreview, endPreview,
     setTab(t){ shopTab=t; renderThemes(); }, get tab(){ return shopTab; }, get look(){ return TH(); }, applyAccent,
     staticKeys(){

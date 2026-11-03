@@ -5,7 +5,7 @@ _Português (pt): paste each section into the matching field of the Play Console
 ## Short description (75/80)
 Toque na hora certa, empilhe a torre e faça quedas perfeitas. Sem anúncios.
 
-## Full description (1907/4000)
+## Full description (1924/4000)
 Toque para soltar o bloco deslizante sobre a sua torre. Se cair bem no centro, é PERFEITO e você mantém a largura total. Se errar a borda, a parte que sobra é cortada. Até onde você consegue chegar?
 
 COMO SE JOGA
@@ -16,7 +16,7 @@ COMO SE JOGA
 
 7 MODOS DE JOGO
 • Clássico: uma vida, suba o mais alto que puder.
-• Contra o tempo: 60 segundos; quedas perfeitas somam tempo.
+• Contra o tempo: 30 segundos; quedas perfeitas somam tempo.
 • Vidas: três vidas; só um erro total custa uma.
 • Perigo: desvie das bombas deslizantes e ganhe pontos extras.
 • Zen: sem aceleração e sem fim de jogo. Só empilhe e relaxe.
@@ -28,8 +28,8 @@ SUPERE SEU RECORDE
 • 26 conquistas, níveis e uma sequência de recompensas diárias.
 • Compartilhe sua pontuação com os amigos em um toque.
 
-15 TEMAS
-Pôr do sol, Neon, Oceano, Floresta, Deserto, Gelo, Doce, Lava, Sakura, Retrô, Mar profundo, Noite de inverno, além dos temas premium Corrida do ouro, Galáxia e Cidade Cibernética. Desbloqueie jogando, com moedas que você ganha, ou compre. Na loja você também troca estilos de bloco, cores, cenários, sons e música. Os boosters opcionais (Escudo, Câmera lenta e Regenerar) ajudam em uma partida difícil e só são gastos quando realmente ajudam; uma partida com booster tem o próprio recorde. As compras são sempre opcionais e não há itens pagos aleatórios.
+16 TEMAS
+Pôr do sol, Neon, Oceano, Floresta, Deserto, Gelo, Doce, Lava, Sakura, Retrô, Mar profundo, Noite de inverno, Campo de flores, além dos temas premium Corrida do ouro, Galáxia e Cidade Cibernética. Desbloqueie jogando, com moedas que você ganha, ou compre. Na loja você também troca estilos de bloco, cores, cenários, sons e música. Os boosters opcionais (Escudo, Câmera lenta e Regenerar) ajudam em uma partida difícil e só são gastos quando realmente ajudam; uma partida com booster tem o próprio recorde. As compras são sempre opcionais e não há itens pagos aleatórios.
 
 JUSTO E SEM PRESSÃO
 • Sem anúncios.

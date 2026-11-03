@@ -381,3 +381,10 @@
 381|Escena del tema
 382|Estilo del tema
 383|¿Franja vacía abajo? En Ajustes copia tu Código de guardado, quita esta app de la pantalla de inicio, vuelve a añadirla y pega el código en Cargar código.
+384|30 segundos. Los perfectos suman tiempo.
+385|Tiempo extra
+386|¡TIEMPO EXTRA!
+387|Bandera
+388|Campo de flores
+389|Estrella
+390|Solo en Contrarreloj: cuando se acaba el tiempo, ganas 30 segundos más.

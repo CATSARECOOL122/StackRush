@@ -16,7 +16,7 @@ Every mode except Zen and Practice speeds up as the tower grows: ×1.4 at 10 blo
 | Mode | Rules |
 |---|---|
 | **Classic** | One life. Climb as high as you can. |
-| **Timed Rush** | 60 seconds, clock starts on your first tap. Perfect drops add +2s, a full miss costs -3s. |
+| **Timed Rush** | 30 seconds, clock starts on your first tap. Perfect drops add +2s, a full miss costs -3s. The **Extra Time** boost gives 30 more seconds when the clock runs out. |
 | **Lives** | 3 lives. Only a full miss costs one; partial overhangs are fine. |
 | **Hazard** | 3 lives plus **bomb blocks**. Don't drop on a bomb. Let it slide past for +2 bonus points; drop on it and you lose a life. |
 | **Zen** | No speed-up and no fail state. A full miss just respawns the block. No coins. Tap *Finish* to end. |
@@ -34,31 +34,34 @@ Your best run in each mode is saved. Next time you play it:
 - a **BEST** line marks the height you need to beat,
 - a live "+N vs best" readout compares your score to the same point in your best run.
 
-## Themes (15)
-Sunset (free), Neon, Ocean, Forest, Desert, Ice, Candy, Lava, Sakura, Retro, Deep Sea, Winter Night, plus premium Gold Rush, Galaxy and Cyber City. Many have their own ambient effects (snow, fireflies, embers, petals, bubbles, sand, digital rain); Retro uses pixel blocks and scanlines. Unlock by level, by coins, or (premium) by purchase. Tap any theme to preview it live before you equip, unlock or buy it.
+## Themes (16)
+Sunset (free), Neon, Ocean, Forest, Desert, Ice, Candy, Lava, Sakura, Retro, Deep Sea, Winter Night, Flower Field (a bright meadow with drifting blossoms), plus premium Gold Rush, Galaxy and Cyber City. Many have their own ambient effects (snow, fireflies, embers, petals, bubbles, sand, digital rain); Retro uses pixel blocks and scanlines. Unlock by level, by coins, or (premium) by purchase. Tap any theme to preview it live before you equip, unlock or buy it.
 
 ## Shop, boosts and coins
 The old Themes screen is now a **Shop** with eight tabs. Everything can be previewed live in the game before you pay for it.
 
 | Tab | What is in it |
 |---|---|
-| Themes | the 15 themes above |
+| Themes | the 16 themes above |
 | Blocks | block styles: Classic, Flat, Glass, Neon, Pixel, and the premium **Foil** |
 | Colors | colour sets that replace the theme's block colours: Rainbow, Pastel, Mono, Ember, Frost |
 | Scenes | the scenery of any theme you own, on any theme (mix Lava blocks with the Ocean) |
 | Sounds | sound-effect packs (Classic, Retro, Soft) and music styles (Classic, Chill, Chiptune) |
-| Extras | landing effects (Sparkle, Confetti, Stars), a **tower topper** (Black cat, Orange cat, the premium Golden cat) and the **app colour** that tints the buttons |
+| Extras | landing effects (Sparkle, Confetti, Stars), a **tower topper** (Black cat, Orange cat, a Flag, a Star, the premium Golden cat; it stands in front of the sliding block so it is always in view) and the **app colour** that tints the buttons |
 | Boosts | buy boosts with coins, 1 or 3 at a time |
 | Coins | coin packs and the Starter pack (Android app only, see below) |
 
-**Boosts** (three, picked from the bolt button on the menu, at most two per round):
+**Boosts** (four, picked from the bolt button on the menu, at most two per round):
 - **Shield**: start the round with a shield that blocks one miss or one bomb.
 - **Slow-Mo**: when the speed has passed about ×1.5, the blocks slow to ×0.6 for 6 drops.
 - **Regrow**: when your tower gets thinner than 55% of its starting width, the next block restores the full width (at most twice a round).
+- **Extra Time** (Timed Rush only): when the clock runs out, or a miss empties it, you get 30 more seconds instead of the run ending.
 
-A boost is **only used up when it actually helps** (Shield on the miss it saves, Slow-Mo when it kicks in, Regrow when it triggers); quitting a round keeps unused boosts. They are not available in Daily Twist, Zen or Practice. **A round in which a boost was used keeps its own best score** ("Boosted run" on the game-over screen) and does not touch your real best, your ghost, your height and combo records or the height, combo and score awards, so the leaderboards of your own history stay honest. You get one of each boost as a welcome gift after your first game, and one more on daily-streak days 3 (Shield), 5 (Slow-Mo) and 7 (Regrow), repeating weekly.
+A boost is **only used up when it actually helps** (Shield on the miss it saves, Slow-Mo when it kicks in, Regrow when it triggers, Extra Time when the clock hits zero); quitting a round keeps unused boosts. They are not available in Daily Twist, Zen or Practice. **A round in which a boost was used keeps its own best score** ("Boosted run" on the game-over screen) and does not touch your real best, your ghost, your height and combo records or the height, combo and score awards, so the leaderboards of your own history stay honest. You get one of each boost as a welcome gift after your first game, and one more on daily-streak days 3 (Shield), 5 (Slow-Mo) and 7 (Regrow), repeating weekly.
 
-Everything except the premium cosmetics (3 themes, Foil, Golden cat) can be bought with coins you earn by playing. Prices live in the `SHOP` and `BOOSTS` tables in `index.html`.
+Everything except the premium cosmetics (3 themes, Foil, Golden cat) can be bought with coins you earn by playing. Prices live in the `SHOP`, `THEMES` and `BOOSTS` tables in `index.html`.
+
+**Coins are deliberately slow:** a round pays `floor(score / 5) + floor(perfects / 2)` coins, the daily reward is 20-80, and a theme or cosmetic costs about 300-1400 (a boost 120-500, Revive 60), roughly twice the old prices and a fifth less income than before. The test `economy` pins the numbers so changing them is a deliberate act.
 
 ## Languages (13)
 English, Español, Português, Français, Deutsch, Italiano, Bahasa Indonesia, Türkçe, Русский, हिन्दी, 日本語, 한국어, 中文 (简体). The game picks the phone's language on first launch (**Settings → Language → Automatic**), you can choose another one, and it falls back to English if a language file is missing. Language packs are small JSON files in `lang/`, cached for offline play.
@@ -86,14 +89,14 @@ How it works: the English text is the key (`tr('Reach {n} blocks',{n:5})`), stat
 - **Pause** (button, Esc/P, and automatically when you leave the app), with a 3-2-1 countdown after resuming.
 - **Settings:** sound effects, music, **sound in silent mode** (iPhone/iPad only, see below), vibration, reduce shake/flashes (follows the phone's reduce-motion setting by default), **best-run outline** (hide the dashed ghost tower; the BEST line and the "+N vs best" readout stay), language, timing assist, replay practice, and a **save code** to copy progress to another device (imported codes are validated field by field, so a malicious code cannot inject anything).
 - **Next-unlock hints** on the menu and game-over screen show your closest locked theme.
-- **Music:** a quiet generative background loop (key follows your theme); toggle in Settings or mute everything with the speaker button.
+- **Music:** a quiet generative background loop (key follows your theme) that **builds with your perfect streak**: an off-beat tick from about a 5-streak, a high arpeggio from about 9 and a low pulse from about 14, easing back down within a second or two of a miss; toggle in Settings or mute everything with the speaker button.
 - **Sound that keeps working:** iPhone/iPad mute Web Audio when the ringer switch is on silent (Bluetooth is not muted, which looks like "only works on Bluetooth"), so the game asks iOS to treat its audio like media playback (`navigator.audioSession`, iOS 16.4+); Settings → *Sound in silent mode* turns that off. A call, Siri, an alarm or the lock screen leaves the audio engine "interrupted" or "suspended": the game wakes it on the next real tap (`pointerup`/`touchend`/`click`, not `pointerdown`), makes a new one if the browser closed it, and never queues sounds while it is stopped.
 - **Premium finish:** touch targets are at least 44px (most 48-50px), springy press animations, tap ripples, light haptics where supported, staggered screen transitions. All motion respects the reduce-motion setting.
 - **Performance mode:** if frames drop on a slow phone, glow, particles and blur are reduced automatically; the menu idles at 30fps to save battery. If the game ever throws repeatedly, a friendly reload screen appears instead of a frozen page. An "Update ready" button appears when a new version has been downloaded.
 - **Icons:** all UI icons are a custom inline SVG set, so the game looks the same on every device.
 - **Accessibility:** screen-reader announcements for perfects and results, labelled buttons, visible keyboard focus.
 - **Daily reward** with a streak, and a **daily challenge** (12 perfect drops).
-- **Revive** once per run in Classic, Lives and Hazard (40 coins).
+- **Revive** once per run in Classic, Lives and Hazard (60 coins).
 - **What money buys:** premium cosmetics, coin packs and a Starter pack (Android app). Boosts are single-player aids that cost coins. There are no random paid items (no loot boxes), no timers, no fake scarcity, and nothing is needed to finish the game. Earlier versions of this page said "cosmetic only"; that stopped being true when boosts arrived.
 
 ## Setting up purchases (web)

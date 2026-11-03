@@ -80,13 +80,13 @@ module.exports=[
   await p.evaluate(()=>{ __sr.S.coins=1000; });
   await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('blocks'));
   const flat=p.locator('#tGrid [data-act=buy][data-slot=style][data-id=flat]');
-  assert.match((await flat.textContent()).trim(),/150/,'the price is on the button');
+  assert.match((await flat.textContent()).trim(),/300/,'the price is on the button');
   await flat.click(); await p.waitForTimeout(150);
   const state=()=>p.evaluate(()=>({c:__sr.S.coins,own:__sr.S.shop.owned.slice(),eq:__sr.S.shop.equip.style}));
-  assert.deepEqual(await state(),{c:850,own:['style:flat'],eq:'flat'});
+  assert.deepEqual(await state(),{c:700,own:['style:flat'],eq:'flat'});
   assert.equal(await p.locator('#tGrid [data-act=buy][data-id=flat]').count(),0,'a bought item has no buy button');
   assert.equal(await p.evaluate(()=>__sr.itemAction('buy','style','flat')),false,'buying it twice is refused');
-  assert.equal((await state()).c,850,'and costs nothing');
+  assert.equal((await state()).c,700,'and costs nothing');
   await p.evaluate(()=>{ __sr.S.coins=10; });
   assert.equal(await p.evaluate(()=>__sr.itemAction('buy','style','glass')),false); await toastHas(p,'Need');
   assert.deepEqual(await state(),{c:10,own:['style:flat'],eq:'flat'},'too few coins: nothing changes');
@@ -120,7 +120,7 @@ module.exports=[
   // buying from inside the preview
   await p.evaluate(()=>__sr.setTab('colors')); await p.click('#tGrid .sw[data-slot=palette][data-id=rainbow]'); await p.waitForTimeout(100);
   await p.click('#peekAct'); await p.waitForTimeout(150);
-  assert.deepEqual(await p.evaluate(()=>({c:__sr.S.coins,eq:__sr.S.shop.equip.palette,open:__sr.previewId})),{c:700,eq:'rainbow',open:null},'the preview bar buys and equips, then closes');
+  assert.deepEqual(await p.evaluate(()=>({c:__sr.S.coins,eq:__sr.S.shop.equip.palette,open:__sr.previewId})),{c:500,eq:'rainbow',open:null},'the preview bar buys and equips, then closes');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
@@ -134,7 +134,7 @@ module.exports=[
   assert.equal(got.coins,0,'garbage coins become 0');
   assert.deepEqual(got.owned,['style:foil','style:flat','product:starter'],'only real item keys survive ("product:starter" is the Starter pack marker)');
   assert.deepEqual(got.equip,{style:'foil',palette:'auto',scene:'auto',sfx:'classic',music:'classic',fx:'sparkle',topper:'none',accent:'sunset'},'unowned or invalid choices fall back to the defaults');
-  assert.deepEqual(got.boosts,{shield:999,slow:0,regrow:0},'counts are clamped to 0..999');
+  assert.deepEqual(got.boosts,{shield:999,slow:0,regrow:0,time:0},'counts are clamped to 0..999');
   assert.deepEqual(got.pick,['shield','slow'],'at most two real boosts, no repeats'); assert.equal(got.gift,true);
   assert.deepEqual(got.tokens,['ok','two'],'only reasonable purchase tokens are kept'); assert.deepEqual(got.bb,{classic:12,zen:0});
   await p.click('#openThemes');
@@ -268,7 +268,7 @@ module.exports=[
   await p.evaluate(()=>{ __sr.S.shop.pick=[]; __sr.S.lastMode='classic'; __sr.renderMenu(); });
   assert.equal((await p.textContent('#boostN')).trim(),'0');
   await p.click('#openBoosts'); await p.waitForTimeout(250);
-  assert.equal(await p.locator('#boostList .bpick').count(),3);
+  assert.equal(await p.locator('#boostList .bpick').count(),4);
   await p.click('#boostList [data-boost=shield]'); await p.click('#boostList [data-boost=slow]');
   assert.deepEqual(await p.evaluate(()=>__sr.S.shop.pick),['shield','slow']); assert.equal((await p.textContent('#boostN')).trim(),'2');
   await p.click('#boostList [data-boost=regrow]'); await toastHas(p,'Pick up to 2');
@@ -283,7 +283,7 @@ module.exports=[
 ['boosts: a boosted run has its own best; it leaves the ghost, height/combo records and height/combo awards alone; Revive undoes it with the rest', async(e,L)=>{
   // control: the same 5-perfect streak WITHOUT a boost earns the "In the Zone" award
   const c=await L.open(e); await c.evaluate(()=>{ __sr.S.assist='off'; __sr.startMode('classic'); }); await c.waitForTimeout(100);
-  await L.perfects(c,5); assert.equal(await c.evaluate(()=>__sr.S.ach.c5),1,'control: an unboosted 5-streak earns the award'); await L.close(c);
+  await L.perfects(c,12); assert.equal(await c.evaluate(()=>__sr.S.ach.c5),1,'control: an unboosted 5-streak earns the award'); await L.close(c);
   const p=await L.open(e); await p.evaluate(()=>{ __sr.S.coins=500; });
   await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(100);
   await L.perfects(p,3); await L.miss(p); await p.waitForTimeout(1000);
@@ -306,15 +306,15 @@ module.exports=[
 ['boosts: the welcome gift comes once, and streak days 3, 5 and 7 each bring one boost', async(e,L)=>{
   const p=await L.open(e);
   await p.evaluate(()=>__sr.showMenu());
-  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:0,slow:0,regrow:0},'no gift before the first game');
+  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:0,slow:0,regrow:0,time:0},'no gift before the first game');
   await p.evaluate(()=>{ __sr.S.played=1; __sr.showMenu(); });
-  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1},'one of each after the first game'); await toastHas(p,'Welcome gift');
-  await p.evaluate(()=>__sr.showMenu()); assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1},'only once');
+  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1,time:1},'one of each after the first game'); await toastHas(p,'Welcome gift');
+  await p.evaluate(()=>__sr.showMenu()); assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1,time:1},'only once');
   await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
-  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1},'and not again after a reload');
+  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1,time:1},'and not again after a reload');
   const y=yest(), got={};
   for(let day=1;day<=10;day++){
-    await p.evaluate(([d,y])=>{ const S=__sr.S; S.streak=d-1; S.lastClaim=d===1?'':y; S.shop.boosts={shield:0,slow:0,regrow:0}; __sr.renderMenu(); },[day,y]);
+    await p.evaluate(([d,y])=>{ const S=__sr.S; S.streak=d-1; S.lastClaim=d===1?'':y; S.shop.boosts={shield:0,slow:0,regrow:0,time:0}; __sr.renderMenu(); },[day,y]);
     await p.click('#dailyCard [data-act=claim]'); await p.waitForTimeout(80);
     const b=await p.evaluate(()=>__sr.S.shop.boosts), s=await p.evaluate(()=>__sr.S.streak);
     assert.equal(s,day,`streak day ${day}`); got[day]=Object.entries(b).filter(([,n])=>n).map(([k,n])=>k+n).join('');
@@ -324,11 +324,11 @@ module.exports=[
 }],
 
 ['boosts: coins buy them in ones and threes, and a boost is never bought without enough coins', async(e,L)=>{
-  const p=await L.open(e); await p.evaluate(()=>{ __sr.S.coins=300; });
+  const p=await L.open(e); await p.evaluate(()=>{ __sr.S.coins=700; });
   const st=()=>p.evaluate(()=>({c:__sr.S.coins,b:Object.assign({},__sr.S.shop.boosts)}));
-  assert.equal(await p.evaluate(()=>__sr.boostAction('shield',1)),true); assert.deepEqual(await st(),{c:240,b:{shield:1,slow:0,regrow:0}});
-  assert.equal(await p.evaluate(()=>__sr.boostAction('slow',3)),true); assert.deepEqual(await st(),{c:40,b:{shield:1,slow:3,regrow:0}});
-  assert.equal(await p.evaluate(()=>__sr.boostAction('regrow',1)),false); await toastHas(p,'Need'); assert.deepEqual(await st(),{c:40,b:{shield:1,slow:3,regrow:0}},'too few coins: nothing happens');
+  assert.equal(await p.evaluate(()=>__sr.boostAction('shield',1)),true); assert.deepEqual(await st(),{c:580,b:{shield:1,slow:0,regrow:0,time:0}});
+  assert.equal(await p.evaluate(()=>__sr.boostAction('slow',3)),true); assert.deepEqual(await st(),{c:180,b:{shield:1,slow:3,regrow:0,time:0}});
+  assert.equal(await p.evaluate(()=>__sr.boostAction('regrow',1)),false); await toastHas(p,'Need'); assert.deepEqual(await st(),{c:180,b:{shield:1,slow:3,regrow:0,time:0}},'too few coins: nothing happens');
   assert.equal(await p.evaluate(()=>__sr.boostAction('nope',1)),false);
   await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('boosts'));
   assert.match(await p.textContent('#tGrid'),/You have 3/); assert.deepEqual(p.errs,[]); await L.close(p);
@@ -366,7 +366,7 @@ module.exports=[
   const c0=(await S()).c;
   assert.equal(await p.evaluate(()=>__sr.grantProduct('coins_l')),true); assert.equal((await S()).c,c0+4000);
   assert.equal(await p.evaluate(()=>__sr.grantProduct('starter')),true);
-  let s=await S(); assert.equal(s.c,c0+5000); assert.deepEqual(s.b,{shield:2,slow:2,regrow:2}); assert.deepEqual(s.own.sort(),['product:starter','style:neon','topper:black']);
+  let s=await S(); assert.equal(s.c,c0+5000); assert.deepEqual(s.b,{shield:2,slow:2,regrow:2,time:2}); assert.deepEqual(s.own.sort(),['product:starter','style:neon','topper:black']);
   await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('coins'));
   assert.match(await p.textContent('#tGrid [data-act=pack][data-id=starter]'),/Owned/); assert.ok(await p.locator('#tGrid [data-act=pack][data-id=starter]').isDisabled(),'the Starter pack button is off once owned');
   await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready'));
@@ -448,6 +448,53 @@ module.exports=[
   let r=await tryKey('style:foil'); assert.deepEqual(r.own,['style:foil']); assert.match(r.eq,/^foil/);
   r=await tryKey('gold'); assert.ok(r.th.includes('gold')&&r.theme==='gold');
   for(const k of ['style:flat','style:neon','coins_s','starter','constructor','__proto__','scene:lava','topper:orange']){ r=await tryKey(k); assert.deepEqual(r.own,[],`?unlock=${k} unlocks nothing`); assert.equal(r.theme,'sunset'); }
+}],
+
+['boosts: Extra Time gives 30 more seconds when the clock runs out in Timed Rush, only there, one boost each, and only when it really saves the run', async(e,L)=>{
+  const p=await L.open(e); await stock(p,{time:2},['time']);
+  for(const m of ['classic','lives','hazard','daily','zen']){ await p.evaluate(m=>__sr.startMode(m),m); await p.waitForTimeout(80); assert.equal(await p.evaluate(()=>!!__sr.armed.time),false,`${m}: Extra Time is a Timed Rush boost`); await p.evaluate(()=>__sr.pause()); await p.click('#quit'); }
+  assert.equal(await inv(p,'time'),2,'nothing was used up');
+  await p.evaluate(()=>__sr.startMode('timed')); await p.waitForTimeout(150);
+  assert.deepEqual(await p.evaluate(()=>({armed:!!__sr.armed.time,t:__sr.timeLeft,cfg:__sr.CFG.timedExtra})),{armed:true,t:30,cfg:30},'armed at the start of Timed Rush, which starts at 30 seconds');
+  assert.match(await p.evaluate(()=>document.getElementById('aux').textContent),/\+30s/,'the HUD shows it is armed');
+  await L.perfects(p,1);                                                                  // starts the clock
+  await p.evaluate(()=>__sr.setTime(0.15)); await p.waitForTimeout(700);
+  assert.deepEqual(await p.evaluate(()=>({state:__sr.state,boosted:__sr.boosted,armed:!!__sr.armed.time})),{state:'playing',boosted:true,armed:false},'the clock ran out and the run carries on');
+  const t=await p.evaluate(()=>__sr.timeLeft); assert.ok(t>28 && t<=30,`about 30 seconds on the clock again (${t})`); assert.equal(await inv(p,'time'),1,'one used up');
+  await p.evaluate(()=>__sr.setTime(0.15)); await p.waitForTimeout(1500);
+  assert.equal(await p.evaluate(()=>__sr.state),'over','without another armed boost the next time-out ends the run'); assert.equal((await p.textContent('#oLabel')).trim(),"TIME'S UP"); assert.equal(await inv(p,'time'),1,'and uses nothing');
+  assert.match(await p.textContent('#oBest'),/Boosted run/);
+  // a miss that empties the clock is rescued the same way
+  await p.click('#toMenu'); await stock(p,{time:1},['time']); await p.evaluate(()=>__sr.startMode('timed')); await p.waitForTimeout(150);
+  await L.perfects(p,1); await p.evaluate(()=>__sr.setTime(2)); await L.miss(p);
+  assert.deepEqual(await p.evaluate(()=>({state:__sr.state,t:Math.round(__sr.timeLeft)})),{state:'playing',t:30},'a -3s miss on an almost empty clock is rescued too'); assert.equal(await inv(p,'time'),0);
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['economy: a round pays floor(score/5) + floor(perfects/2) coins, and the prices are the ones in the table', async(e,L)=>{
+  const p=await L.open(e);
+  await p.evaluate(()=>{ for(const a of __sr.ACH) __sr.S.ach[a.id]=1; __sr.S.assist='off'; __sr.S.coins=0; __sr.S.tutSeen=true; for(const k of Object.keys(__sr.MODES)) __sr.S.tips[k]=1; __sr.startMode('classic'); });
+  await p.waitForTimeout(150); await L.perfects(p,6); await L.miss(p); await p.waitForTimeout(1200);
+  const r=await p.evaluate(()=>({coins:__sr.S.coins,score:__sr.score})); const perfects=6;
+  assert.equal(r.coins,Math.floor(r.score/5)+Math.floor(perfects/2),`score ${r.score} and ${perfects} perfects pay ${r.coins} coins`);
+  const price=await p.evaluate(()=>({flat:__sr.SHOP.style.flat.coins,glass:__sr.SHOP.style.glass.coins,neon:__sr.SHOP.style.neon.coins,pixel:__sr.SHOP.style.pixel.coins,rainbow:__sr.SHOP.palette.rainbow.coins,retro:__sr.SHOP.sfx.retro.coins,chill:__sr.SHOP.music.chill.coins,confetti:__sr.SHOP.fx.confetti.coins,black:__sr.SHOP.topper.black.coins,flag:__sr.SHOP.topper.flag.coins,star:__sr.SHOP.topper.star.coins,ocean:__sr.SHOP.accent.ocean.coins,
+    candy:__sr.THEMES.candy.unlock.n,desert:__sr.THEMES.desert.unlock.n,lava:__sr.THEMES.lava.unlock.n,sakura:__sr.THEMES.sakura.unlock.n,winter:__sr.THEMES.winter.unlock.n,flower:__sr.THEMES.flower.unlock.n,
+    shield:__sr.BOOSTS.shield.price,slow:__sr.BOOSTS.slow.price,regrow:__sr.BOOSTS.regrow.price,time:__sr.BOOSTS.time.price,revive:__sr.CFG.reviveCost}));
+  assert.deepEqual(price,{flat:300,glass:800,neon:1000,pixel:600,rainbow:400,retro:300,chill:400,confetti:400,black:600,flag:800,star:1000,ocean:300,candy:300,desert:500,lava:600,sakura:700,winter:800,flower:1400,shield:[120,300],slow:[160,400],regrow:[200,500],time:[180,450],revive:60});
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['music builds with the combo: the level climbs with a perfect streak, adds notes, and falls back after a miss', async(e,L)=>{
+  const p=await L.open(e,{init:SOUNDS}); const n=()=>p.evaluate(()=>window.__n);
+  await p.click('#play',{force:true}); await p.evaluate(()=>{ __sr.S.assist='off'; }); await p.waitForTimeout(500);
+  assert.equal(await p.evaluate(()=>__sr.musicLevel),0,'no streak, plain music'); const a0=await n(); await p.waitForTimeout(3000); const calm=(await n())-a0;
+  await L.perfects(p,17); await p.waitForTimeout(700);
+  const lvl=await p.evaluate(()=>__sr.musicLevel); assert.ok(lvl>.6,`a long streak lifts the level (${lvl.toFixed(2)})`);
+  const a1=await n(); await p.waitForTimeout(3000); const busy=(await n())-a1;
+  assert.ok(busy>=calm+8,`the busy music has many more notes in 3 s (${calm} -> ${busy})`);
+  await L.miss(p); await p.waitForTimeout(3500);
+  assert.ok(await p.evaluate(()=>__sr.musicLevel)<.15,'after a miss the music settles back down');
+  assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
 ];

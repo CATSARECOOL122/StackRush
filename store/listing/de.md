@@ -5,7 +5,7 @@ _Deutsch (de): paste each section into the matching field of the Play Console li
 ## Short description (73/80)
 Tippe im richtigen Moment, stapel den Turm, triff perfekt. Keine Werbung.
 
-## Full description (2004/4000)
+## Full description (2017/4000)
 Tippe, um den gleitenden Block auf deinen Turm fallen zu lassen. Triffst du genau die Mitte, ist es PERFEKT und du behältst deine volle Breite. Verfehlst du den Rand, wird der Überstand abgeschnitten. Wie hoch kommst du?
 
 SO SPIELST DU
@@ -16,7 +16,7 @@ SO SPIELST DU
 
 7 SPIELMODI
 • Klassisch: ein Leben, klettere so hoch du kannst.
-• Zeitrennen: 60 Sekunden, perfekte Drops geben Zeit dazu.
+• Zeitrennen: 30 Sekunden, perfekte Drops geben Zeit dazu.
 • Leben: drei Leben, nur ein kompletter Fehlwurf kostet eines.
 • Gefahr: weiche den gleitenden Bomben aus und sammle Bonuspunkte.
 • Zen: keine Beschleunigung, kein Game Over. Einfach stapeln und entspannen.
@@ -28,8 +28,8 @@ SCHLAG DEINEN REKORD
 • 26 Erfolge, Level und eine tägliche Belohnungsserie.
 • Teile deine Punktekarte mit Freunden mit einem Tipp.
 
-15 DESIGNS
-Sonnenuntergang, Neon, Ozean, Wald, Wüste, Eis, Bonbon, Lava, Sakura, Retro, Tiefsee, Winternacht und die Premium-Designs Goldrausch, Galaxie und Cyber City. Schalte sie durch Spielen frei, mit verdienten Münzen, oder kaufe sie. Im Shop kannst du außerdem Blockstile, Farben, Kulissen, Sounds und Musik ändern. Optionale Booster (Schild, Zeitlupe und Nachwachsen) helfen in einer schweren Runde und werden nur verbraucht, wenn sie wirklich helfen; eine Runde mit Booster hat ihren eigenen Rekord. Käufe sind immer freiwillig, es gibt keine zufälligen Bezahl-Items.
+16 DESIGNS
+Sonnenuntergang, Neon, Ozean, Wald, Wüste, Eis, Bonbon, Lava, Sakura, Retro, Tiefsee, Winternacht, Blumenwiese und die Premium-Designs Goldrausch, Galaxie und Cyber City. Schalte sie durch Spielen frei, mit verdienten Münzen, oder kaufe sie. Im Shop kannst du außerdem Blockstile, Farben, Kulissen, Sounds und Musik ändern. Optionale Booster (Schild, Zeitlupe und Nachwachsen) helfen in einer schweren Runde und werden nur verbraucht, wenn sie wirklich helfen; eine Runde mit Booster hat ihren eigenen Rekord. Käufe sind immer freiwillig, es gibt keine zufälligen Bezahl-Items.
 
 FAIR UND ENTSPANNT
 • Keine Werbung.

@@ -381,3 +381,10 @@
 381|Scenario del tema
 382|Stile del tema
 383|Striscia vuota in basso? In Impostazioni copia il tuo Codice di salvataggio, rimuovi questa app dalla schermata Home, aggiungila di nuovo e incolla il codice in Carica codice.
+384|30 secondi. I perfetti aggiungono tempo.
+385|Tempo extra
+386|TEMPO EXTRA!
+387|Bandiera
+388|Campo di fiori
+389|Stella
+390|Solo in Contro il tempo: quando il tempo scade, ottieni altri 30 secondi.

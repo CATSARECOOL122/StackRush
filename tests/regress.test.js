@@ -12,14 +12,14 @@ module.exports=[
   assert.equal(await p.evaluate(()=>__sr.state),'over'); assert.ok(await p.isVisible('#revive'),'revive is offered');
   const gained=await p.evaluate(()=>__sr.S.coins)-1000; assert.ok(gained>0,'the run paid out coins');
   await p.click('#overThemes'); await p.waitForTimeout(300);
-  await p.click('.sw[data-id=desert]'); await p.waitForTimeout(150); await p.click('#peekAct'); await p.waitForTimeout(250);     // buy + equip a 250-coin theme
+  await p.click('.sw[data-id=desert]'); await p.waitForTimeout(150); await p.click('#peekAct'); await p.waitForTimeout(250);     // buy + equip a 500-coin theme
   assert.deepEqual(await p.evaluate(()=>({t:__sr.S.theme,o:__sr.S.owned.includes('desert')})),{t:'desert',o:true});
   await p.click('#closeThemes'); await p.waitForTimeout(250); assert.ok(await p.isVisible('#revive'));
   await p.click('#revive'); await p.waitForTimeout(300);
   const r=await p.evaluate(()=>({state:__sr.state,theme:__sr.S.theme,owned:__sr.S.owned.includes('desert'),coins:__sr.S.coins,best:__sr.S.bests.classic,played:__sr.S.played}));
   assert.equal(r.state,'playing'); assert.equal(r.theme,'desert','the equipped theme survived'); assert.equal(r.owned,true,'the purchase survived');
   const awards=await p.evaluate(()=>Object.keys(__sr.S.ach).reduce((n,id)=>n+__sr.ACH.find(a=>a.id===id).coins,0));            // awards (e.g. "Second Wind") are paid again when earned again
-  assert.equal(r.coins,1000-250-40+awards,'coins: the run\'s payout is taken back, the purchase and the revive fee are paid'); assert.equal(r.played,0,'the run does not count as finished yet');
+  assert.equal(r.coins,1000-500-60+awards,'coins: the run\'s payout is taken back, the purchase and the revive fee are paid'); assert.equal(r.played,0,'the run does not count as finished yet');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 

@@ -381,3 +381,10 @@
 381|Cenário do tema
 382|Estilo do tema
 383|Faixa vazia embaixo? Em Ajustes copie seu Código de salvamento, remova este app da Tela de Início, adicione-o de novo e cole o código em Carregar código.
+384|30 segundos. Os perfeitos adicionam tempo.
+385|Tempo extra
+386|TEMPO EXTRA!
+387|Bandeira
+388|Campo de flores
+389|Estrela
+390|Só em Contra o tempo: quando o relógio zera, você ganha mais 30 segundos.

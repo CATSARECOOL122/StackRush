@@ -381,3 +381,10 @@
 381|Tema sahnesi
 382|Tema stili
 383|Altta boş bir şerit mi var? Ayarlar'da Kayıt kodunu kopyala, bu uygulamayı Ana Ekran'dan kaldır, yeniden ekle ve kodu Kodu yükle bölümüne yapıştır.
+384|30 saniye. Mükemmel bırakışlar süre ekler.
+385|Ek süre
+386|EK SÜRE!
+387|Bayrak
+388|Çiçek tarlası
+389|Yıldız
+390|Yalnızca Zamana Karşı'da: süre bittiğinde 30 saniye daha kazanırsın.

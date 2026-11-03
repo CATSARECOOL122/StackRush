@@ -5,7 +5,7 @@ _Español (es): paste each section into the matching field of the Play Console l
 ## Short description (69/80)
 Toca a tiempo, apila la torre y logra caídas perfectas. Sin anuncios.
 
-## Full description (1979/4000)
+## Full description (1996/4000)
 Toca para soltar el bloque deslizante sobre tu torre. Si cae justo en el centro, es PERFECTO y conservas todo el ancho. Si fallas el borde, lo que sobresale se corta. ¿Hasta dónde puedes subir?
 
 CÓMO SE JUEGA
@@ -16,7 +16,7 @@ CÓMO SE JUEGA
 
 7 FORMAS DE JUGAR
 • Clásico: una vida, sube todo lo que puedas.
-• Contrarreloj: 60 segundos; las caídas perfectas suman tiempo.
+• Contrarreloj: 30 segundos; las caídas perfectas suman tiempo.
 • Vidas: tres vidas; solo un fallo total cuesta una.
 • Peligro: esquiva las bombas que se deslizan y gana puntos extra.
 • Zen: sin aceleración ni fin de partida. Solo apila y relájate.
@@ -28,8 +28,8 @@ SUPERA TU RÉCORD
 • 26 logros, niveles y una racha de recompensas diarias.
 • Comparte tu puntuación con tus amigos con un solo toque.
 
-15 TEMAS
-Atardecer, Neón, Océano, Bosque, Desierto, Hielo, Caramelo, Lava, Sakura, Retro, Mar profundo, Noche de invierno, y los temas premium Fiebre del oro, Galaxia y Ciudad Cibernética. Desbloquéalos jugando, con las monedas que ganes, o cómpralos. En la tienda también puedes cambiar estilos de bloque, colores, escenarios, sonidos y música. Los potenciadores opcionales (Escudo, Cámara lenta y Regenerar) ayudan en una partida difícil y solo se gastan cuando de verdad ayudan; una partida con potenciador guarda su propio récord. Las compras son siempre opcionales y no hay objetos de pago aleatorios.
+16 TEMAS
+Atardecer, Neón, Océano, Bosque, Desierto, Hielo, Caramelo, Lava, Sakura, Retro, Mar profundo, Noche de invierno, Campo de flores, y los temas premium Fiebre del oro, Galaxia y Ciudad Cibernética. Desbloquéalos jugando, con las monedas que ganes, o cómpralos. En la tienda también puedes cambiar estilos de bloque, colores, escenarios, sonidos y música. Los potenciadores opcionales (Escudo, Cámara lenta y Regenerar) ayudan en una partida difícil y solo se gastan cuando de verdad ayudan; una partida con potenciador guarda su propio récord. Las compras son siempre opcionales y no hay objetos de pago aleatorios.
 
 JUSTO Y SIN PRESIONES
 • Sin anuncios.

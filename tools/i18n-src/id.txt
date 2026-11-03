@@ -381,3 +381,10 @@
 381|Latar tema
 382|Gaya tema
 383|Ada strip kosong di bawah? Di Pengaturan salin Kode simpan, hapus aplikasi ini dari Layar Utama, tambahkan lagi, lalu tempel kodenya di Muat kode.
+384|30 detik. Drop sempurna menambah waktu.
+385|Waktu tambahan
+386|WAKTU TAMBAHAN!
+387|Bendera
+388|Ladang bunga
+389|Bintang
+390|Hanya di Balapan Waktu: saat waktu habis, kamu dapat 30 detik lagi.

@@ -381,3 +381,10 @@
 381|Design-Kulisse
 382|Design-Stil
 383|Leerer Streifen unten? Kopiere in den Einstellungen deinen Speichercode, entferne diese App vom Home-Bildschirm, füge sie erneut hinzu und füge den Code unter Code laden ein.
+384|30 Sekunden. Perfekte Drops geben Zeit.
+385|Extrazeit
+386|EXTRAZEIT!
+387|Flagge
+388|Blumenwiese
+389|Stern
+390|Nur im Zeitrennen: Läuft die Zeit ab, bekommst du 30 Sekunden dazu.
