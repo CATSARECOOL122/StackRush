@@ -2306,7 +2306,7 @@ async function shareScore(){
 
 /* ================= Menu / UI ================= */
 const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum'];
-function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); }
+function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
   for(const [id,th] of Object.entries(THEMES)){
@@ -2555,8 +2555,8 @@ function renderBoosts(){
     return `<button class="bpick${on?' on':''}${n?'':' empty'}" data-boost="${id}" aria-pressed="${on}"><i>${I(bo.icon)}</i><div><b>${tr(bo.name)}</b><span>${tr(bo.desc)}</span></div><em>${on?I('check')+' ':''}×${n}</em></button>`;
   }).join('');
 }
-function openBoosts(){ $('boosts').classList.remove('hidden'); renderBoosts(); }
-function closeBoosts(){ $('boosts').classList.add('hidden'); renderMenu(); }
+function openBoosts(){ $('boosts').classList.remove('hidden'); renderBoosts(); soon(syncBack); }
+function closeBoosts(){ $('boosts').classList.add('hidden'); renderMenu(); soon(syncBack); }
 $('openBoosts').onclick=()=>{ sfx.tap(); openBoosts(); };
 $('boostBg').onclick=$('boostDone').onclick=()=>{ sfx.tap(); closeBoosts(); };
 $('boostShop').onclick=()=>{ sfx.tap(); $('boosts').classList.add('hidden'); shopTab='boosts'; openThemes('menu'); };
@@ -2714,6 +2714,39 @@ function importCode(){
   }catch(e){ toast(tr("That code didn't work")); }
 }
 
+/* ================= Back button =================
+   The Android Back button (and a browser's Back, and the swipe from the edge on an iPhone) should step out of the game the way the on-screen arrows do, not close the app:
+   a run pauses (a second Back resumes), a screen closes, and only from the plain menu does Back leave. The page keeps ONE extra history entry (a "sentinel") whenever it is
+   not on the plain menu; Back uses it up, we put it back while we are still somewhere deeper, and we take it away again when we arrive at the menu, so that Back there is
+   the browser's own and the app can close. */
+function soon(f){ if(typeof queueMicrotask==='function') queueMicrotask(f); else setTimeout(f,0); }       // right after the current handler finishes, before anything else can happen
+let backState='off', backWant=false, backAfter=null;          // off: no sentinel · armed: one is in the history · popping: we are removing it ourselves
+const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('crash').classList.contains('hidden');
+function armBack(){
+  if(backState==='off'){ try{ history.pushState({sr:1},''); backState='armed'; }catch(e){} }
+  else if(backState==='popping') backWant=true;                // (arm again as soon as our own removal is done)
+}
+function disarmBack(){ if(backState==='armed'){ backState='popping'; try{ history.back(); }catch(e){ backState='off'; } } }
+function syncBack(){ if(onPlainMenu()) disarmBack(); else armBack(); }
+function handleBack(){
+  const open=id=>!$(id).classList.contains('hidden'), tap=id=>$(id).click();
+  if(open('crash')) return;
+  const d=document.getElementById('diag'); if(d){ d.remove(); return; }
+  if(open('boosts')){ closeBoosts(); return; }
+  if(state==='playing'){ if(paused) tap('resume'); else pause(); return; }
+  for(const [scr,btn] of [['modes','closeModes'],['stages','closeStages'],['themes','closeThemes'],['museum','closeMuseum'],['awards','closeAwards'],['langs','closeLangs'],['settings','closeSettings'],['chal','chNo'],['over','toMenu']]) if(open(scr)){ tap(btn); return; }
+  if(open('tutOffer')) showMenu();
+}
+addEventListener('popstate',()=>{
+  if(backState==='popping'){ backState='off'; if(backAfter){ const f=backAfter; backAfter=null; f(); return; } if(backWant){ backWant=false; syncBack(); } return; }
+  if(backState==='armed'){ backState='off'; try{ handleBack(); }catch(e){ try{ console.error(e); }catch(_){} } syncBack(); }
+});
+function reloadApp(){
+  try{ save(); }catch(e){}
+  if(backState==='armed'){ backState='popping'; backAfter=()=>location.reload(); try{ history.back(); }catch(e){ backAfter=null; location.reload(); return; } setTimeout(()=>{ if(backAfter){ const f=backAfter; backAfter=null; f(); } },500); }
+  else location.reload();
+}
+
 /* ================= Input ================= */
 addEventListener('pointerdown',e=>{
   audio();
@@ -2853,14 +2886,14 @@ function layoutInfo(){
   d=document.createElement('div'); d.id='diag';
   d.style.cssText='position:fixed;inset:0;z-index:99;background:#000e;color:#a8ffb8;font:12px/1.55 ui-monospace,Menlo,monospace;padding:calc(env(safe-area-inset-top) + 18px) 14px 24px;overflow:auto;white-space:pre-wrap;word-break:break-word';
   d.textContent='LAYOUT INFO  (tap anywhere to close)\n\n'+rows.map(r=>r[0].padEnd(20)+r[1]).join('\n')+'\n\nIf the game looks cut off at the bottom, send a screenshot of this card.';
-  d.addEventListener('click',()=>d.remove()); document.body.appendChild(d);
+  d.addEventListener('click',()=>{ d.remove(); soon(syncBack); }); document.body.appendChild(d); soon(syncBack);
 }
 { const pill=$('mCoins').closest('.pill'); let n=0,t0=0;
   if(pill) pill.addEventListener('click',()=>{ const now=performance.now(); if(now-t0>4000) n=0; t0=now; if(++n>=7){ n=0; layoutInfo(); } }); }
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},
@@ -2915,8 +2948,8 @@ if('serviceWorker' in navigator && /^https?:/.test(location.protocol)){
 document.addEventListener('visibilitychange',()=>{ if(!document.hidden) checkForUpdate(); });
 addEventListener('pageshow',e=>{ if(e.persisted) checkForUpdate(); });
 setInterval(()=>checkForUpdate(),10*60*1000);
-$('updBtn').onclick=()=>{ save(); location.reload(); };
-$('crashBtn').onclick=()=>location.reload();
+$('updBtn').onclick=()=>reloadApp();
+$('crashBtn').onclick=()=>reloadApp();
 
 resize(); applyCalm(); applyAccent(); setMuteIcon(); requestAnimationFrame(loop);
 loadLang(detectLang()).then(code=>{ lang=code; applyI18n(); showMenu(); setMuteIcon(); document.body.classList.add('ready'); if(inPlayApp()){ syncPurchases(false); loadPlayPrices(); } });

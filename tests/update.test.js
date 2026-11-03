@@ -23,7 +23,7 @@ module.exports=[
   assert.ok(await p.isVisible('#updBtn'),'the update button is shown on the game-over screen'); assert.match(await p.textContent('#updBtn'),/Update ready/);
   const coins=await p.evaluate(()=>__sr.S.coins); assert.ok(coins>0,'the round earned coins');
   await p.evaluate(()=>{ __sr.S.coins+=500; });                                       // progress that is not saved yet: pressing the button must save it
-  await Promise.all([p.waitForNavigation(),p.click('#updBtn')]); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
+  await Promise.all([p.waitForEvent('load'),p.click('#updBtn')]);                         // (the Back button's extra history entry is taken away first, then the page reloads) await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
   assert.equal(await p.evaluate(()=>__sr.S.coins),coins+500,'progress kept across the update');
   assert.ok(await p.evaluate(()=>[...document.scripts].some(s=>s.textContent.includes('newer 1'))),'the new code is what runs now');
   assert.equal(await p.isVisible('#updBtn'),false,'and the button is gone'); assert.equal(await p.evaluate(()=>__sr.checkForUpdate(true)),false,'it is up to date, no loop');
