@@ -417,3 +417,11 @@
 417|Erreiche in einer Runde {n} Punkte
 418|Staple diese Woche {n} Blöcke
 419|Dieselben Blöcke für euch beide. Booster und Zielhilfe sind aus.
+420|Bomben, Eis, Kleber und Windböen.
+421|ENDGEGNER BESIEGT!
+422|BOSS-STUFE
+423|Boss-Stufe {n}, {goal}
+424|Kleber! Der Block wird nach dem Tippen zurückgezogen – tippe also etwas später.
+425|BÖE!
+426|Böe! Der Wind lässt den Turm schwanken. Ziele dorthin, wo der oberste Block jetzt ist.
+427|Eis! Der Block rutscht nach dem Tippen weiter – tippe also etwas früher.

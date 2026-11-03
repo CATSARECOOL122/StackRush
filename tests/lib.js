@@ -3,8 +3,9 @@
 const {chromium}=require('playwright');
 const {serve}=require('../tools/serve');
 
-const PERFECT='s=>s.cur&&Math.abs(s.cur.x-s.top.x)<Math.max(3,s.sp*0.014)';   // speed-aware alignment window
-const FAR='s=>s.cur&&Math.abs(s.cur.x-s.top.x)>150';
+/* speed-aware alignment window; topX is where the top block is NOW (a gust sways the tower), and an ice or glue block is aimed a little early or late */
+const PERFECT='s=>{ const c=s.cur; if(!c) return false; const sh=c.mat?(c.mat==="ice"?1:-1)*s.dir*s.sp*(c.mat==="ice"?s.CFG.iceSlide:s.CFG.glueDrag):0; return Math.abs(c.x+sh-s.topX)<Math.max(3,s.sp*0.014); }';
+const FAR='s=>s.cur&&Math.abs(s.cur.x-s.topX)>150';
 const BOMB='s=>s.cur&&s.cur.bomb';
 
 async function env(){
@@ -35,4 +36,15 @@ const miss=async p=>{ await p.evaluate(()=>__sr.forceNarrow()); await act(p,FAR)
 const sr=(p,fn,arg)=>p.evaluate(fn,arg);
 async function perfects(p,n){ let ok=0; for(let i=0;i<n;i++){ if(await perfect(p)!=='ok') break; ok++; await p.waitForTimeout(25); } return ok; }
 const close=p=>p.ctx.close();
-module.exports={env,open,act,perfect,miss,perfects,sr,close,PERFECT,FAR,BOMB};
+/* Plays perfect drops in the page's own frame loop until the tower is upTo blocks high (bombs are let through, ice and glue are aimed a little early or late, a swaying tower is followed).
+   Returns what it saw FIRST at every height below upTo ('bomb' | 'ice' | 'glue' | ''), the biggest sway it saw, and whether the round ended on the way. */
+const climb=(p,upTo,ms=60000)=>p.evaluate(([upTo,ms])=>new Promise(res=>{
+  const seen={}, t0=performance.now(); let maxWind=0;
+  const loop=()=>{ const s=window.__sr; if(s.state!=='playing') return res({seen,maxWind,over:true});
+    if(s.stackLen>=upTo || performance.now()-t0>ms) return res({seen,maxWind,over:false});
+    maxWind=Math.max(maxWind,Math.abs(s.windOff));
+    const c=s.cur; if(c){ if(!(c.i in seen)) seen[c.i]=c.bomb?'bomb':(c.mat||'');
+      if(!c.bomb){ const sh=c.mat?(c.mat==='ice'?1:-1)*s.dir*s.sp*(c.mat==='ice'?s.CFG.iceSlide:s.CFG.glueDrag):0;
+        if(Math.abs(c.x+sh-s.topX)<Math.max(3,s.sp*0.014)) document.getElementById('c').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})); } }
+    requestAnimationFrame(loop); }; loop(); }),[upTo,ms]);
+module.exports={env,open,act,perfect,miss,perfects,sr,close,climb,PERFECT,FAR,BOMB};

@@ -417,5 +417,13 @@
  "Reach {n} blocks high in one round",
  "Score {n} in one round",
  "Stack {n} blocks this week",
- "Same blocks for both of you. Boosts and timing assist are off."
+ "Same blocks for both of you. Boosts and timing assist are off.",
+ "Bombs, ice, glue and gusts of wind.",
+ "BOSS DEFEATED!",
+ "BOSS STAGE",
+ "Boss stage {n}, {goal}",
+ "Glue! The block is pulled back after you tap, so tap a little late.",
+ "GUST!",
+ "Gust! The wind sways the tower. Aim for where the top block is now.",
+ "Ice! The block slides on after you tap, so tap a little early."
 ]

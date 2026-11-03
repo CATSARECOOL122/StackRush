@@ -417,3 +417,11 @@
 417|Tek turda {n} puan yap
 418|Bu hafta {n} blok diz
 419|İkiniz için de aynı bloklar. Güçlendiriciler ve nişan yardımı kapalı.
+420|Bombalar, buz, yapıştırıcı ve rüzgâr esintileri.
+421|PATRON YENİLDİ!
+422|PATRON BÖLÜMÜ
+423|Patron bölümü {n}, {goal}
+424|Yapıştırıcı! Blok dokunduktan sonra geri çekilir, o yüzden biraz geç dokun.
+425|RÜZGÂR!
+426|Rüzgâr! Rüzgâr kuleyi sallar. Üstteki bloğun şimdi bulunduğu yeri hedefle.
+427|Buz! Blok dokunduktan sonra kaymaya devam eder, o yüzden biraz erken dokun.

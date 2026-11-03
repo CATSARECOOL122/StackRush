@@ -417,3 +417,11 @@
 417|Logra {n} puntos en una partida
 418|Apila {n} bloques esta semana
 419|Los mismos bloques para los dos. Sin potenciadores ni ayuda de puntería.
+420|Bombas, hielo, pegamento y ráfagas de viento.
+421|¡JEFE DERROTADO!
+422|ETAPA DE JEFE
+423|Etapa de jefe {n}, {goal}
+424|¡Pegamento! El bloque se echa hacia atrás tras tocar, así que toca un poco tarde.
+425|¡RÁFAGA!
+426|¡Ráfaga! El viento mece la torre. Apunta a donde está ahora el bloque de arriba.
+427|¡Hielo! El bloque sigue deslizándose tras tocar, así que toca un poco antes.

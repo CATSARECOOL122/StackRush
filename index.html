@@ -262,14 +262,17 @@
   #sGrid{display:flex;flex-direction:column;gap:14px;width:min(400px,100%)}
   .world h3{margin:0 0 8px;font-size:13px;letter-spacing:2px;color:var(--mute)}
   .stg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-  .stg{pointer-events:auto;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:8px 4px;color:#fff;font:inherit;text-align:center;cursor:pointer}
+  .stg{position:relative;pointer-events:auto;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:8px 4px;color:#fff;font:inherit;text-align:center;cursor:pointer}
   .stg b{display:block;font-size:20px}
   .stg .st{color:var(--gold);height:16px;display:flex;justify-content:center;gap:2px}
   .stg .st .ic{width:13px;height:13px}
   .stg .st .ic:not(.fill){opacity:.4}
   .stg small{display:block;font-size:10px;color:var(--mute);font-weight:700;line-height:1.2;margin-top:2px}
   .stg.lock{opacity:.4}
-  .stg.done{border-color:var(--gold)}
+  .stg.boss{border-color:rgba(255,128,96,.75);background:linear-gradient(180deg,rgba(255,96,64,.2),var(--glass))}
+  .stg .crown{position:absolute;top:6px;right:7px;color:#ff9a6b;line-height:0}
+  .stg .crown .ic{width:14px;height:14px}
+  .stg.done,.stg.boss.done{border-color:var(--gold)}
   /* settings */
   .setlist{display:flex;flex-direction:column;gap:10px;width:min(380px,100%)}
   .set{display:flex;justify-content:space-between;align-items:center;gap:16px;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-weight:800}
@@ -466,6 +469,8 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 <symbol id="i-tap" viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v6"/><path d="M13 10.5a2 2 0 0 1 4 0V12"/><path d="M17 11.5a2 2 0 0 1 4 0V15a7 7 0 0 1-7 7h-1.5c-2.3 0-3.7-.8-5-2.1L3.4 15.8a2 2 0 0 1 2.8-2.8L9 15"/></symbol>
 <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
 <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M3 8v8M21 8v8M11 18.5h2"/></symbol>
+<symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></symbol>
+<symbol id="i-snow" viewBox="0 0 24 24"><path d="M2 12h20M12 2v20"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></symbol>
 <symbol id="i-wind" viewBox="0 0 24 24"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></symbol>
 <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2.5"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
 <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></symbol>
@@ -672,8 +677,13 @@ const CFG = {
   dailyBonus: 50,
   milestone: 25,
   weeklyCoins: 400,
+  bossBonus: 60,         // extra coins the first time a boss stage is cleared
   timedSeconds: 30, timedBonus: 2, timedCap: 90, timedMissPenalty: 3, timedExtra: 30,
   bombChance: 0.26, bombTtl: 2.8, bombDodgePts: 2,
+  iceChance: 0.2, iceSlide: 0.12,     // ice blocks slide on for this many seconds of travel after the tap
+  glueChance: 0.2, glueDrag: 0.12,    // glue blocks are pulled back by the same amount
+  gustChance: 0.07, gustGap: 8,       // a gust may start at a height at least gustGap blocks after the last one (about 3 in the first 80 blocks)
+  gustRise: 1.2, gustHold: 2.2, gustFall: 0.9, gustAmp: 0.07, gustHz: 0.55,   // the tower sways +-7% of the width, 0.55 times a second
   zenMinFrac: 0.3,
   shieldEvery: 8,        // earn a shield every N perfects in a row
   twistGoal: 40, twistReward: 60,
@@ -725,7 +735,7 @@ const MODES = {
   classic:{name:'Classic',icon:'layers',desc:'One life. Climb as high as you can.',lives:1,revive:true,ghost:true},
   timed:{name:'Timed Rush',icon:'timer',desc:'30 seconds. Perfect drops add time.',lives:1,timer:true,ghost:true},
   lives:{name:'Lives',icon:'heart',desc:'3 lives. Only a full miss costs one.',lives:3,revive:true,ghost:true},
-  hazard:{name:'Hazard',icon:'bomb',desc:"Bombs slide by. Don't drop on them!",lives:3,bombs:true,revive:true,ghost:true},
+  hazard:{name:'Hazard',icon:'bomb',desc:'Bombs, ice, glue and gusts of wind.',lives:3,bombs:true,hz:{ice:6,glue:10,wind:14},revive:true,ghost:true},
   zen:{name:'Zen',icon:'leaf',desc:'No speed-up, no fail. Just stack.',lives:99,ramp:false,coins:false,soft:true,ghost:false},
   daily:{name:'Daily Twist',icon:'calendar',desc:'',lives:3,ghost:false},
   campaign:{name:'Campaign',icon:'map',desc:'24 stages. Earn up to 3 stars each.',lives:3,coins:false,noBest:true,ghost:false,rampK:.6},
@@ -745,10 +755,10 @@ const dayNum = () => { const d=new Date(); return Math.floor(Date.UTC(d.getFullY
 const todaysTwist = () => TWISTS[dayNum()%TWISTS.length];
 
 const STAGES = [
-  ['height',8,{}],['perfects',4,{}],['score',25,{}],['height',15,{}],['perfects',7,{}],['height',20,{}],
-  ['height',12,{speed:1.2}],['perfects',6,{speed:1.2}],['score',40,{speed:1.2}],['height',20,{speed:1.2}],['perfects',9,{speed:1.2}],['height',25,{speed:1.2}],
-  ['height',12,{bombs:true}],['score',35,{bombs:true}],['perfects',7,{bombs:true}],['height',20,{bombs:true}],['dodge',4,{bombs:true}],['height',25,{bombs:true}],
-  ['height',12,{startFrac:.45,speed:1.3}],['perfects',6,{startFrac:.45,speed:1.3}],['score',45,{startFrac:.45,speed:1.3}],['height',20,{startFrac:.45,speed:1.3}],['combo',6,{startFrac:.45,speed:1.3}],['height',30,{startFrac:.45,speed:1.3}]
+  ['height',8,{}],['perfects',4,{}],['score',25,{}],['height',15,{}],['perfects',7,{}],['height',20,{boss:1,hz:{wind:3},chance:{gust:.3},gap:5}],
+  ['height',12,{speed:1.2}],['perfects',6,{speed:1.2}],['score',40,{speed:1.2}],['height',20,{speed:1.2}],['perfects',9,{speed:1.2}],['height',25,{speed:1.2,boss:1,hz:{ice:3},chance:{ice:.4}}],
+  ['height',12,{bombs:true}],['score',35,{bombs:true}],['perfects',7,{bombs:true}],['height',20,{bombs:true}],['dodge',4,{bombs:true}],['height',25,{bombs:true,boss:1,hz:{glue:3},chance:{glue:.4}}],
+  ['height',12,{startFrac:.45,speed:1.3}],['perfects',6,{startFrac:.45,speed:1.3}],['score',45,{startFrac:.45,speed:1.3}],['height',20,{startFrac:.45,speed:1.3}],['combo',6,{startFrac:.45,speed:1.3}],['height',30,{startFrac:.45,speed:1.3,boss:1,hz:{ice:5,glue:8,wind:6},chance:{ice:.25,glue:.25,gust:.25},gap:6}]
 ];
 const WORLD_NAMES = ['Meadow','Speedway','Minefield','Skyline'];
 const goalLabel = g => ({height:tr('Reach {n} blocks',{n:g[1]}),perfects:tr('Land {n} perfects',{n:g[1]}),score:tr('Score {n}',{n:g[1]}),dodge:tr('Dodge {n} bombs',{n:g[1]}),combo:tr('Hit a x{n} combo',{n:g[1]})}[g[0]]);
@@ -831,7 +841,7 @@ function cleanSave(raw){
   if(Array.isArray(raw.owned)) out.owned=[...new Set(['sunset',...raw.owned.filter(id=>typeof id==='string' && own(THEMES,id))])];
   if(typeof raw.lastMode==='string' && own(MODES,raw.lastMode)) out.lastMode=raw.lastMode;
   if(typeof raw.lang==='string' && (raw.lang==='auto' || own(LANGS,raw.lang))) out.lang=raw.lang;
-  if(raw.tips && typeof raw.tips==='object') for(const k of Object.keys(MODES)) if(raw.tips[k]) out.tips[k]=1;
+  if(raw.tips && typeof raw.tips==='object') for(const k of [...Object.keys(MODES),'ice','glue','gust']) if(raw.tips[k]) out.tips[k]=1;
   if(['auto','on','off'].includes(raw.assist)) out.assist=raw.assist;
   if(dateOk(raw.lastClaim)) out.lastClaim=raw.lastClaim;
   if(raw.bests && typeof raw.bests==='object') for(const id of Object.keys(MODES)) if(own(raw.bests,id)) out.bests[id]=num(raw.bests[id]);
@@ -1058,6 +1068,16 @@ function tone(f,d=.15,type='sine',v=.25,slide=0,delay=0){
   g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(v,t0+.01); g.gain.exponentialRampToValueAtTime(.0001,t0+d);
   o.connect(g); g.connect(master); o.start(t0); o.stop(t0+d+.03);
 }
+/* a rush of wind: filtered noise that swells and fades */
+function whoosh(d=.8,v=.1,f0=400,f1=1400){
+  const a=audio(); if(!a || a.state!=='running') return;
+  const pk=SFXP[eqv('sfx')]; if(pk){ v*=pk.v; d*=pk.d; }
+  const n=Math.max(1,Math.floor(a.sampleRate*d)), buf=a.createBuffer(1,n,a.sampleRate), ch=buf.getChannelData(0); for(let i=0;i<n;i++) ch[i]=Math.random()*2-1;
+  const src=a.createBufferSource(), fl=a.createBiquadFilter(), g=a.createGain(), t0=a.currentTime;
+  src.buffer=buf; fl.type='bandpass'; fl.Q.value=.9; fl.frequency.setValueAtTime(f0,t0); fl.frequency.exponentialRampToValueAtTime(f1,t0+d*.5); fl.frequency.exponentialRampToValueAtTime(f0,t0+d);
+  g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(v,t0+d*.4); g.gain.linearRampToValueAtTime(0,t0+d);
+  src.connect(fl); fl.connect(g); g.connect(master); src.start(t0); src.stop(t0+d+.02);
+}
 const SCALE=[0,2,4,7,9,12,14,16,19,21,24];
 const sfx = {
   land(){ tone(170,.13,'sine',.4,-100); tone(1100,.04,'triangle',.07); },
@@ -1070,7 +1090,10 @@ const sfx = {
   up(){ [523,659,784,1046].forEach((f,i)=>tone(f,.28,'triangle',.22,0,i*.08)); },
   coin(){ tone(988,.08,'square',.07); tone(1319,.14,'square',.07,0,.07); },
   tick(){ tone(1200,.04,'square',.05); },
-  tap(){ tone(720,.05,'square',.05); }
+  tap(){ tone(720,.05,'square',.05); },
+  ice(){ tone(1568,.18,'triangle',.1); tone(2093,.26,'sine',.07,0,.05); tone(1175,.34,'sine',.05,0,.1); },
+  glue(){ tone(210,.2,'sawtooth',.12,-110); tone(130,.22,'sine',.2,70,.07); },
+  gust(){ whoosh(.9,.1,380,1500); }
 };
 const vib = ms => { try{ if(S.haptics && navigator.vibrate) navigator.vibrate(ms); }catch(e){} };
 
@@ -1161,7 +1184,7 @@ function rescaleWorld(kx,ky){
   if(state==='menu'){ demoStack(); return; }
   for(const b of stack){ b.x*=kx; b.w*=kx; b.y*=ky; }
   if(cur){ cur.x*=kx; cur.w*=kx; cur.y*=ky; }
-  baseW*=kx; cam*=ky;
+  baseW*=kx; cam*=ky; windOff*=kx; for(const b of stack) if(b.fx) b.fx*=kx; if(cur && cur.fx) cur.fx*=kx; windFx=[];
   for(const q of pieces){ q.x*=kx; q.w*=kx; q.y*=ky; q.vx*=kx; q.vy*=ky; }
   parts=[]; rings=[]; texts=[]; banner=null;
 }
@@ -1183,10 +1206,11 @@ let scanPat=null;
 
 let state='menu';   // menu | playing | over
 let mode='classic', stage=1, mod={};
-/* gameplay randomness (when bombs appear). Every round has a seed, so a friend who opens your link plays the very same round */
-/* A round's luck is a function of its seed and the height, never of how many times you tapped: a friend who took another path still meets the same bombs at the same heights. */
+/* Gameplay randomness. Every round has a seed, so a friend who opens your link plays the very same round. A round's luck is a function of the seed and the height,
+   never of how many times you tapped: a friend who took another path still meets the same bombs, ice, glue and gusts at the same heights. */
 let runSeed=1, challenge=null, offered=null, assisted=false;
-function rollAt(h,salt=0){ let x=(runSeed+Math.imul(h+1,0x9E3779B1)+Math.imul(salt+1,0x632BE5AB))>>>0; x^=x>>>16; x=Math.imul(x,0x7feb352d); x^=x>>>15; x=Math.imul(x,0x846ca68b); x^=x>>>16; return (x>>>0)/4294967296; }
+function rollOf(seed,h,salt=0){ let x=(seed+Math.imul(h+1,0x9E3779B1)+Math.imul(salt+1,0x632BE5AB))>>>0; x^=x>>>16; x=Math.imul(x,0x7feb352d); x^=x>>>15; x=Math.imul(x,0x846ca68b); x^=x>>>16; return (x>>>0)/4294967296; }
+const rollAt=(h,salt=0)=>rollOf(runSeed,h,salt);
 let stack=[], cur=null, dir=1, score=0, combo=0, bestCombo=0, perfectsRun=0, runBlocks=0, dodgedRun=0, baseW=200, revived=false;
 let lives=1, maxLives=1, timeLeft=0, timerOn=false, lastBomb=false, shield=false, forceBomb=false;
 /* boosters armed for this run: they are only used up (taken from the inventory) when they actually help */
@@ -1281,13 +1305,53 @@ function speed(){
   if(slowLeft>0) m*=.6;
   return W*CFG.baseSpeed*m;
 }
+/* ----- more hazards (Hazard mode and the boss stages) -----
+   ICE blocks slide on after your tap (tap a little early), GLUE blocks are pulled back (tap a little late), and a GUST sways the whole tower for a few seconds.
+   hz:{ice:6,...} says from which height each one shows up. They never replace a bomb, and a block you are given again after a miss is always plain. */
+const hzFrom=k=>{ const a=mod.hz&&mod.hz[k]; return a!==undefined?a:(MODES[mode].hz&&MODES[mode].hz[k]); };
+const chanceOf=(k,d)=>(mod.chance && mod.chance[k]!==undefined) ? mod.chance[k] : d;        // a boss stage can make its own hazard more common
+function specialAt(h){
+  const fi=hzFrom('ice'), fg=hzFrom('glue');
+  if(fi!==undefined && h>=fi && rollAt(h,1)<chanceOf('ice',CFG.iceChance)) return 'ice';
+  if(fg!==undefined && h>=fg && rollAt(h,2)<chanceOf('glue',CFG.glueChance)) return 'glue';
+  return null;
+}
+const gustDue=(h,last)=>{ const f=hzFrom('wind'); return f!==undefined && h>=f && h-last>=(mod.gap||CFG.gustGap) && rollAt(h,3)<chanceOf('gust',CFG.gustChance); };
+let windOff=0, gust=null, lastGustH=-99, windFx=[];
+const hzTipText=k=>k==='ice'?tr('Ice! The block slides on after you tap, so tap a little early.'):k==='glue'?tr('Glue! The block is pulled back after you tap, so tap a little late.'):tr('Gust! The wind sways the tower. Aim for where the top block is now.');
+function hzTip(k){
+  if(S.tips[k] || !S.tutSeen || state!=='playing') return;
+  S.tips[k]=1; save(); toast(`${I(k==='ice'?'snow':k==='glue'?'drop':'wind','ic-cyan')} ${hzTipText(k)}`,4200);
+}
+function startGust(h){
+  lastGustH=h; gust={t:0,gd:rollAt(h,5)<.5?-1:1,base:windOff,ph:rollAt(h,6)*6.283};
+  banner={text:tr('GUST!'),life:1}; sfx.gust(); vib([20,30,20]); say(tr('GUST!')); hzTip('gust');
+}
+const maybeGust=()=>{ const h=stack.length; if(gustDue(h,lastGustH)) startGust(h); };
+const smooth=x=>{ x=clamp(x,0,1); return x*x*(3-2*x); };
+/* the whole tower leans one way and sways back and forth while the gust lasts (windOff, in pixels); the moving block is not pushed */
+function updateWind(dt){
+  for(const q of windFx) q.x+=q.v*dt;
+  windFx=windFx.filter(q=>q.x>-200*u && q.x<W+200*u);
+  if(state!=='playing'){ gust=null; if(windOff){ windOff*=Math.pow(.001,dt); if(Math.abs(windOff)<.2) windOff=0; } return; }
+  if(!gust){ windOff=0; return; }
+  const g=gust, R=CFG.gustRise, Hd=CFG.gustHold, F=CFG.gustFall; g.t+=dt;
+  if(g.t>=R+Hd+F){ gust=null; windOff=0; return; }
+  const rise=smooth(g.t/R), fall=g.t>R+Hd?1-smooth((g.t-R-Hd)/F):1, A=CFG.gustAmp*W;
+  windOff=(g.base*(1-rise)+A*rise*(.55*g.gd+.45*Math.sin(g.ph+g.t*CFG.gustHz*6.283)))*fall;
+  if(!reduceOn() && windFx.length<(lowFx?12:26) && Math.random()<dt*22) windFx.push({x:g.gd>0?-60*u:W+60*u,y:rand(0,H),len:rand(40,90)*u,v:g.gd*rand(650,950)*u,a:rand(.12,.3)});
+}
 function spawnCur(noBomb){
   const top=stack[stack.length-1];
   dir = (stack.length%2) ? 1 : -1;
   cur={ x: dir>0 ? 0 : W-top.w, w: top.w, y: stack.length*BH, i: stack.length, sq:0 };
   if(state==='playing' && bombsOn() && !noBomb && (forceBomb || (!lastBomb && stack.length>=4 && rollAt(stack.length)<CFG.bombChance))){
     cur.bomb=true; cur.ttl=CFG.bombTtl; lastBomb=true; forceBomb=false;
-  } else lastBomb=false;
+  } else {
+    lastBomb=false;
+    const m=(state==='playing' && !noBomb)?specialAt(stack.length):null;
+    if(m){ cur.mat=m; hzTip(m); }
+  }
 }
 function demoStack(){
   mod={}; baseW=Math.min(W*CFG.startFrac, CFG.maxW*u);
@@ -1296,6 +1360,7 @@ function demoStack(){
     stack.push({x,w,y:i*BH,i,sq:0});
     const nw=w*rand(.9,.98); x+=(w-nw)/2+rand(-8,8)*u; w=nw; x=clamp(x,0,W-w);
   }
+  windOff=0; gust=null; lastGustH=-99; windFx=[];
   score=0; cam=0; combo=0; ghost=null; cur=null; spawnCur(true);
 }
 /* menu "attract mode": the tower behind the menu builds itself with perfect drops */
@@ -1324,6 +1389,7 @@ function startStage(n){
   stage=n; mode='campaign'; mod=Object.assign({lives:3},STAGES[n-1][2]);
   newRun();
   toast(tr('Stage {n}: {goal}',{n,goal:goalLabel(STAGES[n-1])}),2600);
+  if(mod.boss){ banner={text:tr('BOSS STAGE'),life:1}; sfx.speed(); vib([30,40,30]); }
 }
 const MODE_TIPS = {
   classic:'Tip: the tower speeds up as it grows. Aim for perfect drops!',
@@ -1344,7 +1410,7 @@ function newRun(){
   score=0; combo=0; bestCombo=0; perfectsRun=0; runBlocks=0; dodgedRun=0; revived=false; cam=0; shake=0; flash=0; lastBomb=false; shield=false;
   paused=false; grace=0; clearCount(); $('pause').classList.add('hidden');
   lives=mod.lives||M.lives; maxLives=lives; timeLeft=CFG.timedSeconds; timerOn=false;
-  armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false;
+  armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
   if(challenge && challenge.mode!==mode) challenge=null;
   runSeed=challenge?challenge.seed:(Math.random()*2147483647)|0; assisted=assistOn();
   if(boostsAllowed(mode) && !challenge) for(const id of S.shop.pick) if((S.shop.boosts[id]||0)>0 && (id!=='time' || mode==='timed')) armed[id]=true;
@@ -1553,17 +1619,18 @@ function drop(){
   $('tip').classList.add('hidden');
   if(mode==='timed') timerOn=true;
   if(cur.bomb){ explode(); return; }
-  const top=stack[stack.length-1];
-  let left=Math.max(cur.x,top.x), right=Math.min(cur.x+cur.w,top.x+top.w);
+  const top=stack[stack.length-1], topX=top.x+windOff;                                      // (a gust sways the tower: the target is where the top block is now)
+  if(cur.mat){ const k=cur.mat==='ice'?1:-1, sh=k*dir*speed()*(cur.mat==='ice'?CFG.iceSlide:CFG.glueDrag), nx=clamp(cur.x+sh,0,W-cur.w); cur.fx=cur.x-nx; cur.x=nx; }   // ice slides on, glue is pulled back
+  let left=Math.max(cur.x,topX), right=Math.min(cur.x+cur.w,topX+top.w);
   let ov=right-left;
   if(ov<=3){ miss(); return; }
-  const dx=cur.x-top.x;
+  const dx=cur.x-topX;
   const perfect=Math.abs(dx)<=CFG.perfectPx*u*tolFactor();
   const prac=mode==='practice';
   let nb;
   if(perfect){
     combo++; perfectsRun++; bestCombo=Math.max(bestCombo,combo);
-    let w=top.w, x=top.x;
+    let w=top.w, x=topX;
     if(!mod.noRegrow && combo>=CFG.regrowAfter && w<baseW){ const g=Math.min(baseW-w, baseW*CFG.regrowPct); w+=g; x-=g/2; x=clamp(x,0,W-w); }
     nb={x,w,y:cur.y,i:cur.i,sq:1};
     score+=1+Math.min(combo,8);
@@ -1585,7 +1652,7 @@ function drop(){
     }
   } else {
     combo=0;
-    if(soft() && ov<baseW*CFG.zenMinFrac){ ov=baseW*CFG.zenMinFrac; left=clamp(top.x+top.w/2-ov/2,0,W-ov); }
+    if(soft() && ov<baseW*CFG.zenMinFrac){ ov=baseW*CFG.zenMinFrac; left=clamp(topX+top.w/2-ov/2,0,W-ov); }
     nb={x:left,w:ov,y:cur.y,i:cur.i,sq:.6};
     const cut=cur.w-(right-Math.max(cur.x,top.x));
     if(cut>1){
@@ -1599,10 +1666,13 @@ function drop(){
     if((S.shop.boosts.regrow||0)>0 && regrowUsed<2) armed.regrow=true;
     texts.length=0; texts.push({x:cxn,y:cur.y+BH*2,vy:80,text:tr('REGROW!'),size:26*u,color:'#7fe8ff',life:1}); burst(cxn,cur.y+BH,190,26,300*u,500); sfx.shield();
   }
+  if(cur.mat){ nb.mat=cur.mat; nb.fx=cur.fx||0; burst(nb.x+nb.w/2,cur.y+BH,cur.mat==='ice'?190:100,12,170*u,500); if(cur.mat==='ice') sfx.ice(); else sfx.glue(); }
+  nb.x-=windOff;                                                                          // stored in the tower's own frame, so the whole tower can sway
   runBlocks++; hopT=t;
   stack.push(nb);
   runRec.blocks.push({x:+(nb.x/W).toFixed(3),w:+(nb.w/W).toFixed(3)}); runRec.scores.push(score);
   setScore(score); setCombo(combo); setSpeedBadge(true);
+  maybeGust();
   if(slowLeft>0) slowLeft--;
   if(armed.slow && slowLeft===0 && rampOf(stack.length)>=1.5){                                 // Slow-Mo boost: once the speed has picked up
     slowLeft=6; useBoost('slow'); texts.length=0; texts.push({x:W/2,y:stack.length*BH+BH*2,vy:80,text:tr('SLOW-MO!'),size:26*u,color:'#7fe8ff',life:1}); sfx.speed();
@@ -1704,7 +1774,9 @@ function winStage(){
   const st=clamp(lives,1,3);
   const prev=S.camp[stage]||0;
   S.camp[stage]=Math.max(prev,st);
+  const boss=!!mod.boss;
   let reward = prev===0 ? 20+st*5 : Math.max(0,st-prev)*10;
+  if(boss && prev===0) reward+=CFG.bossBonus;                                  // the first time a boss falls
   const w=Math.floor((stage-1)/6);
   let worldBonus=0;
   if(!S.worldDone[w] && cleared(w*6+1,w*6+6)){ S.worldDone[w]=1; worldBonus=100; }
@@ -1716,14 +1788,14 @@ function winStage(){
   weeklyRecord({blocks:runBlocks,perfects:perfectsRun,height:stack.length-1,combo:bestCombo,score});
   save(); setCoins();
   flash=.2; sfx.up(); burst(W/2,stack.length*BH,50,60,520*u,600); vib([30,40,30]);
-  setTimeout(()=>showOver(Object.assign({reason:'win',win:true,stars:st,earned:reward,worldBonus,newBest:false},xp)),700);
+  setTimeout(()=>showOver(Object.assign({reason:'win',win:true,boss,stars:st,earned:reward,worldBonus,newBest:false},xp)),700);
 }
 function showOver(r){
   if(state!=='over') return;
   const M=MODES[mode], camp=mode==='campaign';
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden'); $('speedB').classList.add('hidden');
   const g=camp?STAGES[stage-1]:null;
-  $('oLabel').textContent = r.win ? tr('STAGE {n} CLEAR',{n:stage}) : camp ? tr('STAGE {n} FAILED',{n:stage}) : r.reason==='time' ? tr("TIME'S UP") : (mode==='zen' ? tr('ZEN SESSION') : ucase(tr(M.name)));
+  $('oLabel').textContent = r.win ? (r.boss ? tr('BOSS DEFEATED!') : tr('STAGE {n} CLEAR',{n:stage})) : camp ? tr('STAGE {n} FAILED',{n:stage}) : r.reason==='time' ? tr("TIME'S UP") : (mode==='zen' ? tr('ZEN SESSION') : ucase(tr(M.name)));
   if(r.win) $('oScore').innerHTML=I('star','fill').repeat(r.stars)+I('star').repeat(3-r.stars); else countUp($('oScore'),score);
   $('oScore').classList.toggle('stars',!!r.win);
   $('oNew').classList.toggle('hidden',!r.newBest);
@@ -1866,7 +1938,8 @@ function update(dt){
     if(timeLeft<=0){ if(!extraTime()){ timeLeft=0; setAux(true); endRun('time'); } }
     else { if(timeLeft<=5 && Math.ceil(timeLeft)!==before) sfx.tick(); setAux(); }
   }
-  for(const b of stack) if(b.sq>0) b.sq=Math.max(0,b.sq-dt*4);
+  for(const b of stack){ if(b.sq>0) b.sq=Math.max(0,b.sq-dt*4); if(b.fx){ b.fx*=Math.pow(.0004,dt); if(Math.abs(b.fx)<.3) b.fx=0; } }
+  updateWind(dt);
   const target=Math.max(0, stack.length*BH - H*.35);
   cam+=(target-cam)*Math.min(1,dt*5);
   shake*=Math.pow(.002,dt); if(shake<.2) shake=0;
@@ -2005,7 +2078,40 @@ function paintBlock(g,x,sy,w,bh,i,sq,th,uu,alpha){
 function drawBlock(b,alpha=1){
   const sy=Y(b.y+BH);
   if(sy>H+BH || sy<-BH*2) return;
-  paintBlock(ctx,b.x,sy,b.w,BH,b.i,b.sq,TH(),u,alpha);
+  const x=b.x+(b.fx||0);                                           // a block that just slid (ice) or was pulled back (glue) settles into place
+  paintBlock(ctx,x,sy,b.w,BH,b.i,b.sq,TH(),u,alpha);
+  if(b.mat) paintMat(ctx,b.mat,x,sy,b.w,BH,u,t,alpha);
+}
+/* ice and glue look different from a plain block: frosted glass with glints, or green goo with drips */
+function paintMat(g,mat,x,sy,w,bh,uu,tt,alpha=1){
+  const bb=bh-2; g.save(); g.globalAlpha=alpha;
+  rr(x,sy,w,bb,7*uu,g); g.clip();
+  if(mat==='ice'){
+    const gr=g.createLinearGradient(0,sy,0,sy+bb); gr.addColorStop(0,'rgba(235,252,255,.62)'); gr.addColorStop(.55,'rgba(170,228,255,.38)'); gr.addColorStop(1,'rgba(110,190,255,.30)');
+    g.fillStyle=gr; g.fillRect(x,sy,w,bb);
+    g.strokeStyle='rgba(255,255,255,.7)'; g.lineWidth=2*uu; g.lineCap='round';
+    for(let k=0;k<3;k++){ const gx=x+w*(.22+k*.28)+Math.sin(tt*1.4+k)*3*uu; g.beginPath(); g.moveTo(gx+bb*.5,sy+2*uu); g.lineTo(gx-bb*.15,sy+bb-2*uu); g.stroke(); }
+  } else {
+    const gr=g.createLinearGradient(0,sy,0,sy+bb); gr.addColorStop(0,'rgba(190,255,100,.62)'); gr.addColorStop(1,'rgba(70,190,40,.55)');
+    g.fillStyle=gr; g.fillRect(x,sy,w,bb);
+    g.fillStyle='rgba(255,255,255,.35)'; g.beginPath(); g.ellipse(x+w*.28,sy+bb*.28,w*.12,bb*.12,0,0,6.283); g.fill();
+  }
+  g.restore();
+  g.save(); g.globalAlpha=alpha; rr(x,sy,w,bb,7*uu,g);
+  if(mat==='ice'){ g.strokeStyle='rgba(235,250,255,.95)'; g.lineWidth=2*uu; g.shadowColor='#bfeaff'; g.shadowBlur=10*uu; g.stroke(); }
+  else {
+    g.strokeStyle='rgba(60,140,20,.85)'; g.lineWidth=2*uu; g.stroke();
+    g.fillStyle='rgba(120,220,50,.95)';                            // drips hanging under the block
+    for(let k=0;k<3;k++){ const dx=x+w*(.2+k*.3), len=(5+3*Math.sin(tt*2.2+k*2))*uu; g.beginPath(); g.moveTo(dx-3*uu,sy+bb-1); g.lineTo(dx+3*uu,sy+bb-1); g.lineTo(dx,sy+bb+len); g.closePath(); g.fill(); g.beginPath(); g.arc(dx,sy+bb+len,2.4*uu,0,6.283); g.fill(); }
+  }
+  g.restore();
+}
+/* a gust: pale streaks flying across the screen */
+function drawWind(){
+  if(!windFx.length) return;
+  ctx.save(); ctx.lineCap='round'; ctx.lineWidth=2*u;
+  for(const q of windFx){ ctx.strokeStyle=`rgba(255,255,255,${q.a})`; ctx.beginPath(); ctx.moveTo(q.x,q.y); ctx.lineTo(q.x-Math.sign(q.v)*q.len,q.y); ctx.stroke(); }
+  ctx.restore();
 }
 /* a cat that sits on top of the tower (a shop item) */
 function paintCat(g,cx,sy,s0,fur,tt,blink){
@@ -2083,16 +2189,20 @@ function draw(){
   ctx.save();
   if(shake>0) ctx.translate(rand(-shake,shake),rand(-shake,shake));
   drawBG();
+  if(mode==='campaign' && mod.boss && state==='playing'){ const g=ctx.createRadialGradient(W/2,H/2,H*.32,W/2,H/2,H*.78); g.addColorStop(0,'rgba(255,60,40,0)'); g.addColorStop(1,'rgba(255,60,40,.17)'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H); }
   drawGhost();
   drawGoalLine();
+  ctx.save(); if(windOff) ctx.translate(windOff,0);                // a gust sways the whole tower
   for(const b of stack) drawBlock(b);
   drawShieldAura();
+  ctx.restore();
   for(const p of pieces){
     const sy=Y(p.y+BH); ctx.save(); ctx.translate(p.x+p.w/2,sy+BH/2); ctx.rotate(p.rot);
     ctx.translate(-(p.x+p.w/2),-(sy+BH/2)); drawBlock({x:p.x,y:p.y,w:p.w,i:p.i,sq:0},p.a); ctx.restore();
   }
   if(cur){ if(cur.bomb) drawBomb(cur); else drawBlock(cur); }
-  drawTopper();                                                   // in front of the moving block: the flag, star or cat stays in view while the next block slides past
+  ctx.save(); if(windOff) ctx.translate(windOff,0); drawTopper(); ctx.restore();   // in front of the moving block: the flag, star or cat stays in view while the next block slides past
+  drawWind();
   for(const r of rings){
     const k=1-r.life, sy=Y(r.y);
     ctx.save(); ctx.globalAlpha=r.life*.9; ctx.strokeStyle='#fff'; ctx.lineWidth=3*u*r.life+1;
@@ -2258,7 +2368,8 @@ function showStages(){
     html+=`<div class="world"><h3>${tr('WORLD {n} · {name}',{n:w+1,name:ucase(tr(WORLD_NAMES[w]))})}</h3><div class="stg-grid">`;
     for(let k=0;k<6;k++){
       const n=w*6+k+1, g=STAGES[n-1], s=S.camp[n]||0, unlocked=n===1||(S.camp[n-1]>=1);
-      html+=`<button class="stg${unlocked?'':' lock'}${s?' done':''}" data-stage="${n}" aria-label="${unlocked?tr('Stage {n}, {goal}',{n,goal:goalLabel(g)}):tr('Stage {n}, {goal}, locked',{n,goal:goalLabel(g)})}"><b>${unlocked?n:I('lock')}</b><div class="st">${I('star','fill').repeat(s)}${I('star').repeat(3-s)}</div><small>${goalShort(g)}</small></button>`;
+      const boss=!!g[2].boss;
+      html+=`<button class="stg${unlocked?'':' lock'}${s?' done':''}${boss?' boss':''}" data-stage="${n}" aria-label="${unlocked?(boss?tr('Boss stage {n}, {goal}',{n,goal:goalLabel(g)}):tr('Stage {n}, {goal}',{n,goal:goalLabel(g)})):tr('Stage {n}, {goal}, locked',{n,goal:goalLabel(g)})}"><b>${unlocked?n:I('lock')}</b>${boss?`<span class="crown" aria-hidden="true">${I('crown')}</span>`:''}<div class="st">${I('star','fill').repeat(s)}${I('star').repeat(3-s)}</div><small>${goalShort(g)}</small></button>`;
     }
     html+='</div></div>';
   }
@@ -2735,7 +2846,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},
@@ -2749,7 +2860,7 @@ if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.ho
     get ghostOutline(){ return S.ghostOutline!==false; }, CFG, get u(){ return u; }, get tablet(){ return tablet; }, get uiZ(){ return uiZ; }, IS_IPAD, IS_IOS, HAS_VIBRATE, get speedCue(){ return speedCue; }, get banner(){ return banner; },
     showMenu, showModes, showStages, openThemes, showAwards, showSettings, renderMenu, resize,
     giveShield(){ shield=true; setAux(true); }, bombNext(){ forceBomb=true; },
-    get boosted(){ return boosted; }, get armed(){ return armed; }, get slowLeft(){ return slowLeft; }, get regrowUsed(){ return regrowUsed; }, get baseW(){ return baseW; }, get shortView(){ return shortView; }, showMuseum, renderMuseum, makeTowerCanvas, shareTower, towerPic, parseChallenge, challengeCode, challengeLink, challengeOk, rollAt, get runSeed(){ return runSeed; }, get assisted(){ return assisted; }, get challenge(){ return challenge; }, openChallenge, startChallenge, weekKey, weekMissions, weeklyRecord, weeklyReady, claimWeekly, WEEKLY, ensureWeek, renderWeekly, get musicLevel(){ return musLvl; }, get updateReady(){ return updateReady; }, checkForUpdate, setUpdateReady, resetUpdateThrottle(){ lastUpdateCheck=0; }, layoutInfo, checkShortViewport, get H(){ return H; }, SQUARE_LINKS, openBoosts, closeBoosts, boostsAllowed,
+    get boosted(){ return boosted; }, get armed(){ return armed; }, get slowLeft(){ return slowLeft; }, get regrowUsed(){ return regrowUsed; }, get baseW(){ return baseW; }, get shortView(){ return shortView; }, showMuseum, renderMuseum, makeTowerCanvas, shareTower, towerPic, parseChallenge, challengeCode, challengeLink, challengeOk, rollAt, rollOf, get runSeed(){ return runSeed; }, get assisted(){ return assisted; }, get challenge(){ return challenge; }, openChallenge, startChallenge, weekKey, weekMissions, weeklyRecord, weeklyReady, claimWeekly, WEEKLY, ensureWeek, renderWeekly, get musicLevel(){ return musLvl; }, get updateReady(){ return updateReady; }, checkForUpdate, setUpdateReady, resetUpdateThrottle(){ lastUpdateCheck=0; }, layoutInfo, checkShortViewport, get H(){ return H; }, SQUARE_LINKS, openBoosts, closeBoosts, boostsAllowed,
     SHOP, BOOSTS, PRODUCTS, TABS, TAB_HINT, ownsItem, itemAction, boostAction, themeAction, grantProduct, claimPurchase, syncPurchases, loadPlayPrices, iapKeys, skuOf, isCoinPack, coinsTabOn, inPlayApp, inAndroidApp, buyIap, renderThemes, openThemes, startPreview, endPreview,
     setTab(t){ shopTab=t; renderThemes(); }, get tab(){ return shopTab; }, get look(){ return TH(); }, applyAccent,
     staticKeys(){

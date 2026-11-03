@@ -417,3 +417,11 @@
 417|Capai skor {n} dalam satu ronde
 418|Tumpuk {n} balok minggu ini
 419|Balok yang sama untuk kalian berdua. Booster dan bantuan bidik dimatikan.
+420|Bom, es, lem, dan hembusan angin.
+421|BOS KALAH!
+422|TAHAP BOS
+423|Tahap bos {n}, {goal}
+424|Lem! Balok tertarik mundur setelah kamu mengetuk, jadi ketuk sedikit lebih lambat.
+425|HEMBUSAN!
+426|Hembusan! Angin menggoyang menara. Bidik tempat balok teratas berada sekarang.
+427|Es! Balok terus meluncur setelah kamu mengetuk, jadi ketuk sedikit lebih awal.

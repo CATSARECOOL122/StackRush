@@ -60,7 +60,7 @@ module.exports=[
   await p.evaluate(()=>__sr.startMode('hazard')); await p.waitForTimeout(150);
   let seen=false;
   for(let i=0;i<50 && !seen;i++){
-    const r=await L.act(p,'s=>s.cur&&(s.cur.bomb||Math.abs(s.cur.x-s.top.x)<Math.max(3,s.sp*0.014))',6000);
+    const r=await L.act(p,'s=>s.cur&&(s.cur.bomb||Math.abs(s.cur.x-s.topX)<Math.max(3,s.sp*0.014))',6000);
     if(r==='over') break; seen=await p.evaluate(()=>!!(__sr.cur&&__sr.cur.bomb)); if(!seen) await p.waitForTimeout(30);
   }
   assert.ok(seen,'a bomb block appeared');

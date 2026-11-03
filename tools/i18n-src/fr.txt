@@ -417,3 +417,11 @@
 417|Marquez {n} points en une partie
 418|Empilez {n} blocs cette semaine
 419|Les mêmes blocs pour vous deux. Boosters et aide à la visée désactivés.
+420|Bombes, glace, colle et rafales de vent.
+421|BOSS VAINCU !
+422|ÉTAPE DE BOSS
+423|Étape de boss {n}, {goal}
+424|Colle ! Le bloc est ramené en arrière quand vous touchez, alors touchez un peu plus tard.
+425|RAFALE !
+426|Rafale ! Le vent fait osciller la tour. Visez l'endroit où se trouve maintenant le bloc du haut.
+427|Glace ! Le bloc continue de glisser quand vous touchez, alors touchez un peu plus tôt.

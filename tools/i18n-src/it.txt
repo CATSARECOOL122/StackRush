@@ -417,3 +417,11 @@
 417|Fai {n} punti in una partita
 418|Impila {n} blocchi questa settimana
 419|Gli stessi blocchi per entrambi. Booster e aiuto alla mira disattivati.
+420|Bombe, ghiaccio, colla e raffiche di vento.
+421|BOSS SCONFITTO!
+422|TAPPA BOSS
+423|Tappa boss {n}, {goal}
+424|Colla! Il blocco viene tirato indietro dopo il tocco, quindi tocca un po' più tardi.
+425|RAFFICA!
+426|Raffica! Il vento fa oscillare la torre. Mira dove si trova ora il blocco in cima.
+427|Ghiaccio! Il blocco continua a scivolare dopo il tocco, quindi tocca un po' prima.

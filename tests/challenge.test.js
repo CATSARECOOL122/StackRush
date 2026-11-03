@@ -10,13 +10,8 @@ async function viaLink(e,L,c,o={}){
   const p=await L.open(e,Object.assign({seen:false},o)); await p.goto(`http://127.0.0.1:${e.port}/index.html?c=${c}#debug`); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(400);
   return p;
 }
-/* plays n perfect drops in the page's own frame loop; bombs are let through. Returns the first thing seen at every height: 1 = a bomb, 0 = a block. */
-const BOT=(p,upTo)=>p.evaluate(upTo=>new Promise(res=>{
-  const seen={}, t0=performance.now();
-  const loop=()=>{ const s=window.__sr; if(s.state!=='playing' || s.stackLen>=upTo || performance.now()-t0>40000) return res(seen);
-    const c=s.cur; if(c){ if(!(c.i in seen)) seen[c.i]=c.bomb?1:0;
-      if(!c.bomb && Math.abs(c.x-s.top.x)<Math.max(3,s.sp*0.014)) document.getElementById('c').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})); }
-    requestAnimationFrame(loop); }; loop(); }),upTo);
+/* what the round showed first at every height: 1 = a bomb, 0 = anything else */
+const bombs=async(L,p,upTo)=>{ const r=await L.climb(p,upTo); return Object.fromEntries(Object.entries(r.seen).map(([h,k])=>[h,k==='bomb'?1:0])); };
 
 module.exports=[
 
@@ -84,12 +79,12 @@ module.exports=[
   const seed=await p.evaluate(chance=>{ for(let s=1;s<500;s++){ __sr.startChallenge({mode:'hazard',score:10,seed:s,ghost:null}); const h=[]; for(let i=4;i<18;i++) if(__sr.rollAt(i)<chance) h.push(i); if(h.length>=2 && h.every((x,i)=>!i||x-h[i-1]>1)) return s; } return 0; },chance);
   assert.ok(seed>0,'found a seed with a couple of bombs below height 18');
   const want=await p.evaluate(([seed,chance])=>{ __sr.startChallenge({mode:'hazard',score:10,seed,ghost:null}); return Array.from({length:18},(_,h)=>h>=4 && __sr.rollAt(h)<chance?1:0); },[seed,chance]);
-  const run1=await BOT(p,18); await p.waitForTimeout(100);
+  const run1=await bombs(L,p,18); await p.waitForTimeout(100);
   for(let h=1;h<18;h++) if(h in run1) assert.equal(run1[h],want[h],`height ${h}: first run`);
   assert.ok(Object.values(run1).includes(1),'bombs really came up'); assert.ok(Object.keys(run1).length>=12,`the bot got up to height ${Math.max(...Object.keys(run1))}`);
   // another path: same seed, but the player misses a few times on the way (lives mode round, so it goes on)
   await p.evaluate(seed=>{ __sr.showMenu(); __sr.startChallenge({mode:'hazard',score:10,seed,ghost:null}); },seed); await p.waitForTimeout(150);
-  await L.perfects(p,2); await L.miss(p); await p.waitForTimeout(200); const run2=await BOT(p,18);
+  await L.perfects(p,2); await L.miss(p); await p.waitForTimeout(200); const run2=await bombs(L,p,18);
   for(let h=3;h<18;h++) if(h in run2) assert.equal(run2[h],want[h],`height ${h}: a different path, the same bombs`);
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],

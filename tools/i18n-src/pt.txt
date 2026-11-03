@@ -417,3 +417,11 @@
 417|Faça {n} pontos em uma partida
 418|Empilhe {n} blocos esta semana
 419|Os mesmos blocos para os dois. Boosters e ajuda de mira desligados.
+420|Bombas, gelo, cola e rajadas de vento.
+421|CHEFE DERROTADO!
+422|FASE DE CHEFE
+423|Fase de chefe {n}, {goal}
+424|Cola! O bloco é puxado para trás depois do toque, então toque um pouco mais tarde.
+425|RAJADA!
+426|Rajada! O vento balança a torre. Mire onde o bloco do topo está agora.
+427|Gelo! O bloco continua deslizando depois do toque, então toque um pouco antes.

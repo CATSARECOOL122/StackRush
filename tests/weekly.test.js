@@ -44,8 +44,8 @@ module.exports=[
   await p.evaluate(()=>{ __sr.startMode('classic'); __sr.weeklyRecord({blocks:60,perfects:35,height:26,combo:6,score:70}); });            // finishes all three at once
   assert.deepEqual(await prog(p),{week:'2026-W10',p:[260,105,26],claimed:false,ids:['blocks','perfects','height']});
   assert.equal(await p.evaluate(()=>__sr.weeklyReady()),true);
-  await toastHas(p,'Weekly chest ready',16000);
-  assert.equal(await toasts(p,'Weekly mission complete'),3,'one toast for each of the three missions'); assert.equal(await toasts(p,'Weekly chest ready'),1);
+  await toastHas(p,'Weekly chest ready',16000); await p.waitForFunction(()=>window.__t.some(x=>x.includes('Weekly chest ready')),null,{timeout:5000});     // (the toast log samples every 30 ms: give it its turn)
+  assert.equal(await toasts(p,'Weekly mission complete'),3,'one toast for each of the three missions'); assert.equal(await toasts(p,'Weekly chest ready'),1,'and one for the chest');
   await p.evaluate(()=>__sr.weeklyRecord({blocks:10,perfects:10,height:30,combo:6,score:70})); await p.waitForTimeout(900);
   assert.equal(await toasts(p,'Weekly mission complete'),3,'a mission is announced once'); assert.equal(await toasts(p,'Weekly chest ready'),1,'and so is the chest');
   const before=await p.evaluate(()=>({coins:__sr.S.coins,shield:__sr.S.shop.boosts.shield}));
