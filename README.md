@@ -37,10 +37,13 @@ Sunset (free), Neon, Ocean, Forest, Desert, Ice, Candy, Lava, Sakura, Retro, Dee
 - **26 achievements** with coin rewards, plus a stats page (🏆 Awards screen).
 - **Share card:** the game-over screen has a Share button that makes a score image and opens the phone's share sheet.
 - **Pause** (button, Esc/P, and automatically when you leave the app), with a short grace period after resuming.
-- **Settings:** sound effects, music, vibration, reduce shake/flashes (follows the phone's reduce-motion setting by default), timing assist, replay practice, and a **save code** to copy progress to another device.
+- **Settings:** sound effects, music, vibration, reduce shake/flashes (follows the phone's reduce-motion setting by default), timing assist, replay practice, and a **save code** to copy progress to another device (imported codes are validated field by field, so a malicious code cannot inject anything).
 - **Theme preview:** tap any theme to see it live in the game before you equip, unlock or buy it.
 - **Next-unlock hints** on the menu and game-over screen show your closest locked theme.
 - **Music:** a quiet generative background loop (key follows your theme); toggle in Settings or mute everything with the speaker button.
+- **Premium finish:** every tap target is at least 46-50px; buttons have spring press animations, a tap ripple, and light haptics; screens stagger in; the pause button animates and resuming shows a 3-2-1 countdown (taps are ignored and the block is frozen until it ends); stars pop in on stage clear; the PLAY button shimmers. All motion respects the reduce-motion setting.
+- **Any screen:** the game runs in a centered portrait frame (max 520px wide), so desktops and tablets get a phone-style layout instead of a stretched one, and landscape phones are asked to rotate.
+- **Performance mode:** if frames drop on a slow phone, glow, particles and blur are reduced automatically. An "Update ready" button appears when a new version has been downloaded.
 - **Icons:** all UI icons are a custom inline SVG set (sprite at the top of `index.html`, used via `I('name')` in code), so the game looks the same on every device instead of depending on the phone's emoji font.
 - **Accessibility:** screen-reader announcements for perfects and results, labelled buttons, visible keyboard focus, 44px tap targets.
 - **Daily reward** with a streak, and a **daily challenge** (12 perfect drops).
@@ -76,4 +79,4 @@ Not done yet. The plan is to wrap this page (Trusted Web Activity or Capacitor) 
 Difficulty lives in the `CFG` object at the top of the script (`baseSpeed`, `ramp`, `perfectPx`, `regrowAfter`, `bombChance`, ...). These are first guesses and need real-player testing.
 
 ## Testing hook
-Open the page with `#debug` in the URL to expose `window.__sr` for automated tests.
+Open the page with `#debug` in the URL to expose `window.__sr` for automated tests. This only works on `localhost`, `127.0.0.1` or a local file, never on the public site.
