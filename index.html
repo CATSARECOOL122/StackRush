@@ -56,9 +56,9 @@
     user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:none;overscroll-behavior:none}
   #stage{visibility:hidden}
   body.ready #stage{visibility:visible}
-  #stage{position:fixed;top:0;bottom:0;left:0;right:0;margin:0 auto;width:min(100vw,520px);overflow:hidden;background:#14102b}
+  #stage{position:fixed;top:0;bottom:calc(0px - var(--ov,0px));left:0;right:0;margin:0 auto;width:min(100vw,520px);overflow:hidden;background:#14102b}   /* --ov: iPhone overscan, see layoutDevice() */
   canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-  #ui{position:absolute;inset:0;pointer-events:none}
+  #ui{position:absolute;inset:0 0 var(--ov,0px) 0;pointer-events:none}
   .hidden{display:none!important}
   .ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.14em;flex:none}
   .ic.fill{fill:currentColor;stroke:none}
@@ -1076,6 +1076,7 @@ function applyAccent(){
 /* ================= Canvas / world ================= */
 const cv=$('c'), ctx=cv.getContext('2d');
 let W=0,H=0,u=1,dpr=1,BH=34,baseLine=0;
+let OV=0, FH=0;      // OV: extra playfield painted below the bottom of the page on iPhones; FH = H+OV, the canvas's full height
 /* phones fill the screen; tablets (touch screens at least 600px on the short side, split-screen aware) get a centred
    column and a scaled-up UI. Runs before every measurement, so rotating or resizing a window just works. */
 function layoutDevice(st){
@@ -1083,6 +1084,13 @@ function layoutDevice(st){
   const b=document.body; b.classList.toggle('tablet',tablet); b.classList.toggle('ios',IS_IOS);
   const z=tablet ? clamp(Math.min(st.clientHeight/780,st.clientWidth/380),1,1.5) : 1;
   if(Math.abs(z-uiZ)>.004){ uiZ=z; b.style.setProperty('--z',z.toFixed(3)); }
+  /* iPhone Safari / Home Screen app: the page is laid out in the area the browser leaves free, which can stop short of the bottom of the
+     screen (a bar, the home indicator, a mode that reserves room) while the page's own background still shows underneath. That used to cut
+     the tower off with a plain dark band. So on iPhones the playfield (canvas + stage) reaches OV px further down, under that area; the
+     buttons and text (#ui) stay exactly where they were. Where nothing is reserved the extra is simply off-screen. */
+  const framed=innerWidth>=720 && innerHeight>=700;                               // desktop "phone in a frame" layout
+  const ov=(IS_IOS && !IS_IPAD && !tablet && !framed) ? 120 : 0;
+  if(ov!==OV){ OV=ov; document.documentElement.style.setProperty('--ov',ov+'px'); }
 }
 /* the stage got wider/narrower (iPad rotation, Split View, a resized desktop window): scale the whole play field with it,
    otherwise the tower keeps its old pixel positions and ends up half off-screen */
@@ -1097,9 +1105,9 @@ function rescaleWorld(kx,ky){
 function resize(){
   const st=$('stage'); layoutDevice(st);
   const oldW=W, oldBH=BH;
-  dpr=Math.min(window.devicePixelRatio||1,CFG.maxDpr); W=st.clientWidth||innerWidth; H=st.clientHeight||innerHeight;
+  dpr=Math.min(window.devicePixelRatio||1,CFG.maxDpr); W=st.clientWidth||innerWidth; H=Math.max(1,(st.clientHeight||innerHeight+OV)-OV); FH=H+OV;
   try{ if(state==='playing' && !tablet && matchMedia('(orientation:landscape) and (max-height:520px)').matches) pause(); }catch(e){}
-  cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
+  cv.width=Math.round(W*dpr); cv.height=Math.round(FH*dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
   u=clamp(W/400,.75,tablet?1.55:1.25); BH=Math.round(CFG.BH*u); setBase();
   if(oldW>0 && Math.abs(W-oldW)>.5 && stack.length) rescaleWorld(W/oldW,BH/oldBH);
   initAmb();
@@ -1560,7 +1568,7 @@ function revive(){
   spawnCur(true);
   $('over').classList.add('hidden'); $('hud').classList.remove('hidden'); $('scoreWrap').classList.remove('hidden'); $('pauseBtn').classList.remove('hidden');
   $('endZen').classList.toggle('hidden', mode!=='zen');
-  setScore(score); sfx.tap(); checkAch();
+  setScore(score); setSpeedBadge(false); sfx.tap(); checkAch();
 }
 
 /* ================= Pause ================= */
@@ -1667,7 +1675,7 @@ function update(dt){
   flash=Math.max(0,flash-dt*1.4);
   if(reduceOn()){ shake=0; flash=0; }
   for(const p of pieces){ p.vy-=1500*dt; p.y+=p.vy*dt; p.x+=p.vx*dt; p.rot+=p.vr*dt; p.a=Math.max(0,p.a-dt*.6); }
-  pieces=pieces.filter(p=>Y(p.y)<H+200 && p.a>0);
+  pieces=pieces.filter(p=>Y(p.y)<FH+200 && p.a>0);
   for(const p of parts){ p.vy-=p.grav*dt; p.x+=p.vx*dt; p.y+=p.vy*dt; p.life-=p.dec*dt; }
   parts=parts.filter(p=>p.life>0);
   for(const r of rings) r.life-=dt*2.2;
@@ -1691,18 +1699,18 @@ function drawBG(){
   const th=TH();
   const g=ctx.createLinearGradient(0,0,0,H);
   g.addColorStop(0,th.bg[0]); g.addColorStop(.55,th.bg[1]); g.addColorStop(1,th.bg[2]);
-  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,FH);
   const alt=cam/BH, space=clamp((alt-7)/45,0,1);
   if(space>0){
     const g2=ctx.createLinearGradient(0,0,0,H);
     g2.addColorStop(0,SPACE[0]); g2.addColorStop(.6,SPACE[1]); g2.addColorStop(1,SPACE[2]);
-    ctx.globalAlpha=space; ctx.fillStyle=g2; ctx.fillRect(0,0,W,H); ctx.globalAlpha=1;
+    ctx.globalAlpha=space; ctx.fillStyle=g2; ctx.fillRect(0,0,W,FH); ctx.globalAlpha=1;
   }
   const sy=baseLine-H*.25+cam*.35;
   if(sy<H+W){
     const sg=ctx.createRadialGradient(W*.72,sy,0,W*.72,sy,W*.7);
     sg.addColorStop(0,th.sun); sg.addColorStop(1,'rgba(255,255,255,0)');
-    ctx.globalAlpha=1-space*.7; ctx.fillStyle=sg; ctx.fillRect(0,0,W,H); ctx.globalAlpha=1;
+    ctx.globalAlpha=1-space*.7; ctx.fillStyle=sg; ctx.fillRect(0,0,W,FH); ctx.globalAlpha=1;
   }
   const sa=clamp(.18+space*.9,0,1)*(th.stars||1);
   for(const s of stars){
@@ -1715,13 +1723,13 @@ function drawBG(){
   ctx.globalAlpha=1;
   for(let L=0;L<2;L++){
     const yb=baseLine+(L?18:-14)*u+cam*(L?.55:.35);
-    if(yb>H+80) continue;
-    ctx.fillStyle=th.hill[L]; ctx.beginPath(); ctx.moveTo(0,H+10);
+    if(yb>FH+80) continue;
+    ctx.fillStyle=th.hill[L]; ctx.beginPath(); ctx.moveTo(0,FH+10);
     for(let x=0;x<=W+20;x+=16){ ctx.lineTo(x,yb-(Math.sin(x*.011+L*2)*20+Math.sin(x*.029+L)*9)*u); }
-    ctx.lineTo(W,H+10); ctx.closePath(); ctx.fill();
+    ctx.lineTo(W,FH+10); ctx.closePath(); ctx.fill();
   }
   const gy=Y(0);
-  if(gy<H){ ctx.fillStyle=th.ground; ctx.fillRect(0,gy,W,H-gy+4); ctx.fillStyle='rgba(255,255,255,.08)'; ctx.fillRect(0,gy,W,2*u); }
+  if(gy<FH){ ctx.fillStyle=th.ground; ctx.fillRect(0,gy,W,FH-gy+4); ctx.fillStyle='rgba(255,255,255,.08)'; ctx.fillRect(0,gy,W,2*u); }
   drawAmb();
 }
 function drawGhost(){
@@ -1733,7 +1741,7 @@ function drawGhost(){
     ctx.fillStyle='rgba(255,255,255,.07)'; ctx.strokeStyle='rgba(255,255,255,.3)';
     for(let i=1;i<n;i++){
       const sy=Y(i*BH+BH);
-      if(sy>H+BH||sy<-BH) continue;
+      if(sy>FH+BH||sy<-BH) continue;
       const g=ghost.blocks[i];
       rr(g.x*W,sy,g.w*W,BH-2,6*u); ctx.fill(); ctx.stroke();
     }
@@ -1798,7 +1806,7 @@ function paintBlock(g,x,sy,w,bh,i,sq,th,uu,alpha){
 }
 function drawBlock(b,alpha=1){
   const sy=Y(b.y+BH);
-  if(sy>H+BH || sy<-BH*2) return;
+  if(sy>FH+BH || sy<-BH*2) return;
   paintBlock(ctx,b.x,sy,b.w,BH,b.i,b.sq,TH(),u,alpha);
 }
 /* a cat that sits on top of the tower (a shop item) */
@@ -1891,8 +1899,10 @@ function draw(){
     const k=1-speedCue.life; text(tr('SPEED UP'),W/2,H*.44-k*26,(30+Math.sin(k*3.1)*10)*u,'#ff9a5c',clamp(speedCue.life*2.2,0,1));
   }
   ctx.restore();
-  if(TH().scan){ if(!scanPat) scanPat=ctx.createPattern(scanCv,'repeat'); ctx.fillStyle=scanPat; ctx.fillRect(0,0,W,H); }
-  if(flash>0){ ctx.fillStyle=`rgba(255,255,255,${flash})`; ctx.fillRect(0,0,W,H); }
+  /* behind a menu or sheet the part below the page stays the plain dark colour it always was; during play it shows the world */
+  if(OV>0 && document.querySelector('#ui > .screen:not(.hidden):not(.peeking)')){ ctx.fillStyle='#14102b'; ctx.fillRect(0,H,W,OV); }
+  if(TH().scan){ if(!scanPat) scanPat=ctx.createPattern(scanCv,'repeat'); ctx.fillStyle=scanPat; ctx.fillRect(0,0,W,FH); }
+  if(flash>0){ ctx.fillStyle=`rgba(255,255,255,${flash})`; ctx.fillRect(0,0,W,FH); }
 }
 
 let last=0, errStreak=0;
@@ -2469,6 +2479,36 @@ $('peekAct').onclick=()=>{
 };
 $('peekClose').onclick=()=>{ sfx.tap(); endPreview(); };
 
+/* A hidden "layout info" card: tap the coin counter on the menu 7 times. It only lists numbers about the screen and the page (nothing leaves the
+   device), so a screenshot of it settles layout questions on a real phone that cannot be reproduced anywhere else. Plain English on purpose. */
+function layoutInfo(){
+  const probe=css=>{ const d=document.createElement('div'); d.style.cssText='position:fixed;left:0;top:0;width:1px;visibility:hidden;pointer-events:none;'+css; document.body.appendChild(d); const cs=getComputedStyle(d), r=d.getBoundingClientRect(), pad=[cs.paddingTop,cs.paddingBottom,cs.paddingLeft,cs.paddingRight].map(parseFloat); d.remove(); return {h:Math.round(r.height),pad}; };
+  const mm=q=>{ try{ return matchMedia(q).matches?1:0; }catch(e){ return '?'; } };
+  const vv=window.visualViewport||{}, st=$('stage').getBoundingClientRect(), ui=$('ui').getBoundingClientRect(), c=cv.getBoundingClientRect();
+  const env=probe('padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)').pad;   // top, bottom, left, right of the padding box as computed
+  const rows=[
+    ['browser', ((navigator.userAgent.match(/(iPhone|iPad|Android)[^)]*/)||[''])[0]+'  '+(navigator.userAgent.match(/(Version|CriOS|FxiOS|EdgiOS|Chrome)\/[\d.]+/)||[''])[0]).trim()],
+    ['home screen app', 'navigator.standalone='+(navigator.standalone===undefined?'n/a':navigator.standalone)+'  standalone='+mm('(display-mode: standalone)')+'  fullscreen='+mm('(display-mode: fullscreen)')+'  minimal-ui='+mm('(display-mode: minimal-ui)')],
+    ['window inner', innerWidth+' x '+innerHeight], ['window outer', outerWidth+' x '+outerHeight],
+    ['screen', screen.width+' x '+screen.height+'   usable '+screen.availWidth+' x '+screen.availHeight],
+    ['page (docEl)', document.documentElement.clientWidth+' x '+document.documentElement.clientHeight],
+    ['visual viewport', Math.round(vv.width||0)+' x '+Math.round(vv.height||0)+'   top '+Math.round(vv.offsetTop||0)+'   zoom '+(vv.scale||1)],
+    ['100svh / lvh / dvh', probe('height:100svh').h+' / '+probe('height:100lvh').h+' / '+probe('height:100dvh').h],
+    ['safe area (T R B L)', env[0]+' '+env[3]+' '+env[1]+' '+env[2]],
+    ['stage top..bottom', Math.round(st.top)+' .. '+Math.round(st.bottom)+'   (height '+Math.round(st.height)+')'],
+    ['buttons area', Math.round(ui.top)+' .. '+Math.round(ui.bottom)],
+    ['canvas', cv.width+' x '+cv.height+' px   css height '+Math.round(c.height)],
+    ['game', 'H '+Math.round(H)+'  extra below '+OV+'  pixel ratio '+dpr+'  tablet '+tablet+'  ios '+IS_IOS]
+  ];
+  let d=document.getElementById('diag'); if(d) d.remove();
+  d=document.createElement('div'); d.id='diag';
+  d.style.cssText='position:fixed;inset:0;z-index:99;background:#000e;color:#a8ffb8;font:12px/1.55 ui-monospace,Menlo,monospace;padding:calc(env(safe-area-inset-top) + 18px) 14px 24px;overflow:auto;white-space:pre-wrap;word-break:break-word';
+  d.textContent='LAYOUT INFO  (tap anywhere to close)\n\n'+rows.map(r=>r[0].padEnd(20)+r[1]).join('\n')+'\n\nIf the game looks cut off at the bottom, send a screenshot of this card.';
+  d.addEventListener('click',()=>d.remove()); document.body.appendChild(d);
+}
+{ const pill=$('mCoins').closest('.pill'); let n=0,t0=0;
+  if(pill) pill.addEventListener('click',()=>{ const now=performance.now(); if(now-t0>4000) n=0; t0=now; if(++n>=7){ n=0; layoutInfo(); } }); }
+
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
   window.__sr={ get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
@@ -2485,7 +2525,7 @@ if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.ho
     get ghostOutline(){ return S.ghostOutline!==false; }, CFG, get u(){ return u; }, get tablet(){ return tablet; }, get uiZ(){ return uiZ; }, IS_IPAD, IS_IOS, HAS_VIBRATE, get speedCue(){ return speedCue; }, get banner(){ return banner; },
     showMenu, showModes, showStages, openThemes, showAwards, showSettings, renderMenu, resize,
     giveShield(){ shield=true; setAux(true); }, bombNext(){ forceBomb=true; },
-    get boosted(){ return boosted; }, get armed(){ return armed; }, get slowLeft(){ return slowLeft; }, get regrowUsed(){ return regrowUsed; }, get baseW(){ return baseW; }, SQUARE_LINKS, openBoosts, closeBoosts, boostsAllowed,
+    get boosted(){ return boosted; }, get armed(){ return armed; }, get slowLeft(){ return slowLeft; }, get regrowUsed(){ return regrowUsed; }, get baseW(){ return baseW; }, get OV(){ return OV; }, get FH(){ return FH; }, get H(){ return H; }, layoutInfo, SQUARE_LINKS, openBoosts, closeBoosts, boostsAllowed,
     SHOP, BOOSTS, PRODUCTS, TABS, TAB_HINT, ownsItem, itemAction, boostAction, themeAction, grantProduct, claimPurchase, syncPurchases, loadPlayPrices, iapKeys, skuOf, isCoinPack, coinsTabOn, inPlayApp, inAndroidApp, buyIap, renderThemes, openThemes, startPreview, endPreview,
     setTab(t){ shopTab=t; renderThemes(); }, get tab(){ return shopTab; }, get look(){ return TH(); }, applyAccent,
     staticKeys(){

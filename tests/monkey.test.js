@@ -4,10 +4,11 @@
 const assert=require('assert');
 const vt=require('../tools/lib/vtime');
 const SCALE=+process.env.MONKEY_SCALE||1;                       // MONKEY_SCALE=5 node tests/run.js monkey  for a long hunt
+const IPHONE_UA='Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1';
 const IPAD_UA='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15';
 
-async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false}){
-  const ctx=await e.browser.newContext(Object.assign({viewport,deviceScaleFactor:1,hasTouch:true,serviceWorkers:'block',locale:'en-US'},tablet?{isMobile:true,userAgent:IPAD_UA,screen:viewport}:{}));
+async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false,iphone=false}){
+  const ctx=await e.browser.newContext(Object.assign({viewport,deviceScaleFactor:1,hasTouch:true,serviceWorkers:'block',locale:'en-US'},tablet?{isMobile:true,userAgent:IPAD_UA,screen:viewport}:iphone?{isMobile:true,userAgent:IPHONE_UA,screen:viewport}:{}));
   const [fn,arg]=vt.initScript({seed,audioSeconds:0}); await ctx.addInitScript(fn,arg);
   await ctx.addInitScript(r=>{
     window.__errs=[]; window.__RESIZE=r;
@@ -91,16 +92,16 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false}){
 }
 
 module.exports=[
-['monkey, phone 390x844: random taps, buttons, keys, tab switches, languages, themes, modes (bot finishes runs)', async(e)=>{
-  const r=await monkey(e,{seed:31,actions:Math.round(600*SCALE),viewport:{width:390,height:844}});
-  assert.deepEqual(r.issues.slice(0,3),[],'issues'); assert.ok(r.cov.played>=2,`the monkey finished only ${r.cov.played} runs`);
+['monkey, iPhone 390x844: random taps, buttons, keys, tab switches, languages, themes, modes (bot finishes runs)', async(e)=>{
+  const r=await monkey(e,{seed:31,actions:Math.round(600*SCALE),viewport:{width:390,height:844},iphone:true});     // as an iPhone, so the extra playfield under the page is part of the walk
+  assert.equal(r.issues.length,0,'monkey issues: '+r.issues.slice(0,3).join('  |  ')); assert.ok(r.cov.played>=2,`the monkey finished only ${r.cov.played} runs`);
 }],
 ['monkey, small phone 360x640 with constant window resizing', async(e)=>{
   const r=await monkey(e,{seed:32,actions:Math.round(450*SCALE),viewport:{width:360,height:640},resize:.1});
-  assert.deepEqual(r.issues.slice(0,3),[],'issues');
+  assert.equal(r.issues.length,0,'monkey issues: '+r.issues.slice(0,3).join('  |  '));
 }],
 ['monkey, iPad 768x1024 with resizing (rotation, Split View)', async(e)=>{
   const r=await monkey(e,{seed:33,actions:Math.round(450*SCALE),viewport:{width:768,height:1024},resize:.06,tablet:true});
-  assert.deepEqual(r.issues.slice(0,3),[],'issues');
+  assert.equal(r.issues.length,0,'monkey issues: '+r.issues.slice(0,3).join('  |  '));
 }],
 ];
