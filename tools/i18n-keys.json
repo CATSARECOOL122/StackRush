@@ -448,5 +448,15 @@
  "Unlock code copied",
  "Unlocked!",
  "Unlocked! Using the Home Screen app? Copy your unlock code here and paste it there.",
- "Your unlock code:"
+ "Your unlock code:",
+ "{name} unlocked!",
+ "Bought something in your browser? Paste the code here to unlock it in this app.",
+ "Code copied",
+ "Copy code",
+ "Paste a purchase code",
+ "Purchase code",
+ "Unlock",
+ "Using the Home Screen app? Open it, go to the Shop, and paste this code at the bottom to unlock it there too.",
+ "We copied the code for you.",
+ "Your purchase is saved on this device. Enjoy!"
 ]

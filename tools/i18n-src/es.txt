@@ -448,3 +448,13 @@
 448|¡Desbloqueado!
 449|¡Desbloqueado! ¿Usas la app de la pantalla de inicio? Copia aquí tu código de desbloqueo y pégalo allí.
 450|Tu código de desbloqueo:
+451|¡{name} desbloqueado!
+452|¿Compraste algo en el navegador? Pega aquí el código para desbloquearlo en esta app.
+453|Código copiado
+454|Copiar código
+455|Pegar un código de compra
+456|Código de compra
+457|Desbloquear
+458|¿Usas la app de la pantalla de inicio? Ábrela, ve a la Tienda y pega este código abajo del todo para desbloquearlo también allí.
+459|Hemos copiado el código por ti.
+460|Tu compra está guardada en este dispositivo. ¡Disfrútala!

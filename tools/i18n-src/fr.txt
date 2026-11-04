@@ -448,3 +448,13 @@
 448|Débloqué !
 449|Débloqué ! Vous utilisez l'app de l'écran d'accueil ? Copiez ici votre code de déverrouillage et collez-le là-bas.
 450|Votre code de déverrouillage :
+451|{name} débloqué !
+452|Un achat dans le navigateur ? Collez le code ici pour le débloquer dans cette app.
+453|Code copié
+454|Copier le code
+455|Coller un code d'achat
+456|Code d'achat
+457|Débloquer
+458|Vous utilisez l'app de l'écran d'accueil ? Ouvrez-la, allez dans la Boutique et collez ce code tout en bas pour le débloquer là aussi.
+459|Nous avons copié le code pour vous.
+460|Votre achat est enregistré sur cet appareil. Profitez-en !

@@ -448,3 +448,13 @@
 448|Terbuka!
 449|Terbuka! Memakai aplikasi layar utama? Salin kode buka kunci di sini dan tempel di sana.
 450|Kode buka kuncimu:
+451|{name} terbuka!
+452|Membeli sesuatu di browser? Tempel kode di sini untuk membukanya di aplikasi ini.
+453|Kode disalin
+454|Salin kode
+455|Tempel kode pembelian
+456|Kode pembelian
+457|Buka
+458|Memakai aplikasi layar utama? Buka, masuk ke Toko, dan tempel kode ini di bagian bawah agar terbuka di sana juga.
+459|Kami sudah menyalin kodenya untukmu.
+460|Pembelianmu tersimpan di perangkat ini. Selamat bermain!

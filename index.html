@@ -187,6 +187,10 @@
   .bpick div{flex:1;min-width:0} .bpick b{display:block;font-size:15px} .bpick span{display:block;font-size:12px;color:var(--mute);font-weight:700;line-height:1.25}
   .bpick em{font-style:normal;font-weight:900;font-size:14px;color:var(--gold);flex:none}
   .bpick.empty{opacity:.7}
+  #udCode,#udInput{width:100%;box-sizing:border-box;font:900 30px ui-monospace,Menlo,monospace;letter-spacing:5px;text-align:center;padding:14px 8px;border-radius:16px;border:2px dashed var(--gold);background:#ffffff10;color:#fff;text-transform:uppercase}
+  #udInput::placeholder{color:#ffffff55}
+  #udMsg{margin:0;font-weight:900;color:var(--gold)}
+  .redeemRow{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:8px;text-align:center}
   #unlockRows{flex-wrap:wrap;gap:10px}
   #unlockRows>span{flex:1 1 100%}
   #unlockRows .btn{flex:1 1 40%}
@@ -667,6 +671,18 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     </div>
   </section>
 
+  <section id="udlg" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Purchase code">
+    <div class="shbg" id="udBg"></div>
+    <div class="shcard">
+      <h2 id="udTitle"></h2>
+      <p class="lead" id="udText"></p>
+      <div id="udCode" class="hidden"></div>
+      <input id="udInput" class="hidden" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="SR-XXXX" aria-label="Purchase code">
+      <p class="lead hidden" id="udMsg" role="status"></p>
+      <div class="row"><button id="udCopy" class="btn hidden">Copy code</button><button id="udOk" class="btn primary">Done</button></div>
+    </div>
+  </section>
+
   <section id="crash" class="screen hidden" style="background:#0a0620f2" aria-label="Error"><div class="sbody">
     <div style="font-size:56px;color:var(--gold)"><svg class="ic" aria-hidden="true"><use href="#i-wind"/></svg></div>
     <h2>Something went wrong</h2>
@@ -936,11 +952,11 @@ sanitize();
 /* return from a Square checkout: ?unlock=gold (a premium theme) or ?unlock=style:foil (a premium cosmetic).
    There is no server on the web version, so this is an honour system: anyone who knows the address can unlock these, which is why
    the web version only sells cosmetics here and never coins or boosts. The Android app uses Google Play Billing instead. */
-let unlockedNow=false;
+let unlockedNow=false, unlockedKey='';
 try{
   const u = new URLSearchParams(location.search).get('unlock');
-  if(u && has(THEMES,u) && THEMES[u].unlock.t==='iap'){ if(!S.owned.includes(u)) S.owned.push(u); S.theme=u; unlockedNow=true; }
-  else if(u && has(SQUARE_LINKS,u)){ const [sl,id]=u.split(':'); if(id && itemOk(sl,id) && SHOP[sl][id].iap){ if(!S.shop.owned.includes(u)) S.shop.owned.push(u); S.shop.equip[sl]=id; unlockedNow=true; } }
+  if(u && has(THEMES,u) && THEMES[u].unlock.t==='iap'){ if(!S.owned.includes(u)) S.owned.push(u); S.theme=u; unlockedNow=true; unlockedKey=u; }
+  else if(u && has(SQUARE_LINKS,u)){ const [sl,id]=u.split(':'); if(id && itemOk(sl,id) && SHOP[sl][id].iap){ if(!S.shop.owned.includes(u)) S.shop.owned.push(u); S.shop.equip[sl]=id; unlockedNow=true; unlockedKey=u; } }
   if(unlockedNow) history.replaceState(null,'',location.pathname+location.hash);
 }catch(e){}
 /* Unlock code: the Home Screen app on an iPhone keeps its own storage, so a purchase made in Safari is not seen there. The code lists the premium items owned here
@@ -959,6 +975,30 @@ save();
 const prefersReduce = (() => { try{ return matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){ return false; } })();
 const reduceOn = () => S.reduceSet ? !!S.reduce : prefersReduce;
 
+/* The purchase-code dialog: after a Square checkout ('done': says what was unlocked and copies the code for the Home Screen app) and from the Shop / Settings ('redeem': paste a code). */
+let udMode='';
+const unlockName=k=>{ const [sl,id]=k.split(':'); return id ? tr(itemName(sl,id)) : tr(THEMES[k]?THEMES[k].name:k); };
+function openUnlockDlg(mode,key){
+  udMode=mode; const done=mode==='done', browser=!isStandalone(), code=unlockCode();
+  $('udTitle').textContent=done?tr('{name} unlocked!',{name:unlockName(key)}):tr('Paste a purchase code');
+  $('udText').textContent=done?(browser?tr('Using the Home Screen app? Open it, go to the Shop, and paste this code at the bottom to unlock it there too.'):tr('Your purchase is saved on this device. Enjoy!')):tr('Bought something in your browser? Paste the code here to unlock it in this app.');
+  $('udCode').textContent=code; $('udCode').classList.toggle('hidden',!(done&&browser));
+  $('udInput').classList.toggle('hidden',done); $('udInput').value=''; $('udMsg').classList.add('hidden');
+  $('udCopy').classList.toggle('hidden',!(done&&browser)); $('udCopy').textContent=tr('Copy code'); $('udOk').textContent=done?tr('Done'):tr('Unlock');
+  $('udlg').classList.remove('hidden'); soon(syncBack);
+  if(done&&browser) copyUnlock(); else if(!done) setTimeout(()=>{ try{ $('udInput').focus(); }catch(e){} },250);
+}
+function copyUnlock(){
+  const c=unlockCode(), ok=()=>{ $('udCopy').textContent=tr('Code copied'); $('udMsg').textContent=tr('We copied the code for you.'); $('udMsg').classList.remove('hidden'); };
+  try{ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(c).then(ok,()=>{}); return; } }catch(e){}
+}
+function closeUnlockDlg(){ $('udlg').classList.add('hidden'); soon(syncBack); }
+function submitUnlockDlg(){
+  if(udMode==='done'){ closeUnlockDlg(); return; }
+  const g=redeemCode($('udInput').value);
+  if(g>0){ closeUnlockDlg(); renderMenu(); if(!$('themes').classList.contains('hidden')) renderThemes(); if(!$('settings').classList.contains('hidden')) showSettings(); toast(tr('Unlocked!')); sfx.up(); return; }
+  $('udMsg').textContent=g===0?tr('Nothing new in that code'):tr("That code didn't work"); $('udMsg').classList.remove('hidden');
+}
 /* ================= Helpers ================= */
 const $ = id => document.getElementById(id);
 function stagger(sel){ document.querySelectorAll(sel).forEach((el,i)=>el.style.setProperty('--i',i)); }
@@ -2399,7 +2439,7 @@ async function shareScore(){
 }
 
 /* ================= Menu / UI ================= */
-const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power'];
+const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg'];
 function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
@@ -2452,7 +2492,7 @@ function showMenu(){
   challenge=null;
   setCoins(); renderMenu(); setGhostD(); showUpdateIfIdle(); checkForUpdate();
   if(incoming){ const ch=incoming; incoming=null; openChallenge(ch); }
-  else if(unlockedNow){ unlockedNow=false; showSettings(); toast(tr('Unlocked! Using the Home Screen app? Copy your unlock code here and paste it there.'),5200); }
+  else if(unlockedNow){ unlockedNow=false; openUnlockDlg('done',unlockedKey); }
 }
 function showModes(){
   hideAll(); $('modes').classList.remove('hidden');
@@ -2596,7 +2636,7 @@ function renderThemes(){
   $('tInfo').innerHTML=`${tr('Level {n}',{n:lvl})} · ${I('coin')} <b>${S.coins}</b> · ${tr(TAB_HINT[shopTab])}`;
   if(shopTab==='coins' && !coinsTabOn()) shopTab='themes';
   $('tTabs').innerHTML=TABS.filter(([id])=>id!=='coins' || coinsTabOn()).map(([id,name])=>`<button class="tab${id===shopTab?' on':''}" role="tab" aria-selected="${id===shopTab}" data-tab="${id}">${tr(name)}</button>`).join('');
-  $('tGrid').innerHTML=SHOP_TABS[shopTab](); stagger('#tGrid .th');
+  $('tGrid').innerHTML=SHOP_TABS[shopTab]()+(inPlayApp()?'':`<div class="redeemRow"><span class="sub">${tr('Bought something in your browser? Paste the code here to unlock it in this app.')}</span><button class="btn" data-act="redeem">${tr('Paste a purchase code')}</button></div>`); stagger('#tGrid .th');
 }
 function startPreview(id,slot=null){
   previewId=id; previewSlot=slot; initAmb(); applyAccent(); $('themes').classList.add('peeking'); updatePeek(); $('peek').classList.remove('hidden');
@@ -2820,7 +2860,7 @@ function importCode(){
    the browser's own and the app can close. */
 function soon(f){ if(typeof queueMicrotask==='function') queueMicrotask(f); else setTimeout(f,0); }       // right after the current handler finishes, before anything else can happen
 let backState='off', backWant=false, backAfter=null;          // off: no sentinel · armed: one is in the history · popping: we are removing it ourselves
-const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('crash').classList.contains('hidden');
+const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('crash').classList.contains('hidden');
 function armBack(){
   if(backState==='off'){ try{ history.pushState({sr:1},''); backState='armed'; }catch(e){} }
   else if(backState==='popping') backWant=true;                // (arm again as soon as our own removal is done)
@@ -2833,6 +2873,7 @@ function handleBack(){
   const d=document.getElementById('diag'); if(d){ d.remove(); return; }
   if(open('boosts')){ closeBoosts(); return; }
   if(open('power')){ closePower(); return; }
+  if(open('udlg')){ closeUnlockDlg(); return; }
   if(state==='playing'){ if(paused) tap('resume'); else pause(); return; }
   for(const [scr,btn] of [['modes','closeModes'],['stages','closeStages'],['themes','closeThemes'],['museum','closeMuseum'],['awards','closeAwards'],['langs','closeLangs'],['settings','closeSettings'],['chal','chNo'],['over','toMenu']]) if(open(scr)){ tap(btn); return; }
   if(open('tutOffer')) showMenu();
@@ -2935,7 +2976,7 @@ document.querySelector('#settings').addEventListener('click',e=>{
   else if(k==='language'){ sfx.tap(); showLangs(); return; }
   else if(k==='tutorial'){ sfx.tap(); startPractice(); return; }
   else if(k==='ucopy'){ const c=unlockCode(); if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(c).then(()=>toast(tr('Unlock code copied')),()=>window.prompt(tr('Your unlock code:'),c)); else window.prompt(tr('Your unlock code:'),c); return; }
-  else if(k==='uredeem'){ const c=window.prompt(tr('Paste your unlock code:')); if(!c) return; const g=redeemCode(c); toast(g<0?tr("That code didn't work"):g===0?tr('Nothing new in that code'):tr('Unlocked!')); if(g>0){ renderMenu(); showSettings(); } return; }
+  else if(k==='uredeem'){ openUnlockDlg('redeem'); return; }
   else if(k==='export'){ exportCode(); return; }
   else if(k==='import'){ importCode(); return; }
   save(); showSettings(); sfx.tap();
@@ -2950,6 +2991,10 @@ $('endZen').onclick=()=>{ if(state==='playing' && mode==='zen') endRun('zen'); }
 }
 $('powerList').addEventListener('click',e=>{ const b=e.target.closest('[data-power]'); if(!b) return; if(b.getAttribute('aria-disabled')==='true'){ sfx.tap(); return; } usePower(b.dataset.power); });
 $('powerBg').onclick=$('powerDone').onclick=()=>{ sfx.tap(); closePower(); };
+$('udBg').onclick=()=>{ sfx.tap(); closeUnlockDlg(); };
+$('udOk').onclick=()=>{ sfx.tap(); submitUnlockDlg(); };
+$('udCopy').onclick=()=>{ sfx.tap(); copyUnlock(); };
+$('udInput').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); submitUnlockDlg(); } });
 $('pauseBtn').onclick=()=>{ sfx.tap(); const b=$('pauseBtn'); b.classList.remove('go'); void b.offsetWidth; b.classList.add('go'); setTimeout(pause,140); };
 $('resume').onclick=()=>{ sfx.tap(); resume(); };
 $('quit').onclick=()=>{ sfx.tap(); showMenu(); };
@@ -2967,6 +3012,7 @@ $('tGrid').addEventListener('click',e=>{
   if(act==='boost'){ boostAction(id,+b.dataset.n); return; }
   if(act==='pack'){ buyIap(id); return; }
   if(act==='restore'){ syncPurchases(true); return; }
+  if(act==='redeem'){ sfx.tap(); openUnlockDlg('redeem'); return; }
   if(slot) itemAction(act,slot,id); else themeAction(act,id);
 });
 $('peekAct').onclick=()=>{
@@ -3007,7 +3053,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ unlockCode, redeemCode, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},

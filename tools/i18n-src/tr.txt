@@ -448,3 +448,13 @@
 448|Kilit açıldı!
 449|Kilit açıldı! Ana Ekran uygulamasını mı kullanıyorsun? Kodunu burada kopyala, orada yapıştır.
 450|Kilit açma kodun:
+451|{name} açıldı!
+452|Tarayıcıdan bir şey mi aldın? Bu uygulamada açmak için kodu buraya yapıştır.
+453|Kod kopyalandı
+454|Kodu kopyala
+455|Satın alma kodunu yapıştır
+456|Satın alma kodu
+457|Kilidi aç
+458|Ana Ekran uygulamasını mı kullanıyorsun? Onu aç, Mağaza'ya git ve orada da açmak için bu kodu en alta yapıştır.
+459|Kodu senin için kopyaladık.
+460|Satın alımın bu cihazda kayıtlı. İyi eğlenceler!

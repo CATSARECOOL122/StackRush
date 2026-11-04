@@ -448,3 +448,13 @@
 448|Sbloccato!
 449|Sbloccato! Usi l'app dalla schermata Home? Copia qui il codice di sblocco e incollalo lì.
 450|Il tuo codice di sblocco:
+451|{name} sbloccato!
+452|Hai comprato qualcosa nel browser? Incolla qui il codice per sbloccarlo in questa app.
+453|Codice copiato
+454|Copia codice
+455|Incolla un codice d'acquisto
+456|Codice d'acquisto
+457|Sblocca
+458|Usi l'app dalla schermata Home? Aprila, vai al Negozio e incolla questo codice in fondo per sbloccarlo anche lì.
+459|Abbiamo copiato il codice per te.
+460|Il tuo acquisto è salvato su questo dispositivo. Buon divertimento!
