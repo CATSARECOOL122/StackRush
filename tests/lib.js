@@ -22,7 +22,7 @@ async function open(e,o={}){
   p.on('pageerror',x=>p.errs.push(x.message)); p.on('console',m=>{ if(m.type()==='error') p.errs.push(m.text()); });
   if(o.setup) await o.setup(p);                                     // e.g. page.route() before navigation
   await p.goto(e.url(o.host)); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
-  if(o.links!==true) await p.evaluate(()=>{ for(const k of Object.keys(__sr.SQUARE_LINKS)) __sr.SQUARE_LINKS[k]=''; __sr.renderMenu&&0; });   // the real checkout links are in the game; most tests want a game with no web store
+  if(o.links!==true) await p.evaluate(()=>{ if(window.__sr) for(const k of Object.keys(__sr.SQUARE_LINKS)) __sr.SQUARE_LINKS[k]=''; });   // the real checkout links are in the game; most tests want a game with no web store
   if(o.seen!==false) await p.evaluate(()=>{ __sr.S.tutSeen=true; });
   return p;
 }
