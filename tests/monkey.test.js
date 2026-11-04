@@ -20,6 +20,7 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false,iphone=fal
   },resize);
   const p=await ctx.newPage(); const pageErrors=[]; p.on('pageerror',x=>pageErrors.push(x.message)); p.on('dialog',d=>d.dismiss().catch(()=>{}));
   await p.goto(e.url()); await p.waitForFunction(()=>document.body.classList.contains('ready'));
+  await p.evaluate(()=>{ for(const k of Object.keys(__sr.SQUARE_LINKS)) __sr.SQUARE_LINKS[k]=''; });      // the real checkout links would take the random "buy" action off the page
   await p.evaluate(vt.installBot); await p.evaluate(()=>{ __bot.on=false; });
   const trace=[], issues=[];
   for(let i=0;i<actions;i++){
