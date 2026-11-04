@@ -464,3 +464,18 @@
 464|Siamkatze
 465|Smoking-Katze
 466|Weiße Katze
+467|Eine Runde bringt 1 Münze pro 5 Punkte und 1 pro 2 perfekte Würfe.
+468|Münzpakete gibt es in der Android-App.
+469|MÜNZEN
+470|Komm jeden Tag wieder: 20 bis 80 Münzen, mehr mit einer Serie.
+471|Tagesaufgabe
+472|Tägliche Belohnung
+473|Jede Auszeichnung bringt Münzen.
+474|Schließe alle 3 ab für eine Truhe: {n} Münzen und 2 Booster.
+475|MEHR MÜNZEN
+476|Schaffe heute {n} perfekte Würfe: +{b} Münzen.
+477|Runden spielen
+478|Erreiche {n} Punkte im heutigen Twist: +{b} Münzen.
+479|Sterne, Welten und Boss-Stufen bringen Münzen.
+480|SO VERDIENST DU MÜNZEN
+481|Wochenmissionen

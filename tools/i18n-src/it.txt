@@ -464,3 +464,18 @@
 464|Gatto siamese
 465|Gatto smoking
 466|Gatto bianco
+467|Una partita paga 1 moneta ogni 5 punti e 1 ogni 2 rilasci perfetti.
+468|I pacchetti di monete si vendono nell'app Android.
+469|MONETE
+470|Torna ogni giorno: da 20 a 80 monete, di più con una serie.
+471|Sfida del giorno
+472|Premio giornaliero
+473|Ogni traguardo dà monete.
+474|Completa tutte e 3 per uno scrigno: {n} monete e 2 booster.
+475|OTTIENI PIÙ MONETE
+476|Fai {n} rilasci perfetti oggi: +{b} monete.
+477|Gioca partite
+478|Totalizza {n} nella variante di oggi: +{b} monete.
+479|Stelle, mondi e boss danno monete.
+480|COME GUADAGNARE
+481|Missioni settimanali

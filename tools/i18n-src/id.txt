@@ -464,3 +464,18 @@
 464|Kucing Siam
 465|Kucing tuksedo
 466|Kucing putih
+467|Satu ronde memberi 1 koin per 5 poin dan 1 per 2 jatuhan sempurna.
+468|Paket koin dijual di aplikasi Android.
+469|KOIN
+470|Kembali tiap hari: 20 sampai 80 koin, lebih banyak dengan beruntun.
+471|Tantangan harian
+472|Hadiah harian
+473|Setiap penghargaan memberi koin.
+474|Selesaikan ketiganya untuk peti: {n} koin dan 2 booster.
+475|DAPATKAN LEBIH BANYAK KOIN
+476|Capai {n} jatuhan sempurna hari ini: +{b} koin.
+477|Main ronde
+478|Raih {n} di twist hari ini: +{b} koin.
+479|Bintang, dunia, dan tahap bos memberi koin.
+480|CARA DAPAT KOIN
+481|Misi mingguan

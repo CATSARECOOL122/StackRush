@@ -464,3 +464,18 @@
 464|Gato siamês
 465|Gato smoking
 466|Gato branco
+467|Uma partida paga 1 moeda a cada 5 pontos e 1 a cada 2 quedas perfeitas.
+468|Os pacotes de moedas são vendidos no app Android.
+469|MOEDAS
+470|Volte todo dia: de 20 a 80 moedas, mais com uma sequência.
+471|Desafio diário
+472|Recompensa diária
+473|Cada conquista dá moedas.
+474|Complete as 3 para um baú: {n} moedas e 2 boosters.
+475|CONSEGUIR MAIS MOEDAS
+476|Faça {n} quedas perfeitas hoje: +{b} moedas.
+477|Jogar partidas
+478|Faça {n} pontos na variante de hoje: +{b} moedas.
+479|Estrelas, mundos e chefes dão moedas.
+480|COMO GANHAR
+481|Missões semanais

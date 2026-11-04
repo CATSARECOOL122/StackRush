@@ -196,12 +196,12 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
-['layout info card: seven quick taps on the menu coin counter open it, it lists the screen numbers, a tap closes it; fewer or slow taps do nothing', async(e,L)=>{
+['layout info card: seven quick taps on the title of the Coins sheet open it, it lists the screen numbers, a tap closes it; fewer or slow taps do nothing', async(e,L)=>{
   const p=await iphone(e,L,{h:868,inset:59}); await p.waitForTimeout(300);
   const open=()=>p.locator('#diag').count();
-  for(let i=0;i<6;i++) await p.click('#mCoins'); assert.equal(await open(),0,'six taps are not enough');
-  await p.waitForTimeout(4300); await p.click('#mCoins'); assert.equal(await open(),0,'slow taps start counting again');
-  for(let i=0;i<6;i++) await p.click('#mCoins'); await p.waitForTimeout(50);
+  await p.click('#openCoins'); const tap=()=>p.click('#coinsTitle'); for(let i=0;i<6;i++) await tap(); assert.equal(await open(),0,'six taps are not enough');
+  await p.waitForTimeout(4300); await tap(); assert.equal(await open(),0,'slow taps start counting again');
+  for(let i=0;i<6;i++) await tap(); await p.waitForTimeout(50);
   assert.equal(await open(),1,'seven quick taps open it');
   const txt=await p.textContent('#diag');
   for(const k of ['LAYOUT INFO','window inner        430 x 868','430 x 932','visual viewport','100svh / lvh / dvh','safe area (T R B L) 59','status bar meta     black','page short of screen','stage top..bottom','0 .. 868']) assert.ok(txt.includes(k),`the card shows "${k}"`);

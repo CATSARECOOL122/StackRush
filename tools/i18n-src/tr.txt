@@ -464,3 +464,18 @@
 464|Siyam kedisi
 465|Smokin kedi
 466|Beyaz kedi
+467|Bir tur her 5 puana 1, her 2 mükemmel bırakışa 1 jeton verir.
+468|Jeton paketleri Android uygulamasında satılır.
+469|JETONLAR
+470|Her gün gel: 20 ile 80 jeton, seriyle daha fazla.
+471|Günlük görev
+472|Günlük ödül
+473|Her başarı jeton verir.
+474|3'ünü de bitir, sandık al: {n} jeton ve 2 güçlendirici.
+475|DAHA FAZLA JETON AL
+476|Bugün {n} mükemmel bırakış yap: +{b} jeton.
+477|Tur oyna
+478|Günün kuralında {n} puan yap: +{b} jeton.
+479|Yıldızlar, dünyalar ve patron bölümleri jeton verir.
+480|JETON KAZANMA YOLLARI
+481|Haftalık görevler

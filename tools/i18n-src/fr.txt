@@ -464,3 +464,18 @@
 464|Chat siamois
 465|Chat smoking
 466|Chat blanc
+467|Une partie rapporte 1 pièce par 5 points et 1 par 2 lâchers parfaits.
+468|Les packs de pièces sont vendus dans l'app Android.
+469|PIÈCES
+470|Revenez chaque jour : 20 à 80 pièces, plus avec une série.
+471|Défi du jour
+472|Récompense quotidienne
+473|Chaque succès rapporte des pièces.
+474|Terminez les 3 pour un coffre : {n} pièces et 2 boosters.
+475|OBTENIR PLUS DE PIÈCES
+476|Réussissez {n} lâchers parfaits aujourd'hui : +{b} pièces.
+477|Jouer des parties
+478|Marquez {n} dans la variante du jour : +{b} pièces.
+479|Les étoiles, les mondes et les boss rapportent des pièces.
+480|GAGNER DES PIÈCES
+481|Missions de la semaine

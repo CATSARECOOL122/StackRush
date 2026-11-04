@@ -187,6 +187,14 @@
   .bpick div{flex:1;min-width:0} .bpick b{display:block;font-size:15px} .bpick span{display:block;font-size:12px;color:var(--mute);font-weight:700;line-height:1.25}
   .bpick em{font-style:normal;font-weight:900;font-size:14px;color:var(--gold);flex:none}
   .bpick.empty{opacity:.7}
+  .coinpill{cursor:pointer;gap:6px;min-height:44px}
+  .coinpill .plus{width:16px;height:16px;color:#2a1a00;background:linear-gradient(180deg,#ffd36b,#ffb23d);border-radius:50%;padding:2px;box-sizing:content-box;margin-left:2px}
+  .shcard.cs{max-height:88vh;overflow-y:auto;align-items:stretch}
+  .cshead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .csbal{display:flex;align-items:center;gap:6px;font-size:26px;font-weight:900;color:var(--gold)} .csbal .ic{width:26px;height:26px}
+  #csEarn,#csBuy{display:flex;flex-direction:column;gap:8px;width:100%}
+  .cs .tabh{margin:8px 2px 0}
+  .cs .bpick.go{cursor:pointer} .cs .bpick.ok{border-color:#4be08a66} .cs .bpick.ok em{color:#7dff9b}
   #udCode,#udInput{width:100%;box-sizing:border-box;font:900 30px ui-monospace,Menlo,monospace;letter-spacing:5px;text-align:center;padding:14px 8px;border-radius:16px;border:2px dashed var(--gold);background:#ffffff10;color:#fff;text-transform:uppercase}
   #udInput::placeholder{color:#ffffff55}
   #udMsg{margin:0;font-weight:900;color:var(--gold)}
@@ -202,9 +210,11 @@
   #powerBtn .chev{transform:rotate(-90deg);animation:bob 1.2s ease-in-out infinite}
   @keyframes bob{0%,100%{translate:0 2px}50%{translate:0 -3px}}
   #powerBtn.glow{border-color:var(--gold);box-shadow:0 0 18px #ffc83d88}
-  .tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:min(420px,100%);padding:2px 0 4px;pointer-events:auto;flex:none}
-  .tab{flex:none;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#ffffff14;color:#fff;font:inherit;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap}
-  .tab.on{background:linear-gradient(180deg,#ffd36b,#ffb23d);color:#2a1a00;border-color:transparent}
+  .tabs{display:flex;gap:8px;width:calc(100% + 28px);margin:0 -14px;padding:6px 14px 10px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;pointer-events:auto;flex:none;position:sticky;top:-1px;z-index:3;background:linear-gradient(180deg,#0e0826cc 65%,#0e082600);backdrop-filter:blur(6px)}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;scroll-snap-align:center;min-width:64px;min-height:56px;padding:8px 12px;border-radius:18px;border:1px solid var(--line);background:#ffffff0f;color:#cfc6ee;font:inherit;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:transform .2s var(--ease),background .2s}
+  .tab .ic{width:22px;height:22px}
+  .tab.on{background:linear-gradient(180deg,#ffd36b,#ffb23d);color:#2a1a00;border-color:transparent;box-shadow:0 6px 16px #ffb23d55;transform:translateY(-1px)}
   .tabh{grid-column:1/-1;margin:6px 2px 0;font-size:11px;letter-spacing:2px;color:var(--mute);font-weight:900;text-align:left}
   .sw img{display:block;width:100%;height:100%;object-fit:cover}
   .sw .ico{position:absolute;inset:0;display:grid;place-items:center;font-size:30px}
@@ -485,6 +495,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 <symbol id="i-tap" viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v6"/><path d="M13 10.5a2 2 0 0 1 4 0V12"/><path d="M17 11.5a2 2 0 0 1 4 0V15a7 7 0 0 1-7 7h-1.5c-2.3 0-3.7-.8-5-2.1L3.4 15.8a2 2 0 0 1 2.8-2.8L9 15"/></symbol>
 <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
 <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M3 8v8M21 8v8M11 18.5h2"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
 <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></symbol>
 <symbol id="i-snow" viewBox="0 0 24 24"><path d="M2 12h20M12 2v20"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></symbol>
 <symbol id="i-wind" viewBox="0 0 24 24"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></symbol>
@@ -533,7 +544,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 
   <section id="menu" class="screen" aria-label="Main menu">
     <div class="mhead">
-      <div class="pill static" aria-label="Coins"><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg> <b id="mCoins">0</b></div>
+      <button id="openCoins" class="pill coinpill" aria-label="Coins"><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg> <b id="mCoins">0</b><svg class="ic plus" aria-hidden="true"><use href="#i-plus"/></svg></button>
       <div class="pill static lvl" aria-label="Level"><span><svg class="ic ic-gold fill" aria-hidden="true"><use href="#i-star"/></svg> Lv <b id="lvlN">1</b></span><span class="xp"><u id="xpFill"></u></span></div>
       <span class="sp"></span>
       <button id="openBoosts" class="pill boostpill" aria-label="Boosts"><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg><b id="boostN">0</b></button>
@@ -680,6 +691,18 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <input id="udInput" class="hidden" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="SR-XXXX" aria-label="Purchase code">
       <p class="lead hidden" id="udMsg" role="status"></p>
       <div class="row"><button id="udCopy" class="btn hidden">Copy code</button><button id="udOk" class="btn primary">Done</button></div>
+    </div>
+  </section>
+
+  <section id="coinsSheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Coins">
+    <div class="shbg" id="coinsBg"></div>
+    <div class="shcard cs">
+      <div class="cshead"><h2 id="coinsTitle">COINS</h2><div class="csbal"><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg><b id="csBal">0</b></div></div>
+      <div class="tabh">WAYS TO EARN</div>
+      <div id="csEarn"></div>
+      <div class="tabh">GET MORE COINS</div>
+      <div id="csBuy"></div>
+      <div class="row"><button id="csDone" class="btn primary">Done</button></div>
     </div>
   </section>
 
@@ -1071,7 +1094,7 @@ async function loadLang(code){
   }catch(e){ dict={}; return 'en'; }
 }
 /* containers whose content is generated by JS (already passed through tr()) */
-const I18N_SKIP='#powerList,#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
+const I18N_SKIP='#csEarn,#csBuy,#powerList,#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
 const origText=new WeakMap(), origAttr=new WeakMap();
 function staticTextNodes(root){
   const out=[];
@@ -2475,7 +2498,7 @@ async function shareScore(){
 }
 
 /* ================= Menu / UI ================= */
-const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg'];
+const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet'];
 function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
@@ -2563,6 +2586,7 @@ function showStages(){
 
 /* ----- the shop (it grew out of the Themes screen): tabs, live preview, buying ----- */
 let themesFrom='menu', shopTab='themes';
+const TAB_ICON={themes:'palette',blocks:'layers',colors:'sparkles',scenes:'cloud',sounds:'sound',music:'music',extras:'gem',boosts:'zap',coins:'coin'};
 const TABS=[['themes','Themes'],['blocks','Blocks'],['colors','Colors'],['scenes','Scenes'],['sounds','Sounds'],['music','Music'],['extras','Extras'],['boosts','Boosts'],['coins','Coins']];
 function openThemes(from){ themesFrom=from; hideAll(); $('themes').classList.remove('hidden'); renderThemes(); }
 function closeThemes(){ endPreview(true); if(themesFrom==='over' && state==='over'){ hideAll(); $('over').classList.remove('hidden'); } else showMenu(); }
@@ -2671,7 +2695,8 @@ function renderThemes(){
   const lvl=levelOf(S.blocks);
   $('tInfo').innerHTML=`${tr('Level {n}',{n:lvl})} · ${I('coin')} <b>${S.coins}</b> · ${tr(TAB_HINT[shopTab])}`;
   if(shopTab==='coins' && !coinsTabOn()) shopTab='themes';
-  $('tTabs').innerHTML=TABS.filter(([id])=>id!=='coins' || coinsTabOn()).map(([id,name])=>`<button class="tab${id===shopTab?' on':''}" role="tab" aria-selected="${id===shopTab}" data-tab="${id}">${tr(name)}</button>`).join('');
+  $('tTabs').innerHTML=TABS.filter(([id])=>id!=='coins' || coinsTabOn()).map(([id,name])=>`<button class="tab${id===shopTab?' on':''}" role="tab" aria-selected="${id===shopTab}" data-tab="${id}"><svg class="ic" aria-hidden="true"><use href="#i-${TAB_ICON[id]}"/></svg><span>${tr(name)}</span></button>`).join('');
+  { const t=$('tTabs'), on=t.querySelector('.on'); if(on) t.scrollLeft=on.offsetLeft-(t.clientWidth-on.offsetWidth)/2; }
   $('tGrid').innerHTML=SHOP_TABS[shopTab]()+(inPlayApp()?'':`<div class="redeemRow"><span class="sub">${tr('Bought something in your browser? Paste the code here to unlock it in this app.')}</span><button class="btn" data-act="redeem">${tr('Paste a purchase code')}</button></div>`); stagger('#tGrid .th');
 }
 function startPreview(id,slot=null){
@@ -2889,6 +2914,37 @@ function importCode(){
   }catch(e){ toast(tr("That code didn't work")); }
 }
 
+/* ================= Coins sheet =================
+   Tapping the coin counter on the menu: the ways to earn coins (with where you stand today) and, in the Android app, the coin packs. */
+function nextDailyReward(){ const st=(S.lastClaim===yesterday()) ? S.streak+1 : 1; return 20+10*Math.min(st-1,6); }
+function renderCoins(){
+  $('csBal').textContent=S.coins; ensureWeek();
+  const done=weekMissions().filter((m,i)=>S.weekly.p[i]>=m.n).length, stars=starsTotal(), ach=Object.keys(S.ach).length;
+  const claim=S.lastClaim!==today(), row=(go,icon,title,sub,chip,ok)=>`<button class="bpick go${ok?' ok':''}" data-go="${go}"><i>${I(icon)}</i><div><b>${title}</b><span>${sub}</span></div><em>${chip}</em></button>`;
+  $('csEarn').innerHTML=
+    row('play','play',tr('Play rounds'),tr('A round pays 1 coin per 5 points and 1 per 2 perfect drops.'),'',false)
+   +row('claim','calendar-check',tr('Daily reward'),tr('Come back every day: 20 to 80 coins, more with a streak.'),claim?`+${nextDailyReward()} ${I('coin')}`:I('check','ic-green'),!claim)
+   +row('play','target',tr('Daily challenge'),tr('Land {n} perfect drops today: +{b} coins.',{n:CFG.dailyGoal,b:CFG.dailyBonus}),S.daily.done?I('check','ic-green'):`${Math.min(S.daily.perfects||0,CFG.dailyGoal)}/${CFG.dailyGoal}`,!!S.daily.done)
+   +row('twist','calendar',tr('Daily Twist'),tr("Score {n} in today's twist: +{b} coins.",{n:CFG.twistGoal,b:CFG.twistReward}),S.twist.done?I('check','ic-green'):`+${CFG.twistReward} ${I('coin')}`,!!S.twist.done)
+   +row('awards','gem',tr('Weekly missions'),tr('Finish all 3 for a chest: {n} coins and 2 boosts.',{n:CFG.weeklyCoins}),S.weekly.claimed?I('check','ic-green'):`${done}/3`,!!S.weekly.claimed)
+   +row('awards','trophy',tr('Awards'),tr('Every award pays coins.'),`${ach}/${ACH.length}`,false)
+   +row('stages','map',tr('Campaign'),tr('Stars, worlds and boss stages pay coins.'),`${stars}/${STAGES.length*3}`,false);
+  $('csBuy').innerHTML=inPlayApp()
+    ? ['starter','coins_s','coins_m','coins_l','coins_xl'].map(k=>{ const p=PRODUCTS[k]; return `<button class="bpick go" data-pack="${k}"><i>${I(k==='starter'?'gem':'coin')}</i><div><b>${k==='starter'?tr('Starter pack'):tr('{n} coins',{n:nf(p.coins)})}</b></div><em>${priceOf(k,p.price)}</em></button>`; }).join('')
+    : `<div class="sub" style="text-align:center">${tr('Coin packs are sold in the Android app.')}</div>`;
+}
+function openCoins(){ renderCoins(); $('coinsSheet').classList.remove('hidden'); soon(syncBack); }
+function closeCoins(){ $('coinsSheet').classList.add('hidden'); soon(syncBack); }
+$('openCoins').onclick=()=>{ sfx.tap(); openCoins(); };
+$('coinsBg').onclick=$('csDone').onclick=()=>{ sfx.tap(); closeCoins(); };
+$('csEarn').addEventListener('click',e=>{ const b=e.target.closest('[data-go]'); if(!b) return; const g=b.dataset.go; sfx.tap();
+  if(g==='claim'){ claimDaily(); renderCoins(); return; }
+  closeCoins();
+  if(g==='play') quickPlay(); else if(g==='twist') startMode('daily'); else if(g==='awards') showAwards(); else if(g==='stages'){ stagesFrom='menu'; showStages(); }
+});
+$('csBuy').addEventListener('click',e=>{ const b=e.target.closest('[data-pack]'); if(b) buyIap(b.dataset.pack); });
+{ let n=0,t0=0; $('coinsTitle').addEventListener('click',()=>{ const now=performance.now(); if(now-t0>4000) n=0; t0=now; if(++n>=7){ n=0; closeCoins(); layoutInfo(); } }); }   // seven quick taps on the title: the layout info card
+
 /* ================= Back button =================
    The Android Back button (and a browser's Back, and the swipe from the edge on an iPhone) should step out of the game the way the on-screen arrows do, not close the app:
    a run pauses (a second Back resumes), a screen closes, and only from the plain menu does Back leave. The page keeps ONE extra history entry (a "sentinel") whenever it is
@@ -2896,7 +2952,7 @@ function importCode(){
    the browser's own and the app can close. */
 function soon(f){ if(typeof queueMicrotask==='function') queueMicrotask(f); else setTimeout(f,0); }       // right after the current handler finishes, before anything else can happen
 let backState='off', backWant=false, backAfter=null;          // off: no sentinel · armed: one is in the history · popping: we are removing it ourselves
-const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('crash').classList.contains('hidden');
+const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
 function armBack(){
   if(backState==='off'){ try{ history.pushState({sr:1},''); backState='armed'; }catch(e){} }
   else if(backState==='popping') backWant=true;                // (arm again as soon as our own removal is done)
@@ -2910,6 +2966,7 @@ function handleBack(){
   if(open('boosts')){ closeBoosts(); return; }
   if(open('power')){ closePower(); return; }
   if(open('udlg')){ closeUnlockDlg(); return; }
+  if(open('coinsSheet')){ closeCoins(); return; }
   if(state==='playing'){ if(paused) tap('resume'); else pause(); return; }
   for(const [scr,btn] of [['modes','closeModes'],['stages','closeStages'],['themes','closeThemes'],['museum','closeMuseum'],['awards','closeAwards'],['langs','closeLangs'],['settings','closeSettings'],['chal','chNo'],['over','toMenu']]) if(open(scr)){ tap(btn); return; }
   if(open('tutOffer')) showMenu();
@@ -3084,8 +3141,6 @@ function layoutInfo(){
   d.textContent='LAYOUT INFO  (tap anywhere to close)\n\n'+rows.map(r=>r[0].padEnd(20)+r[1]).join('\n')+'\n\nIf the game looks cut off at the bottom, send a screenshot of this card.';
   d.addEventListener('click',()=>{ d.remove(); soon(syncBack); }); document.body.appendChild(d); soon(syncBack);
 }
-{ const pill=$('mCoins').closest('.pill'); let n=0,t0=0;
-  if(pill) pill.addEventListener('click',()=>{ const now=performance.now(); if(now-t0>4000) n=0; t0=now; if(++n>=7){ n=0; layoutInfo(); } }); }
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){

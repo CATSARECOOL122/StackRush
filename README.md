@@ -59,6 +59,7 @@ Your best run in each mode is saved. Next time you play it:
 Sunset (free), Neon, Ocean, Forest, Desert, Ice, Candy, Lava, Sakura, Retro, Deep Sea, Winter Night, Flower Field (a bright meadow with drifting blossoms), plus premium Gold Rush, Galaxy and Cyber City. Many have their own ambient effects (snow, fireflies, embers, petals, bubbles, sand, digital rain); Retro uses pixel blocks and scanlines. Unlock by level, by coins, or (premium) by purchase. Tap any theme to preview it live before you equip, unlock or buy it.
 
 ## Shop, boosts and coins
+**Coins sheet:** tapping the coin counter on the menu (it has a + on it) opens a sheet with the ways to earn coins and where you stand today (play rounds, the daily reward which can be claimed right there, the daily challenge, Daily Twist, weekly missions, awards, campaign), and in the Android app the coin packs and Starter pack. On the web it says packs are Android-only. The 7-tap layout info card moved to the sheet's title. The **shop tabs** are one horizontally scrolling strip with an icon on each tab; the active tab is gold and scrolled into view, and the strip stays at the top while you scroll the cards.
 The old Themes screen is now a **Shop** with nine tabs. Everything can be previewed live in the game before you pay for it.
 
 | Tab | What is in it |
