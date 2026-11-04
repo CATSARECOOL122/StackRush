@@ -69,7 +69,7 @@ The old Themes screen is now a **Shop** with nine tabs. Everything can be previe
 | Scenes | the scenery of any theme you own, on any theme (mix Lava blocks with the Ocean) |
 | Sounds | sound-effect packs (Classic, Retro, Soft) |
 | Music | music styles (Classic, Chill, Chiptune); a separate tab from Sounds so only one card is ever shown as Equipped |
-| Extras | landing effects (Sparkle, Confetti, Stars), a **tower topper** (Black cat, Orange cat, a Flag, a Star, the premium Golden cat; it stands in front of the sliding block so it is always in view) and the **app colour** that tints the buttons |
+| Extras | landing effects (Sparkle, Confetti, Stars), a **tower topper** (seven cats drawn with shaded fur, ears, whiskers, shining eyes and a swaying tail: Black, Orange tabby, Siamese, Tuxedo, Calico, Grey tabby, White, plus a Flag, a Star and the premium Golden cat; it stands in front of the sliding block so it is always in view) and the **app colour** that tints the buttons |
 | Boosts | buy boosts with coins, 1 or 3 at a time |
 | Coins | coin packs and the Starter pack (Android app only, see below) |
 

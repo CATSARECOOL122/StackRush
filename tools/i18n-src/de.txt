@@ -458,3 +458,9 @@
 458|Nutzt du die App vom Home-Bildschirm? Öffne sie, geh zum Shop und füge diesen Code ganz unten ein, um es auch dort freizuschalten.
 459|Wir haben den Code für dich kopiert.
 460|Dein Kauf ist auf diesem Gerät gespeichert. Viel Spaß!
+461|Glückskatze
+462|Graue Katze
+463|Rot
+464|Siamkatze
+465|Smoking-Katze
+466|Weiße Katze

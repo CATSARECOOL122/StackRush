@@ -458,3 +458,9 @@
 458|Vous utilisez l'app de l'écran d'accueil ? Ouvrez-la, allez dans la Boutique et collez ce code tout en bas pour le débloquer là aussi.
 459|Nous avons copié le code pour vous.
 460|Votre achat est enregistré sur cet appareil. Profitez-en !
+461|Chat calico
+462|Chat gris
+463|Rouge
+464|Chat siamois
+465|Chat smoking
+466|Chat blanc

@@ -458,3 +458,9 @@
 458|Usi l'app dalla schermata Home? Aprila, vai al Negozio e incolla questo codice in fondo per sbloccarlo anche lì.
 459|Abbiamo copiato il codice per te.
 460|Il tuo acquisto è salvato su questo dispositivo. Buon divertimento!
+461|Gatto calico
+462|Gatto grigio
+463|Rosso
+464|Gatto siamese
+465|Gatto smoking
+466|Gatto bianco

@@ -458,3 +458,9 @@
 458|¿Usas la app de la pantalla de inicio? Ábrela, ve a la Tienda y pega este código abajo del todo para desbloquearlo también allí.
 459|Hemos copiado el código por ti.
 460|Tu compra está guardada en este dispositivo. ¡Disfrútala!
+461|Gato calicó
+462|Gato gris
+463|Rojo
+464|Gato siamés
+465|Gato esmoquin
+466|Gato blanco

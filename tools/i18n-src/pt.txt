@@ -458,3 +458,9 @@
 458|Usa o app da tela inicial? Abra-o, vá à Loja e cole este código no final para desbloquear lá também.
 459|Copiamos o código para você.
 460|Sua compra está salva neste dispositivo. Aproveite!
+461|Gato calico
+462|Gato cinza
+463|Vermelho
+464|Gato siamês
+465|Gato smoking
+466|Gato branco

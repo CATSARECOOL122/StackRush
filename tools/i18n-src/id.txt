@@ -458,3 +458,9 @@
 458|Memakai aplikasi layar utama? Buka, masuk ke Toko, dan tempel kode ini di bagian bawah agar terbuka di sana juga.
 459|Kami sudah menyalin kodenya untukmu.
 460|Pembelianmu tersimpan di perangkat ini. Selamat bermain!
+461|Kucing calico
+462|Kucing abu-abu
+463|Merah
+464|Kucing Siam
+465|Kucing tuksedo
+466|Kucing putih
