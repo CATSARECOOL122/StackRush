@@ -187,6 +187,13 @@
   .bpick div{flex:1;min-width:0} .bpick b{display:block;font-size:15px} .bpick span{display:block;font-size:12px;color:var(--mute);font-weight:700;line-height:1.25}
   .bpick em{font-style:normal;font-weight:900;font-size:14px;color:var(--gold);flex:none}
   .bpick.empty{opacity:.7}
+  #powerBtn{position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom) + 14px);transform:translateX(-50%);display:flex;align-items:center;gap:8px;min-height:48px;padding:0 16px;max-width:calc(100% - 28px);touch-action:none;user-select:none;-webkit-user-select:none;white-space:nowrap}
+  #powerBtn .ic{width:20px;height:20px;color:var(--gold)}
+  #powerBtn b{font-size:17px;color:var(--gold)}
+  #powerBtn span{font-size:13px;font-weight:800;color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis}
+  #powerBtn .chev{transform:rotate(-90deg);animation:bob 1.2s ease-in-out infinite}
+  @keyframes bob{0%,100%{translate:0 2px}50%{translate:0 -3px}}
+  #powerBtn.glow{border-color:var(--gold);box-shadow:0 0 18px #ffc83d88}
   .tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:min(420px,100%);padding:2px 0 4px;pointer-events:auto;flex:none}
   .tab{flex:none;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#ffffff14;color:#fff;font:inherit;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap}
   .tab.on{background:linear-gradient(180deg,#ffd36b,#ffb23d);color:#2a1a00;border-color:transparent}
@@ -505,6 +512,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
   </div>
   <div id="scoreWrap" class="hidden"><div id="score" aria-hidden="true">0</div><div id="combo"></div><div id="aux"></div><div id="ghostD"></div></div>
   <div id="speedB" class="hidden" aria-hidden="true"></div>
+  <button id="powerBtn" class="pill hidden" aria-label="Boosts"><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg><b id="powerN">0</b><span id="powerLab" class="hidden">Swipe up for boosts</span><svg class="ic chev" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
   <div id="tip" class="hidden">TAP TO DROP</div>
   <div id="hand" class="hidden" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-tap"/></svg></div>
   <div id="practiceBar">
@@ -620,6 +628,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg>Best-run outline<small>Dashed outline of your best run. The BEST line stays.</small></span><button class="btn" data-set="ghost"></button></div>
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg>Language</span><button class="btn" data-set="language"></button></div>
       <h4>HELP</h4>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg>Auto-use boosts<small>Off: you choose when, with the bolt during a round. On: they fire by themselves.</small></span><button class="btn" data-set="boostauto"></button></div>
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>Timing assist<small>Wider perfect window. Auto = your first 6 games.</small></span><button class="btn" data-set="assist"></button></div>
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-grad"/></svg>Practice round</span><button class="btn" data-set="tutorial">Replay</button></div>
       <h4>YOUR DATA</h4>
@@ -641,6 +650,15 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <p class="lead" id="boostNote"></p>
       <div id="boostList"></div>
       <div class="row"><button id="boostShop" class="btn">Get more</button><button id="boostDone" class="btn primary">Done</button></div>
+    </div>
+  </section>
+
+  <section id="power" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Boosts">
+    <div class="shbg" id="powerBg"></div>
+    <div class="shcard">
+      <h2>BOOSTS</h2>
+      <div id="powerList"></div>
+      <div class="row"><button id="powerDone" class="btn primary">Keep playing</button></div>
     </div>
   </section>
 
@@ -824,7 +842,7 @@ const ACH = [
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
              coins:0,blocks:0,perfects:0,played:0,revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
-             tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,
+             tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0},pick:[],gift:false,tokens:[]},boostBests:{},
              lastClaim:'',streak:0,daily:{day:'',perfects:0,done:false},seenTip:false,weekly:{week:'',p:[0,0,0],claimed:false}};
 const store = {
@@ -839,7 +857,8 @@ function cleanSave(raw){
   const dateOk=v=>typeof v==='string' && /^\d{4}-\d{2}-\d{2}$/.test(v);
   for(const k of ['best','coins','blocks','perfects','played','revives','dodged','shields','bestCombo','maxHeight','streak','twistDone']) if(own(raw,k)) out[k]=num(raw[k]);
   if(own(raw,'fsHint')) out.fsHint=num(raw.fsHint,99);
-  for(const k of ['mute','music','haptics','reduce','reduceSet','tutSeen','seenTip','ghostOutline','silentSound']) if(own(raw,k)) out[k]=!!raw[k];
+  if(own(raw,'hintPow')) out.hintPow=num(raw.hintPow,9);
+  for(const k of ['mute','music','haptics','reduce','reduceSet','tutSeen','seenTip','ghostOutline','silentSound','boostAuto']) if(own(raw,k)) out[k]=!!raw[k];
   if(typeof raw.theme==='string' && own(THEMES,raw.theme)) out.theme=raw.theme;
   if(Array.isArray(raw.owned)) out.owned=[...new Set(['sunset',...raw.owned.filter(id=>typeof id==='string' && own(THEMES,id))])];
   if(typeof raw.lastMode==='string' && own(MODES,raw.lastMode)) out.lastMode=raw.lastMode;
@@ -991,7 +1010,7 @@ async function loadLang(code){
   }catch(e){ dict={}; return 'en'; }
 }
 /* containers whose content is generated by JS (already passed through tr()) */
-const I18N_SKIP='#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
+const I18N_SKIP='#powerList,#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
 const origText=new WeakMap(), origAttr=new WeakMap();
 function staticTextNodes(root){
   const out=[];
@@ -1218,11 +1237,12 @@ let stack=[], cur=null, dir=1, score=0, combo=0, bestCombo=0, perfectsRun=0, run
 let lives=1, maxLives=1, timeLeft=0, timerOn=false, lastBomb=false, shield=false, forceBomb=false;
 /* boosters armed for this run: they are only used up (taken from the inventory) when they actually help */
 let armed={}, boosted=false, slowLeft=0, regrowUsed=0, boostShield=false;
+let held=[], powerPhase='off', tsc=1;       // the boosts in hand this round (you choose when), the boost menu's state (off | slowing | open | resuming) and the game-time scale (1, easing to 0 while the menu is open)
 const BOOST_MODES=['classic','timed','lives','hazard','campaign'];
 const boostsAllowed=m=>BOOST_MODES.includes(m);
 const prunePicks=()=>{ S.shop.pick=S.shop.pick.filter((k,i,a)=>(S.shop.boosts[k]||0)>0 && a.indexOf(k)===i).slice(0,2); };   // only boosts you still have can stay picked, at most two
 function useBoost(id){
-  S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); boosted=true; armed[id]=false; prunePicks(); save();
+  S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); boosted=true; armed[id]=false; prunePicks(); held=held.filter(k=>(S.shop.boosts[k]||0)>0); save(); syncPower();
   const bo=BOOSTS[id]; toast(`${I(bo.icon,'ic-cyan')} ${tr(bo.name)} · ${tr('{n} left',{n:S.shop.boosts[id]})}`,1800);
 }
 let paused=false, grace=0;
@@ -1417,8 +1437,11 @@ function newRun(){
   armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
   if(challenge && challenge.mode!==mode) challenge=null;
   runSeed=challenge?challenge.seed:(Math.random()*2147483647)|0; assisted=assistOn();
-  prunePicks();
-  if(boostsAllowed(mode) && !challenge) for(const id of S.shop.pick) if((S.shop.boosts[id]||0)>0 && (id!=='time' || mode==='timed')) armed[id]=true;
+  prunePicks(); held=[]; powerPhase='off'; tsc=1; $('power').classList.add('hidden');
+  if(boostsAllowed(mode) && !challenge){
+    const mine=S.shop.pick.filter(id=>(S.shop.boosts[id]||0)>0 && (id!=='time' || mode==='timed'));
+    if(manualOn()) held=mine; else for(const id of mine) armed[id]=true;          // you choose when (the bolt), or they fire by themselves when they help (Settings)
+  }
   if(armed.shield){ shield=true; boostShield=true; }
   pieces=[]; parts=[]; rings=[]; texts=[]; banner=null; speedCue=null; speedTier=Math.floor(rampOf(1)*4);
   ghost = (M.ghost && S.ghosts[mode] && S.ghosts[mode].blocks && S.ghosts[mode].blocks.length>2) ? S.ghosts[mode] : null;
@@ -1434,7 +1457,7 @@ function newRun(){
   $('tip').classList.toggle('hidden', prac || (!!S.seenTip && mode!=='timed'));
   $('hand').classList.toggle('hidden', !prac); $('coach').classList.toggle('hidden', !prac); $('skipTut').classList.toggle('hidden', !prac);
   if(prac){ tut.on=true; tut.drops=0; tut.perfects=0; setCoach(0); }
-  setScore(0); setCombo(0); setCoins(); setAux(true); setGhostD(); setSpeedBadge();
+  setScore(0); setCombo(0); setCoins(); setAux(true); setGhostD(); setSpeedBadge(); syncPower(true);
 }
 
 /* ================= Tutorial (practice round) ================= */
@@ -1619,7 +1642,7 @@ function checkGoal(){
   setGhostD();
 }
 function drop(){
-  if(state!=='playing' || !cur || paused || grace>0) return;
+  if(state!=='playing' || !cur || paused || grace>0 || powerPhase==='slowing' || powerPhase==='open') return;
   if(!S.seenTip){ S.seenTip=true; save(); }
   $('tip').classList.add('hidden');
   if(mode==='timed') timerOn=true;
@@ -1699,6 +1722,55 @@ function extraTime(){
   texts.length=0; texts.push({x:W/2,y:stack.length*BH+BH*2,vy:80,text:tr('EXTRA TIME!'),size:28*u,color:'#7fe8ff',life:1}); flash=.25; sfx.speed();
   return true;
 }
+/* ----- the boost menu: choose when to use the boosts you picked -----
+   A bolt at the bottom of the screen (tap it, or swipe up from it) eases the game to a stop and shows ONLY the boosts picked for this round. Using one applies it now; Keep playing eases the game back.
+   (Settings > Auto-use boosts keeps the old way: they fire by themselves when they help.) */
+const manualOn=()=>S.boostAuto!==true;
+function powerWhy(id){                                                       // why a boost in hand cannot be used right now ('' = it can)
+  const top=stack[stack.length-1];
+  if(id==='shield') return shield ? tr('A shield is already up') : '';
+  if(id==='slow') return slowLeft>0 ? tr('Active for {n} more drops',{n:slowLeft}) : '';
+  if(id==='regrow') return regrowUsed>=2 ? tr('Two Regrows a round is the limit') : (top.w>=baseW-1 ? tr('Your tower is already full width') : '');
+  if(id==='time') return !timerOn ? tr('The clock starts on your first tap') : '';
+  return '';
+}
+function syncPower(fresh){
+  const show=state==='playing' && held.length>0;
+  $('powerBtn').classList.toggle('hidden',!show); $('powerN').textContent=held.length;
+  if(fresh){ const hint=show && (S.hintPow||0)<4; if(hint){ S.hintPow=(S.hintPow||0)+1; save(); } $('powerLab').classList.toggle('hidden',!hint); }
+  if(!show) closePower(state!=='playing');                                  // (using the last boost in hand eases back like any other close)
+}
+function openPower(){
+  if(state!=='playing' || paused || powerPhase!=='off' || !held.length) return;
+  powerPhase='slowing'; sfx.tap(); vib(8); $('powerLab').classList.add('hidden'); if((S.hintPow||0)<9){ S.hintPow=9; save(); }
+}
+function renderPower(){
+  $('powerList').innerHTML=held.map(id=>{ const bo=BOOSTS[id], n=S.shop.boosts[id]||0, why=powerWhy(id);
+    return `<button class="bpick${why?' empty':' on'}" data-power="${id}" ${why?'aria-disabled="true"':''}><i>${I(bo.icon)}</i><div><b>${tr(bo.name)}</b><span>${why||tr(bo.desc)}</span></div><em>×${n}</em></button>`; }).join('');
+}
+function closePower(immediate){
+  if(powerPhase==='off') return;
+  $('power').classList.add('hidden'); powerPhase=immediate?'off':'resuming'; if(immediate) tsc=1;
+}
+function stepPower(dt){
+  if(powerPhase==='off'){ tsc=1; return; }
+  const to=(powerPhase==='slowing'||powerPhase==='open')?0:1;
+  tsc+=(to-tsc)*Math.min(1,dt*(to?7:9));
+  if(powerPhase==='slowing' && tsc<.05){ tsc=0; powerPhase='open'; renderPower(); $('power').classList.remove('hidden'); soon(syncBack); say(tr('Boosts')); }
+  else if(powerPhase==='resuming' && tsc>.97){ tsc=1; powerPhase='off'; }
+}
+function usePower(id){
+  if(powerPhase!=='open' || !held.includes(id) || powerWhy(id)) return false;
+  const bo=BOOSTS[id], top=stack[stack.length-1], say1=(text,color='#7fe8ff')=>{ texts.length=0; texts.push({x:W/2,y:stack.length*BH+BH*2,vy:80,text,size:26*u,color,life:1}); };
+  if(id==='shield'){ shield=true; boostShield=true; say1(tr('SHIELD UP!')); sfx.shield(); burst(W/2,stack.length*BH+BH,190,26,300*u,500); }          // used up only when it saves you
+  else if(id==='slow'){ slowLeft=6; useBoost('slow'); say1(tr('SLOW-MO!')); sfx.speed(); }
+  else if(id==='regrow'){
+    const cx=top.x+top.w/2; top.w=baseW; top.x=clamp(cx-baseW/2,0,W-baseW); top.sq=.6; if(cur){ cur.w=baseW; cur.x=clamp(cur.x,0,W-baseW); }
+    runRec.blocks[stack.length-1]={x:+(top.x/W).toFixed(3),w:+(top.w/W).toFixed(3)}; regrowUsed++; useBoost('regrow'); say1(tr('REGROW!')); burst(cx+windOff,top.y+BH,190,26,300*u,500); sfx.shield();
+  }
+  else if(id==='time'){ timeLeft=Math.min(CFG.timedCap,timeLeft+CFG.timedExtra); useBoost('time'); say1(tr('EXTRA TIME!')); flash=.2; sfx.speed(); }
+  setAux(true); syncPower(); closePower(); return true;
+}
 function useShield(what){
   if(boostShield){ boostShield=false; useBoost('shield'); }
   shield=false; S.shields=(S.shields||0)+1; setAux(true); save();
@@ -1747,7 +1819,7 @@ function applyXp(blocks){
 function endRun(reason){
   if(state!=='playing') return;
   if(cur){ addPiece(cur,dir); cur=null; }
-  state='over'; $('tip').classList.add('hidden');
+  state='over'; $('tip').classList.add('hidden'); syncPower();
   const M=MODES[mode];
   if(reason==='fail'){ shake=Math.max(shake,14*u); }
   const before=JSON.parse(JSON.stringify({coins:S.coins,perfects:S.perfects,played:S.played,blocks:S.blocks,bestCombo:S.bestCombo,maxHeight:S.maxHeight,best:S.best,bests:S.bests,boostBests:S.boostBests,ghosts:S.ghosts,ach:S.ach,weekly:S.weekly,twistBest:S.twist&&S.twist.best}));
@@ -1775,7 +1847,7 @@ function endRun(reason){
 function winStage(){
   if(state!=='playing') return;
   if(cur){ cur=null; }
-  state='over'; $('tip').classList.add('hidden');
+  state='over'; $('tip').classList.add('hidden'); syncPower();
   const st=clamp(lives,1,3);
   const prev=S.camp[stage]||0;
   S.camp[stage]=Math.max(prev,st);
@@ -1836,7 +1908,7 @@ function revive(){
   Object.assign(S,{perfects:o.perfects,played:o.played,blocks:o.blocks,bestCombo:o.bestCombo,maxHeight:o.maxHeight,best:o.best,bests:o.bests,boostBests:o.boostBests,ghosts:o.ghosts,ach:o.ach,weekly:o.weekly});
   if(S.twist && o.twistBest!==undefined) S.twist.best=o.twistBest;               // ...but keep anything the player did since (a theme bought or equipped, settings)
   S.coins-=CFG.reviveCost; S.revives=(S.revives||0)+1; revived=true;
-  lives=1; state='playing'; combo=0; setCombo(0); showUpdateIfIdle();
+  lives=1; state='playing'; combo=0; setCombo(0); showUpdateIfIdle(); syncPower();
   save(); setCoins(); setAux(true);
   spawnCur(true);
   $('over').classList.add('hidden'); $('hud').classList.remove('hidden'); $('scoreWrap').classList.remove('hidden'); $('pauseBtn').classList.remove('hidden');
@@ -1848,7 +1920,7 @@ function revive(){
 let cdTimers=[];
 function clearCount(){ cdTimers.forEach(clearTimeout); cdTimers=[]; $('count').classList.add('hidden'); }
 function showCount(n){ const c=$('count'); c.classList.remove('hidden'); c.innerHTML=`<span>${n}</span>`; sfx.tick(); }
-function pause(){ if(state!=='playing'||paused) return; clearCount(); paused=true; $('pause').classList.remove('hidden'); }
+function pause(){ if(state!=='playing'||paused) return; if(powerPhase!=='off') closePower(true); clearCount(); paused=true; $('pause').classList.remove('hidden'); }
 function resume(){
   if(!paused) return;
   paused=false; grace=CFG.resumeGrace; $('pause').classList.add('hidden');
@@ -1900,6 +1972,7 @@ function setAux(force){
     if(slowLeft>0) html+=` <span class="ic-cyan">${I('hourglass')}${slowLeft}</span>`; else if(armed.slow) html+=` <span style="opacity:.55">${I('hourglass')}</span>`;
     if(armed.regrow) html+=` <span style="opacity:.55">${I('expand')}</span>`;
     if(armed.time) html+=` <span class="ic-cyan" style="opacity:.7">${tr('+{n}s',{n:CFG.timedExtra})}</span>`;
+    $('powerBtn').classList.toggle('glow', mode==='timed' && timerOn && timeLeft<=6 && held.includes('time'));
   }
   const key=html+low;
   if(force||key!==auxKey){ auxKey=key; el.innerHTML=html; el.classList.toggle('low',low); }
@@ -2241,6 +2314,7 @@ function draw(){
     const k=1-speedCue.life; text(tr('SPEED UP'),W/2,H*.44-k*26,(30+Math.sin(k*3.1)*10)*u,'#ff9a5c',clamp(speedCue.life*2.2,0,1));
   }
   ctx.restore();
+  if(tsc<1){ ctx.fillStyle=`rgba(10,6,32,${(.5*(1-tsc)).toFixed(3)})`; ctx.fillRect(0,0,W,H); }                       // the world dims as time slows to a stop
   if(TH().scan){ if(!scanPat) scanPat=ctx.createPattern(scanCv,'repeat'); ctx.fillStyle=scanPat; ctx.fillRect(0,0,W,H); }
   if(flash>0){ ctx.fillStyle=`rgba(255,255,255,${flash})`; ctx.fillRect(0,0,W,H); }
 }
@@ -2251,7 +2325,7 @@ function loop(ts){
   if((state==='menu' || paused) && last && ts-last<30){ requestAnimationFrame(loop); return; }
   const dt=Math.min(.05,(ts-last)/1000||.016); last=ts;
   try{
-    if(!paused) update(dt);
+    if(!paused){ stepPower(dt); update(dt*tsc); }
     draw();
     errStreak=0;
     if(state==='playing' && !paused && !lowFx && !navigator.webdriver){
@@ -2307,7 +2381,7 @@ async function shareScore(){
 }
 
 /* ================= Menu / UI ================= */
-const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum'];
+const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power'];
 function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
@@ -2354,7 +2428,7 @@ function claimDaily(){
 function showMenu(){
   rollDay(); endPreview(true); clearCount();
   if(!S.shop.gift && S.played>=1){ S.shop.gift=true; for(const b of Object.keys(BOOSTS)) S.shop.boosts[b]=Math.min(999,(S.shop.boosts[b]||0)+1); save(); setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('Welcome gift: one of each boost. Pick them with the bolt button.')}`,3400),500); }
-  state='menu'; setBase(); paused=false; tut.on=false; $('pause').classList.add('hidden'); demoStack(); hideAll(); $('menu').classList.remove('hidden');
+  state='menu'; setBase(); paused=false; tut.on=false; $('pause').classList.add('hidden'); demoStack(); hideAll(); $('menu').classList.remove('hidden'); held=[]; syncPower();
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden'); $('speedB').classList.add('hidden');
   $('hand').classList.add('hidden'); $('coach').classList.add('hidden'); $('skipTut').classList.add('hidden');
   challenge=null;
@@ -2394,7 +2468,7 @@ function showStages(){
 
 /* ----- the shop (it grew out of the Themes screen): tabs, live preview, buying ----- */
 let themesFrom='menu', shopTab='themes';
-const TABS=[['themes','Themes'],['blocks','Blocks'],['colors','Colors'],['scenes','Scenes'],['sounds','Sounds'],['extras','Extras'],['boosts','Boosts'],['coins','Coins']];
+const TABS=[['themes','Themes'],['blocks','Blocks'],['colors','Colors'],['scenes','Scenes'],['sounds','Sounds'],['music','Music'],['extras','Extras'],['boosts','Boosts'],['coins','Coins']];
 function openThemes(from){ themesFrom=from; hideAll(); $('themes').classList.remove('hidden'); renderThemes(); }
 function closeThemes(){ endPreview(true); if(themesFrom==='over' && state==='over'){ hideAll(); $('over').classList.remove('hidden'); } else showMenu(); }
 function themeAct(id){
@@ -2470,10 +2544,12 @@ const SHOP_TABS={
     return sceneIds().map(id=>itemCard('scene',id,`<div class="ico" style="background:${sceneBg(id==='auto'?THEMES[S.theme]:THEMES[id])}"></div>`)).join('')
       + `<div class="sub" style="grid-column:1/-1">${tr('Every theme you unlock adds its scenery here.')}</div>`;
   },
+  /* sound effects and music are two tabs: they used to share one, which showed two "Equipped" cards (both named Classic) and looked as if two sounds were equipped */
   sounds(){
-    const ico=(name,bg)=>`<div class="ico" style="background:${bg}">${I(name)}</div>`;
-    return `<div class="tabh">${tr('SOUND EFFECTS')}</div>`+Object.keys(SHOP.sfx).map(id=>itemCard('sfx',id,ico('sound','linear-gradient(135deg,#3b2a7a,#1b1044)'))).join('')
-      + `<div class="tabh">${tr('MUSIC')}</div>`+Object.keys(SHOP.music).map(id=>itemCard('music',id,ico('music','linear-gradient(135deg,#7a2a5a,#2a1044)'))).join('');
+    return `<div class="tabh">${tr('SOUND EFFECTS')}</div>`+Object.keys(SHOP.sfx).map(id=>itemCard('sfx',id,`<div class="ico" style="background:linear-gradient(135deg,#3b2a7a,#1b1044)">${I('sound')}</div>`)).join('');
+  },
+  music(){
+    return `<div class="tabh">${tr('MUSIC')}</div>`+Object.keys(SHOP.music).map(id=>itemCard('music',id,`<div class="ico" style="background:linear-gradient(135deg,#7a2a5a,#2a1044)">${I('music')}</div>`)).join('');
   },
   extras(){
     return `<div class="tabh">${tr('LANDING EFFECTS')}</div>`+Object.keys(SHOP.fx).map(id=>itemCard('fx',id,`<img alt="" src="${fxPic(id)}">`)).join('')
@@ -2495,7 +2571,7 @@ const SHOP_TABS={
       + packs + `<div class="bst" style="flex-direction:column;align-items:stretch"><div><span>${tr('Coins can also be earned by playing, from the daily reward and from awards.')}</span></div><button class="btn" data-act="restore">${tr('Restore purchases')}</button></div>`;
   }
 };
-const TAB_HINT={themes:'tap a theme to preview it',blocks:'tap an item to try it',colors:'tap an item to try it',scenes:'tap an item to try it',sounds:'tap an item to hear it',extras:'tap an item to try it',boosts:'Boosts help you through a tough round',coins:'Coins buy themes, looks and boosts'};
+const TAB_HINT={themes:'tap a theme to preview it',blocks:'tap an item to try it',colors:'tap an item to try it',scenes:'tap an item to try it',sounds:'tap an item to hear it',music:'tap an item to hear it',extras:'tap an item to try it',boosts:'Boosts help you through a tough round',coins:'Coins buy themes, looks and boosts'};
 function renderThemes(){
   const lvl=levelOf(S.blocks);
   $('tInfo').innerHTML=`${tr('Level {n}',{n:lvl})} · ${I('coin')} <b>${S.coins}</b> · ${tr(TAB_HINT[shopTab])}`;
@@ -2551,7 +2627,7 @@ function boostAction(id,n){
 
 /* ----- the Boosts sheet on the menu: pick up to 2 for the next round ----- */
 function renderBoosts(){
-  $('boostNote').textContent=boostsAllowed(S.lastMode)?tr('Pick up to 2 for your next round. A boost is only used up when it actually helps.'):tr('Boosts do not work in Daily Twist or Zen.');
+  $('boostNote').textContent=boostsAllowed(S.lastMode)?(manualOn()?tr('Pick up to 2 for your next round. In the round, swipe up from the bolt (or tap it) to use them when you want.'):tr('Pick up to 2 for your next round. A boost is only used up when it actually helps.')):tr('Boosts do not work in Daily Twist or Zen.');
   $('boostList').innerHTML=Object.entries(BOOSTS).map(([id,bo])=>{
     const n=S.shop.boosts[id]||0, on=S.shop.pick.includes(id)&&n>0;
     return `<button class="bpick${on?' on':''}${n?'':' empty'}" data-boost="${id}" aria-pressed="${on}"><i>${I(bo.icon)}</i><div><b>${tr(bo.name)}</b><span>${tr(bo.desc)}</span></div><em>${on?I('check')+' ':''}×${n}</em></button>`;
@@ -2574,10 +2650,10 @@ $('boostList').addEventListener('click',e=>{
    Cosmetics and coin packs that cost dollars: in the Android app they go through Google Play Billing (the Digital Goods API of a
    Trusted Web Activity); on the web only the cosmetics can have a Square link. Until a store is connected, tapping one just says so. */
 const BOOSTS={
-  shield:{name:'Shield',icon:'shield',desc:'Start the round with a shield that blocks one miss or bomb.',price:[120,300]},
-  slow:{name:'Slow-Mo',icon:'hourglass',desc:'Slows the blocks for 6 drops when the speed picks up.',price:[160,400]},
-  regrow:{name:'Regrow',icon:'expand',desc:'Restores your full width when your tower gets thin.',price:[200,500]},
-  time:{name:'Extra Time',icon:'timer',desc:'Timed Rush only: when the clock runs out you get 30 more seconds.',price:[180,450]}
+  shield:{name:'Shield',icon:'shield',desc:'Blocks your next miss or bomb.',price:[120,300]},
+  slow:{name:'Slow-Mo',icon:'hourglass',desc:'Slows the blocks for 6 drops.',price:[160,400]},
+  regrow:{name:'Regrow',icon:'expand',desc:'Restores your full width.',price:[200,500]},
+  time:{name:'Extra Time',icon:'timer',desc:'Timed Rush only: adds 30 seconds.',price:[180,450]}
 };
 const PRODUCTS={ coins_s:{coins:600,price:'$0.99'}, coins_m:{coins:1800,price:'$2.99'}, coins_l:{coins:4000,price:'$4.99'}, coins_xl:{coins:9000,price:'$9.99'},
                  starter:{coins:1000,boosts:{shield:2,slow:2,regrow:2,time:2},items:['style:neon','topper:black'],price:'$2.99'} };
@@ -2692,6 +2768,7 @@ function showSettings(){
   set('silent',S.silentSound!==false?ON:OFF,S.silentSound!==false);
   document.querySelector('[data-set=silent]').closest('.set').classList.toggle('hidden',!HAS_AUDIO_SESSION);   // only iPhone/iPad Safari has a silent switch to override
   set('assist',{auto:tr('Auto'),on:tr('Always'),off:tr('Off')}[S.assist],S.assist!=='off');
+  set('boostauto',S.boostAuto===true?ON:OFF,S.boostAuto===true);
   set('language',LANGS[lang]||'English',true);
   document.querySelector('[data-set=haptics]').closest('.set').classList.toggle('hidden',!HAS_VIBRATE);
 }
@@ -2735,6 +2812,7 @@ function handleBack(){
   if(open('crash')) return;
   const d=document.getElementById('diag'); if(d){ d.remove(); return; }
   if(open('boosts')){ closeBoosts(); return; }
+  if(open('power')){ closePower(); return; }
   if(state==='playing'){ if(paused) tap('resume'); else pause(); return; }
   for(const [scr,btn] of [['modes','closeModes'],['stages','closeStages'],['themes','closeThemes'],['museum','closeMuseum'],['awards','closeAwards'],['langs','closeLangs'],['settings','closeSettings'],['chal','chNo'],['over','toMenu']]) if(open(scr)){ tap(btn); return; }
   if(open('tutOffer')) showMenu();
@@ -2769,6 +2847,8 @@ addEventListener('pointerdown',e=>{
 addEventListener('keydown',e=>{
   if(e.code==='Space'||e.code==='Enter'){ if(state==='playing'){ e.preventDefault(); drop(); } }
   if(e.code==='Escape' && !$('boosts').classList.contains('hidden')){ closeBoosts(); return; }
+  if(e.code==='Escape' && powerPhase!=='off'){ closePower(); return; }
+  if(e.code==='KeyB' && state==='playing'){ if(powerPhase==='open') closePower(); else openPower(); }
   if(e.code==='Escape'||e.code==='KeyP'){ if(state==='playing'){ paused?resume():pause(); } else if(previewId!==null) endPreview(); }
   if((e.code==='Enter'||e.code==='Space') && e.target && e.target.getAttribute && e.target.getAttribute('role')==='button'){ e.preventDefault(); e.target.click(); }
 });
@@ -2831,6 +2911,7 @@ document.querySelector('#settings').addEventListener('click',e=>{
   else if(k==='reduce'){ S.reduceSet=true; S.reduce=!reduceOn(); applyCalm(); }
   else if(k==='ghost'){ S.ghostOutline=!(S.ghostOutline!==false); }
   else if(k==='assist'){ S.assist={auto:'on',on:'off',off:'auto'}[S.assist]; }
+  else if(k==='boostauto'){ S.boostAuto=!(S.boostAuto===true); }
   else if(k==='language'){ sfx.tap(); showLangs(); return; }
   else if(k==='tutorial'){ sfx.tap(); startPractice(); return; }
   else if(k==='export'){ exportCode(); return; }
@@ -2838,6 +2919,15 @@ document.querySelector('#settings').addEventListener('click',e=>{
   save(); showSettings(); sfx.tap();
 });
 $('endZen').onclick=()=>{ if(state==='playing' && mode==='zen') endRun('zen'); };
+/* the boost handle: a tap opens the boost menu, and so does a swipe up from it */
+{ const b=$('powerBtn'); let y0=null;
+  b.addEventListener('pointerdown',e=>{ y0=e.clientY; try{ b.setPointerCapture(e.pointerId); }catch(_){} });
+  b.addEventListener('pointermove',e=>{ if(y0!==null && y0-e.clientY>22){ y0=null; openPower(); } });
+  b.addEventListener('pointerup',()=>{ y0=null; }); b.addEventListener('pointercancel',()=>{ y0=null; });
+  b.addEventListener('click',()=>openPower());
+}
+$('powerList').addEventListener('click',e=>{ const b=e.target.closest('[data-power]'); if(!b) return; if(b.getAttribute('aria-disabled')==='true'){ sfx.tap(); return; } usePower(b.dataset.power); });
+$('powerBg').onclick=$('powerDone').onclick=()=>{ sfx.tap(); closePower(); };
 $('pauseBtn').onclick=()=>{ sfx.tap(); const b=$('pauseBtn'); b.classList.remove('go'); void b.offsetWidth; b.classList.add('go'); setTimeout(pause,140); };
 $('resume').onclick=()=>{ sfx.tap(); resume(); };
 $('quit').onclick=()=>{ sfx.tap(); showMenu(); };
@@ -2895,7 +2985,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},

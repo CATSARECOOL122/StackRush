@@ -6,7 +6,7 @@ const fs=require('fs'), path=require('path');
 const root=path.join(__dirname,'..');
 
 const toastHas=(p,txt,ms=14000)=>p.waitForFunction(t=>{ const el=document.getElementById('toast'); return el.classList.contains('show') && el.textContent.includes(t); },txt,{timeout:ms});
-const stock=(p,boosts,pick)=>p.evaluate(([b,k])=>{ const S=__sr.S; Object.assign(S.shop.boosts,b); S.shop.pick=k; S.assist='off'; for(const m of Object.keys(__sr.MODES)) S.tips[m]=1; },[boosts,pick]);   // (first-time mode tips are marked as seen so their toasts do not queue up)
+const stock=(p,boosts,pick)=>p.evaluate(([b,k])=>{ const S=__sr.S; Object.assign(S.shop.boosts,b); S.shop.pick=k; S.assist='off'; S.boostAuto=true; for(const m of Object.keys(__sr.MODES)) S.tips[m]=1; },[boosts,pick]);   // (first-time mode tips are marked as seen so their toasts do not queue up)
 const inv=(p,id)=>p.evaluate(id=>__sr.S.shop.boosts[id],id);
 const yest=()=>{ const d=new Date(); d.setDate(d.getDate()-1); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
 const ownAll=p=>p.evaluate(()=>{ const S=__sr.S; for(const sl of Object.keys(__sr.SHOP)) if(sl!=='scene') for(const id of Object.keys(__sr.SHOP[sl])) if(!__sr.SHOP[sl][id].free && !S.shop.owned.includes(sl+':'+id)) S.shop.owned.push(sl+':'+id); for(const id of Object.keys(__sr.THEMES)) if(!S.owned.includes(id)) S.owned.push(id); });
@@ -54,7 +54,7 @@ module.exports=[
   await p.click('#openThemes');
   const want=await p.evaluate(()=>{ const n=o=>Object.keys(o).length, sr=__sr; return {
     themes:[n(sr.THEMES),0], blocks:[n(sr.SHOP.style),0], colors:[n(sr.SHOP.palette),0], scenes:[sr.S.owned.length+1,0],
-    sounds:[n(sr.SHOP.sfx)+n(sr.SHOP.music),0], extras:[n(sr.SHOP.fx)+n(sr.SHOP.topper)+n(sr.SHOP.accent),0], boosts:[0,n(sr.BOOSTS)], coins:[4,2] }; });
+    sounds:[n(sr.SHOP.sfx),0], music:[n(sr.SHOP.music),0], extras:[n(sr.SHOP.fx)+n(sr.SHOP.topper)+n(sr.SHOP.accent),0], boosts:[0,n(sr.BOOSTS)], coins:[4,2] }; });
   const tabs=await p.evaluate(()=>__sr.TABS.map(t=>t[0]));
   assert.deepEqual(tabs,Object.keys(want),'the test knows every tab');
   for(const id of tabs){
@@ -508,6 +508,25 @@ module.exports=[
   await p.click('#boostList [data-boost=regrow]'); assert.deepEqual(await p.evaluate(()=>__sr.S.shop.pick),['slow','regrow'],'the stale one is cleaned out first, so the pick fits');
   await p.click('#boostDone'); await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
   assert.deepEqual(await p.evaluate(()=>__sr.S.shop.pick),['slow','regrow'],'and a reload keeps exactly what you picked');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['shop: every tab shows exactly one Equipped card (Sounds and Music are separate tabs, so two sounds never look equipped)', async(e,L)=>{
+  const p=await L.open(e); await ownAll(p); await p.click('#openThemes');
+  const equipped=async()=>p.evaluate(()=>({n:document.querySelectorAll('#tGrid .th.eq').length,lab:[...document.querySelectorAll('#tGrid .th.eq .btn')].map(b=>b.textContent.trim()),head:[...document.querySelectorAll('#tGrid .tabh')].map(h=>h.textContent.trim())}));
+  assert.ok(await p.evaluate(()=>__sr.TABS.some(t=>t[0]==='sounds')&&__sr.TABS.some(t=>t[0]==='music')),'a Sounds tab and a Music tab');
+  for(const tab of ['themes','blocks','colors','scenes','sounds','music']){
+    await p.evaluate(t=>__sr.setTab(t),tab); const g=await equipped(); assert.equal(g.n,1,`${tab}: exactly one equipped card (got ${g.n})`); assert.match(g.lab[0],/Equipped/);
+  }
+  await p.evaluate(()=>__sr.setTab('sounds')); let g=await equipped(); assert.deepEqual(g.head,['SOUND EFFECTS'],'the Sounds tab only has sound effects');
+  assert.equal(await p.locator('#tGrid .sw[data-slot=music]').count(),0); assert.equal(await p.locator('#tGrid .sw[data-slot=sfx]').count(),3);
+  await p.evaluate(()=>__sr.setTab('music')); g=await equipped(); assert.deepEqual(g.head,['MUSIC'],'the Music tab only has music'); assert.equal(await p.locator('#tGrid .sw[data-slot=sfx]').count(),0); assert.equal(await p.locator('#tGrid .sw[data-slot=music]').count(),3);
+  for(const [slot,id] of [['sfx','retro'],['music','chiptune'],['sfx','soft'],['music','chill'],['sfx','classic'],['music','classic']]){
+    await p.evaluate(([s,i])=>{ __sr.setTab(s==='sfx'?'sounds':'music'); __sr.itemAction('equip',s,i); },[slot,id]);
+    g=await equipped(); assert.equal(g.n,1,`after equipping ${slot} ${id}: still exactly one equipped card in that tab`);
+    assert.equal(await p.evaluate(([s])=>document.querySelector('#tGrid .th.eq .sw').dataset.id+'|'+__sr.S.shop.equip[s],[slot]),id+'|'+id,'and it is the one that is equipped');
+  }
+  assert.deepEqual(await p.evaluate(()=>({sfx:__sr.S.shop.equip.sfx,music:__sr.S.shop.equip.music})),{sfx:'classic',music:'classic'});
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 

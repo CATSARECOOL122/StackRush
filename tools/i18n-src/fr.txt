@@ -425,3 +425,18 @@
 425|RAFALE !
 426|Rafale ! Le vent fait osciller la tour. Visez l'endroit où se trouve maintenant le bloc du haut.
 427|Glace ! Le bloc continue de glisser quand vous touchez, alors touchez un peu plus tôt.
+428|Un bouclier est déjà actif
+429|Actif pour {n} lâchers de plus
+430|Boosters automatiques
+431|Bloque votre prochain raté ou votre prochaine bombe.
+432|Continuer
+433|NON : vous choisissez quand, avec l'éclair pendant la partie. OUI : ils se déclenchent tout seuls.
+434|Choisissez-en 2 maximum pour votre prochaine partie. Pendant la partie, glissez vers le haut depuis l'éclair (ou touchez-le) pour les utiliser quand vous voulez.
+435|Rend votre pleine largeur.
+436|BOUCLIER ACTIVÉ !
+437|Ralentit les blocs pendant 6 lâchers.
+438|Glissez vers le haut
+439|Le chrono démarre à votre premier toucher
+440|Contre-la-montre uniquement : ajoute 30 secondes.
+441|Deux Repousse par partie au maximum
+442|Votre tour a déjà sa pleine largeur

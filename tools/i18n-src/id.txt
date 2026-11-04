@@ -425,3 +425,18 @@
 425|HEMBUSAN!
 426|Hembusan! Angin menggoyang menara. Bidik tempat balok teratas berada sekarang.
 427|Es! Balok terus meluncur setelah kamu mengetuk, jadi ketuk sedikit lebih awal.
+428|Perisai sudah aktif
+429|Aktif untuk {n} jatuhan lagi
+430|Booster otomatis
+431|Menahan kegagalan atau bom berikutnya.
+432|Lanjut main
+433|MATI: kamu yang memilih kapan, dengan petir saat ronde. NYALA: dipakai otomatis.
+434|Pilih hingga 2 untuk ronde berikutnya. Saat ronde, geser ke atas dari petir (atau ketuk) untuk memakainya kapan pun kamu mau.
+435|Mengembalikan lebar penuhmu.
+436|PERISAI AKTIF!
+437|Memperlambat balok selama 6 jatuhan.
+438|Geser ke atas: booster
+439|Jam mulai saat ketukan pertamamu
+440|Hanya Balapan Waktu: menambah 30 detik.
+441|Maksimal dua Tumbuh lagi per ronde
+442|Menaramu sudah selebar penuh

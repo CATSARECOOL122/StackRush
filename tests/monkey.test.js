@@ -47,7 +47,7 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false,iphone=fal
       else if(roll<.83){ act='shield+bomb'; sr.giveShield(); sr.bombNext(); }
       else if(roll<.83+rz){ act='resize'; }
       else if(roll<.9+rz){                                                                    // the shop, boosts and purchases
-        const kind=pick(['tab','tab','buy','buy','boost','stock','pick','equip','preview','iap','grant']), menuLike=sr.state!=='playing'; act='shop '+kind;
+        const kind=pick(['tab','tab','buy','buy','boost','stock','pick','equip','preview','iap','grant','powerOpen','powerUse','powerClose']), menuLike=sr.state!=='playing'; act='shop '+kind;
         const slot=pick(Object.keys(sr.SHOP)), ids=Object.keys(sr.SHOP[slot]);
         if(kind==='tab'){ if(menuLike && !document.getElementById('themes').offsetParent) sr.openThemes('menu'); sr.setTab(pick(sr.TABS.map(t=>t[0]))); }
         else if(kind==='buy') sr.itemAction('buy',slot,pick(ids));
@@ -55,6 +55,9 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false,iphone=fal
         else if(kind==='boost') sr.boostAction(pick(Object.keys(sr.BOOSTS)),pick([1,3]));
         else if(kind==='stock') sr.S.shop.boosts[pick(Object.keys(sr.BOOSTS))]+=2;
         else if(kind==='pick'){ if(menuLike){ sr.openBoosts(); const b=document.querySelector('#boostList .bpick'); const bs=[...document.querySelectorAll('#boostList .bpick')]; if(bs.length) pick(bs).click(); if(R()<.5) sr.closeBoosts(); } }
+        else if(kind==='powerOpen') sr.openPower();
+        else if(kind==='powerUse'){ const h=sr.held; if(h.length) sr.usePower(pick(h)); }
+        else if(kind==='powerClose') sr.closePower();
         else if(kind==='preview'){ if(menuLike) sr.startPreview(pick(ids),slot==='scene'?'scene':slot); }
         else if(kind==='iap') sr.buyIap(pick(sr.iapKeys()));
         else sr.grantProduct(pick(sr.iapKeys()));
@@ -76,6 +79,10 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false,iphone=fal
         for(const sl of Object.keys(sr.SHOP)) if(!sr.ownsItem(sl,S.shop.equip[sl])) out.push(`equipped ${sl}:${S.shop.equip[sl]} is not owned`);
         for(const [k,n] of Object.entries(S.shop.boosts)) if(!Number.isInteger(n)||n<0||n>999) out.push(`boost ${k} count is ${n}`);
         if(S.shop.pick.length>2||new Set(S.shop.pick).size!==S.shop.pick.length||S.shop.pick.some(k=>!(k in S.shop.boosts))) out.push('boost picks '+JSON.stringify(S.shop.pick));
+        if(!Number.isFinite(sr.tsc)||sr.tsc<0||sr.tsc>1) out.push('game time scale '+sr.tsc);
+        if(sr.held.length>2||sr.held.some(k=>!(S.shop.boosts[k]>0))) out.push('boosts in hand '+JSON.stringify(sr.held));
+        if(!['off','slowing','open','resuming'].includes(sr.powerPhase)) out.push('boost menu phase '+sr.powerPhase);
+        if(sr.state!=='playing' && (sr.powerPhase!=='off' || document.getElementById('power').offsetParent)) out.push('the boost menu is still up outside a round ('+sr.state+')');
         for(const [k,v] of Object.entries(S.boostBests||{})) if(!Number.isFinite(v)||v<0) out.push(`boostBests.${k} is ${v}`);
         if(sr.state==='playing'){ const c=sr.cur, t=sr.top;
           if(c&&!(Number.isFinite(c.x)&&Number.isFinite(c.w)&&c.w>0)) out.push('moving block '+JSON.stringify(c));

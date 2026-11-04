@@ -425,3 +425,18 @@
 425|RAJADA!
 426|Rajada! O vento balança a torre. Mire onde o bloco do topo está agora.
 427|Gelo! O bloco continua deslizando depois do toque, então toque um pouco antes.
+428|Já há um escudo ativo
+429|Ativo por mais {n} quedas
+430|Boosters automáticos
+431|Bloqueia seu próximo erro ou bomba.
+432|Continuar jogando
+433|NÃO: você escolhe quando, com o raio durante a partida. SIM: eles são usados sozinhos.
+434|Escolha até 2 para a próxima partida. Durante a partida, deslize para cima a partir do raio (ou toque nele) para usá-los quando quiser.
+435|Restaura a sua largura total.
+436|ESCUDO ATIVO!
+437|Deixa os blocos mais lentos por 6 quedas.
+438|Deslize para cima: boosters
+439|O relógio começa no seu primeiro toque
+440|Só Contra o tempo: adiciona 30 segundos.
+441|No máximo dois Regenerar por partida
+442|Sua torre já está com a largura total

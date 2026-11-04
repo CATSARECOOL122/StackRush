@@ -425,3 +425,18 @@
 425|¡RÁFAGA!
 426|¡Ráfaga! El viento mece la torre. Apunta a donde está ahora el bloque de arriba.
 427|¡Hielo! El bloque sigue deslizándose tras tocar, así que toca un poco antes.
+428|Ya hay un escudo activo
+429|Activo durante {n} caídas más
+430|Potenciadores automáticos
+431|Bloquea tu próximo fallo o bomba.
+432|Seguir jugando
+433|NO: tú eliges cuándo, con el rayo durante la partida. SÍ: se activan solos.
+434|Elige hasta 2 para tu próxima partida. Durante la partida, desliza hacia arriba desde el rayo (o tócalo) para usarlos cuando quieras.
+435|Recupera tu ancho completo.
+436|¡ESCUDO ACTIVO!
+437|Ralentiza los bloques durante 6 caídas.
+438|Desliza hacia arriba
+439|El reloj empieza con tu primer toque
+440|Solo Contrarreloj: añade 30 segundos.
+441|Máximo dos Regenerar por partida
+442|Tu torre ya tiene el ancho completo

@@ -54,11 +54,11 @@ module.exports=[
 
 ['challenge: a friend\'s round has no boosts and no timing assist, and says the same on the card; your own rounds keep both', async(e,L)=>{
   const p=await L.open(e); await quiet(p);
-  await p.evaluate(()=>{ const S=__sr.S; S.assist='on'; S.played=0; Object.assign(S.shop.boosts,{shield:3,slow:3,regrow:3,time:3}); S.shop.pick=['shield','slow']; });
+  await p.evaluate(()=>{ const S=__sr.S; S.assist='on'; S.played=0; S.boostAuto=true; Object.assign(S.shop.boosts,{shield:3,slow:3,regrow:3,time:3}); S.shop.pick=['shield','slow']; });     // (automatic boosts: the Shield is up from the start)
   await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(150);
   assert.deepEqual(await p.evaluate(()=>({assist:__sr.assistOn(),assisted:__sr.assisted,shield:!!__sr.armed.shield})),{assist:true,assisted:true,shield:true},'your own round: assist and the armed Shield');
   await p.evaluate(()=>{ __sr.showMenu(); __sr.startChallenge(__sr.parseChallenge('classic.30.5')); }); await p.waitForTimeout(150);
-  assert.deepEqual(await p.evaluate(()=>({assist:__sr.assistOn(),assisted:__sr.assisted,armed:Object.keys(__sr.armed),boosted:__sr.boosted,shield:__sr.shield,tol:__sr.tolFactor()})),{assist:false,assisted:false,armed:[],boosted:false,shield:false,tol:1},'a challenge: strict timing, nothing armed');
+  assert.deepEqual(await p.evaluate(()=>({assist:__sr.assistOn(),assisted:__sr.assisted,armed:Object.keys(__sr.armed),held:__sr.held,boosted:__sr.boosted,shield:__sr.shield,tol:__sr.tolFactor()})),{assist:false,assisted:false,armed:[],held:[],boosted:false,shield:false,tol:1},'a challenge: strict timing, nothing armed, nothing in hand');
   const base=await p.evaluate(()=>__sr.W*0.42), sp=await p.evaluate(()=>__sr.sp); assert.ok(Math.abs(sp/base-1)<.02,`full speed (x${(sp/base).toFixed(2)})`);
   assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:3,slow:3,regrow:3,time:3},'and none of the boosts was touched');
   await p.evaluate(()=>{ __sr.pause(); }); await p.click('#quit'); await p.waitForTimeout(250); assert.equal(await p.evaluate(()=>__sr.challenge),null,'back at the menu: the challenge is over');
@@ -102,7 +102,7 @@ module.exports=[
   const can=(f)=>p.evaluate(f);
   await p.evaluate(()=>{ __sr.S.assist='on'; __sr.startMode('classic'); }); await p.waitForTimeout(100); await L.perfects(p,2); await L.miss(p); await p.waitForTimeout(1400);
   assert.equal(await can(()=>__sr.challengeOk()),false,'a round played with timing assist cannot be a challenge');
-  await p.evaluate(()=>{ __sr.S.assist='off'; Object.assign(__sr.S.shop.boosts,{shield:2}); __sr.S.shop.pick=['shield']; __sr.startMode('classic'); }); await p.waitForTimeout(100); assert.equal(await can(()=>__sr.boosted),false);
+  await p.evaluate(()=>{ __sr.S.assist='off'; __sr.S.boostAuto=true; Object.assign(__sr.S.shop.boosts,{shield:2}); __sr.S.shop.pick=['shield']; __sr.startMode('classic'); }); await p.waitForTimeout(100); assert.equal(await can(()=>__sr.boosted),false);
   await L.perfects(p,2); await L.miss(p); await p.waitForTimeout(300); await L.miss(p); await p.waitForTimeout(1400);
   assert.equal(await can(()=>({b:__sr.boosted,ok:__sr.challengeOk()})).then(x=>x.b),true,'the Shield was used'); assert.equal(await can(()=>__sr.challengeOk()),false,'a boosted round cannot be a challenge');
   for(const m of ['zen','daily']){ await p.evaluate(m=>{ __sr.showMenu(); __sr.startMode(m); },m); await p.waitForTimeout(100); assert.equal(await can(()=>__sr.challengeOk()),false,m+' is not shareable as a challenge'); }

@@ -67,6 +67,10 @@ module.exports=[
     await p.evaluate(()=>__sr.pause()); await p.waitForTimeout(250); await check('pause'); await p.click('#quit');
     await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(150);                         // one miss ends a Classic run
     await p.evaluate(()=>__sr.forceNarrow()); await L.act(p,L.FAR); await p.waitForTimeout(1400); await check('game over'); await p.click('#toMenu');
+    await p.evaluate(()=>{ const S=__sr.S; Object.assign(S.shop.boosts,{shield:12,slow:3,regrow:1,time:0}); S.shop.pick=['shield','regrow']; S.boostAuto=false; S.hintPow=0; S.assist='off'; __sr.showMenu(); __sr.startMode('classic'); });   // the boost handle with its hint, and the in-game boost menu
+    await p.waitForTimeout(250); await check('boost handle with its hint');
+    await p.click('#powerBtn'); await p.waitForFunction(()=>__sr.powerPhase==='open'); await p.waitForTimeout(250); await check('in-game boost menu'); await p.click('#powerDone'); await p.waitForTimeout(500);
+    await p.evaluate(()=>{ __sr.showMenu(); }); await p.click('#openSettings'); await p.waitForTimeout(450); await check('settings with Auto-use boosts'); await p.click('#closeSettings');
     for(const x of p.errs) problems.push(`${code}: page error: ${x}`);
     await L.close(p);
   }

@@ -425,3 +425,18 @@
 425|RÜZGÂR!
 426|Rüzgâr! Rüzgâr kuleyi sallar. Üstteki bloğun şimdi bulunduğu yeri hedefle.
 427|Buz! Blok dokunduktan sonra kaymaya devam eder, o yüzden biraz erken dokun.
+428|Zaten bir kalkan açık
+429|Etkin: {n} atış daha
+430|Güçlendiricileri otomatik kullan
+431|Bir sonraki ıskayı veya bombayı engeller.
+432|Oynamaya devam et
+433|KAPALI: ne zaman kullanacağına turda şimşekle sen karar verirsin. AÇIK: kendiliğinden devreye girerler.
+434|Sonraki turun için en fazla 2 seç. Turda, istediğin zaman kullanmak için şimşekten yukarı kaydır (veya dokun).
+435|Tam genişliğini geri getirir.
+436|KALKAN AÇIK!
+437|Blokları 6 atış boyunca yavaşlatır.
+438|Yukarı kaydır
+439|Saat ilk dokunuşunda başlar
+440|Sadece Zamana Karşı: 30 saniye ekler.
+441|Turda en fazla iki Genişlet
+442|Kulen zaten tam genişlikte

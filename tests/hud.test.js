@@ -11,7 +11,7 @@ const BOXES=p=>p.evaluate(()=>{
   const text=(id,inset=0)=>{ const el=document.getElementById(id); if(!vis(el)) return; const g=document.createRange(); g.selectNodeContents(el);
     const rs=[...g.getClientRects()].filter(x=>x.width>0&&x.height>0); if(!rs.length) return;
     out[id]={left:Math.min(...rs.map(x=>x.left)),right:Math.max(...rs.map(x=>x.right)),top:Math.min(...rs.map(x=>x.top))+inset,bottom:Math.max(...rs.map(x=>x.bottom))-inset,grp:'T'}; };
-  for(const id of ['coins','endZen','pauseBtn','mute','skipTut','speedB','updBtn','coach']) whole(id);
+  for(const id of ['coins','endZen','pauseBtn','mute','skipTut','speedB','updBtn','coach','powerBtn']) whole(id);
   text('score',9); text('combo'); text('aux'); text('ghostD');          // (the score box is the digit glyphs, a little shorter than the line they sit in)
   return {out,W,H}; });
 function problems(tag,{out,W,H}){
@@ -26,6 +26,7 @@ function problems(tag,{out,W,H}){
 }
 const stage=(p,mode,score,combo)=>p.evaluate(([mode,score,combo])=>{ const s=__sr;
   s.S.assist='off'; s.S.tutSeen=true; s.S.seenTip=true; for(const m of Object.keys(s.MODES)) s.S.tips[m]=1; for(const k of ['ice','glue','gust']) s.S.tips[k]=1;
+  Object.assign(s.S.shop.boosts,{shield:2,slow:2,regrow:2,time:2}); s.S.shop.pick=['shield','time']; s.S.boostAuto=false; s.S.hintPow=0;      // the boost handle, with its hint, wherever boosts are allowed
   const tower=Array.from({length:12},()=>({x:.15,w:.7})); for(const m of ['classic','lives','hazard','timed']) s.S.ghosts[m]={score:44,blocks:tower,scores:[]};
   s.showMenu();
   if(mode==='boss') s.startStage(6); else if(mode==='challenge') s.startChallenge(s.parseChallenge('classic.1234.5')); else s.startMode(mode);

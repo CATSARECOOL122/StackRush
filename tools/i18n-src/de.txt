@@ -425,3 +425,18 @@
 425|BÖE!
 426|Böe! Der Wind lässt den Turm schwanken. Ziele dorthin, wo der oberste Block jetzt ist.
 427|Eis! Der Block rutscht nach dem Tippen weiter – tippe also etwas früher.
+428|Ein Schild ist bereits aktiv
+429|Noch {n} Abwürfe aktiv
+430|Booster automatisch nutzen
+431|Blockiert deinen nächsten Fehler oder deine nächste Bombe.
+432|Weiterspielen
+433|AUS: Du entscheidest, wann – mit dem Blitz während der Runde. AN: Sie lösen sich von selbst aus.
+434|Wähle bis zu 2 für deine nächste Runde. Wische in der Runde vom Blitz nach oben (oder tippe ihn an), um sie einzusetzen, wann du willst.
+435|Stellt deine volle Breite wieder her.
+436|SCHILD AKTIV!
+437|Verlangsamt die Blöcke für 6 Abwürfe.
+438|Hochwischen für Booster
+439|Die Uhr startet mit deinem ersten Tipp
+440|Nur Zeitrennen: gibt 30 Sekunden dazu.
+441|Höchstens zweimal Nachwachsen pro Runde
+442|Dein Turm hat schon die volle Breite

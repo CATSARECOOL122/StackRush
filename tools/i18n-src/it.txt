@@ -425,3 +425,18 @@
 425|RAFFICA!
 426|Raffica! Il vento fa oscillare la torre. Mira dove si trova ora il blocco in cima.
 427|Ghiaccio! Il blocco continua a scivolare dopo il tocco, quindi tocca un po' prima.
+428|Uno scudo è già attivo
+429|Attivo per altri {n} rilasci
+430|Booster automatici
+431|Blocca il tuo prossimo errore o la prossima bomba.
+432|Continua a giocare
+433|NO: scegli tu quando, con il fulmine durante la partita. SÌ: si attivano da soli.
+434|Scegline fino a 2 per la prossima partita. Durante la partita, scorri verso l'alto dal fulmine (o toccalo) per usarli quando vuoi.
+435|Ripristina la tua larghezza piena.
+436|SCUDO ATTIVO!
+437|Rallenta i blocchi per 6 rilasci.
+438|Scorri in alto per i booster
+439|Il timer parte al tuo primo tocco
+440|Solo Contro il tempo: aggiunge 30 secondi.
+441|Al massimo due Ricrescita a partita
+442|La tua torre ha già la larghezza piena
