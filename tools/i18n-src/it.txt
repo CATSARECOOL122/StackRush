@@ -479,3 +479,6 @@
 479|Stelle, mondi e boss danno monete.
 480|COME GUADAGNARE
 481|Missioni settimanali
+482|Amico {n}
+483|Incolla la sfida di un amico
+484|Incolla il link o il codice che ti ha mandato il tuo amico. Giochi la stessa partita e vedi crescere la sua torre.

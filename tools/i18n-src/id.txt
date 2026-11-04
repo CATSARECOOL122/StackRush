@@ -479,3 +479,6 @@
 479|Bintang, dunia, dan tahap bos memberi koin.
 480|CARA DAPAT KOIN
 481|Misi mingguan
+482|Teman {n}
+483|Tempel tantangan teman
+484|Tempel tautan atau kode yang dikirim temanmu. Kamu memainkan ronde yang sama dan melihat menaranya tumbuh.

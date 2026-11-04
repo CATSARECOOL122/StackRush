@@ -479,3 +479,6 @@
 479|Sterne, Welten und Boss-Stufen bringen Münzen.
 480|SO VERDIENST DU MÜNZEN
 481|Wochenmissionen
+482|Freund {n}
+483|Herausforderung eines Freundes einfügen
+484|Füge den Link oder Code ein, den dein Freund dir geschickt hat. Du spielst dieselbe Runde und siehst seinen Turm wachsen.

@@ -17,8 +17,8 @@ module.exports=[
 
 ['challenge: a good link is read; every odd, hostile or oversized one is refused', async(e,L)=>{
   const p=await L.open(e);
-  assert.deepEqual(await parse(p,'classic.42.1234567'),{mode:'classic',score:42,seed:1234567,ghost:null});
-  assert.deepEqual((await parse(p,'hazard.00042.0')),{mode:'hazard',score:42,seed:0,ghost:null},'leading zeros are fine');
+  assert.deepEqual(await parse(p,'classic.42.1234567'),{mode:'classic',score:42,seed:1234567,ghost:null,times:null,incs:null});
+  assert.deepEqual((await parse(p,'hazard.00042.0')),{mode:'hazard',score:42,seed:0,ghost:null,times:null,incs:null},'leading zeros are fine');
   assert.equal((await parse(p,'timed.99999.2147483647')).seed,2147483647,'the largest seed and score');
   const code=Buffer.from([0,5,255,255,128,51]).toString('base64url');
   assert.deepEqual((await parse(p,'lives.7.5.'+code)).ghost,[{x:0,w:.02},{x:1,w:1},{x:128/255,w:.2}],'a tower: pairs of bytes, 0..255 -> 0..1 (a width is never below .02)');
@@ -68,7 +68,7 @@ module.exports=[
 
 ['challenge: the luck of a round is a function of the seed and the height: the same bombs at the same heights, whatever you tapped on the way', async(e,L)=>{
   const p=await L.open(e); await quiet(p);
-  const roll=(seed)=>p.evaluate(seed=>{ __sr.startChallenge({mode:'hazard',score:10,seed,ghost:null}); return Array.from({length:3000},(_,h)=>__sr.rollAt(h)); },seed);
+  const roll=(seed)=>p.evaluate(seed=>{ __sr.startChallenge({mode:'hazard',score:10,seed,ghost:null,times:null,incs:null}); return Array.from({length:3000},(_,h)=>__sr.rollAt(h)); },seed);
   const a=await roll(777), b=await roll(777), c=await roll(778);
   assert.deepEqual(a,b,'same seed, same luck'); assert.notDeepEqual(a,c,'another seed, another luck');
   assert.ok(a.every(x=>x>=0&&x<1),'always in [0,1)'); const mean=a.reduce((s,x)=>s+x,0)/a.length; assert.ok(Math.abs(mean-.5)<.03,`evenly spread (mean ${mean.toFixed(3)})`);
@@ -76,14 +76,14 @@ module.exports=[
   let maxRun=0,run=0; for(const x of a){ run=x<chance?run+1:0; maxRun=Math.max(maxRun,run); } assert.ok(maxRun<=9,'no strange streaks');
   const corr=(()=>{ let s=0; for(let i=1;i<a.length;i++) s+=(a[i]-.5)*(a[i-1]-.5); return s/a.length/(1/12); })(); assert.ok(Math.abs(corr)<.06,`neighbouring heights are independent (r=${corr.toFixed(3)})`);
   // a seed with bombs early, then the real game: what the round shows at each height is exactly what the roll says
-  const seed=await p.evaluate(chance=>{ for(let s=1;s<500;s++){ __sr.startChallenge({mode:'hazard',score:10,seed:s,ghost:null}); const h=[]; for(let i=4;i<18;i++) if(__sr.rollAt(i)<chance) h.push(i); if(h.length>=2 && h.every((x,i)=>!i||x-h[i-1]>1)) return s; } return 0; },chance);
+  const seed=await p.evaluate(chance=>{ for(let s=1;s<500;s++){ __sr.startChallenge({mode:'hazard',score:10,seed:s,ghost:null,times:null,incs:null}); const h=[]; for(let i=4;i<18;i++) if(__sr.rollAt(i)<chance) h.push(i); if(h.length>=2 && h.every((x,i)=>!i||x-h[i-1]>1)) return s; } return 0; },chance);
   assert.ok(seed>0,'found a seed with a couple of bombs below height 18');
-  const want=await p.evaluate(([seed,chance])=>{ __sr.startChallenge({mode:'hazard',score:10,seed,ghost:null}); return Array.from({length:18},(_,h)=>h>=4 && __sr.rollAt(h)<chance?1:0); },[seed,chance]);
+  const want=await p.evaluate(([seed,chance])=>{ __sr.startChallenge({mode:'hazard',score:10,seed,ghost:null,times:null,incs:null}); return Array.from({length:18},(_,h)=>h>=4 && __sr.rollAt(h)<chance?1:0); },[seed,chance]);
   const run1=await bombs(L,p,18); await p.waitForTimeout(100);
   for(let h=1;h<18;h++) if(h in run1) assert.equal(run1[h],want[h],`height ${h}: first run`);
   assert.ok(Object.values(run1).includes(1),'bombs really came up'); assert.ok(Object.keys(run1).length>=12,`the bot got up to height ${Math.max(...Object.keys(run1))}`);
   // another path: same seed, but the player misses a few times on the way (lives mode round, so it goes on)
-  await p.evaluate(seed=>{ __sr.showMenu(); __sr.startChallenge({mode:'hazard',score:10,seed,ghost:null}); },seed); await p.waitForTimeout(150);
+  await p.evaluate(seed=>{ __sr.showMenu(); __sr.startChallenge({mode:'hazard',score:10,seed,ghost:null,times:null,incs:null}); },seed); await p.waitForTimeout(150);
   await L.perfects(p,2); await L.miss(p); await p.waitForTimeout(200); const run2=await bombs(L,p,18);
   for(let h=3;h<18;h++) if(h in run2) assert.equal(run2[h],want[h],`height ${h}: a different path, the same bombs`);
   assert.deepEqual(p.errs,[]); await L.close(p);

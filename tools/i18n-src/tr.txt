@@ -479,3 +479,6 @@
 479|Yıldızlar, dünyalar ve patron bölümleri jeton verir.
 480|JETON KAZANMA YOLLARI
 481|Haftalık görevler
+482|Arkadaş {n}
+483|Arkadaşının meydan okumasını yapıştır
+484|Arkadaşının gönderdiği bağlantıyı veya kodu yapıştır. Aynı turu oynarsın ve onun kulesinin büyüdüğünü görürsün.

@@ -5,7 +5,8 @@ module.exports=[
   const p=await L.open(e); await p.evaluate(()=>{ __sr.S.coins=77; __sr.S.lastClaim=''; __sr.showMenu(); });
   await p.click('#openCoins'); assert.ok(await p.isVisible('#coinsSheet')); assert.equal(await p.textContent('#csBal'),'77');
   assert.equal(await p.locator('#csEarn [data-go]').count(),7,'seven ways to earn'); assert.match(await p.textContent('#csEarn'),/Daily reward[\s\S]*Weekly missions[\s\S]*Campaign/);
-  assert.match(await p.textContent('#csBuy'),/Android app/,'on the web the packs are Android only'); assert.equal(await p.locator('#csBuy [data-pack]').count(),0);
+  assert.equal(await p.locator('#csBuy [data-pack]').count(),5,'the Starter pack and four coin packs, as in the Shop'); assert.doesNotMatch(await p.textContent('#csBuy'),/Android/); assert.match(await p.textContent('#csBuy'),/\$0\.99[\s\S]*\$9\.99/);
+  await p.click('#csBuy [data-pack=coins_m]'); assert.match(await p.textContent('#toast'),/not connected/,'pressing one does what the Shop does'); assert.equal(await p.evaluate(()=>__sr.S.coins),77);
   await p.click('#csEarn [data-go=claim]'); assert.equal(await p.evaluate(()=>__sr.S.coins),97,'+20 on day one'); assert.equal(await p.textContent('#csBal'),'97');
   await p.click('#csEarn [data-go=claim]'); assert.equal(await p.evaluate(()=>__sr.S.coins),97,'only once a day'); assert.ok(await p.locator('#csEarn .ok').count()>=1);
   await p.click('#csEarn [data-go=awards]'); assert.ok(await p.isVisible('#awards')); assert.equal(await p.isVisible('#coinsSheet'),false);

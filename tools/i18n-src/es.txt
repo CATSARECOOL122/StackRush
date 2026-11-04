@@ -479,3 +479,6 @@
 479|Las estrellas, los mundos y los jefes dan monedas.
 480|FORMAS DE GANAR
 481|Misiones semanales
+482|Amigo {n}
+483|Pega el reto de un amigo
+484|Pega el enlace o código que te envió tu amigo. Juegas la misma partida y ves cómo crece su torre.

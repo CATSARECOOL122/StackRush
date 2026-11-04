@@ -479,3 +479,6 @@
 479|Les étoiles, les mondes et les boss rapportent des pièces.
 480|GAGNER DES PIÈCES
 481|Missions de la semaine
+482|Ami {n}
+483|Coller le défi d'un ami
+484|Collez le lien ou le code envoyé par votre ami. Vous jouez la même partie et voyez sa tour monter.

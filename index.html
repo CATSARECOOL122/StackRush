@@ -197,6 +197,7 @@
   .cs .bpick.go{cursor:pointer} .cs .bpick.ok{border-color:#4be08a66} .cs .bpick.ok em{color:#7dff9b}
   #udCode,#udInput{width:100%;box-sizing:border-box;font:900 30px ui-monospace,Menlo,monospace;letter-spacing:5px;text-align:center;padding:14px 8px;border-radius:16px;border:2px dashed var(--gold);background:#ffffff10;color:#fff;text-transform:uppercase}
   #udInput::placeholder{color:#ffffff55}
+  #udInput.long{font-size:15px;letter-spacing:0;text-transform:none;font-family:inherit}
   #udMsg{margin:0;font-weight:900;color:var(--gold)}
   .redeemRow{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:8px;text-align:center}
   #unlockRows{flex-wrap:wrap;gap:10px}
@@ -579,7 +580,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 
   <section id="modes" class="screen hidden" aria-label="Choose a mode">
     <div class="topbar"><button class="back" id="closeModes" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>GAME MODES</h2></div>
-    <div class="sbody" style="justify-content:flex-start"><div id="mGrid"></div></div>
+    <div class="sbody" style="justify-content:flex-start"><div id="mGrid"></div><button id="friendBtn" class="btn" style="width:min(400px,100%)"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg> Paste a friend's challenge</button></div>
   </section>
 
   <section id="stages" class="screen hidden" aria-label="Campaign">
@@ -1005,12 +1006,13 @@ const reduceOn = () => S.reduceSet ? !!S.reduce : prefersReduce;
 let udMode='';
 const unlockName=k=>{ const [sl,id]=k.split(':'); return id ? tr(itemName(sl,id)) : tr(THEMES[k]?THEMES[k].name:k); };
 function openUnlockDlg(mode,key){
-  udMode=mode; const done=mode==='done', browser=!isStandalone(), code=unlockCode();
-  $('udTitle').textContent=done?tr('{name} unlocked!',{name:unlockName(key)}):tr('Paste a purchase code');
-  $('udText').textContent=done?(browser?tr('Using the Home Screen app? Open it, go to the Shop, and paste this code at the bottom to unlock it there too.'):tr('Your purchase is saved on this device. Enjoy!')):tr('Bought something in your browser? Paste the code here to unlock it in this app.');
+  udMode=mode; const done=mode==='done', fr=mode==='friend', browser=!isStandalone(), code=unlockCode();
+  $('udTitle').textContent=done?tr('{name} unlocked!',{name:unlockName(key)}):fr?tr("Paste a friend's challenge"):tr('Paste a purchase code');
+  $('udText').textContent=done?(browser?tr('Using the Home Screen app? Open it, go to the Shop, and paste this code at the bottom to unlock it there too.'):tr('Your purchase is saved on this device. Enjoy!')):fr?tr('Paste the link or code your friend sent you. You play the same round and see their tower build.'):tr('Bought something in your browser? Paste the code here to unlock it in this app.');
   $('udCode').textContent=code; $('udCode').classList.toggle('hidden',!(done&&browser));
   $('udInput').classList.toggle('hidden',done); $('udInput').value=''; $('udMsg').classList.add('hidden');
-  $('udCopy').classList.toggle('hidden',!(done&&browser)); $('udCopy').textContent=tr('Copy code'); $('udOk').textContent=done?tr('Done'):tr('Unlock');
+  $('udCopy').classList.toggle('hidden',!(done&&browser)); $('udCopy').textContent=tr('Copy code'); $('udOk').textContent=done?tr('Done'):fr?tr('Accept'):tr('Unlock');
+  $('udInput').maxLength=fr?3000:12; $('udInput').placeholder=fr?'https://…':'SR-XXXX'; $('udInput').classList.toggle('long',fr); $('udInput').setAttribute('aria-label',fr?tr("Paste a friend's challenge"):tr('Purchase code'));
   $('udlg').classList.remove('hidden'); soon(syncBack);
   if(done&&browser) copyUnlock(); else if(!done) setTimeout(()=>{ try{ $('udInput').focus(); }catch(e){} },250);
 }
@@ -1021,6 +1023,12 @@ function copyUnlock(){
 function closeUnlockDlg(){ $('udlg').classList.add('hidden'); soon(syncBack); }
 function submitUnlockDlg(){
   if(udMode==='done'){ closeUnlockDlg(); return; }
+  if(udMode==='friend'){
+    let v=$('udInput').value.trim(), c=v;
+    try{ c=new URL(v).searchParams.get('c')||v; }catch(e){ const m=/[?&]c=([^&#\s]+)/.exec(v); if(m) c=m[1]; }
+    const ch=parseChallenge(c); if(!ch){ $('udMsg').textContent=tr("That code didn't work"); $('udMsg').classList.remove('hidden'); return; }
+    closeUnlockDlg(); openChallenge(ch); return;
+  }
   const g=redeemCode($('udInput').value);
   if(g>0){ closeUnlockDlg(); renderMenu(); if(!$('themes').classList.contains('hidden')) renderThemes(); if(!$('settings').classList.contains('hidden')) showSettings(); toast(tr('Unlocked!')); sfx.up(); return; }
   $('udMsg').textContent=g===0?tr('Nothing new in that code'):tr("That code didn't work"); $('udMsg').classList.remove('hidden');
@@ -1340,7 +1348,7 @@ const HAS_VIBRATE=typeof navigator.vibrate==='function';        // iPhone and iP
 let tablet=false, uiZ=1;
 let cam=0, shake=0, flash=0, t=0, banner=null, snap=null;   // snap: the save as it was before a run's payout, so Revive can undo just that payout
 let pieces=[], parts=[], rings=[], texts=[];
-let ghost=null, runRec={blocks:[],scores:[]};
+let ghost=null, runRec={blocks:[],scores:[],ts:[0]}, runT0=0, lastFs=-1;
 let speedTier=4, speedCue=null;
 let amb=[];
 const tut={on:false,drops:0,perfects:0};
@@ -1529,8 +1537,9 @@ function newRun(){
   if(armed.shield){ shield=true; boostShield=true; }
   pieces=[]; parts=[]; rings=[]; texts=[]; banner=null; speedCue=null; speedTier=Math.floor(rampOf(1)*4);
   ghost = (M.ghost && S.ghosts[mode] && S.ghosts[mode].blocks && S.ghosts[mode].blocks.length>2) ? S.ghosts[mode] : null;
-  if(challenge) ghost=challenge.ghost?{score:challenge.score,blocks:challenge.ghost,scores:[]}:null;     // a friend's round: their tower is the one to beat
-  runRec={blocks:[{x:+(stack[0].x/W).toFixed(3),w:+(stack[0].w/W).toFixed(3)}],scores:[0]};
+  if(challenge) ghost=challenge.ghost?{score:challenge.score,blocks:challenge.ghost,scores:[],live:challenge.times?{times:challenge.times,sc:challenge.incs}:null}:null;     // a friend's round: their tower is the one to beat (a link with timing replays how it was built)
+  runT0=t; lastFs=-1;
+  runRec={blocks:[{x:+(stack[0].x/W).toFixed(3),w:+(stack[0].w/W).toFixed(3)}],scores:[0],ts:[0]};
   state='playing'; setBase(); spawnCur(); showUpdateIfIdle();
   $('hud').classList.remove('hidden'); $('scoreWrap').classList.remove('hidden');
   hideAll();
@@ -1626,11 +1635,12 @@ async function shareTower(m){
 }
 
 /* ================= Friend challenges ================= */
-/* A link carries the mode, the score, the round's seed and the friend's tower (two bytes per block): ?c=classic.42.1234567.<tower>. Nothing is stored anywhere. */
+/* A link carries the mode, the score, the round's seed and the friend's tower (two bytes per block): ?c=classic.42.1234567.<tower>[.<seconds>.<points>].
+   The two optional parts say when each block landed (tenths of a second since the one before) and what it scored, so the friend's tower can be replayed as a faded ghost. Nothing is stored anywhere. */
 const CH_MODES=['classic','timed','lives','hazard'];
 function parseChallenge(str){
   try{
-    const a=String(str||'').split('.'); if(a.length<3 || a.length>4) return null;
+    const a=String(str||'').split('.'); if(a.length<3 || a.length>6 || a.length===5) return null;
     if(!/^\d{1,5}$/.test(a[1]) || !/^\d{1,10}$/.test(a[2])) return null;
     const m=a[0], sc=+a[1], seed=+a[2];
     if(!CH_MODES.includes(m) || sc<1 || seed>2147483647) return null;
@@ -1640,14 +1650,22 @@ function parseChallenge(str){
       const bin=atob(a[3].replace(/-/g,'+').replace(/_/g,'/')); if(bin.length%2 || bin.length>600) return null;
       g=[]; for(let i=0;i<bin.length;i+=2) g.push({x:bin.charCodeAt(i)/255,w:Math.max(.02,bin.charCodeAt(i+1)/255)});
     }
-    return {mode:m,score:sc,seed,ghost:g};
+    let times=null, incs=null;
+    if(a.length===6 && g){
+      const dec=x=>{ if(!/^[A-Za-z0-9_-]{2,300}$/.test(x)) return null; const b=atob(x.replace(/-/g,'+').replace(/_/g,'/')); return b.length===g.length?[...b].map(c=>c.charCodeAt(0)):null; };
+      const dt=dec(a[4]), sc2=dec(a[5]);
+      if(dt && sc2){ let tt=0, ss=0; times=dt.map(v=>(tt+=v/10)); incs=sc2.map(v=>(ss+=v)); if(tt>3600) times=incs=null; }
+    }
+    return {mode:m,score:sc,seed,ghost:g,times,incs};
   }catch(e){ return null; }
 }
 function challengeCode(){
   const bl=runRec.blocks, n=Math.min(bl.length,150), bytes=[];
   for(let i=0;i<n;i++) bytes.push(Math.round(clamp(bl[i].x,0,1)*255),Math.round(clamp(bl[i].w,0,1)*255));
   const b64=btoa(String.fromCharCode(...bytes)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
-  return `${mode}.${score}.${runSeed}.${b64}`;
+  const enc=arr=>btoa(String.fromCharCode(...arr)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  const dt=[], sc=[]; for(let i=0;i<n;i++){ dt.push(i?clamp(Math.round(((runRec.ts[i]||0)-(runRec.ts[i-1]||0))*10),0,255):0); sc.push(i?clamp((runRec.scores[i]||0)-(runRec.scores[i-1]||0),0,255):0); }
+  return `${mode}.${score}.${runSeed}.${b64}.${enc(dt)}.${enc(sc)}`;
 }
 const challengeOk=()=>CH_MODES.includes(mode) && !boosted && !assisted && !soft() && score>0;
 const challengeLink=()=>location.origin+location.pathname+'?c='+challengeCode();
@@ -1782,7 +1800,7 @@ function drop(){
   nb.x-=windOff;                                                                          // stored in the tower's own frame, so the whole tower can sway
   runBlocks++; hopT=t;
   stack.push(nb);
-  runRec.blocks.push({x:+(nb.x/W).toFixed(3),w:+(nb.w/W).toFixed(3)}); runRec.scores.push(score);
+  runRec.blocks.push({x:+(nb.x/W).toFixed(3),w:+(nb.w/W).toFixed(3)}); runRec.scores.push(score); runRec.ts.push(+(t-runT0).toFixed(2));
   setScore(score); setCombo(combo); setSpeedBadge(true);
   maybeGust();
   if(slowLeft>0) slowLeft--;
@@ -2078,6 +2096,7 @@ function setGhostD(){
   if(state==='menu' || mode==='practice'){ el.textContent=''; el.className=''; return; }
   if(mode==='campaign'){ const g=STAGES[stage-1]; el.textContent=`${goalLabel(g)} · ${Math.min(goalVal(g),g[1])}/${g[1]}`; el.className=''; return; }
   if(mode==='daily'){ el.innerHTML=S.twist.done?tr('Twist complete')+' '+I('check-circle','ic-green'):tr('Goal: score {n}',{n:CFG.twistGoal}); el.className=S.twist.done?'up':''; return; }
+  if(challenge && challenge.mode===mode && ghost && ghost.live){ const fs=ghost.live.sc[friendNow()]; lastFs=fs; el.textContent=tr('Friend {n}',{n:fs}); el.className=score>fs?'up':score<fs?'down':''; return; }
   if(challenge && challenge.mode===mode){ el.innerHTML=score>challenge.score?tr('You beat your friend!'):tr('Beat {n}',{n:challenge.score}); el.className=score>challenge.score?'up':''; return; }
   if(!ghost){ el.textContent=''; el.className=''; return; }
   const idx=stack.length-1;
@@ -2090,6 +2109,7 @@ function setGhostD(){
 /* ================= Update ================= */
 function update(dt){
   t+=dt;
+  if(state==='playing' && challenge && ghost && ghost.live && !paused && ghost.live.sc[friendNow()]!==lastFs) setGhostD();
   const live = grace<=0; if(grace>0) grace-=dt;
   if(live && (state==='playing'||state==='menu') && cur){
     cur.x+=dir*speed()*dt;
@@ -2176,8 +2196,23 @@ function drawBG(){
   if(gy<H){ ctx.fillStyle=th.ground; ctx.fillRect(0,gy,W,H-gy+4); ctx.fillStyle='rgba(255,255,255,.08)'; ctx.fillRect(0,gy,W,2*u); }
   drawAmb();
 }
+/* the friend's tower, building itself at the pace they built it */
+function friendNow(){ const L=ghost.live, gt=t-runT0; let k=0; while(k+1<ghost.blocks.length && L.times[k+1]<=gt) k++; return k; }
+function drawFriend(){
+  const L=ghost.live, k=friendNow(), gt=t-runT0;
+  ctx.save(); ctx.lineWidth=1.5*u;
+  for(let i=1;i<=k;i++){
+    const sy=Y(i*BH+BH); if(sy>H+BH||sy<-BH) continue;
+    const g=ghost.blocks[i], pop=clamp((gt-L.times[i])/.25,0,1), a=.5+.5*pop;
+    ctx.globalAlpha=a; ctx.fillStyle='rgba(125,232,255,.2)'; ctx.strokeStyle='rgba(125,232,255,.7)'; rr(g.x*W,sy-(1-pop)*6*u,g.w*W,BH-2,6*u); ctx.fill(); ctx.stroke();
+  }
+  ctx.globalAlpha=1; const sy=Y(k*BH+BH);
+  if(k>0 && sy>-BH && sy<H+BH){ ctx.font=`900 ${11*u}px ui-rounded,system-ui,sans-serif`; ctx.textAlign='left'; ctx.fillStyle='rgba(125,232,255,.95)'; const g=ghost.blocks[k]; ctx.fillText(tr('Friend {n}',{n:L.sc[k]}),clamp(g.x*W+g.w*W+6*u,4,W-80*u),sy+BH*.62); }
+  ctx.restore();
+}
 function drawGhost(){
   if(!ghost || state==='menu') return;
+  if(ghost.live) return;                                          // (a friend's tower is drawn in front of your blocks, see draw())
   const n=ghost.blocks.length;
   ctx.save();
   if(S.ghostOutline!==false){                                   // Settings > Best-run outline: the dashed tower is optional, the BEST line below always shows
@@ -2402,6 +2437,7 @@ function draw(){
   for(const b of stack) drawBlock(b);
   drawShieldAura();
   ctx.restore();
+  if(ghost && ghost.live && state!=='menu') drawFriend();
   for(const p of pieces){
     const sy=Y(p.y+BH); ctx.save(); ctx.translate(p.x+p.w/2,sy+BH/2); ctx.rotate(p.rot);
     ctx.translate(-(p.x+p.w/2),-(sy+BH/2)); drawBlock({x:p.x,y:p.y,w:p.w,i:p.i,sq:0},p.a); ctx.restore();
@@ -2929,9 +2965,8 @@ function renderCoins(){
    +row('awards','gem',tr('Weekly missions'),tr('Finish all 3 for a chest: {n} coins and 2 boosts.',{n:CFG.weeklyCoins}),S.weekly.claimed?I('check','ic-green'):`${done}/3`,!!S.weekly.claimed)
    +row('awards','trophy',tr('Awards'),tr('Every award pays coins.'),`${ach}/${ACH.length}`,false)
    +row('stages','map',tr('Campaign'),tr('Stars, worlds and boss stages pay coins.'),`${stars}/${STAGES.length*3}`,false);
-  $('csBuy').innerHTML=inPlayApp()
-    ? ['starter','coins_s','coins_m','coins_l','coins_xl'].map(k=>{ const p=PRODUCTS[k]; return `<button class="bpick go" data-pack="${k}"><i>${I(k==='starter'?'gem':'coin')}</i><div><b>${k==='starter'?tr('Starter pack'):tr('{n} coins',{n:nf(p.coins)})}</b></div><em>${priceOf(k,p.price)}</em></button>`; }).join('')
-    : `<div class="sub" style="text-align:center">${tr('Coin packs are sold in the Android app.')}</div>`;
+  const st=S.shop.owned.includes('product:starter');
+  $('csBuy').innerHTML=['starter','coins_s','coins_m','coins_l','coins_xl'].map(k=>{ const p=PRODUCTS[k], own=k==='starter'&&st; return `<button class="bpick go${own?' ok':''}" data-pack="${k}" ${own?'aria-disabled="true"':''}><i>${I(k==='starter'?'gem':'coin')}</i><div><b>${k==='starter'?tr('Starter pack'):tr('{n} coins',{n:nf(p.coins)})}</b>${k==='starter'?`<span>${tr('{coins} coins, {n} of each boost and 2 cosmetics. One time only.',{coins:nf(p.coins),n:2})}</span>`:''}</div><em>${own?I('check','ic-green')+' '+tr('Owned'):priceOf(k,p.price)}</em></button>`; }).join('');
 }
 function openCoins(){ renderCoins(); $('coinsSheet').classList.remove('hidden'); soon(syncBack); }
 function closeCoins(){ $('coinsSheet').classList.add('hidden'); soon(syncBack); }
@@ -2942,7 +2977,7 @@ $('csEarn').addEventListener('click',e=>{ const b=e.target.closest('[data-go]');
   closeCoins();
   if(g==='play') quickPlay(); else if(g==='twist') startMode('daily'); else if(g==='awards') showAwards(); else if(g==='stages'){ stagesFrom='menu'; showStages(); }
 });
-$('csBuy').addEventListener('click',e=>{ const b=e.target.closest('[data-pack]'); if(b) buyIap(b.dataset.pack); });
+$('csBuy').addEventListener('click',e=>{ const b=e.target.closest('[data-pack]'); if(b && b.getAttribute('aria-disabled')!=='true') buyIap(b.dataset.pack); });      // the same purchase the Shop's Coins tab starts
 { let n=0,t0=0; $('coinsTitle').addEventListener('click',()=>{ const now=performance.now(); if(now-t0>4000) n=0; t0=now; if(++n>=7){ n=0; closeCoins(); layoutInfo(); } }); }   // seven quick taps on the title: the layout info card
 
 /* ================= Back button =================
@@ -3084,6 +3119,7 @@ $('endZen').onclick=()=>{ if(state==='playing' && mode==='zen') endRun('zen'); }
 }
 $('powerList').addEventListener('click',e=>{ const b=e.target.closest('[data-power]'); if(!b) return; if(b.getAttribute('aria-disabled')==='true'){ sfx.tap(); return; } usePower(b.dataset.power); });
 $('powerBg').onclick=$('powerDone').onclick=()=>{ sfx.tap(); closePower(); };
+$('friendBtn').onclick=()=>{ sfx.tap(); openUnlockDlg('friend'); };
 $('udBg').onclick=()=>{ sfx.tap(); closeUnlockDlg(); };
 $('udOk').onclick=()=>{ sfx.tap(); submitUnlockDlg(); };
 $('udCopy').onclick=()=>{ sfx.tap(); copyUnlock(); };
@@ -3144,7 +3180,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ friendNow, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},
