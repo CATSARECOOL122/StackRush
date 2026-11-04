@@ -187,8 +187,9 @@
   .bpick div{flex:1;min-width:0} .bpick b{display:block;font-size:15px} .bpick span{display:block;font-size:12px;color:var(--mute);font-weight:700;line-height:1.25}
   .bpick em{font-style:normal;font-weight:900;font-size:14px;color:var(--gold);flex:none}
   .bpick.empty{opacity:.7}
-  #powerBtn{position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom) + 14px);transform:translateX(-50%);display:flex;align-items:center;gap:8px;min-height:48px;padding:0 16px;max-width:calc(100% - 28px);touch-action:none;user-select:none;-webkit-user-select:none;white-space:nowrap}
-  #powerBtn .ic{width:20px;height:20px;color:var(--gold)}
+  /* in the bottom-left corner, where a thumb that is dropping blocks rarely lands (Settings > Auto-use boosts removes it altogether) */
+  #powerBtn{position:absolute;left:14px;bottom:calc(env(safe-area-inset-bottom) + 14px);display:flex;align-items:center;gap:6px;min-height:46px;padding:0 12px;max-width:calc(100% - 28px);touch-action:none;user-select:none;-webkit-user-select:none;white-space:nowrap}
+  #powerBtn .ic{width:18px;height:18px;color:var(--gold)}
   #powerBtn b{font-size:17px;color:var(--gold)}
   #powerBtn span{font-size:13px;font-weight:800;color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis}
   #powerBtn .chev{transform:rotate(-90deg);animation:bob 1.2s ease-in-out infinite}
