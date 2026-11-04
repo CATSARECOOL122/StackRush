@@ -13,4 +13,10 @@ module.exports=[
   for(const bad of ['','SR-0000','SR-ZZZZ','sr-1','<b>','SR-01XX','SR-0099']) assert.equal(await q.evaluate(c=>__sr.redeemCode(c),bad),-1,bad);
   assert.deepEqual(p.errs,[]); await L.close(p); await L.close(q);
 }],
+
+['square: the five premium items have real Square checkout links and the Buy button opens them on the web, never in the Android app', async(e,L)=>{
+  const p=await L.open(e,{links:true}); const l=await p.evaluate(()=>({...__sr.SQUARE_LINKS}));
+  assert.deepEqual(Object.keys(l).sort(),['cyber','galaxy','gold','style:foil','topper:gold']); for(const v of Object.values(l)) assert.match(v,/^https:\/\/square\.link\/u\/[A-Za-z0-9]+$/); assert.equal(new Set(Object.values(l)).size,5);
+  assert.equal(await p.evaluate(()=>__sr.coinsTabOn()),false,'coins are not sold on the web yet'); await L.close(p);
+}],
 ];

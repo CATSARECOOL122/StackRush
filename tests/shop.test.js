@@ -370,7 +370,7 @@ module.exports=[
   await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('coins'));
   assert.match(await p.textContent('#tGrid [data-act=pack][data-id=starter]'),/Owned/); assert.ok(await p.locator('#tGrid [data-act=pack][data-id=starter]').isDisabled(),'the Starter pack button is off once owned');
   await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready'));
-  await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('coins'));
+  await p.click('#openThemes'); await p.evaluate(()=>{ for(const k of Object.keys(__sr.SQUARE_LINKS)) __sr.SQUARE_LINKS[k]=''; __sr.setTab('coins'); });
   assert.ok(await p.locator('#tGrid [data-act=pack][data-id=starter]').isDisabled(),'still owned after a reload');
   assert.equal(await p.evaluate(()=>__sr.grantProduct('gold')),true); s=await S(); assert.ok(s.th.includes('gold')&&s.theme==='gold','a premium theme is owned and worn');
   assert.equal(await p.evaluate(()=>__sr.grantProduct('topper:gold')),true); s=await S(); assert.ok(s.own.includes('topper:gold')&&s.eq.topper==='gold');
