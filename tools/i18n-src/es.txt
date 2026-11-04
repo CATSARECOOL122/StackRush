@@ -440,3 +440,11 @@
 440|Solo Contrarreloj: añade 30 segundos.
 441|Máximo dos Regenerar por partida
 442|Tu torre ya tiene el ancho completo
+443|¿Compraste algo premium en el navegador? Copia este código y pégalo en la app de la pantalla de inicio.
+444|Nada nuevo en ese código
+445|Pega tu código de desbloqueo:
+446|Código de desbloqueo
+447|Código de desbloqueo copiado
+448|¡Desbloqueado!
+449|¡Desbloqueado! ¿Usas la app de la pantalla de inicio? Copia aquí tu código de desbloqueo y pégalo allí.
+450|Tu código de desbloqueo:

@@ -187,6 +187,9 @@
   .bpick div{flex:1;min-width:0} .bpick b{display:block;font-size:15px} .bpick span{display:block;font-size:12px;color:var(--mute);font-weight:700;line-height:1.25}
   .bpick em{font-style:normal;font-weight:900;font-size:14px;color:var(--gold);flex:none}
   .bpick.empty{opacity:.7}
+  #unlockRows{flex-wrap:wrap;gap:10px}
+  #unlockRows>span{flex:1 1 100%}
+  #unlockRows .btn{flex:1 1 40%}
   /* in the bottom-left corner, where a thumb that is dropping blocks rarely lands (Settings > Auto-use boosts removes it altogether) */
   #powerBtn{position:absolute;left:14px;bottom:calc(env(safe-area-inset-bottom) + 14px);display:flex;align-items:center;gap:6px;min-height:46px;padding:0 12px;max-width:calc(100% - 28px);touch-action:none;user-select:none;-webkit-user-select:none;white-space:nowrap}
   #powerBtn .ic{width:18px;height:18px;color:var(--gold)}
@@ -633,6 +636,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>Timing assist<small>Wider perfect window. Auto = your first 6 games.</small></span><button class="btn" data-set="assist"></button></div>
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-grad"/></svg>Practice round</span><button class="btn" data-set="tutorial">Replay</button></div>
       <h4>YOUR DATA</h4>
+      <div class="set" id="unlockRows"><span><svg class="ic" aria-hidden="true"><use href="#i-gem"/></svg>Unlock code<small>Bought a premium item in your browser? Copy this code, then paste it into the Home Screen app.</small></span><button class="btn" data-set="ucopy">Copy</button><button class="btn" data-set="uredeem">Paste</button></div>
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg>Save code<small>Copy your progress to move it to another device.</small></span><button class="btn" data-set="export">Copy</button></div>
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg>Load code<small>Paste a save code to restore progress.</small></span><button class="btn" data-set="import">Paste</button></div>
       <a href="privacy.html">Privacy policy</a>
@@ -932,11 +936,24 @@ sanitize();
 /* return from a Square checkout: ?unlock=gold (a premium theme) or ?unlock=style:foil (a premium cosmetic).
    There is no server on the web version, so this is an honour system: anyone who knows the address can unlock these, which is why
    the web version only sells cosmetics here and never coins or boosts. The Android app uses Google Play Billing instead. */
+let unlockedNow=false;
 try{
   const u = new URLSearchParams(location.search).get('unlock');
-  if(u && has(THEMES,u) && THEMES[u].unlock.t==='iap'){ if(!S.owned.includes(u)) S.owned.push(u); S.theme=u; }
-  else if(u && has(SQUARE_LINKS,u)){ const [sl,id]=u.split(':'); if(id && itemOk(sl,id) && SHOP[sl][id].iap){ if(!S.shop.owned.includes(u)) S.shop.owned.push(u); S.shop.equip[sl]=id; } }
+  if(u && has(THEMES,u) && THEMES[u].unlock.t==='iap'){ if(!S.owned.includes(u)) S.owned.push(u); S.theme=u; unlockedNow=true; }
+  else if(u && has(SQUARE_LINKS,u)){ const [sl,id]=u.split(':'); if(id && itemOk(sl,id) && SHOP[sl][id].iap){ if(!S.shop.owned.includes(u)) S.shop.owned.push(u); S.shop.equip[sl]=id; unlockedNow=true; } }
+  if(unlockedNow) history.replaceState(null,'',location.pathname+location.hash);
 }catch(e){}
+/* Unlock code: the Home Screen app on an iPhone keeps its own storage, so a purchase made in Safari is not seen there. The code lists the premium items owned here
+   (4 characters + a check); pasting it into the app unlocks the same ones. Honour system, like the return address. */
+const WEB_KEYS=Object.keys(SQUARE_LINKS);
+const ownsWeb=k=>{ const [sl,id]=k.split(':'); return id ? S.shop.owned.includes(k) : S.owned.includes(k); };
+function unlockCode(){ let n=0; WEB_KEYS.forEach((k,i)=>{ if(ownsWeb(k)) n|=1<<i; }); const c=(n*31+7)%97; return 'SR-'+n.toString(36).toUpperCase().padStart(2,'0')+c.toString(36).toUpperCase().padStart(2,'0'); }
+function redeemCode(code){
+  const m=/^SR-([0-9A-Z]{2})([0-9A-Z]{2})$/.exec(String(code||'').trim().toUpperCase()); if(!m) return -1;
+  const n=parseInt(m[1],36), c=parseInt(m[2],36); if(n<1 || n>=1<<WEB_KEYS.length || c!==(n*31+7)%97) return -1;
+  let got=0; WEB_KEYS.forEach((k,i)=>{ if(n&(1<<i) && !ownsWeb(k)){ if(has(THEMES,k)) S.owned.push(k); else S.shop.owned.push(k); got++; } });
+  save(); return got;
+}
 save();
 
 const prefersReduce = (() => { try{ return matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){ return false; } })();
@@ -2435,6 +2452,7 @@ function showMenu(){
   challenge=null;
   setCoins(); renderMenu(); setGhostD(); showUpdateIfIdle(); checkForUpdate();
   if(incoming){ const ch=incoming; incoming=null; openChallenge(ch); }
+  else if(unlockedNow){ unlockedNow=false; showSettings(); toast(tr('Unlocked! Using the Home Screen app? Copy your unlock code here and paste it there.'),5200); }
 }
 function showModes(){
   hideAll(); $('modes').classList.remove('hidden');
@@ -2772,6 +2790,7 @@ function showSettings(){
   set('boostauto',S.boostAuto===true?ON:OFF,S.boostAuto===true);
   set('language',LANGS[lang]||'English',true);
   document.querySelector('[data-set=haptics]').closest('.set').classList.toggle('hidden',!HAS_VIBRATE);
+  $('unlockRows').classList.toggle('hidden',!webStore() && !WEB_KEYS.some(ownsWeb));
 }
 
 /* ----- save code (move progress between devices) ----- */
@@ -2915,6 +2934,8 @@ document.querySelector('#settings').addEventListener('click',e=>{
   else if(k==='boostauto'){ S.boostAuto=!(S.boostAuto===true); }
   else if(k==='language'){ sfx.tap(); showLangs(); return; }
   else if(k==='tutorial'){ sfx.tap(); startPractice(); return; }
+  else if(k==='ucopy'){ const c=unlockCode(); if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(c).then(()=>toast(tr('Unlock code copied')),()=>window.prompt(tr('Your unlock code:'),c)); else window.prompt(tr('Your unlock code:'),c); return; }
+  else if(k==='uredeem'){ const c=window.prompt(tr('Paste your unlock code:')); if(!c) return; const g=redeemCode(c); toast(g<0?tr("That code didn't work"):g===0?tr('Nothing new in that code'):tr('Unlocked!')); if(g>0){ renderMenu(); showSettings(); } return; }
   else if(k==='export'){ exportCode(); return; }
   else if(k==='import'){ importCode(); return; }
   save(); showSettings(); sfx.tap();
@@ -2986,7 +3007,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ unlockCode, redeemCode, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},

@@ -440,3 +440,11 @@
 440|Sadece Zamana Karşı: 30 saniye ekler.
 441|Turda en fazla iki Genişlet
 442|Kulen zaten tam genişlikte
+443|Tarayıcıda premium bir şey mi aldın? Bu kodu kopyala ve Ana Ekran uygulamasına yapıştır.
+444|Bu kodda yeni bir şey yok
+445|Kilit açma kodunu yapıştır:
+446|Kilit açma kodu
+447|Kilit açma kodu kopyalandı
+448|Kilit açıldı!
+449|Kilit açıldı! Ana Ekran uygulamasını mı kullanıyorsun? Kodunu burada kopyala, orada yapıştır.
+450|Kilit açma kodun:

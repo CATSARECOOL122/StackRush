@@ -440,3 +440,11 @@
 440|Nur Zeitrennen: gibt 30 Sekunden dazu.
 441|Höchstens zweimal Nachwachsen pro Runde
 442|Dein Turm hat schon die volle Breite
+443|Etwas Premium im Browser gekauft? Kopiere diesen Code und füge ihn in der Home-Bildschirm-App ein.
+444|Nichts Neues in diesem Code
+445|Füge deinen Freischaltcode ein:
+446|Freischaltcode
+447|Freischaltcode kopiert
+448|Freigeschaltet!
+449|Freigeschaltet! Nutzt du die App vom Home-Bildschirm? Kopiere hier deinen Freischaltcode und füge ihn dort ein.
+450|Dein Freischaltcode:

@@ -440,3 +440,11 @@
 440|Só Contra o tempo: adiciona 30 segundos.
 441|No máximo dois Regenerar por partida
 442|Sua torre já está com a largura total
+443|Comprou um item premium no navegador? Copie este código e cole no app da tela inicial.
+444|Nada novo nesse código
+445|Cole seu código de desbloqueio:
+446|Código de desbloqueio
+447|Código de desbloqueio copiado
+448|Desbloqueado!
+449|Desbloqueado! Usa o app da tela inicial? Copie aqui seu código de desbloqueio e cole lá.
+450|Seu código de desbloqueio:

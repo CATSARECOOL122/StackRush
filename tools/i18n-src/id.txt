@@ -440,3 +440,11 @@
 440|Hanya Balapan Waktu: menambah 30 detik.
 441|Maksimal dua Tumbuh lagi per ronde
 442|Menaramu sudah selebar penuh
+443|Membeli item premium di browser? Salin kode ini lalu tempel di aplikasi layar utama.
+444|Tidak ada yang baru di kode itu
+445|Tempel kode bukaanmu:
+446|Kode buka kunci
+447|Kode buka kunci disalin
+448|Terbuka!
+449|Terbuka! Memakai aplikasi layar utama? Salin kode buka kunci di sini dan tempel di sana.
+450|Kode buka kuncimu:

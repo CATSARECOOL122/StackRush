@@ -440,3 +440,11 @@
 440|Solo Contro il tempo: aggiunge 30 secondi.
 441|Al massimo due Ricrescita a partita
 442|La tua torre ha già la larghezza piena
+443|Hai acquistato un articolo premium nel browser? Copia questo codice e incollalo nell'app della schermata Home.
+444|Niente di nuovo in questo codice
+445|Incolla il tuo codice di sblocco:
+446|Codice di sblocco
+447|Codice di sblocco copiato
+448|Sbloccato!
+449|Sbloccato! Usi l'app dalla schermata Home? Copia qui il codice di sblocco e incollalo lì.
+450|Il tuo codice di sblocco:

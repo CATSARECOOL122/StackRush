@@ -440,3 +440,11 @@
 440|Contre-la-montre uniquement : ajoute 30 secondes.
 441|Deux Repousse par partie au maximum
 442|Votre tour a déjà sa pleine largeur
+443|Un achat premium dans le navigateur ? Copiez ce code et collez-le dans l'app de l'écran d'accueil.
+444|Rien de nouveau dans ce code
+445|Collez votre code de déverrouillage :
+446|Code de déverrouillage
+447|Code de déverrouillage copié
+448|Débloqué !
+449|Débloqué ! Vous utilisez l'app de l'écran d'accueil ? Copiez ici votre code de déverrouillage et collez-le là-bas.
+450|Votre code de déverrouillage :

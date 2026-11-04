@@ -125,6 +125,8 @@ The Android Back button (and a browser's Back, and an iPhone's swipe from the ed
 - **What money buys:** premium cosmetics, coin packs and a Starter pack (Android app). Boosts are single-player aids that cost coins. There are no random paid items (no loot boxes), no timers, no fake scarcity, and nothing is needed to finish the game. Earlier versions of this page said "cosmetic only"; that stopped being true when boosts arrived.
 
 ## Setting up purchases (web)
+**Unlock code:** an iPhone Home Screen app keeps its own storage, so a purchase made after a Square checkout in Safari is not seen there. After the return address (`?unlock=...`) the game opens Settings; *Unlock code > Copy* gives a 4-character code (`SR-XXXX`, a check inside) listing the premium items owned in that browser, and *Paste* in the app unlocks the same ones. Still an honour system. Android Chrome Home Screen apps share storage with Chrome and need no code.
+
 The web version can sell the five premium cosmetics (themes `gold`, `galaxy`, `cyber`, and the Foil block style and Golden cat topper). Coins, coin packs, the Starter pack and boosts for real money are **Android-only** (Google Play Billing), so the web version never sells them.
 1. In Square, create a one-time payment link for each premium item.
 2. Set each link's post-payment redirect to `https://<your-site>/?unlock=<key>`, where the key is `gold`, `galaxy`, `cyber`, `style:foil` or `topper:gold` (URL-encode the colon as `%3A` if Square asks).
