@@ -549,3 +549,7 @@
 549|Vinto {a} – {b}
 550|Vinte {w} · Perse {l}
 551|Le tue sfide con gli amici appariranno qui.
+552|Caverne
+553|Lava! Se atterra, scioglie i 2 blocchi sotto di sé.
+554|FUSIONE! -{n}
+555|TERREMOTO!

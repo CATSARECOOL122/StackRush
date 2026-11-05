@@ -549,3 +549,7 @@
 549|Gewonnen {a} – {b}
 550|Gewonnen {w} · Verloren {l}
 551|Deine Freunde-Duelle erscheinen hier.
+552|Höhlen
+553|Lava! Wenn sie landet, schmilzt sie die 2 Blöcke darunter.
+554|SCHMELZE! -{n}
+555|BEBEN!

@@ -818,6 +818,7 @@ const CFG = {
   bossBonus: 60,         // extra coins the first time a boss stage is cleared
   timedSeconds: 30, timedBonus: 2, timedCap: 90, timedMissPenalty: 3, timedExtra: 30,
   bombChance: 0.26, bombTtl: 2.8, bombDodgePts: 2,
+  lavaChance: 0.15,    // lava blocks melt the 2 blocks under them
   iceChance: 0.2, iceSlide: 0.12,     // ice blocks slide on for this many seconds of travel after the tap
   glueChance: 0.2, glueDrag: 0.12,    // glue blocks are pulled back by the same amount
   gustChance: 0.07, gustGap: 8,       // a gust may start at a height at least gustGap blocks after the last one (about 3 in the first 80 blocks)
@@ -899,9 +900,11 @@ const STAGES = [
   ['height',8,{}],['perfects',4,{}],['score',25,{}],['height',15,{}],['perfects',7,{}],['height',20,{boss:1,hz:{wind:3},chance:{gust:.3},gap:5}],
   ['height',12,{speed:1.2}],['perfects',6,{speed:1.2}],['score',40,{speed:1.2}],['height',20,{speed:1.2}],['perfects',9,{speed:1.2}],['height',25,{speed:1.2,boss:1,hz:{ice:3},chance:{ice:.4}}],
   ['height',12,{bombs:true}],['score',35,{bombs:true}],['perfects',7,{bombs:true}],['height',20,{bombs:true}],['dodge',4,{bombs:true}],['height',25,{bombs:true,boss:1,hz:{glue:3},chance:{glue:.4}}],
-  ['height',12,{startFrac:.45,speed:1.3}],['perfects',6,{startFrac:.45,speed:1.3}],['score',45,{startFrac:.45,speed:1.3}],['height',20,{startFrac:.45,speed:1.3}],['combo',6,{startFrac:.45,speed:1.3}],['height',30,{startFrac:.45,speed:1.3,boss:1,hz:{ice:5,glue:8,wind:6},chance:{ice:.25,glue:.25,gust:.25},gap:6}]
+  ['height',12,{startFrac:.45,speed:1.3}],['perfects',6,{startFrac:.45,speed:1.3}],['score',45,{startFrac:.45,speed:1.3}],['height',20,{startFrac:.45,speed:1.3}],['combo',6,{startFrac:.45,speed:1.3}],['height',30,{startFrac:.45,speed:1.3,boss:1,hz:{ice:5,glue:8,wind:6},chance:{ice:.25,glue:.25,gust:.25},gap:6}],
+  ['height',14,{startFrac:.45,speed:1.4,dark:1,hz:{lava:6},chance:{lava:.12}}],['perfects',8,{startFrac:.45,speed:1.4,dark:1,hz:{lava:4},chance:{lava:.15}}],['score',60,{startFrac:.45,speed:1.4,dark:1,tremor:1,hz:{wind:4,lava:5},chance:{gust:.22,lava:.14},gap:6}],
+  ['height',18,{startFrac:.45,speed:1.45,dark:1,tremor:1,hz:{wind:4,lava:3},chance:{gust:.25,lava:.15},gap:5}],['combo',8,{startFrac:.45,speed:1.45,dark:1,hz:{lava:4},chance:{lava:.18}}],['height',22,{startFrac:.42,speed:1.5,boss:1,dark:1,tremor:1,hz:{lava:3,wind:5},chance:{lava:.15,gust:.3},gap:5}],
 ];
-const WORLD_NAMES = ['Meadow','Speedway','Minefield','Skyline'];
+const WORLD_NAMES = ['Meadow','Speedway','Minefield','Skyline','Caverns'];
 const goalLabel = g => ({height:tr('Reach {n} blocks',{n:g[1]}),perfects:tr('Land {n} perfects',{n:g[1]}),score:tr('Score {n}',{n:g[1]}),dodge:tr('Dodge {n} bombs',{n:g[1]}),combo:tr('Hit a x{n} combo',{n:g[1]})}[g[0]]);
 const goalShort = g => ({height:tr('{n} high',{n:g[1]}),perfects:tr('{n} perfects',{n:g[1]}),score:tr('{n} pts',{n:g[1]}),dodge:tr('{n} dodges',{n:g[1]}),combo:tr('x{n} combo',{n:g[1]})}[g[0]]);
 
@@ -1000,12 +1003,12 @@ function cleanSave(raw){
   if(Array.isArray(raw.owned)) out.owned=[...new Set(['sunset',...raw.owned.filter(id=>typeof id==='string' && own(THEMES,id))])];
   if(typeof raw.lastMode==='string' && own(MODES,raw.lastMode)) out.lastMode=raw.lastMode;
   if(typeof raw.lang==='string' && (raw.lang==='auto' || own(LANGS,raw.lang))) out.lang=raw.lang;
-  if(raw.tips && typeof raw.tips==='object') for(const k of [...Object.keys(MODES),'ice','glue','gust']) if(raw.tips[k]) out.tips[k]=1;
+  if(raw.tips && typeof raw.tips==='object') for(const k of [...Object.keys(MODES),'ice','glue','gust','lava']) if(raw.tips[k]) out.tips[k]=1;
   if(['auto','on','off'].includes(raw.assist)) out.assist=raw.assist;
   if(dateOk(raw.lastClaim)) out.lastClaim=raw.lastClaim;
   if(raw.bests && typeof raw.bests==='object') for(const id of Object.keys(MODES)) if(own(raw.bests,id)) out.bests[id]=num(raw.bests[id]);
   if(raw.camp && typeof raw.camp==='object') for(let n=1;n<=STAGES.length;n++) if(own(raw.camp,n)){ const v=Math.min(3,num(raw.camp[n])); if(v>0) out.camp[n]=v; }
-  if(raw.worldDone && typeof raw.worldDone==='object') for(let w=0;w<4;w++) if(raw.worldDone[w]) out.worldDone[w]=1;
+  if(raw.worldDone && typeof raw.worldDone==='object') for(let w=0;w<WORLD_NAMES.length;w++) if(raw.worldDone[w]) out.worldDone[w]=1;
   if(raw.ach && typeof raw.ach==='object') for(const a of ACH) if(raw.ach[a.id]) out.ach[a.id]=1;
   if(raw.ghosts && typeof raw.ghosts==='object') for(const id of Object.keys(MODES)){
     const g=own(raw.ghosts,id)?raw.ghosts[id]:null;
@@ -1527,18 +1530,19 @@ function specialAt(h){
   const fi=hzFrom('ice'), fg=hzFrom('glue');
   if(fi!==undefined && h>=fi && rollAt(h,1)<chanceOf('ice',CFG.iceChance)) return 'ice';
   if(fg!==undefined && h>=fg && rollAt(h,2)<chanceOf('glue',CFG.glueChance)) return 'glue';
+  const fl=hzFrom('lava'); if(fl!==undefined && h>=fl && rollAt(h,7)<chanceOf('lava',CFG.lavaChance)) return 'lava';
   return null;
 }
 const gustDue=(h,last)=>{ const f=hzFrom('wind'); return f!==undefined && h>=f && h-last>=(mod.gap||CFG.gustGap) && rollAt(h,3)<chanceOf('gust',CFG.gustChance); };
 let windOff=0, gust=null, lastGustH=-99, windFx=[];
-const hzTipText=k=>k==='ice'?tr('Ice! The block slides on after you tap, so tap a little early.'):k==='glue'?tr('Glue! The block is pulled back after you tap, so tap a little late.'):tr('Gust! The wind sways the tower. Aim for where the top block is now.');
+const hzTipText=k=>k==='lava'?tr('Lava! If it lands, it melts the 2 blocks under it.'):k==='ice'?tr('Ice! The block slides on after you tap, so tap a little early.'):k==='glue'?tr('Glue! The block is pulled back after you tap, so tap a little late.'):tr('Gust! The wind sways the tower. Aim for where the top block is now.');
 function hzTip(k){
   if(S.tips[k] || !S.tutSeen || state!=='playing') return;
-  S.tips[k]=1; save(); toast(`${I(k==='ice'?'snow':k==='glue'?'drop':'wind','ic-cyan')} ${hzTipText(k)}`,4200);
+  S.tips[k]=1; save(); toast(`${I(k==='ice'?'snow':k==='glue'?'drop':k==='lava'?'flame':'wind',k==='lava'?'ic-orange':'ic-cyan')} ${hzTipText(k)}`,4200);
 }
 function startGust(h){
   lastGustH=h; gust={t:0,gd:rollAt(h,5)<.5?-1:1,base:windOff,ph:rollAt(h,6)*6.283};
-  banner={text:tr('GUST!'),life:1}; sfx.gust(); vib([20,30,20]); say(tr('GUST!')); hzTip('gust');
+  const gt=mod.tremor?tr('TREMOR!'):tr('GUST!'); banner={text:gt,life:1}; sfx.gust(); vib([20,30,20]); say(gt); if(mod.tremor) shake=Math.max(shake,8*u); hzTip('gust');
 }
 const maybeGust=()=>{ const h=stack.length; if(gustDue(h,lastGustH)) startGust(h); };
 const smooth=x=>{ x=clamp(x,0,1); return x*x*(3-2*x); };
@@ -1906,7 +1910,7 @@ function drop(){
   if(mode==='timed') timerOn=true;
   if(cur.bomb){ explode(); return; }
   const top=stack[stack.length-1], topX=top.x+windOff;                                      // (a gust sways the tower: the target is where the top block is now)
-  if(cur.mat){ const k=cur.mat==='ice'?1:-1, sh=k*dir*speed()*(cur.mat==='ice'?CFG.iceSlide:CFG.glueDrag), nx=clamp(cur.x+sh,0,W-cur.w); cur.fx=cur.x-nx; cur.x=nx; }   // ice slides on, glue is pulled back
+  if(cur.mat && cur.mat!=='lava'){ const k=cur.mat==='ice'?1:-1, sh=k*dir*speed()*(cur.mat==='ice'?CFG.iceSlide:CFG.glueDrag), nx=clamp(cur.x+sh,0,W-cur.w); cur.fx=cur.x-nx; cur.x=nx; }   // ice slides on, glue is pulled back
   let left=Math.max(cur.x,topX), right=Math.min(cur.x+cur.w,topX+top.w);
   let ov=right-left;
   if(ov<=3){ miss(); return; }
@@ -1952,11 +1956,12 @@ function drop(){
     if((S.shop.boosts.regrow||0)>0 && regrowUsed<2) armed.regrow=true;
     texts.length=0; texts.push({x:cxn,y:cur.y+BH*2,vy:80,text:tr('REGROW!'),size:26*u,color:'#7fe8ff',life:1}); burst(cxn,cur.y+BH,190,26,300*u,500); sfx.shield();
   }
-  if(cur.mat){ nb.mat=cur.mat; nb.fx=cur.fx||0; burst(nb.x+nb.w/2,cur.y+BH,cur.mat==='ice'?190:100,12,170*u,500); if(cur.mat==='ice') sfx.ice(); else sfx.glue(); }
+  if(cur.mat && cur.mat!=='lava'){ nb.mat=cur.mat; nb.fx=cur.fx||0; burst(nb.x+nb.w/2,cur.y+BH,cur.mat==='ice'?190:100,12,170*u,500); if(cur.mat==='ice') sfx.ice(); else sfx.glue(); }
   nb.x-=windOff;                                                                          // stored in the tower's own frame, so the whole tower can sway
   runBlocks++; hopT=t;
   stack.push(nb);
   runRec.blocks.push({x:+(nb.x/W).toFixed(3),w:+(nb.w/W).toFixed(3)}); runRec.scores.push(score); runRec.ts.push(+(t-runT0).toFixed(2));
+  if(cur.mat==='lava') meltTwo();
   setScore(score); setCombo(combo); setSpeedBadge(true);
   maybeGust();
   if(slowLeft>0) slowLeft--;
@@ -2030,6 +2035,18 @@ function usePower(id){
   else if(id==='time'){ timeLeft=Math.min(CFG.timedCap,timeLeft+CFG.timedExtra); useBoost('time'); say1(tr('EXTRA TIME!')); flash=.2; sfx.speed(); }
   else if(bo.lift){ useBoost(id); startLift(bo.lift); say1(tr('+{n} BLOCKS!',{n:bo.lift})); sfx.speed(); }
   setAux(true); syncPower(); closePower(); return true;
+}
+/* A lava block: it lands, glows white-hot and melts the two blocks under it; the melted blocks run down in glowing drips and the lava block sinks to settle on what is left (the base is never melted) */
+function meltTwo(){
+  const n=Math.min(2,stack.length-2); const top=stack[stack.length-1];
+  if(n<=0){ burst(top.x+top.w/2+windOff,top.y+BH,18,22,260*u,500); return; }
+  const nbk=stack.pop(), gone=[]; for(let k=0;k<n;k++) gone.push(stack.pop());
+  for(const k of ['blocks','scores','ts']) runRec[k].splice(runRec[k].length-1-n,n);
+  for(const g of gone){ pieces.push({x:g.x+windOff,y:g.y,w:g.w,vx:rand(-25,25)*u,vy:30,rot:0,vr:rand(-.6,.6),i:g.i,a:1,mat:'lava',melt:1});
+    burst(g.x+g.w/2+windOff,g.y+BH*.6,18+rand(0,14),18,230*u,600); }
+  nbk.y=stack.length*BH; nbk.i=stack.length; nbk.dy=n*BH; nbk.hot=1; nbk.sq=.9; stack.push(nbk);
+  shake=Math.max(shake,9*u); flash=Math.max(flash,.16); sfx.glue(); vib([20,30,20,30,20]);
+  texts.length=0; texts.push({x:W/2,y:stack.length*BH+BH*2,vy:80,text:tr('MELT! -{n}',{n}),size:30*u,color:'#ff9a3d',life:1});
 }
 /* A Speed-up: N free, perfectly placed blocks pile on in a quick burst (+1 score each), then the moving block comes back. The round counts as boosted. */
 function startLift(n){ lift={left:n,acc:0,per:clamp(.9/n,.015,.05),k:0}; if(cur) cur=null; }
@@ -2308,14 +2325,14 @@ function update(dt){
     if(timeLeft<=0){ if(!extraTime()){ timeLeft=0; setAux(true); endRun('time'); } }
     else { if(timeLeft<=5 && Math.ceil(timeLeft)!==before) sfx.tick(); setAux(); }
   }
-  for(const b of stack){ if(b.sq>0) b.sq=Math.max(0,b.sq-dt*4); if(b.fx){ b.fx*=Math.pow(.0004,dt); if(Math.abs(b.fx)<.3) b.fx=0; } }
+  for(const b of stack){ if(b.dy){ b.dy*=Math.pow(.0008,dt); if(b.dy<.5) b.dy=0; } if(b.hot>0) b.hot=Math.max(0,b.hot-dt*.9); if(b.sq>0) b.sq=Math.max(0,b.sq-dt*4); if(b.fx){ b.fx*=Math.pow(.0004,dt); if(Math.abs(b.fx)<.3) b.fx=0; } }
   updateWind(dt); stepLift(dt);
   const target=Math.max(0, stack.length*BH - H*.35);
   cam+=(target-cam)*Math.min(1,dt*5);
   shake*=Math.pow(.002,dt); if(shake<.2) shake=0;
   flash=Math.max(0,flash-dt*1.4);
   if(reduceOn()){ shake=0; flash=0; }
-  for(const p of pieces){ p.vy-=1500*dt; p.y+=p.vy*dt; p.x+=p.vx*dt; p.rot+=p.vr*dt; p.a=Math.max(0,p.a-dt*.6); }
+  for(const p of pieces){ p.vy-=1500*dt; p.y+=p.vy*dt; p.x+=p.vx*dt; p.rot+=p.vr*dt; p.a=Math.max(0,p.a-dt*(p.melt?1.4:.6)); if(p.melt&&Math.random()<dt*30) burst(p.x+rand(0,p.w),p.y+BH*.5,18,2,90*u,400); }
   pieces=pieces.filter(p=>Y(p.y)<H+200 && p.a>0);
   for(const p of parts){ p.vy-=p.grav*dt; p.x+=p.vx*dt; p.y+=p.vy*dt; p.life-=p.dec*dt; }
   parts=parts.filter(p=>p.life>0);
@@ -2461,11 +2478,12 @@ function paintBlock(g,x,sy,w,bh,i,sq,th,uu,alpha){
   g.restore();
 }
 function drawBlock(b,alpha=1){
-  const sy=Y(b.y+BH);
+  const sy=Y(b.y+(b.dy||0)+BH);
   if(sy>H+BH || sy<-BH*2) return;
   const x=b.x+(b.fx||0);                                           // a block that just slid (ice) or was pulled back (glue) settles into place
   paintBlock(ctx,x,sy,b.w,BH,b.i,b.sq,TH(),u,alpha);
   if(b.mat) paintMat(ctx,b.mat,x,sy,b.w,BH,u,t,alpha);
+  if(b.hot>0) paintMat(ctx,'lava',x,sy,b.w,BH,u,t,alpha*b.hot);               // a block that just melted its way down is still glowing
 }
 /* ice and glue look different from a plain block: frosted glass with glints, or green goo with drips */
 function paintMat(g,mat,x,sy,w,bh,uu,tt,alpha=1){
@@ -2476,6 +2494,12 @@ function paintMat(g,mat,x,sy,w,bh,uu,tt,alpha=1){
     g.fillStyle=gr; g.fillRect(x,sy,w,bb);
     g.strokeStyle='rgba(255,255,255,.7)'; g.lineWidth=2*uu; g.lineCap='round';
     for(let k=0;k<3;k++){ const gx=x+w*(.22+k*.28)+Math.sin(tt*1.4+k)*3*uu; g.beginPath(); g.moveTo(gx+bb*.5,sy+2*uu); g.lineTo(gx-bb*.15,sy+bb-2*uu); g.stroke(); }
+  } else if(mat==='lava'){
+    const gr=g.createLinearGradient(0,sy,0,sy+bb); gr.addColorStop(0,'rgba(255,215,90,.9)'); gr.addColorStop(.5,'rgba(255,100,25,.82)'); gr.addColorStop(1,'rgba(140,20,5,.9)');
+    g.fillStyle=gr; g.fillRect(x,sy,w,bb);
+    g.strokeStyle='rgba(70,10,0,.65)'; g.lineWidth=2.2*uu; g.lineCap='round';
+    for(let k=0;k<2;k++){ g.beginPath(); const bx=x+w*(.25+k*.45); g.moveTo(bx,sy+1); g.lineTo(bx+Math.sin(tt*2+k)*4*uu+bb*.2,sy+bb*.45); g.lineTo(bx-bb*.1,sy+bb-1); g.stroke(); }
+    for(let k=0;k<3;k++){ g.fillStyle=`rgba(255,245,170,${.35+.3*Math.sin(tt*5+k*2)})`; g.beginPath(); g.ellipse(x+w*(.2+k*.3),sy+bb*(.35+.2*Math.sin(tt*3+k)),w*.06,bb*.1,0,0,6.283); g.fill(); }
   } else {
     const gr=g.createLinearGradient(0,sy,0,sy+bb); gr.addColorStop(0,'rgba(190,255,100,.62)'); gr.addColorStop(1,'rgba(70,190,40,.55)');
     g.fillStyle=gr; g.fillRect(x,sy,w,bb);
@@ -2483,7 +2507,9 @@ function paintMat(g,mat,x,sy,w,bh,uu,tt,alpha=1){
   }
   g.restore();
   g.save(); g.globalAlpha=alpha; rr(x,sy,w,bb,7*uu,g);
-  if(mat==='ice'){ g.strokeStyle='rgba(235,250,255,.95)'; g.lineWidth=2*uu; g.shadowColor='#bfeaff'; g.shadowBlur=10*uu; g.stroke(); }
+  if(mat==='lava'){ g.strokeStyle='rgba(255,190,80,.95)'; g.lineWidth=2.2*uu; g.shadowColor='#ff5a1f'; g.shadowBlur=(14+5*Math.sin(tt*6))*uu; g.stroke();
+    g.shadowBlur=0; for(let k=0;k<4;k++){ const ph=(tt*.9+k*.27)%1; g.fillStyle=`rgba(255,${150+k*20},60,${(1-ph)*.9})`; g.beginPath(); g.arc(x+w*(.15+k*.23)+Math.sin(tt*3+k)*3*uu,sy-ph*20*uu,(2.4-ph)*uu,0,6.283); g.fill(); } }
+  else if(mat==='ice'){ g.strokeStyle='rgba(235,250,255,.95)'; g.lineWidth=2*uu; g.shadowColor='#bfeaff'; g.shadowBlur=10*uu; g.stroke(); }
   else {
     g.strokeStyle='rgba(60,140,20,.85)'; g.lineWidth=2*uu; g.stroke();
     g.fillStyle='rgba(120,220,50,.95)';                            // drips hanging under the block
@@ -2617,7 +2643,7 @@ function draw(){
   if(ghost && ghost.live && state!=='menu') drawFriend();
   for(const p of pieces){
     const sy=Y(p.y+BH); ctx.save(); ctx.translate(p.x+p.w/2,sy+BH/2); ctx.rotate(p.rot);
-    ctx.translate(-(p.x+p.w/2),-(sy+BH/2)); drawBlock({x:p.x,y:p.y,w:p.w,i:p.i,sq:0},p.a); ctx.restore();
+    ctx.translate(-(p.x+p.w/2),-(sy+BH/2)); drawBlock({x:p.x,y:p.y,w:p.w,i:p.i,sq:0,mat:p.mat},p.a); ctx.restore();
   }
   if(cur){ if(cur.bomb) drawBomb(cur); else drawBlock(cur); }
   ctx.save(); if(windOff) ctx.translate(windOff,0); drawTopper(); ctx.restore();   // in front of the moving block: the flag, star or cat stays in view while the next block slides past
@@ -2644,6 +2670,10 @@ function draw(){
     const k=1-speedCue.life; text(tr('SPEED UP'),W/2,H*.44-k*26,(30+Math.sin(k*3.1)*10)*u,'#ff9a5c',clamp(speedCue.life*2.2,0,1));
   }
   ctx.restore();
+  if(mod.dark && state==='playing'){                                              // a cave: only the top of the tower is lit, by a lantern that flickers
+    const cx=W/2+windOff, cy=Y(stack.length*BH+BH*.5), rad=(170+8*Math.sin(t*7)+5*Math.sin(t*13))*u, g=ctx.createRadialGradient(cx,cy,rad*.25,cx,cy,rad*1.25);
+    g.addColorStop(0,'rgba(5,3,12,0)'); g.addColorStop(.55,'rgba(5,3,12,.55)'); g.addColorStop(1,'rgba(5,3,12,.94)'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  }
   if(tsc<1){ ctx.fillStyle=`rgba(10,6,32,${(.5*(1-tsc)).toFixed(3)})`; ctx.fillRect(0,0,W,H); }                       // the world dims as time slows to a stop
   if(TH().scan){ if(!scanPat) scanPat=ctx.createPattern(scanCv,'repeat'); ctx.fillStyle=scanPat; ctx.fillRect(0,0,W,H); }
   if(flash>0){ ctx.fillStyle=`rgba(255,255,255,${flash})`; ctx.fillRect(0,0,W,H); }
@@ -2786,7 +2816,7 @@ function showStages(){
   hideAll(); $('stages').classList.remove('hidden');
   $('sInfo').innerHTML=tr('<b>{a}</b> / {b} {star} · 3 lives per stage, more lives left = more stars',{a:starsTotal(),b:STAGES.length*3,star:I('star','ic-gold fill')});
   let html='';
-  for(let w=0;w<4;w++){
+  for(let w=0;w<WORLD_NAMES.length;w++){
     html+=`<div class="world"><h3>${tr('WORLD {n} · {name}',{n:w+1,name:ucase(tr(WORLD_NAMES[w]))})}</h3><div class="stg-grid">`;
     for(let k=0;k<6;k++){
       const n=w*6+k+1, g=STAGES[n-1], s=S.camp[n]||0, unlocked=n===1||(S.camp[n-1]>=1);
@@ -3375,7 +3405,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ get friendRun(){ return friendRun; }, startFriend, speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ get mod(){ return mod; }, get pieces(){ return pieces; }, get friendRun(){ return friendRun; }, startFriend, speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},

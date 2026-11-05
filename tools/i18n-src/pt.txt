@@ -549,3 +549,7 @@
 549|Ganhou {a} – {b}
 550|Vitórias {w} · Derrotas {l}
 551|Suas corridas com amigos aparecerão aqui.
+552|Cavernas
+553|Lava! Se cair, derrete os 2 blocos abaixo.
+554|DERRETEU! -{n}
+555|TREMOR!

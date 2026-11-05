@@ -549,3 +549,7 @@
 549|Menang {a} – {b}
 550|Menang {w} · Kalah {l}
 551|Balapan temanmu akan muncul di sini.
+552|Gua
+553|Lava! Jika mendarat, ia melelehkan 2 blok di bawahnya.
+554|MELEHAT! -{n}
+555|GEMPA!

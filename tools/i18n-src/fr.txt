@@ -549,3 +549,7 @@
 549|Gagné {a} – {b}
 550|Gagnées {w} · Perdues {l}
 551|Tes défis entre amis apparaîtront ici.
+552|Cavernes
+553|Lave ! Si elle tombe, elle fait fondre les 2 blocs en dessous.
+554|FONTE ! -{n}
+555|SECOUSSE !

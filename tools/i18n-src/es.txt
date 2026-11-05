@@ -549,3 +549,7 @@
 549|Ganaste {a} – {b}
 550|Ganadas {w} · Perdidas {l}
 551|Tus carreras con amigos aparecerán aquí.
+552|Cavernas
+553|¡Lava! Si cae, derrite los 2 bloques de debajo.
+554|¡FUSIÓN! -{n}
+555|¡TEMBLOR!

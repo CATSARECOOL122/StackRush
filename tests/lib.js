@@ -4,7 +4,7 @@ const {chromium}=require('playwright');
 const {serve}=require('../tools/serve');
 
 /* speed-aware alignment window; topX is where the top block is NOW (a gust sways the tower), and an ice or glue block is aimed a little early or late */
-const PERFECT='s=>{ const c=s.cur; if(!c) return false; const sh=c.mat?(c.mat==="ice"?1:-1)*s.dir*s.sp*(c.mat==="ice"?s.CFG.iceSlide:s.CFG.glueDrag):0; return Math.abs(c.x+sh-s.topX)<Math.max(3,s.sp*0.014); }';
+const PERFECT='s=>{ const c=s.cur; if(!c) return false; const sh=c.mat&&c.mat!=="lava"?(c.mat==="ice"?1:-1)*s.dir*s.sp*(c.mat==="ice"?s.CFG.iceSlide:s.CFG.glueDrag):0; return Math.abs(c.x+sh-s.topX)<Math.max(3,s.sp*0.014); }';
 const FAR='s=>s.cur&&Math.abs(s.cur.x-s.topX)>150';
 const BOMB='s=>s.cur&&s.cur.bomb';
 
@@ -45,7 +45,7 @@ const climb=(p,upTo,ms=60000)=>p.evaluate(([upTo,ms])=>new Promise(res=>{
     if(s.stackLen>=upTo || performance.now()-t0>ms) return res({seen,maxWind,over:false});
     maxWind=Math.max(maxWind,Math.abs(s.windOff));
     const c=s.cur; if(c){ if(!(c.i in seen)) seen[c.i]=c.bomb?'bomb':(c.mat||'');
-      if(!c.bomb){ const sh=c.mat?(c.mat==='ice'?1:-1)*s.dir*s.sp*(c.mat==='ice'?s.CFG.iceSlide:s.CFG.glueDrag):0;
+      if(!c.bomb){ const sh=c.mat&&c.mat!=='lava'?(c.mat==='ice'?1:-1)*s.dir*s.sp*(c.mat==='ice'?s.CFG.iceSlide:s.CFG.glueDrag):0;
         if(Math.abs(c.x+sh-s.topX)<Math.max(3,s.sp*0.014)) document.getElementById('c').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})); } }
     requestAnimationFrame(loop); }; loop(); }),[upTo,ms]);
 module.exports={env,open,act,perfect,miss,perfects,sr,close,climb,PERFECT,FAR,BOMB};

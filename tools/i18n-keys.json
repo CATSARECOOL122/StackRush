@@ -549,5 +549,9 @@
  "Tied {a} – {b}",
  "Won {a} – {b}",
  "Won {w} · Lost {l}",
- "Your friend races will show up here."
+ "Your friend races will show up here.",
+ "Caverns",
+ "Lava! If it lands, it melts the 2 blocks under it.",
+ "MELT! -{n}",
+ "TREMOR!"
 ]

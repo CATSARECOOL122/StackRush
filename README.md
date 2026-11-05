@@ -200,3 +200,7 @@ Difficulty lives in the `CFG` object at the top of the script (`baseSpeed`, `ram
 
 ## Testing hook
 Open the page with `#debug` in the URL to expose `window.__sr` for automated tests and the tools. This only works on `localhost`, `127.0.0.1` or a local file, never on the public site (a test checks that).
+
+
+## Campaign World 5: Caverns
+Stages 25 to 30 (the last is a boss; stage 25 opens when you clear stage 24): harder than World 4 (narrow start, fast blocks). Caves are **dark**: only the top of the tower is lit by a flickering lantern. **Tremors** (a gust with a shake) rock the tower. **Lava blocks** (glowing, cracked, with rising embers) melt the two blocks under them when they land: the melted blocks run down in glowing drips, the lava block sinks onto what is left and cools, the tower ends one block lower than before, and the base is never melted. Lava is seeded by height like the other hazards. The stage picker, stars and saves handle any number of worlds.

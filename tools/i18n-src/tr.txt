@@ -549,3 +549,7 @@
 549|Kazandın {a} – {b}
 550|Galibiyet {w} · Mağlubiyet {l}
 551|Arkadaş yarışların burada görünecek.
+552|Mağaralar
+553|Lav! Düşerse altındaki 2 bloğu eritir.
+554|ERİDİ! -{n}
+555|SARSINTI!
