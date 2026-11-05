@@ -482,3 +482,15 @@
 482|Amigo {n}
 483|Pega el reto de un amigo
 484|Pega el enlace o código que te envió tu amigo. Juegas la misma partida y ves cómo crece su torre.
+485|Cerrar
+486|Reto de amigos
+487|¿Tienes un enlace de un amigo?
+488|ENLACE
+489|Aún no hay partida que enviar. ¡Juega una primero!
+490|Juega Clásico, Contrarreloj, Vidas o Peligro.
+491|Compite con un amigo
+492|Envía una partida a un amigo o juega la que te enviaron.
+493|Enviar mi última partida
+494|Lo abre y juega la misma partida, compitiendo con tu torre.
+495|Al terminar la partida, toca Compartir y envía el enlace a tu amigo.
+496|Tu última partida: <b>{n}</b> en {mode}

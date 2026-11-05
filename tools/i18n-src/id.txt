@@ -482,3 +482,15 @@
 482|Teman {n}
 483|Tempel tantangan teman
 484|Tempel tautan atau kode yang dikirim temanmu. Kamu memainkan ronde yang sama dan melihat menaranya tumbuh.
+485|Tutup
+486|Balapan teman
+487|Punya tautan dari teman?
+488|TAUTAN
+489|Belum ada ronde untuk dikirim. Mainkan satu dulu!
+490|Mainkan Klasik, Berwaktu, Nyawa, atau Bahaya.
+491|Balapan dengan teman
+492|Kirim satu ronde ke teman, atau mainkan ronde yang mereka kirim.
+493|Kirim ronde terakhirku
+494|Mereka membukanya dan memainkan ronde yang sama, beradu dengan menaramu.
+495|Setelah ronde selesai, ketuk Bagikan dan kirim tautannya ke temanmu.
+496|Ronde terakhirmu: <b>{n}</b> di {mode}

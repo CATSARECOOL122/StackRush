@@ -482,3 +482,15 @@
 482|Arkadaş {n}
 483|Arkadaşının meydan okumasını yapıştır
 484|Arkadaşının gönderdiği bağlantıyı veya kodu yapıştır. Aynı turu oynarsın ve onun kulesinin büyüdüğünü görürsün.
+485|Kapat
+486|Arkadaş yarışı
+487|Arkadaşından bir bağlantı mı var?
+488|BAĞLANTI
+489|Gönderecek tur yok. Önce bir tur oyna!
+490|Klasik, Zamanlı, Can veya Tehlike modunu oyna.
+491|Arkadaşınla yarış
+492|Arkadaşına bir tur gönder ya da onun gönderdiğini oyna.
+493|Son turumu gönder
+494|O bağlantıyı açar ve aynı turu senin kulenle yarışarak oynar.
+495|Tur bitince Paylaş'a dokun ve bağlantıyı arkadaşına gönder.
+496|Son turun: {mode} modunda <b>{n}</b>

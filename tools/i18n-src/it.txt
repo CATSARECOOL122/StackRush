@@ -482,3 +482,15 @@
 482|Amico {n}
 483|Incolla la sfida di un amico
 484|Incolla il link o il codice che ti ha mandato il tuo amico. Giochi la stessa partita e vedi crescere la sua torre.
+485|Chiudi
+486|Sfida un amico
+487|Hai un link da un amico?
+488|LINK
+489|Nessuna partita da inviare. Gioca prima una partita!
+490|Gioca in Classica, A tempo, Vite o Pericolo.
+491|Sfida un amico
+492|Invia una partita a un amico o gioca quella che ti ha mandato.
+493|Invia la mia ultima partita
+494|Lo apre e gioca la stessa partita, sfidando la tua torre.
+495|A fine partita tocca Condividi e invia il link al tuo amico.
+496|La tua ultima partita: <b>{n}</b> in {mode}

@@ -482,3 +482,15 @@
 482|Freund {n}
 483|Herausforderung eines Freundes einfügen
 484|Füge den Link oder Code ein, den dein Freund dir geschickt hat. Du spielst dieselbe Runde und siehst seinen Turm wachsen.
+485|Schließen
+486|Freunde-Duell
+487|Hast du einen Link von einem Freund?
+488|LINK
+489|Noch keine Runde zum Senden. Spiel zuerst eine!
+490|Spiele Klassik, Zeitrausch, Leben oder Gefahr.
+491|Gegen einen Freund antreten
+492|Schick einem Freund eine Runde oder spiel eine, die er dir geschickt hat.
+493|Meine letzte Runde senden
+494|Er öffnet ihn und spielt dieselbe Runde gegen deinen Turm.
+495|Tippe nach der Runde auf Teilen und schick deinem Freund den Link.
+496|Deine letzte Runde: <b>{n}</b> in {mode}

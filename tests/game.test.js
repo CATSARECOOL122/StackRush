@@ -129,9 +129,9 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
-['screens: modes (7), awards (26 + 6 stats), share card (1080x1350)', async(e,L)=>{
+['screens: modes (7 + the Friend race tile), awards (26 + 6 stats), share card (1080x1350)', async(e,L)=>{
   const p=await L.open(e);
-  await p.click('#openModes'); await p.waitForTimeout(250); assert.equal(await p.locator('.mode').count(),7); await p.click('#closeModes');
+  await p.click('#openModes'); await p.waitForTimeout(250); assert.equal(await p.locator('.mode').count(),8); await p.click('#closeModes');
   await p.click('#openAwards'); await p.waitForTimeout(250); assert.equal(await p.locator('.aw').count(),26); assert.equal(await p.locator('#aStats div').count(),6); await p.click('#closeAwards');
   const s=await p.evaluate(()=>{ const r=__sr.shareInfo(); return {w:r.w,h:r.h}; });
   assert.deepEqual(s,{w:1080,h:1350});

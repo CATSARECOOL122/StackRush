@@ -180,6 +180,9 @@
   .shbg{flex:1;min-height:24px;cursor:pointer}
   .shcard{background:linear-gradient(180deg,#1d1245,#150d33);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;padding:16px 16px calc(env(safe-area-inset-bottom) + 16px);width:min(520px,100%);align-self:center;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 -20px 50px #0009}
   .shcard h2{margin:0;letter-spacing:3px;font-size:16px}
+  .fsteps{margin:0;padding:0 0 0 22px;text-align:left;font-size:14px;line-height:1.45;color:#ddd;width:100%}
+  .fsteps li{margin:4px 0}
+  .shcard>.btn{width:100%}
   #boostList{display:flex;flex-direction:column;gap:8px;width:100%}
   .bpick{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:8px 12px;border-radius:16px;border:2px solid var(--line);background:#ffffff10;color:#fff;font:inherit;text-align:left;cursor:pointer}
   .bpick.on{border-color:var(--gold);background:#ffc83d1c}
@@ -580,7 +583,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 
   <section id="modes" class="screen hidden" aria-label="Choose a mode">
     <div class="topbar"><button class="back" id="closeModes" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>GAME MODES</h2></div>
-    <div class="sbody" style="justify-content:flex-start"><div id="mGrid"></div><button id="friendBtn" class="btn" style="width:min(400px,100%)"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg> Paste a friend's challenge</button></div>
+    <div class="sbody" style="justify-content:flex-start"><div id="mGrid"></div></div>
   </section>
 
   <section id="stages" class="screen hidden" aria-label="Campaign">
@@ -692,6 +695,23 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <input id="udInput" class="hidden" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="SR-XXXX" aria-label="Purchase code">
       <p class="lead hidden" id="udMsg" role="status"></p>
       <div class="row"><button id="udCopy" class="btn hidden">Copy code</button><button id="udOk" class="btn primary">Done</button></div>
+    </div>
+  </section>
+
+  <section id="fsheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Race a friend">
+    <div class="shbg" id="fsBg"></div>
+    <div class="shcard">
+      <h2>Race a friend</h2>
+      <ol class="fsteps">
+        <li>Play Classic, Timed, Lives or Hazard.</li>
+        <li>When the round ends, tap Share and send your friend the link.</li>
+        <li>They open it and play the same round, racing your tower.</li>
+      </ol>
+      <p class="lead" id="fsLast"></p>
+      <button id="fsShare" class="btn primary hidden"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg> <span id="fsShareT"></span></button>
+      <p class="lead">Got a link from a friend?</p>
+      <button id="fsPaste" class="btn">Paste a friend's challenge</button>
+      <button id="fsClose" class="btn">Close</button>
     </div>
   </section>
 
@@ -1669,6 +1689,23 @@ function challengeCode(){
 }
 const challengeOk=()=>CH_MODES.includes(mode) && !boosted && !assisted && !soft() && score>0;
 const challengeLink=()=>location.origin+location.pathname+'?c='+challengeCode();
+/* The "Race a friend" tile: remembers the link of the last round that can be raced, so it can be sent from the Game modes screen too. */
+function rememberChallenge(){ if(challengeOk()){ try{ S.lastChal={mode,score,link:challengeLink()}; save(); }catch(e){} } }
+function openFriend(){
+  const lc=S.lastChal, ok=lc && MODES[lc.mode] && typeof lc.link==='string' && parseChallenge((lc.link.split('?c=')[1]||''));
+  $('fsLast').innerHTML=ok?tr('Your last round: <b>{n}</b> in {mode}',{n:lc.score,mode:tr(MODES[lc.mode].name)}):tr('No round to send yet. Play one first!');
+  $('fsShare').classList.toggle('hidden',!ok); $('fsShareT').textContent=tr('Send my last round');
+  $('fsheet').classList.remove('hidden'); soon(syncBack);
+}
+function closeFriend(){ $('fsheet').classList.add('hidden'); soon(syncBack); }
+async function shareLast(){
+  const lc=S.lastChal; if(!lc) return;
+  const msg=tr('I scored {n} in Stack Rush ({mode})! Can you beat it?',{n:lc.score,mode:tr(MODES[lc.mode].name)});
+  try{
+    if(navigator.share){ await navigator.share({text:msg,url:lc.link}); }
+    else { await navigator.clipboard.writeText(lc.link); toast(tr('Challenge link copied')); }
+  }catch(e){ if(e && e.name==='AbortError') return; try{ await navigator.clipboard.writeText(lc.link); toast(tr('Challenge link copied')); }catch(_){ toast(tr('Could not share')); } }
+}
 function openChallenge(ch){
   offered=ch; hideAll(); $('chal').classList.remove('hidden');
   $('chScore').textContent=ch.score; $('chText').textContent=tr('A friend scored {n} in {mode}. Can you beat it?',{n:ch.score,mode:tr(MODES[ch.mode].name)});
@@ -1979,6 +2016,7 @@ function showOver(r){
   $('oScore').classList.toggle('stars',!!r.win);
   $('oNew').classList.toggle('hidden',!r.newBest);
   const h=stack.length-1;
+  rememberChallenge();
   const livesLeft=clamp(lives,1,3);
   if(camp) $('oBest').innerHTML = r.win ? `${goalLabel(g)} ${I('check','ic-green')} · ${livesLeft===1?tr('<b>1</b> life left'):tr('<b>{n}</b> lives left',{n:livesLeft})}` : tr('Goal: {goal} · you got <b>{a}/{b}</b>',{goal:goalLabel(g),a:Math.min(goalVal(g),g[1]),b:g[1]});
   else if(mode==='daily') $('oBest').innerHTML=tr("Today's best <b>{n}</b>",{n:S.twist.best||0})+' · '+(S.twist.done?I('check-circle','ic-green')+' '+tr('twist complete'):tr('goal <b>{n}</b>',{n:CFG.twistGoal}));
@@ -2534,7 +2572,7 @@ async function shareScore(){
 }
 
 /* ================= Menu / UI ================= */
-const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet'];
+const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet'];
 function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
@@ -2602,7 +2640,8 @@ function showModes(){
       ? `<button class="mode tile" data-mode="${id}"><i>${I(m.icon)}</i><b>${tr(m.name)}</b><span>${desc}</span><em>${em.replace('<br>',' ')}</em></button>`
       : `<button class="mode${extra}" data-mode="${id}"><i>${I(m.icon)}</i><div><b>${tr(m.name)}</b><span>${desc}</span></div><em>${em}</em></button>`;
   };
-  $('mGrid').innerHTML = feat.map(id=>card(id,'feat')).join('') + `<div class="tiles">${tiles.map(id=>card(id,'tile')).join('')}</div>`; stagger('#mGrid .mode');
+  const fr=`<button class="mode tile" data-mode="friend"><i>${I('share')}</i><b>${tr('Friend race')}</b><span>${tr('Send a round to a friend, or play one they sent you.')}</span><em>${tr('LINK')}</em></button>`;
+  $('mGrid').innerHTML = feat.map(id=>card(id,'feat')).join('') + `<div class="tiles">${tiles.map(id=>card(id,'tile')).join('')}${fr}</div>`; stagger('#mGrid .mode');
 }
 function showStages(){
   hideAll(); $('stages').classList.remove('hidden');
@@ -2987,7 +3026,7 @@ $('csBuy').addEventListener('click',e=>{ const b=e.target.closest('[data-pack]')
    the browser's own and the app can close. */
 function soon(f){ if(typeof queueMicrotask==='function') queueMicrotask(f); else setTimeout(f,0); }       // right after the current handler finishes, before anything else can happen
 let backState='off', backWant=false, backAfter=null;          // off: no sentinel · armed: one is in the history · popping: we are removing it ourselves
-const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
+const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
 function armBack(){
   if(backState==='off'){ try{ history.pushState({sr:1},''); backState='armed'; }catch(e){} }
   else if(backState==='popping') backWant=true;                // (arm again as soon as our own removal is done)
@@ -3001,6 +3040,7 @@ function handleBack(){
   if(open('boosts')){ closeBoosts(); return; }
   if(open('power')){ closePower(); return; }
   if(open('udlg')){ closeUnlockDlg(); return; }
+  if(open('fsheet')){ closeFriend(); return; }
   if(open('coinsSheet')){ closeCoins(); return; }
   if(state==='playing'){ if(paused) tap('resume'); else pause(); return; }
   for(const [scr,btn] of [['modes','closeModes'],['stages','closeStages'],['themes','closeThemes'],['museum','closeMuseum'],['awards','closeAwards'],['langs','closeLangs'],['settings','closeSettings'],['chal','chNo'],['over','toMenu']]) if(open(scr)){ tap(btn); return; }
@@ -3055,7 +3095,8 @@ $('skipTut').onclick=()=>{ sfx.tap(); tutFinish(false); };
 $('closeModes').onclick=()=>{ sfx.tap(); if(state==='over'){ hideAll(); $('over').classList.remove('hidden'); } else showMenu(); };
 $('mGrid').addEventListener('click',e=>{
   const b=e.target.closest('[data-mode]'); if(!b) return; sfx.tap();
-  if(b.dataset.mode==='campaign'){ stagesFrom='modes'; showStages(); } else startMode(b.dataset.mode);
+  if(b.dataset.mode==='friend') openFriend();
+  else if(b.dataset.mode==='campaign'){ stagesFrom='modes'; showStages(); } else startMode(b.dataset.mode);
 });
 $('sGrid').addEventListener('click',e=>{
   const b=e.target.closest('[data-stage]'); if(!b) return;
@@ -3119,7 +3160,9 @@ $('endZen').onclick=()=>{ if(state==='playing' && mode==='zen') endRun('zen'); }
 }
 $('powerList').addEventListener('click',e=>{ const b=e.target.closest('[data-power]'); if(!b) return; if(b.getAttribute('aria-disabled')==='true'){ sfx.tap(); return; } usePower(b.dataset.power); });
 $('powerBg').onclick=$('powerDone').onclick=()=>{ sfx.tap(); closePower(); };
-$('friendBtn').onclick=()=>{ sfx.tap(); openUnlockDlg('friend'); };
+$('fsPaste').onclick=()=>{ sfx.tap(); closeFriend(); openUnlockDlg('friend'); };
+$('fsShare').onclick=()=>{ sfx.tap(); shareLast(); };
+$('fsClose').onclick=$('fsBg').onclick=()=>{ sfx.tap(); closeFriend(); };
 $('udBg').onclick=()=>{ sfx.tap(); closeUnlockDlg(); };
 $('udOk').onclick=()=>{ sfx.tap(); submitUnlockDlg(); };
 $('udCopy').onclick=()=>{ sfx.tap(); copyUnlock(); };

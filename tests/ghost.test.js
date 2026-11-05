@@ -28,11 +28,25 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 ['ghost race: Paste a friend\'s challenge (on the game modes screen) takes a whole link, a ?c= part or the bare code; junk is refused', async(e,L)=>{
-  const p=await L.open(e); await quiet(p); await p.click('#openModes'); await p.click('#friendBtn'); assert.ok(await p.isVisible('#udInput'));
+  const p=await L.open(e); await quiet(p); await p.click('#openModes'); await p.click('#mGrid [data-mode=friend]'); await p.click('#fsPaste'); assert.ok(await p.isVisible('#udInput'));
   await p.fill('#udInput','nonsense'); await p.click('#udOk'); assert.ok(await p.isVisible('#udlg')); assert.match(await p.textContent('#udMsg'),/didn't work/);
   const code='lives.12.77'; for(const v of [`https://catsarecool122.github.io/StackRush/?c=${code}`,`?c=${code}`,code,`  see this: https://x.example/index.html?c=${code}&z=1  `]){
-    await p.fill('#udInput',v); await p.click('#udOk'); await p.waitForTimeout(150); assert.ok(await p.isVisible('#chal'),v); assert.equal(await p.textContent('#chScore'),'12'); await p.click('#chNo'); await p.click('#openModes'); await p.click('#friendBtn');
+    await p.fill('#udInput',v); await p.click('#udOk'); await p.waitForTimeout(150); assert.ok(await p.isVisible('#chal'),v); assert.equal(await p.textContent('#chScore'),'12'); await p.click('#chNo'); await p.click('#openModes'); await p.click('#mGrid [data-mode=friend]'); await p.click('#fsPaste');
   }
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+['friend race tile: sits beside Zen, opens a how-to sheet; Send is offered only after a raceable round; Back closes it', async(e,L)=>{
+  const p=await L.open(e); await quiet(p); await p.click('#openModes');
+  assert.deepEqual(await p.locator('#mGrid .tiles .mode').evaluateAll(a=>a.map(x=>x.dataset.mode).slice(-2)),['zen','friend'],'the tile pairs with Zen');
+  await p.click('#mGrid [data-mode=friend]'); assert.ok(await p.isVisible('#fsheet'));
+  assert.equal(await p.isVisible('#fsShare'),false,'nothing to send yet'); assert.match(await p.textContent('#fsLast'),/No round to send yet/);
+  await p.evaluate(()=>history.back()); await p.waitForTimeout(300); assert.equal(await p.isVisible('#fsheet'),false,'Back closes it'); assert.ok(await p.isVisible('#modes'));
+  await p.evaluate(()=>{ __sr.startMode('classic'); }); await p.waitForTimeout(100); await L.perfects(p,5); await L.miss(p); await p.waitForTimeout(1400);
+  await p.evaluate(()=>{ window.__shared=null; navigator.share=async d=>{ window.__shared=d; }; });
+  await p.click('#toMenu').catch(()=>{}); await p.waitForTimeout(300);
+  await p.evaluate(()=>{ __sr.showModes(); }); await p.click('#mGrid [data-mode=friend]');
+  assert.ok(await p.isVisible('#fsShare'),'a raceable round can be sent'); { await p.click('#fsShare'); const d=await p.evaluate(()=>window.__shared); assert.ok(d && /\?c=classic\./.test(d.url),'shares a challenge link'); assert.match(await p.textContent('#fsLast'),/Your last round/); }
+  await p.click('#fsPaste'); assert.ok(await p.isVisible('#udInput')); assert.equal(await p.isVisible('#fsheet'),false);
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 ];

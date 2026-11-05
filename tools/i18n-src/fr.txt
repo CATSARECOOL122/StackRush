@@ -482,3 +482,15 @@
 482|Ami {n}
 483|Coller le défi d'un ami
 484|Collez le lien ou le code envoyé par votre ami. Vous jouez la même partie et voyez sa tour monter.
+485|Fermer
+486|Défi ami
+487|Un lien reçu d'un ami ?
+488|LIEN
+489|Aucune partie à envoyer. Jouez-en une d'abord !
+490|Jouez en Classique, Chrono, Vies ou Danger.
+491|Défier un ami
+492|Envoyez une partie à un ami, ou jouez celle qu'il vous a envoyée.
+493|Envoyer ma dernière partie
+494|Il l'ouvre et joue la même partie, face à votre tour.
+495|À la fin de la partie, touchez Partager et envoyez le lien à votre ami.
+496|Votre dernière partie : <b>{n}</b> en {mode}

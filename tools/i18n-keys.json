@@ -482,5 +482,17 @@
  "Weekly missions",
  "Friend {n}",
  "Paste a friend's challenge",
- "Paste the link or code your friend sent you. You play the same round and see their tower build."
+ "Paste the link or code your friend sent you. You play the same round and see their tower build.",
+ "Close",
+ "Friend race",
+ "Got a link from a friend?",
+ "LINK",
+ "No round to send yet. Play one first!",
+ "Play Classic, Timed, Lives or Hazard.",
+ "Race a friend",
+ "Send a round to a friend, or play one they sent you.",
+ "Send my last round",
+ "They open it and play the same round, racing your tower.",
+ "When the round ends, tap Share and send your friend the link.",
+ "Your last round: <b>{n}</b> in {mode}"
 ]
