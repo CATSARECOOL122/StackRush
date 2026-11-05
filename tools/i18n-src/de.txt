@@ -576,3 +576,34 @@
 576|Titan
 577|TITAN!
 578|Dein Block schrumpft 10 Drops lang nicht.
+579|Amethyst
+580|Auszeichnung
+581|Boss-Jäger
+582|Höhlentaucher
+583|Schließe ganz Welt 5 ab
+584|Schließe ganz Welt 6 ab
+585|Schließe ganz Welt 7 ab
+586|Sammle 50 Reliquien
+587|Kern-Eroberer
+588|Kristallhöhle
+589|Kristallmeister
+590|Besiege einen Boss, ohne ein Leben zu verlieren
+591|Besiege alle sieben Bosse
+592|Erhalte 3 Sterne in jeder Stufe der Welten 1 bis 4
+593|Erhalte 3 Sterne in jeder Stufe von Welt 5
+594|Verdiene die Auszeichnung „{name}“
+595|Makelloser Start
+596|Glühwurm
+597|Glühwurm-Führer
+598|Obsidian
+599|SELTEN
+600|Reliquienjäger
+601|Schaltet frei: {name}
+602|Unberührbar
+603|Krone der Leere
+604|Höhlenecho
+605|Lofi Chill
+606|Lofi Regen
+607|Code kopiert. Dein Freund fügt ihn im Freunde-Duell ein.
+608|Meinen Code kopieren
+609|Dein Duell-Code:

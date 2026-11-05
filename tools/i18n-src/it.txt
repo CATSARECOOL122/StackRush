@@ -576,3 +576,34 @@
 576|Titano
 577|TITANO!
 578|Il tuo blocco non si restringe per 10 cadute.
+579|Ametista
+580|Premio
+581|Cacciatore di boss
+582|Esploratore di caverne
+583|Completa tutto il Mondo 5
+584|Completa tutto il Mondo 6
+585|Completa tutto il Mondo 7
+586|Raccogli 50 reliquie
+587|Conquistatore del nucleo
+588|Caverna di cristallo
+589|Maestro del cristallo
+590|Sconfiggi un boss senza perdere una vita
+591|Sconfiggi tutti e sette i boss
+592|Ottieni 3 stelle in ogni livello dei Mondi da 1 a 4
+593|Ottieni 3 stelle in ogni livello del Mondo 5
+594|Ottieni il premio «{name}»
+595|Inizio perfetto
+596|Lucciola
+597|Guida delle lucciole
+598|Ossidiana
+599|RARO
+600|Cacciatore di reliquie
+601|Sblocca: {name}
+602|Intoccabile
+603|Corona del vuoto
+604|Eco di caverna
+605|Lofi relax
+606|Lofi pioggia
+607|Codice copiato. Il tuo amico lo incolla in Sfida un amico.
+608|Copia il mio codice
+609|Il tuo codice sfida:

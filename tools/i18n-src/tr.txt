@@ -576,3 +576,34 @@
 576|Titan
 577|TİTAN!
 578|Bloğun 10 bırakış boyunca küçülmez.
+579|Ametist
+580|Ödül
+581|Patron Avcısı
+582|Mağara Dalgıcı
+583|Dünya 5'in hepsini bitir
+584|Dünya 6'nın hepsini bitir
+585|Dünya 7'nin hepsini bitir
+586|50 kalıntı topla
+587|Çekirdek Fatihi
+588|Kristal Mağara
+589|Kristal Ustası
+590|Can kaybetmeden bir patronu yen
+591|Yedi patronu da yen
+592|Dünya 1–4'teki her aşamada 3 yıldız kazan
+593|Dünya 5'teki her aşamada 3 yıldız kazan
+594|“{name}” ödülünü kazan
+595|Kusursuz Başlangıç
+596|Parıltılı Kurt
+597|Parıltı Rehberi
+598|Obsidyen
+599|NADİR
+600|Kalıntı Avcısı
+601|Açar: {name}
+602|Dokunulmaz
+603|Boşluk Tacı
+604|Mağara Yankısı
+605|Lofi Sakin
+606|Lofi Yağmur
+607|Kod kopyalandı. Arkadaşın Arkadaş yarışı'na yapıştırır.
+608|Kodumu kopyala
+609|Yarış kodun:

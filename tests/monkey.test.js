@@ -81,7 +81,7 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false,iphone=fal
         for(const [k,n] of Object.entries(S.shop.boosts)) if(!Number.isInteger(n)||n<0||n>999) out.push(`boost ${k} count is ${n}`);
         if(S.shop.pick.length>2||new Set(S.shop.pick).size!==S.shop.pick.length||S.shop.pick.some(k=>!(k in S.shop.boosts))) out.push('boost picks '+JSON.stringify(S.shop.pick));
         if(!Number.isFinite(sr.tsc)||sr.tsc<0||sr.tsc>1) out.push('game time scale '+sr.tsc);
-        if(sr.held.length>2||sr.held.some(k=>!(S.shop.boosts[k]>0))) out.push('boosts in hand '+JSON.stringify(sr.held));
+        if(sr.held.filter(k=>!sr.BOOSTS[k].camp).length>2||sr.held.some(k=>!(S.shop.boosts[k]>0))) out.push('boosts in hand '+JSON.stringify(sr.held));
         if(!['off','slowing','open','resuming'].includes(sr.powerPhase)) out.push('boost menu phase '+sr.powerPhase);
         if(sr.state!=='playing' && (sr.powerPhase!=='off' || document.getElementById('power').offsetParent)) out.push('the boost menu is still up outside a round ('+sr.state+')');
         for(const [k,v] of Object.entries(S.boostBests||{})) if(!Number.isFinite(v)||v<0) out.push(`boostBests.${k} is ${v}`);

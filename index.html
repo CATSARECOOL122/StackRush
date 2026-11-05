@@ -318,6 +318,9 @@
   .nb.dot::after{content:'';position:absolute;top:2px;left:calc(50% + 8px);width:11px;height:11px;border-radius:50%;background:#ff4d6d;border:2px solid #0a0620;box-shadow:0 0 8px #ff4d6d}
   .wkline{width:100%;margin-top:8px;text-align:left;background:none;border:0;color:#fff;font:inherit;font-weight:800;font-size:14px;padding:6px 0 0;cursor:pointer;pointer-events:auto}
   .aw{display:flex;gap:12px;align-items:center;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+  .aw.rare{border-color:#ffc83d99;background:linear-gradient(180deg,#ffc83d1c,#ffc83d08)}
+  .aw u{text-decoration:none;font-size:10px;letter-spacing:1.5px;color:#2a1a00;background:linear-gradient(180deg,#ffd36b,#ffb23d);border-radius:6px;padding:1px 5px;margin-left:6px;vertical-align:1px}
+  .aw small{display:block;font-size:11px;color:var(--gold);font-weight:800;margin-top:2px}
   .aw i{font-style:normal;color:#9a9ab5;opacity:.6;display:grid;place-items:center;width:34px;height:34px;flex:none}
   .aw i .ic{width:24px;height:24px}
   .aw.on{border-color:var(--gold)}
@@ -660,6 +663,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <button id="overModes" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-gamepad"/></svg></i>Modes</button>
       <button id="overThemes" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-bag"/></svg></i>Shop</button>
       <button id="share" class="ibtn"><i><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg></i>Share</button>
+      <button id="copyCode" class="ibtn hidden"><i><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg></i>Copy code</button>
     </div>
   </div></section>
 
@@ -757,6 +761,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <div id="fsCatch"></div>
       <button id="fsStart" class="btn primary big">Start my round</button>
       <p class="lead" id="fsLast"></p>
+      <button id="fsCode" class="btn hidden"><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg> <span id="fsCodeT"></span></button>
       <button id="fsShare" class="btn hidden"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg> <span id="fsShareT"></span></button>
       <div id="fsHist"></div>
       <p class="lead">Got a link from a friend?</p>
@@ -857,7 +862,7 @@ const SHOP = {
     frost:{name:'Frost',coins:500,h0:178,hr:60,hs:.3,s:88,l:64} },
   scene:{ auto:{name:'Theme scene',free:1} },
   sfx:{ classic:{name:'Classic',free:1}, retro:{name:'Retro',coins:300}, soft:{name:'Soft',coins:300} },
-  music:{ classic:{name:'Classic',free:1}, chill:{name:'Chill',coins:400}, chiptune:{name:'Chiptune',coins:400} },
+  music:{ classic:{name:'Classic',free:1}, chill:{name:'Chill',coins:400}, chiptune:{name:'Chiptune',coins:400}, lofi:{name:'Lofi Chill',coins:600}, lofirain:{name:'Lofi Rain',coins:600}, cave:{name:'Cave Echo',coins:600} },
   fx:{ sparkle:{name:'Sparkle',free:1}, confetti:{name:'Confetti',coins:400}, stars:{name:'Stars',coins:500} },
   topper:{ none:{name:'No topper',free:1}, black:{name:'Black cat',coins:600,fur:'#2b2b36',eye:'#e9ff7a'}, orange:{name:'Orange cat',coins:600,fur:'#f2994a',belly:'#ffe5c4',tab:'#d8742a'},
            siamese:{name:'Siamese cat',coins:700,fur:'#f3e4cc',pts:'#5b4636',mask:1,belly:'#fff7ea',eye:'#62b4ff'}, tuxedo:{name:'Tuxedo cat',coins:700,fur:'#2b2b36',belly:'#ffffff',paws:'#ffffff',eye:'#e9ff7a'},
@@ -929,6 +934,11 @@ const THEMES = {
   deepsea:{name:'Deep Sea',unlock:{t:'level',n:15},bg:['#00060f','#021b3a','#06518c'],sun:'rgba(40,200,255,.35)',hill:['#02152e','#010c1c'],ground:'#010812',h0:195,hr:50,hs:.3,s:90,l:58,glow:true,amb:{type:'fireflies',hue:190,n:34}},
   winter:{name:'Winter Night',unlock:{t:'coins',n:800},bg:['#0b1330','#27407a','#a9c4f0'],sun:'rgba(255,230,180,.55)',hill:['#e8f1ff','#c8d9f2'],ground:'#dbe7f7',h0:200,hr:40,hs:.3,s:70,l:76,amb:{type:'snow',n:60}},
   flower:{name:'Flower Field',unlock:{t:'coins',n:1400},bg:['#4aa8e8','#9fe0c0','#ffc6dc'],sun:'rgba(255,244,180,.85)',hill:['#6ccf7a','#47b162'],ground:'#2f8f4b',h0:325,hr:70,hs:.35,s:88,l:66,amb:{type:'blossom',n:22}},
+  crystal:{name:'Crystal Cavern',unlock:{t:'ach',id:'r_cave'},bg:['#0b1030','#1f3f7a','#4fd0e0'],sun:'rgba(160,240,255,.45)',hill:['#16275a','#0e1a40'],ground:'#0a1230',h0:185,hr:80,hs:.3,s:85,l:62,glow:true,amb:{type:'fireflies',hue:185,n:30}},
+  glowworm:{name:'Glowworm',unlock:{t:'ach',id:'r_flaw5'},bg:['#020a08','#05261c','#0d4a34'],sun:'rgba(120,255,170,.3)',hill:['#04170f','#020d09'],ground:'#010806',h0:140,hr:50,hs:.3,s:90,l:56,glow:true,amb:{type:'fireflies',hue:130,n:40}},
+  amethyst:{name:'Amethyst',unlock:{t:'ach',id:'r_crystal'},bg:['#150a2e','#4b1f86','#c08bff'],sun:'rgba(230,200,255,.5)',hill:['#2c1258','#1d0b3c'],ground:'#12062a',h0:280,hr:60,hs:.3,s:80,l:66,glow:true,amb:{type:'fireflies',hue:285,n:30}},
+  obsidian:{name:'Obsidian',unlock:{t:'ach',id:'r_core'},bg:['#050505','#1a0f0f','#3a1208'],sun:'rgba(255,120,40,.4)',hill:['#0e0a0a','#070505'],ground:'#030202',h0:12,hr:40,hs:.3,s:95,l:55,glow:true,amb:{type:'embers',hue:15,n:34}},
+  voidcrown:{name:'Void Crown',unlock:{t:'ach',id:'stars72'},bg:['#000000','#0a0420','#1d0a45'],sun:'rgba(255,215,120,.45)',hill:['#06021a','#030110'],ground:'#010008',h0:45,hr:30,hs:.3,s:95,l:58,glow:true,stars:2},
   gold:{name:'Gold Rush',unlock:{t:'iap',price:'$1.00'},bg:['#0b0b0b','#1e1709','#3d2c0b'],sun:'rgba(255,205,90,.4)',hill:['#251b08','#170f04'],ground:'#0d0902',h0:38,hr:16,hs:.3,s:92,l:56,glow:true,amb:{type:'fireflies',hue:45,n:26}},
   galaxy:{name:'Galaxy',unlock:{t:'iap',price:'$1.00'},bg:['#02010a','#150a37','#2c1062'],sun:'rgba(175,115,255,.5)',hill:['#1b0c3f','#0f0626'],ground:'#080321',h0:250,hr:90,hs:.3,s:85,l:62,stars:2},
   cyber:{name:'Cyber City',unlock:{t:'iap',price:'$1.00'},bg:['#050510','#0a1a3a','#1b0a4a'],sun:'rgba(0,255,220,.35)',hill:['#0a0f2a','#060a1c'],ground:'#04060f',h0:170,hr:140,hs:.35,s:100,l:55,glow:true,amb:{type:'matrix',n:34}}
@@ -974,15 +984,23 @@ const ACH = [
   {id:'w3',icon:'map',name:'Glue Gunner',desc:'Clear all of World 3',coins:60,test:()=>cleared(13,18)},
   {id:'bomb100',icon:'bomb',name:'Demolition Expert',desc:'Dodge 100 bombs total',coins:80,test:()=>S.dodged>=100},
   {id:'shield10',icon:'shield',name:'Fortress',desc:'Use 10 shields',coins:40,test:()=>S.shields>=10},
-  {id:'stars72',icon:'star',name:'Every Star',desc:'Earn every campaign star',coins:300,test:()=>starsTotal()>=STAGES.length*3},
+  {id:'stars72',icon:'star',name:'Every Star',desc:'Earn every campaign star',coins:1000,rare:1,grant:{theme:'voidcrown'},test:()=>starsTotal()>=STAGES.length*3},
   {id:'plays100',icon:'play',name:'Regular',desc:'Finish 100 rounds',coins:50,test:()=>S.played>=100},
   {id:'friend',icon:'trophy',name:'Friendly Rivalry',desc:'Beat a friend in a friend race',coins:40,test:()=>S.friendWins>=1},
+  {id:'r_cave',icon:'map',name:'Cave Diver',desc:'Clear all of World 5',coins:300,rare:1,grant:{theme:'crystal'},test:()=>cleared(25,30)},
+  {id:'r_crystal',icon:'gem',name:'Crystal Master',desc:'Clear all of World 6',coins:400,rare:1,grant:{theme:'amethyst'},test:()=>cleared(31,36)},
+  {id:'r_core',icon:'flame',name:'Core Conqueror',desc:'Clear all of World 7',coins:600,rare:1,grant:{theme:'obsidian'},test:()=>cleared(37,42)},
+  {id:'r_flaw5',icon:'star',name:'Glowworm Guide',desc:'Earn 3 stars on every World 5 stage',coins:500,rare:1,grant:{theme:'glowworm'},test:()=>{ for(let n=25;n<=30;n++) if(!(S.camp&&S.camp[n]>=3)) return false; return true; }},
+  {id:'r_flaw',icon:'award',name:'Flawless Start',desc:'Earn 3 stars on every stage of Worlds 1 to 4',coins:400,rare:1,grant:{item:['fx','stars']},test:()=>{ for(let n=1;n<=24;n++) if(!(S.camp&&S.camp[n]>=3)) return false; return true; }},
+  {id:'r_untouch',icon:'shield',name:'Untouchable',desc:'Defeat a boss without losing a life',coins:350,rare:1,grant:{item:['topper','star']},test:()=>S.untouch>=1},
+  {id:'r_boss7',icon:'crown',name:'Boss Hunter',desc:'Defeat all seven bosses',coins:500,rare:1,grant:{item:['topper','flag']},test:()=>[6,12,18,24,30,36,42].every(n=>S.camp&&S.camp[n]>=1)},
+  {id:'r_relic',icon:'gem',name:'Relic Hunter',desc:'Collect 50 relics',coins:300,rare:1,grant:{item:['fx','confetti']},test:()=>S.relics>=50},
   {id:'duel100',icon:'crown',name:'Century Rival',desc:'Beat a friend with 100 points or more, no boosts',coins:80,test:()=>S.friendBig>=1}
 ];
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,relics:0,friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -997,7 +1015,7 @@ function cleanSave(raw){
   const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
   const num=(v,max=1e9)=>{ v=Math.floor(Number(v)); return Number.isFinite(v)?Math.max(0,Math.min(max,v)):0; };
   const dateOk=v=>typeof v==='string' && /^\d{4}-\d{2}-\d{2}$/.test(v);
-  for(const k of ['best','coins','blocks','perfects','played','revives','dodged','shields','bestCombo','maxHeight','streak','twistDone','friendWins','friendBig','relics']) if(own(raw,k)) out[k]=num(raw[k]);
+  for(const k of ['best','coins','blocks','perfects','played','revives','dodged','shields','bestCombo','maxHeight','streak','twistDone','friendWins','friendBig','relics','untouch']) if(own(raw,k)) out[k]=num(raw[k]);
   if(own(raw,'fsHint')) out.fsHint=num(raw.fsHint,99);
   if(own(raw,'hintPow')) out.hintPow=num(raw.hintPow,9);
   /* the last raceable round (so Friend race can still send it after an update) and the friend-race history: checked by shape, because the challenge parser is not ready yet */
@@ -1325,7 +1343,11 @@ function mnote(f,d,type,v,when){
 const MUSIC={
   classic:{bpm:86,prog:[0,-4,3,-2],pent:[0,3,5,7,10],pad:'triangle',pluck:'sine',padV:.045,pluckV:.04,act:[.45,.8]},
   chill:{bpm:66,prog:[0,-5,-3,-7],pent:[0,3,5,7,10],pad:'sine',pluck:'sine',padV:.05,pluckV:.03,act:[.3,.55]},
-  chiptune:{bpm:124,prog:[0,-4,3,-2],pent:[0,4,7,12],pad:'square',pluck:'square',padV:.016,pluckV:.02,act:[.7,.95],arp:true}
+  chiptune:{bpm:124,prog:[0,-4,3,-2],pent:[0,4,7,12],pad:'square',pluck:'square',padV:.016,pluckV:.02,act:[.7,.95],arp:true},
+  /* lofi: seventh chords, a lazy swing, soft plucks and a little vinyl crackle (or rain); the cave adds echoes */
+  lofi:{bpm:72,prog:[0,-4,-2,-7],ch:[0,3,7,10],pent:[0,3,5,7,10],pad:'sine',pluck:'triangle',padV:.04,pluckV:.03,act:[.3,.5],swing:.3,crackle:.35},
+  lofirain:{bpm:64,prog:[0,-5,-3,-7],ch:[0,4,7,11],pent:[0,2,4,7,9],pad:'sine',pluck:'sine',padV:.038,pluckV:.03,act:[.25,.45],swing:.25,crackle:.9},
+  cave:{bpm:56,prog:[0,-5,-7,-2],ch:[0,7,12,19],pent:[0,3,7,10,14],pad:'sine',pluck:'sine',padV:.042,pluckV:.034,act:[.28,.5],echo:.42}
 };
 /* the music builds with your combo: musLvl (0..1) chases the live perfect streak, a streak of about 18 is full; a miss lets it fall back within a second or two */
 let musLvl=0;
@@ -1337,15 +1359,16 @@ function musicTick(){
   const M=MUSIC[eqv('music')]||MUSIC.classic, eighth=60/M.bpm/2, key=KEYS[Object.keys(THEMES).indexOf(S.theme)%KEYS.length];
   const f=semi=>220*Math.pow(2,semi/12);
   while(mus.next<now+.35){
-    const s=mus.step++, bar=Math.floor(s/8)%4, p=s%8, root=M.prog[bar]+key, t0=mus.next;
-    if(p===0){ for(const iv of [0,3,7,12]) mnote(f(root+iv),eighth*8,M.pad,M.padV,t0); mnote(f(root-12),eighth*3,'sine',.11,t0); }
+    const s=mus.step++, bar=Math.floor(s/8)%4, p=s%8, root=M.prog[bar]+key, t0=mus.next+((s%2)?eighth*(M.swing||0):0);
+    if(M.crackle && Math.random()<M.crackle) mnote(2400+Math.random()*4200,.018,'sawtooth',.0035+.003*Math.random(),t0+Math.random()*eighth);       // vinyl crackle (or rain)
+    if(p===0){ for(const iv of (M.ch||[0,3,7,12])) mnote(f(root+iv),eighth*8,M.pad,M.padV,t0); mnote(f(root-12),eighth*3,'sine',.11,t0); }
     if(p===4) mnote(f(root-12),eighth*2.5,'sine',.08,t0);
     if(M.arp) mnote(f(root+[0,4,7,12][s%4]+12),eighth*.9,'square',.02,t0);
     if(musLvl>.25 && p%2===1) mnote(5200,.05,'triangle',.008+.012*musLvl,t0);                                                     // a light tick on the off-beats
     if(musLvl>.5 && !M.arp) mnote(f(root+[0,4,7,12][s%4]+24),eighth*.8,'triangle',.012+.012*musLvl,t0);                           // a high arpeggio joins in
     if(musLvl>.75 && p%4===0) mnote(f(root-24),eighth*.9,'sine',.07+.05*musLvl,t0);                                                // and a low pulse on the beat
     const act = Math.min(1,(state==='playing' ? M.act[1] : M.act[0])+musLvl*.3);
-    if(p%2===0 && Math.random()<act){ const n=M.pent[(Math.random()*M.pent.length)|0]+12*(Math.random()<.3?2:1); mnote(f(root+n),eighth*2.2,M.pluck,M.pluckV,t0); }
+    if(p%2===0 && Math.random()<act){ const n=M.pent[(Math.random()*M.pent.length)|0]+12*(Math.random()<.3?2:1); mnote(f(root+n),eighth*2.2,M.pluck,M.pluckV,t0); if(M.echo) mnote(f(root+n),eighth*2.2,M.pluck,M.pluckV*.45,t0+M.echo); }
     mus.next+=eighth;
   }
 }
@@ -1793,6 +1816,7 @@ function openFriend(){
   const lc=S.lastChal, ok=lc && MODES[lc.mode] && typeof lc.link==='string' && parseChallenge((lc.link.split('?c=')[1]||''));
   $('fsLast').innerHTML=ok?tr('Your last round: <b>{n}</b> in {mode}',{n:lc.score,mode:tr(MODES[lc.mode].name)}):tr('No round to send yet. Play one first!');
   $('fsShare').classList.toggle('hidden',!ok); $('fsShareT').textContent=tr('Send my last round');
+  $('fsCode').classList.toggle('hidden',!ok); $('fsCodeT').textContent=tr('Copy my code');
   $('fsheet').classList.remove('hidden'); soon(syncBack);
 }
 function closeFriend(){ $('fsheet').classList.add('hidden'); soon(syncBack); }
@@ -1888,6 +1912,13 @@ function renderWeekly(){
 }
 
 /* ================= Achievements ================= */
+/* a rare award also unlocks something: an exclusive theme or a shop item (free, not a purchase) */
+function giveGrant(a){
+  const g=a.grant; let name='';
+  if(g.theme && THEMES[g.theme]){ if(!S.owned.includes(g.theme)) S.owned.push(g.theme); name=tr(THEMES[g.theme].name); }
+  else if(g.item){ const [sl,id]=g.item, k=sl+':'+id; if(SHOP[sl] && SHOP[sl][id]){ if(!S.shop.owned.includes(k)) S.shop.owned.push(k); name=tr(itemName(sl,id)); } }
+  if(name) setTimeout(()=>toast(`${I('gem','ic-gold')} ${tr('Unlocked: <b>{names}</b>',{names:name})}`,3200),900);
+}
 function checkAch(x){
   if(mode==='practice') return;
   x=Object.assign({mode,height:Math.max(0,stack.length-1),combo:bestCombo,score},boosted?{height:0,combo:0,score:0}:{},x||{});    // a boosted run does not count for height / combo / score awards
@@ -1895,7 +1926,7 @@ function checkAch(x){
   for(const a of ACH){
     if(S.ach[a.id]) continue;
     let ok=false; try{ ok=a.test(x); }catch(e){}
-    if(ok){ S.ach[a.id]=1; S.coins+=a.coins; any=true; toast(`${I('trophy','ic-gold')} ${tr(a.name)}${a.coins?`  +${a.coins} ${I('coin')}`:''}`,2600); sfx.up(); }
+    if(ok){ S.ach[a.id]=1; S.coins+=a.coins; any=true; if(a.grant) giveGrant(a); toast(`${I('trophy','ic-gold')} ${tr(a.name)}${a.coins?`  +${a.coins} ${I('coin')}`:''}`,2600); sfx.up(); }
   }
   if(any){ save(); setCoins(); }
 }
@@ -2183,6 +2214,7 @@ function winStage(){
   let reward = prev===0 ? 20+st*5 : Math.max(0,st-prev)*10;
   if(boss && prev===0){ reward+=CFG.bossBonus;                                  // the first time a boss falls: two campaign power-ups
     const wi=Math.floor((stage-1)/6), pa=CAMP_POW[(wi*2)%CAMP_POW.length], pb=CAMP_POW[(wi*2+1)%CAMP_POW.length];
+    if(st>=3) S.untouch=(S.untouch||0)+1;
     for(const k of [pa,pb]) S.shop.boosts[k]=Math.min(99,(S.shop.boosts[k]||0)+1);
     setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('Boss reward: {a} + {b}',{a:tr(BOOSTS[pa].name),b:tr(BOOSTS[pb].name)})}`,3200),1500); }
   const w=Math.floor((stage-1)/6);
@@ -2222,6 +2254,7 @@ function showOver(r){
   const rv=$('revive'), showRv=M.revive && !revived && score>=5;
   rv.classList.toggle('hidden', !showRv);
   if(challenge && challenge.mode===mode && !r.win){ const f=challenge.score; recordDuel(f); $('oNext').innerHTML = score>f ? `${I('trophy','ic-gold')} ${tr('You beat your friend!')} (${score} – ${f})` : score===f ? tr('A tie!') : tr('Your friend wins {a} to {b}.',{a:f,b:score}); if(boosted) $('oNext').innerHTML+='<br>'+tr('You used Speed-ups, so this score is marked as boosted.'); }
+  $('copyCode').classList.toggle('hidden',!(friendRun && !challenge && challengeOk()));
   if(friendRun && !challenge && challengeOk()) $('oNext').innerHTML=`${I('share')} ${tr('Tap Share to challenge a friend.')}`;
   rv.innerHTML=tr('Revive · {n} {coin}',{n:CFG.reviveCost,coin:I('coin')});
   rv.classList.toggle('off', S.coins<CFG.reviveCost);
@@ -2891,6 +2924,7 @@ function themeAct(id){
   const th=THEMES[id], own=S.owned.includes(id), eq=S.theme===id, un=th.unlock;
   if(own) return eq?{act:'none',label:I('check')+' '+tr('Equipped'),cls:'',sub:tr('Currently equipped'),dis:true}:{act:'equip',label:tr('Equip'),cls:'primary',sub:tr('Owned')};
   if(un.t==='level') return {act:'lock',label:`${I('lock')} ${tr('Level {n}',{n:un.n})}`,cls:'off',sub:tr("Unlocks at level {n} (you're level {m})",{n:un.n,m:levelOf(S.blocks)})};
+  if(un.t==='ach'){ const a=ACH.find(x=>x.id===un.id); return {act:'lock2',label:`${I('lock')} ${tr('Award')}`,cls:'off',sub:tr('Earn the award "{name}"',{name:tr(a?a.name:'')})}; }
   if(un.t==='coins') return {act:'coin',label:`${I('coin')} ${un.n}`,cls:S.coins>=un.n?'gold':'off',sub:tr('Costs {n} coins (you have {m})',{n:un.n,m:S.coins})};
   return {act:'iap',label:priceOf(id,un.price),cls:'gold',sub:tr('Premium cosmetic theme')};
 }
@@ -3019,6 +3053,7 @@ function themeAction(act,id){
   const th=THEMES[id]; if(!th) return false;
   if(act==='equip'){ S.theme=id; resetTweaks(); save(); initAmb(); sfx.tap(); renderThemes(); return true; }
   else if(act==='lock'){ toast(tr('Reach level {n} to unlock {name}',{n:th.unlock.n,name:tr(th.name)})); }
+  else if(act==='lock2'){ toast(themeAct(id).sub); }
   else if(act==='coin'){
     if(S.coins<th.unlock.n){ toast(tr('Need {n} {coin} — you have {m}',{n:th.unlock.n,coin:I('coin'),m:S.coins})); return false; }
     S.coins-=th.unlock.n; S.owned.push(id); S.theme=id; resetTweaks(); save(); initAmb(); sfx.up(); setCoins(); renderThemes(); checkAch(); return true;
@@ -3038,7 +3073,7 @@ function itemAction(act,slot,id){
   return false;
 }
 function boostAction(id,n){
-  const bo=BOOSTS[id]; if(!bo) return false;
+  const bo=BOOSTS[id]; if(!bo || bo.camp) return false;                                       // campaign power-ups are earned, never bought
   const price=bo.price[n===3?1:0];
   if(S.coins<price){ toast(tr('Need {n} {coin} — you have {m}',{n:price,coin:I('coin'),m:S.coins})); return false; }
   S.coins-=price; S.shop.boosts[id]=Math.min(999,(S.shop.boosts[id]||0)+n); save(); sfx.up(); setCoins(); renderThemes();
@@ -3186,7 +3221,7 @@ function showAwards(){
   $('aStats').innerHTML=[[tr('GAMES'),S.played],[tr('BLOCKS'),S.blocks],[tr('PERFECTS'),S.perfects],[tr('BEST COMBO'),'x'+(S.bestCombo||0)],[tr('MAX HEIGHT'),S.maxHeight||0],[tr('STARS'),starsTotal()]]
     .map(([k,v])=>`<div><b>${v}</b>${k}</div>`).join('');
   $('aCount').innerHTML=tr('<b>{n}</b> / {m} awards unlocked',{n,m:ACH.length});
-  $('aList').innerHTML=ACH.map(a=>`<div class="aw${S.ach[a.id]?' on':''}"><i aria-hidden="true">${I(a.icon)}</i><div><b>${tr(a.name)}</b><span>${tr(a.desc)}</span></div>${a.coins?`<em>+${a.coins} ${I('coin')}</em>`:''}</div>`).join(''); stagger('#aList .aw');
+  $('aList').innerHTML=ACH.map(a=>`<div class="aw${S.ach[a.id]?' on':''}${a.rare?' rare':''}"><i aria-hidden="true">${I(a.icon)}</i><div><b>${tr(a.name)}${a.rare?` <u>${tr('RARE')}</u>`:''}</b><span>${tr(a.desc)}</span>${a.grant?`<small>${tr('Unlocks: {name}',{name:tr(a.grant.theme?THEMES[a.grant.theme].name:itemName(a.grant.item[0],a.grant.item[1]))})}</small>`:''}</div>${a.coins?`<em>+${a.coins} ${I('coin')}</em>`:''}</div>`).join(''); stagger('#aList .aw');
 }
 function showSettings(){
   hideAll(); $('settings').classList.remove('hidden');
@@ -3350,6 +3385,12 @@ $('toMenu').onclick=()=>{ sfx.tap(); showMenu(); };
 $('overModes').onclick=()=>{ sfx.tap(); showModes(); };
 $('revive').onclick=revive;
 $('share').onclick=shareScore;
+/* a friend who already has the app does not need a link: they copy the code and paste it under Friend race > Paste a friend's challenge (the link and the plain Share are unchanged) */
+async function copyRaceCode(code){
+  try{ await navigator.clipboard.writeText(code); toast(tr('Code copied. Your friend pastes it in Friend race.')); }catch(e){ window.prompt(tr('Your race code:'),code); }
+}
+$('copyCode').onclick=()=>{ sfx.tap(); if(challengeOk()) copyRaceCode(challengeCode()); };
+$('fsCode').onclick=()=>{ sfx.tap(); const lc=S.lastChal; if(lc) copyRaceCode(lc.link.split('?c=')[1]||''); };
 const CYCLE=['classic','timed','lives','hazard','zen','daily'];
 let stagesFrom='menu';
 function cycleMode(d){ const i=Math.max(0,CYCLE.indexOf(S.lastMode)); S.lastMode=CYCLE[(i+d+CYCLE.length)%CYCLE.length]; save(); sfx.tap(); renderMenu(); const el=$('modeName'); el.classList.remove('mnR','mnL'); void el.offsetWidth; el.classList.add(d>0?'mnR':'mnL'); }
@@ -3463,7 +3504,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ get titanLeft(){ return titanLeft; }, get magnetLeft(){ return magnetLeft; }, get freezeT(){ return freezeT; }, get lives(){ return lives; }, get upAng(){ return upAng; }, get banner(){ return banner; }, forceUpside(){ upNext=0; upMin=0; }, get mod(){ return mod; }, get pieces(){ return pieces; }, get friendRun(){ return friendRun; }, startFriend, speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ themeActOf:themeAct, closeThemesNow(){ showMenu(); }, get titanLeft(){ return titanLeft; }, get magnetLeft(){ return magnetLeft; }, get freezeT(){ return freezeT; }, get lives(){ return lives; }, get upAng(){ return upAng; }, get banner(){ return banner; }, forceUpside(){ upNext=0; upMin=0; }, get mod(){ return mod; }, get pieces(){ return pieces; }, get friendRun(){ return friendRun; }, startFriend, speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},

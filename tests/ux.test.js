@@ -91,7 +91,7 @@ module.exports=[
   const p=await L.open(e);
   await p.evaluate(()=>{ __sr.S.coins=500; });
   await p.click('#openThemes'); await p.waitForTimeout(250);
-  assert.equal(await p.locator('.th').count(),16,'16 themes');
+  assert.equal(await p.locator('.th').count(),21,'21 themes');
   await p.click('.sw[data-id=neon]'); await p.waitForTimeout(250);
   assert.equal(await p.evaluate(()=>__sr.previewId),'neon'); assert.ok(await p.isVisible('#peek'));
   assert.equal(await p.evaluate(()=>__sr.S.theme),'sunset','preview does not change the saved theme');

@@ -125,4 +125,27 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['rare awards: clearing World 5 pays 300 coins and unlocks the Crystal Cavern theme; locked campaign themes say which award they need; rare awards are marked in the list', async(e,L)=>{
+  const p=await L.open(e); await BASE(p,{},[]);
+  const r0=await p.evaluate(()=>({c:__sr.S.coins,own:__sr.S.owned.includes('crystal')})); assert.equal(r0.own,false);
+  await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('themes')); const sub=await p.evaluate(()=>__sr.themeActOf('crystal').sub); assert.match(sub,/Cave Diver/);
+  await p.evaluate(()=>{ __sr.closeThemesNow(); for(let n=1;n<=30;n++) __sr.S.camp[n]=3; __sr.checkAch(); });
+  const r1=await p.evaluate(()=>({c:__sr.S.coins,own:__sr.S.owned.includes('crystal'),a:!!__sr.S.ach.r_cave,f:!!__sr.S.ach.r_flaw5,g:__sr.S.owned.includes('glowworm'),fx:__sr.S.shop.owned.includes('fx:stars')}));
+  assert.deepEqual([r1.own,r1.a,r1.f,r1.g,r1.fx],[true,true,true,true,true],'Cave Diver, Glowworm Guide and Flawless Start (with its free item)'); assert.ok(r1.c>=r0.c+300+500+400);
+  await p.evaluate(()=>__sr.showMenu()); await p.click('#openAwards'); await p.waitForTimeout(250);
+  assert.ok(await p.locator('#aList .aw.rare').count()>=9,'rare awards are marked'); assert.match(await p.textContent('#aList .aw.rare'),/RARE/); await p.click('#closeAwards');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['friend race: a code can be copied (no link needed) from the sheet and the game-over screen, and pasting it starts the challenge; the link share is unchanged', async(e,L)=>{
+  const p=await L.open(e,{ctx:{permissions:['clipboard-read','clipboard-write']}}); await BASE(p,{},[]);
+  await p.evaluate(()=>{ __sr.startFriend(); }); await p.waitForTimeout(200); await L.perfects(p,4); await L.miss(p); await endIt(p);
+  assert.ok(await p.isVisible('#copyCode'),'Copy code on the game-over screen of a friend round'); assert.ok(await p.isVisible('#share'),'the normal Share is still there');
+  await p.click('#copyCode'); const clip=await p.evaluate(()=>navigator.clipboard.readText());
+  assert.ok(!/^https?:/.test(clip) && clip.split('.').length>=6,'a bare code, not a link ('+clip.slice(0,30)+')');
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.showModes(); }); await p.click('#mGrid [data-mode=friend]'); assert.ok(await p.isVisible('#fsCode')); await p.click('#fsCode'); assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),clip);
+  await p.click('#fsPaste'); await p.fill('#udInput',clip); await p.click('#udOk'); await p.waitForTimeout(200); assert.ok(await p.isVisible('#chal'),'pasting the code opens the challenge');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

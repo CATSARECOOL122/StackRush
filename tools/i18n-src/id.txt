@@ -576,3 +576,34 @@
 576|Titan
 577|TITAN!
 578|Bloknya tidak mengecil selama 10 jatuhan.
+579|Ametis
+580|Penghargaan
+581|Pemburu Bos
+582|Penyelam Gua
+583|Selesaikan seluruh Dunia 5
+584|Selesaikan seluruh Dunia 6
+585|Selesaikan seluruh Dunia 7
+586|Kumpulkan 50 relik
+587|Penakluk Inti
+588|Gua Kristal
+589|Master Kristal
+590|Kalahkan bos tanpa kehilangan nyawa
+591|Kalahkan ketujuh bos
+592|Dapatkan 3 bintang di setiap tahap Dunia 1 sampai 4
+593|Dapatkan 3 bintang di setiap tahap Dunia 5
+594|Raih penghargaan “{name}”
+595|Awal Sempurna
+596|Cacing Bercahaya
+597|Pemandu Cacing Bercahaya
+598|Obsidian
+599|LANGKA
+600|Pemburu Relik
+601|Membuka: {name}
+602|Tak Tersentuh
+603|Mahkota Kehampaan
+604|Gema Gua
+605|Lofi Santai
+606|Lofi Hujan
+607|Kode disalin. Temanmu menempelkannya di Balapan teman.
+608|Salin kodeku
+609|Kode balapanmu:

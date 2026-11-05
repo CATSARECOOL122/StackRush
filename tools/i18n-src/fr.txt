@@ -576,3 +576,34 @@
 576|Titan
 577|TITAN !
 578|Ton bloc ne rétrécit pas pendant 10 chutes.
+579|Améthyste
+580|Succès
+581|Chasseur de boss
+582|Plongeur des cavernes
+583|Termine tout le Monde 5
+584|Termine tout le Monde 6
+585|Termine tout le Monde 7
+586|Récupère 50 reliques
+587|Conquérant du noyau
+588|Caverne de cristal
+589|Maître du cristal
+590|Bats un boss sans perdre une vie
+591|Bats les sept boss
+592|Obtiens 3 étoiles à chaque niveau des Mondes 1 à 4
+593|Obtiens 3 étoiles à chaque niveau du Monde 5
+594|Obtiens le succès « {name} »
+595|Départ parfait
+596|Ver luisant
+597|Guide des vers luisants
+598|Obsidienne
+599|RARE
+600|Chasseur de reliques
+601|Débloque : {name}
+602|Intouchable
+603|Couronne du vide
+604|Écho de caverne
+605|Lofi détente
+606|Lofi pluie
+607|Code copié. Ton ami le colle dans Défi ami.
+608|Copier mon code
+609|Ton code de défi :

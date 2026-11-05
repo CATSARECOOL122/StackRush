@@ -576,3 +576,34 @@
 576|Titã
 577|TITÃ!
 578|Seu bloco não encolhe por 10 quedas.
+579|Ametista
+580|Prêmio
+581|Caçador de chefes
+582|Mergulhador de cavernas
+583|Conclua todo o Mundo 5
+584|Conclua todo o Mundo 6
+585|Conclua todo o Mundo 7
+586|Colete 50 relíquias
+587|Conquistador do núcleo
+588|Caverna de cristal
+589|Mestre do cristal
+590|Derrote um chefe sem perder uma vida
+591|Derrote os sete chefes
+592|Ganhe 3 estrelas em todas as fases dos Mundos 1 a 4
+593|Ganhe 3 estrelas em todas as fases do Mundo 5
+594|Conquiste o prêmio “{name}”
+595|Começo impecável
+596|Vaga-lume
+597|Guia dos vaga-lumes
+598|Obsidiana
+599|RARO
+600|Caçador de relíquias
+601|Desbloqueia: {name}
+602|Intocável
+603|Coroa do vazio
+604|Eco da caverna
+605|Lofi relaxante
+606|Lofi chuva
+607|Código copiado. Seu amigo cola em Desafio de amigo.
+608|Copiar meu código
+609|Seu código de corrida:

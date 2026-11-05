@@ -576,3 +576,34 @@
 576|Titán
 577|¡TITÁN!
 578|Tu bloque no se encoge durante 10 caídas.
+579|Amatista
+580|Premio
+581|Cazajefes mayor
+582|Buceador de cuevas
+583|Supera todo el Mundo 5
+584|Supera todo el Mundo 6
+585|Supera todo el Mundo 7
+586|Reúne 50 reliquias
+587|Conquistador del núcleo
+588|Caverna de cristal
+589|Maestro del cristal
+590|Derrota a un jefe sin perder una vida
+591|Derrota a los siete jefes
+592|Consigue 3 estrellas en cada nivel de los Mundos 1 a 4
+593|Consigue 3 estrellas en cada nivel del Mundo 5
+594|Consigue el premio «{name}»
+595|Inicio perfecto
+596|Luciérnaga de cueva
+597|Guía de luciérnagas
+598|Obsidiana
+599|RARO
+600|Cazarreliquias
+601|Desbloquea: {name}
+602|Intocable
+603|Corona del vacío
+604|Eco de cueva
+605|Lofi tranquilo
+606|Lofi lluvia
+607|Código copiado. Tu amigo lo pega en Reto de amigos.
+608|Copiar mi código
+609|Tu código de carrera:
