@@ -995,6 +995,22 @@ const ACH = [
   {id:'r_untouch',icon:'shield',name:'Untouchable',desc:'Defeat a boss without losing a life',coins:350,rare:1,grant:{item:['topper','star']},test:()=>S.untouch>=1},
   {id:'r_boss7',icon:'crown',name:'Boss Hunter',desc:'Defeat all seven bosses',coins:500,rare:1,grant:{item:['topper','flag']},test:()=>[6,12,18,24,30,36,42].every(n=>S.camp&&S.camp[n]>=1)},
   {id:'r_relic',icon:'gem',name:'Relic Hunter',desc:'Collect 50 relics',coins:300,rare:1,grant:{item:['fx','confetti']},test:()=>S.relics>=50},
+  {id:'c15',icon:'sparkles',name:'On Fire',desc:'15 perfect drops in a row',coins:40,test:x=>x.combo>=15},
+  {id:'p5000',icon:'crosshair',name:'Perfect Machine',desc:'5000 perfect drops total',coins:200,test:()=>S.perfects>=5000},
+  {id:'t200',icon:'cloud',name:'Stratosphere',desc:'Stack 200 blocks in one run',coins:150,test:x=>x.height>=200},
+  {id:'rush100',icon:'zap',name:'Time Lord',desc:'Score 100 in Timed Rush',coins:60,test:x=>x.mode==='timed'&&x.score>=100},
+  {id:'plays500',icon:'play',name:'Hooked',desc:'Finish 500 rounds',coins:120,test:()=>S.played>=500},
+  {id:'streak14',icon:'flame',name:'Two Weeks Strong',desc:'14-day login streak',coins:120,test:()=>S.streak>=14},
+  {id:'streak30',icon:'calendar-check',name:'Loyal Fan',desc:'30-day login streak',coins:250,test:()=>S.streak>=30},
+  {id:'l15',icon:'award',name:'Master',desc:'Reach level 15',coins:100,test:()=>levelOf(S.blocks)>=15},
+  {id:'l20',icon:'crown',name:'Legend',desc:'Reach level 20',coins:200,test:()=>levelOf(S.blocks)>=20},
+  {id:'dodge300',icon:'bomb',name:'Bomb Whisperer',desc:'Dodge 300 bombs total',coins:150,test:()=>S.dodged>=300},
+  {id:'shield25',icon:'shield',name:'Iron Wall',desc:'Use 25 shields',coins:80,test:()=>S.shields>=25},
+  {id:'twist10',icon:'calendar',name:'Twist Veteran',desc:'Beat 10 Daily Twists',coins:80,test:()=>S.twistDone>=10},
+  {id:'friend5',icon:'trophy',name:'Rival Regular',desc:'Beat friends 5 times',coins:100,test:()=>S.friendWins>=5},
+  {id:'relic10',icon:'gem',name:'Gem Spotter',desc:'Collect 10 relics',coins:40,test:()=>S.relics>=10},
+  {id:'w4',icon:'map',name:'Skyline Champion',desc:'Clear all of World 4',coins:80,test:()=>cleared(19,24)},
+  {id:'camp42',icon:'crown',name:'Deep Core Complete',desc:'Clear all 42 stages',coins:300,test:()=>cleared(1,42)},
   {id:'duel100',icon:'crown',name:'Century Rival',desc:'Beat a friend with 100 points or more, no boosts',coins:80,test:()=>S.friendBig>=1}
 ];
 
@@ -1019,7 +1035,7 @@ function cleanSave(raw){
   if(own(raw,'fsHint')) out.fsHint=num(raw.fsHint,99);
   if(own(raw,'hintPow')) out.hintPow=num(raw.hintPow,9);
   /* the last raceable round (so Friend race can still send it after an update) and the friend-race history: checked by shape, because the challenge parser is not ready yet */
-  const lc=raw.lastChal; if(lc && typeof lc==='object' && ['classic','timed','lives','hazard'].includes(lc.mode) && typeof lc.link==='string' && lc.link.length<3200 && /^https?:\/\/[^\s?#]{1,300}\?c=[A-Za-z0-9_.-]+$/.test(lc.link)) out.lastChal={mode:lc.mode,score:num(lc.score),link:lc.link};
+  const lc=raw.lastChal; if(lc && typeof lc==='object' && ['classic','timed','lives','hazard'].includes(lc.mode) && typeof lc.link==='string' && lc.link.length<3200 && /^https?:\/\/[^\s?#]{1,300}\?c=[A-Za-z0-9_.-]+$/.test(lc.link)) out.lastChal={mode:lc.mode,score:num(lc.score),link:lc.link,f:lc.f?1:0};
   if(Array.isArray(raw.duels)) out.duels=raw.duels.filter(d=>d && typeof d==='object' && ['classic','timed','lives','hazard'].includes(d.m)).slice(-40).map(d=>({m:d.m,a:num(d.a),b:num(d.b),t:num(d.t,9e12),x:d.x?1:0}));
   if(Array.isArray(raw.duelPaid)) out.duelPaid=raw.duelPaid.filter(v=>Number.isFinite(v)).slice(-60);
   for(const k of ['mute','music','haptics','reduce','reduceSet','tutSeen','seenTip','ghostOutline','silentSound','boostAuto']) if(own(raw,k)) out[k]=!!raw[k];
@@ -1808,14 +1824,14 @@ function challengeCode(){
 const challengeOk=()=>CH_MODES.includes(mode) && (!boosted || friendRun) && !assisted && !soft() && score>0;
 const challengeLink=()=>location.origin+location.pathname+'?c='+challengeCode();
 /* The "Race a friend" tile: remembers the link of the last round that can be raced, so it can be sent from the Game modes screen too. */
-function rememberChallenge(){ if(challengeOk()){ try{ S.lastChal={mode,score,link:challengeLink()}; save(); }catch(e){} } }
+function rememberChallenge(){ if(challengeOk()){ try{ S.lastChal={mode,score,link:challengeLink(),f:(friendRun&&!challenge)?1:0}; save(); }catch(e){} } }
 function renderFriendModes(){ $('fsModes').innerHTML=CH_MODES.map(m=>`<button data-fm="${m}" class="${m===friendMode?'on':''}" aria-pressed="${m===friendMode}">${tr(MODES[m].name)}</button>`).join(''); }
 function startFriend(){ closeFriend(); challenge=null; friendStart=true; startMode(friendMode); }
 function openFriend(){
   renderFriendModes(); renderCatch(); $('fsHist').innerHTML=duelHistoryHtml();
   const lc=S.lastChal, ok=lc && MODES[lc.mode] && typeof lc.link==='string' && parseChallenge((lc.link.split('?c=')[1]||''));
   $('fsLast').innerHTML=ok?tr('Your last round: <b>{n}</b> in {mode}',{n:lc.score,mode:tr(MODES[lc.mode].name)}):tr('No round to send yet. Play one first!');
-  $('fsShare').classList.toggle('hidden',!ok); $('fsShareT').textContent=tr('Send my last round');
+  $('fsShare').classList.toggle('hidden',!ok || !!lc.f);                           // a round started from this menu goes to a friend as a code, not a link $('fsShareT').textContent=tr('Send my last round');
   $('fsCode').classList.toggle('hidden',!ok); $('fsCodeT').textContent=tr('Copy my code');
   $('fsheet').classList.remove('hidden'); soon(syncBack);
 }
@@ -2254,7 +2270,8 @@ function showOver(r){
   const rv=$('revive'), showRv=M.revive && !revived && score>=5;
   rv.classList.toggle('hidden', !showRv);
   if(challenge && challenge.mode===mode && !r.win){ const f=challenge.score; recordDuel(f); $('oNext').innerHTML = score>f ? `${I('trophy','ic-gold')} ${tr('You beat your friend!')} (${score} – ${f})` : score===f ? tr('A tie!') : tr('Your friend wins {a} to {b}.',{a:f,b:score}); if(boosted) $('oNext').innerHTML+='<br>'+tr('You used Speed-ups, so this score is marked as boosted.'); }
-  $('copyCode').classList.toggle('hidden',!(friendRun && !challenge && challengeOk()));
+  const viaMenu=friendRun && !challenge && challengeOk();
+  $('copyCode').classList.toggle('hidden',!viaMenu); $('share').classList.toggle('hidden',viaMenu);        // started from Friend race: copy a code (no link); after any other round Share still sends the link
   if(friendRun && !challenge && challengeOk()) $('oNext').innerHTML=`${I('share')} ${tr('Tap Share to challenge a friend.')}`;
   rv.innerHTML=tr('Revive · {n} {coin}',{n:CFG.reviveCost,coin:I('coin')});
   rv.classList.toggle('off', S.coins<CFG.reviveCost);

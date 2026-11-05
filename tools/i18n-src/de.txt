@@ -607,3 +607,35 @@
 607|Code kopiert. Dein Freund fügt ihn im Freunde-Duell ein.
 608|Meinen Code kopieren
 609|Dein Duell-Code:
+610|14-Tage-Serie
+611|15 perfekte Drops in Folge
+612|30-Tage-Serie
+613|5000 perfekte Drops insgesamt
+614|Meistere 10 Tageswendungen
+615|Besiege Freunde 5 Mal
+616|Bombenflüsterer
+617|Schließe alle 42 Stufen ab
+618|Schließe ganz Welt 4 ab
+619|Sammle 10 Reliquien
+620|Kern komplett
+621|Weiche insgesamt 300 Bomben aus
+622|Beende 500 Runden
+623|Edelsteinspäher
+624|Süchtig
+625|Eiserne Mauer
+626|Legende
+627|Treuer Fan
+628|Meister
+629|In Flammen
+630|Perfekte Maschine
+631|Erreiche Level 15
+632|Erreiche Level 20
+633|Stammrivale
+634|Erreiche 100 im Zeitrausch
+635|Skyline-Champion
+636|Staple 200 Blöcke in einer Runde
+637|Stratosphäre
+638|Zeitherr
+639|Wendungs-Veteran
+640|Zwei Wochen stark
+641|Benutze 25 Schilde

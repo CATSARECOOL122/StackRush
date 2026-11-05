@@ -140,11 +140,13 @@ module.exports=[
 ['friend race: a code can be copied (no link needed) from the sheet and the game-over screen, and pasting it starts the challenge; the link share is unchanged', async(e,L)=>{
   const p=await L.open(e,{ctx:{permissions:['clipboard-read','clipboard-write']}}); await BASE(p,{},[]);
   await p.evaluate(()=>{ __sr.startFriend(); }); await p.waitForTimeout(200); await L.perfects(p,4); await L.miss(p); await endIt(p);
-  assert.ok(await p.isVisible('#copyCode'),'Copy code on the game-over screen of a friend round'); assert.ok(await p.isVisible('#share'),'the normal Share is still there');
+  assert.ok(await p.isVisible('#copyCode'),'Copy code on the game-over screen of a friend round'); assert.equal(await p.isVisible('#share'),false,'a round started from the Friend race menu is sent as a code, not a link');
   await p.click('#copyCode'); const clip=await p.evaluate(()=>navigator.clipboard.readText());
   assert.ok(!/^https?:/.test(clip) && clip.split('.').length>=6,'a bare code, not a link ('+clip.slice(0,30)+')');
-  await p.evaluate(()=>{ __sr.showMenu(); __sr.showModes(); }); await p.click('#mGrid [data-mode=friend]'); assert.ok(await p.isVisible('#fsCode')); await p.click('#fsCode'); assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),clip);
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.showModes(); }); await p.click('#mGrid [data-mode=friend]'); assert.ok(await p.isVisible('#fsCode')); assert.equal(await p.isVisible('#fsShare'),false,'no link button for a round that came from this menu'); await p.click('#fsCode'); assert.equal(await p.evaluate(()=>navigator.clipboard.readText()),clip);
   await p.click('#fsPaste'); await p.fill('#udInput',clip); await p.click('#udOk'); await p.waitForTimeout(200); assert.ok(await p.isVisible('#chal'),'pasting the code opens the challenge');
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.startMode('classic'); }); await p.waitForTimeout(150); await L.perfects(p,4); await L.miss(p); await endIt(p);
+  assert.ok(await p.isVisible('#share') && !(await p.isVisible('#copyCode')),'after an ordinary round Share still sends the link');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 

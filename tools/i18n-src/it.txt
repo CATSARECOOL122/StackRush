@@ -607,3 +607,35 @@
 607|Codice copiato. Il tuo amico lo incolla in Sfida un amico.
 608|Copia il mio codice
 609|Il tuo codice sfida:
+610|Serie di 14 giorni
+611|15 cadute perfette di fila
+612|Serie di 30 giorni
+613|5000 cadute perfette in totale
+614|Supera 10 Colpi di scena
+615|Batti gli amici 5 volte
+616|Sussurratore di bombe
+617|Completa tutti i 42 livelli
+618|Completa tutto il Mondo 4
+619|Raccogli 10 reliquie
+620|Nucleo completato
+621|Schiva 300 bombe in totale
+622|Finisci 500 partite
+623|Cacciatore di gemme
+624|Dipendente
+625|Muro di ferro
+626|Leggenda
+627|Fan fedele
+628|Maestro
+629|In fiamme
+630|Macchina perfetta
+631|Raggiungi il livello 15
+632|Raggiungi il livello 20
+633|Rivale fisso
+634|Fai 100 in A tempo
+635|Campione dell'orizzonte
+636|Impila 200 blocchi in una partita
+637|Stratosfera
+638|Signore del tempo
+639|Veterano dei colpi di scena
+640|Due settimane di fila
+641|Usa 25 scudi

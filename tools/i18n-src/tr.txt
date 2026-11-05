@@ -607,3 +607,35 @@
 607|Kod kopyalandı. Arkadaşın Arkadaş yarışı'na yapıştırır.
 608|Kodumu kopyala
 609|Yarış kodun:
+610|14 günlük seri
+611|Üst üste 15 kusursuz bırakış
+612|30 günlük seri
+613|Toplam 5000 kusursuz bırakış
+614|10 Günlük Bükülmeyi yen
+615|Arkadaşlarını 5 kez yen
+616|Bomba Fısıldayan
+617|Tüm 42 aşamayı bitir
+618|Dünya 4'ün hepsini bitir
+619|10 kalıntı topla
+620|Çekirdek Tamam
+621|Toplam 300 bombadan kaç
+622|500 tur bitir
+623|Mücevher Gözcüsü
+624|Bağımlı
+625|Demir Duvar
+626|Efsane
+627|Sadık Hayran
+628|Usta
+629|Alevde
+630|Kusursuz Makine
+631|15. seviyeye ulaş
+632|20. seviyeye ulaş
+633|Müdavim Rakip
+634|Zamanlı Koşu'da 100 yap
+635|Ufuk Şampiyonu
+636|Bir turda 200 blok yığ
+637|Stratosfer
+638|Zaman Efendisi
+639|Bükülme Gazisi
+640|İki Hafta Kararlı
+641|25 kalkan kullan

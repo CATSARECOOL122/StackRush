@@ -607,3 +607,35 @@
 607|Código copiado. Seu amigo cola em Desafio de amigo.
 608|Copiar meu código
 609|Seu código de corrida:
+610|Sequência de 14 dias
+611|15 quedas perfeitas seguidas
+612|Sequência de 30 dias
+613|5000 quedas perfeitas no total
+614|Vença 10 Reviravoltas diárias
+615|Vença amigos 5 vezes
+616|Sussurrador de bombas
+617|Conclua as 42 fases
+618|Conclua todo o Mundo 4
+619|Colete 10 relíquias
+620|Núcleo completo
+621|Desvie de 300 bombas no total
+622|Termine 500 partidas
+623|Caçador de gemas
+624|Viciado
+625|Muralha de ferro
+626|Lenda
+627|Fã fiel
+628|Mestre
+629|Pegando fogo
+630|Máquina perfeita
+631|Alcance o nível 15
+632|Alcance o nível 20
+633|Rival frequente
+634|Faça 100 no Contra o tempo
+635|Campeão do horizonte
+636|Empilhe 200 blocos em uma partida
+637|Estratosfera
+638|Senhor do tempo
+639|Veterano de reviravoltas
+640|Duas semanas firmes
+641|Use 25 escudos

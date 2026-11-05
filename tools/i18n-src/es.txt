@@ -607,3 +607,35 @@
 607|Código copiado. Tu amigo lo pega en Reto de amigos.
 608|Copiar mi código
 609|Tu código de carrera:
+610|Racha de 14 días
+611|15 caídas perfectas seguidas
+612|Racha de 30 días
+613|5000 caídas perfectas en total
+614|Supera 10 Giros diarios
+615|Gana a amigos 5 veces
+616|Susurrador de bombas
+617|Supera los 42 niveles
+618|Supera todo el Mundo 4
+619|Reúne 10 reliquias
+620|Núcleo completado
+621|Esquiva 300 bombas en total
+622|Termina 500 partidas
+623|Cazagemas
+624|Enganchado
+625|Muro de hierro
+626|Leyenda
+627|Fan fiel
+628|Maestro
+629|En llamas
+630|Máquina perfecta
+631|Alcanza el nivel 15
+632|Alcanza el nivel 20
+633|Rival habitual
+634|Consigue 100 en Contrarreloj
+635|Campeón del horizonte
+636|Apila 200 bloques en una partida
+637|Estratosfera
+638|Señor del tiempo
+639|Veterano de giros
+640|Dos semanas seguidas
+641|Usa 25 escudos

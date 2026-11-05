@@ -607,3 +607,35 @@
 607|Kode disalin. Temanmu menempelkannya di Balapan teman.
 608|Salin kodeku
 609|Kode balapanmu:
+610|Beruntun 14 hari
+611|15 jatuhan sempurna beruntun
+612|Beruntun 30 hari
+613|5000 jatuhan sempurna total
+614|Kalahkan 10 Twist Harian
+615|Kalahkan teman 5 kali
+616|Pembisik Bom
+617|Selesaikan semua 42 tahap
+618|Selesaikan seluruh Dunia 4
+619|Kumpulkan 10 relik
+620|Inti Tuntas
+621|Hindari 300 bom total
+622|Selesaikan 500 ronde
+623|Pengintai Permata
+624|Ketagihan
+625|Tembok Besi
+626|Legenda
+627|Penggemar Setia
+628|Master
+629|Membara
+630|Mesin Sempurna
+631|Capai level 15
+632|Capai level 20
+633|Rival Langganan
+634|Raih 100 di Rush Berwaktu
+635|Juara Cakrawala
+636|Tumpuk 200 blok dalam satu ronde
+637|Stratosfer
+638|Penguasa Waktu
+639|Veteran Twist
+640|Dua Minggu Tangguh
+641|Gunakan 25 perisai

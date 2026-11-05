@@ -607,3 +607,35 @@
 607|Code copié. Ton ami le colle dans Défi ami.
 608|Copier mon code
 609|Ton code de défi :
+610|Série de 14 jours
+611|15 chutes parfaites d'affilée
+612|Série de 30 jours
+613|5000 chutes parfaites au total
+614|Réussis 10 Défis du jour
+615|Bats des amis 5 fois
+616|Chuchoteur de bombes
+617|Termine les 42 niveaux
+618|Termine tout le Monde 4
+619|Récupère 10 reliques
+620|Cœur terminé
+621|Esquive 300 bombes au total
+622|Termine 500 parties
+623|Repéreur de gemmes
+624|Accro
+625|Mur de fer
+626|Légende
+627|Fan fidèle
+628|Maître
+629|En feu
+630|Machine parfaite
+631|Atteins le niveau 15
+632|Atteins le niveau 20
+633|Rival régulier
+634|Fais 100 en Contre-la-montre
+635|Champion de l'horizon
+636|Empile 200 blocs en une partie
+637|Stratosphère
+638|Maître du temps
+639|Vétéran des défis
+640|Deux semaines d'affilée
+641|Utilise 25 boucliers
