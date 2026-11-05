@@ -553,3 +553,8 @@
 553|¡Lava! Si cae, derrite los 2 bloques de debajo.
 554|¡FUSIÓN! -{n}
 555|¡TEMBLOR!
+556|Supera los primeros 24 niveles
+557|Profundidades de cristal
+558|Consigue todas las estrellas de la campaña
+559|Núcleo de magma
+560|¡AL REVÉS!

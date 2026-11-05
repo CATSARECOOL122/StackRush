@@ -553,3 +553,8 @@
 553|Lava! Jika mendarat, ia melelehkan 2 blok di bawahnya.
 554|MELEHAT! -{n}
 555|GEMPA!
+556|Selesaikan 24 tahap pertama
+557|Kedalaman Kristal
+558|Dapatkan setiap bintang kampanye
+559|Inti Magma
+560|TERBALIK!

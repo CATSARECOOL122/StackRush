@@ -553,3 +553,8 @@
 553|Lava! Se atterra, scioglie i 2 blocchi sotto di sé.
 554|FUSIONE! -{n}
 555|TERREMOTO!
+556|Completa i primi 24 livelli
+557|Profondità di cristallo
+558|Ottieni ogni stella della campagna
+559|Nucleo di magma
+560|SOTTOSOPRA!

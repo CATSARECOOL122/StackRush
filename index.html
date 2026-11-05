@@ -903,8 +903,12 @@ const STAGES = [
   ['height',12,{startFrac:.45,speed:1.3}],['perfects',6,{startFrac:.45,speed:1.3}],['score',45,{startFrac:.45,speed:1.3}],['height',20,{startFrac:.45,speed:1.3}],['combo',6,{startFrac:.45,speed:1.3}],['height',30,{startFrac:.45,speed:1.3,boss:1,hz:{ice:5,glue:8,wind:6},chance:{ice:.25,glue:.25,gust:.25},gap:6}],
   ['height',14,{startFrac:.45,speed:1.4,dark:1,hz:{lava:6},chance:{lava:.12}}],['perfects',8,{startFrac:.45,speed:1.4,dark:1,hz:{lava:4},chance:{lava:.15}}],['score',60,{startFrac:.45,speed:1.4,dark:1,tremor:1,hz:{wind:4,lava:5},chance:{gust:.22,lava:.14},gap:6}],
   ['height',18,{startFrac:.45,speed:1.45,dark:1,tremor:1,hz:{wind:4,lava:3},chance:{gust:.25,lava:.15},gap:5}],['combo',8,{startFrac:.45,speed:1.45,dark:1,hz:{lava:4},chance:{lava:.18}}],['height',22,{startFrac:.42,speed:1.5,boss:1,dark:1,tremor:1,hz:{lava:3,wind:5},chance:{lava:.15,gust:.3},gap:5}],
+  ['height',16,{startFrac:.42,speed:1.5,flip:.5,hz:{ice:3},chance:{ice:.3}}],['perfects',9,{startFrac:.42,speed:1.5,flip:.5,hz:{glue:3},chance:{glue:.3}}],['score',80,{startFrac:.42,speed:1.55,flip:.6,hz:{ice:3,glue:5},chance:{ice:.25,glue:.25}}],
+  ['height',22,{startFrac:.42,speed:1.55,flip:.6,hz:{wind:4,ice:3},chance:{gust:.25,ice:.25},gap:5}],['combo',9,{startFrac:.42,speed:1.55,flip:.5,hz:{glue:3},chance:{glue:.3}}],['height',26,{startFrac:.4,speed:1.6,boss:1,flip:.7,hz:{ice:3,glue:5,wind:6},chance:{ice:.25,glue:.25,gust:.25},gap:5}],
+  ['height',18,{startFrac:.4,speed:1.65,dark:1,bombs:true,hz:{lava:4},chance:{lava:.15}}],['dodge',6,{startFrac:.4,speed:1.65,bombs:true,hz:{lava:3,ice:4},chance:{lava:.15,ice:.2}}],['score',100,{startFrac:.4,speed:1.7,dark:1,flip:.5,hz:{lava:3,glue:4},chance:{lava:.15,glue:.2}}],
+  ['height',24,{startFrac:.4,speed:1.7,tremor:1,flip:.5,hz:{lava:3,wind:4,ice:5},chance:{lava:.15,gust:.25,ice:.2},gap:5}],['combo',10,{startFrac:.4,speed:1.7,dark:1,flip:.5,hz:{lava:3},chance:{lava:.15}}],['height',30,{startFrac:.38,speed:1.8,boss:1,upside:1,dark:1,tremor:1,flip:.6,bombs:true,hz:{lava:3,ice:5,glue:7,wind:6},chance:{lava:.15,ice:.2,glue:.2,gust:.25},gap:5}],
 ];
-const WORLD_NAMES = ['Meadow','Speedway','Minefield','Skyline','Caverns'];
+const WORLD_NAMES = ['Meadow','Speedway','Minefield','Skyline','Caverns','Crystal Depths','Magma Core'];
 const goalLabel = g => ({height:tr('Reach {n} blocks',{n:g[1]}),perfects:tr('Land {n} perfects',{n:g[1]}),score:tr('Score {n}',{n:g[1]}),dodge:tr('Dodge {n} bombs',{n:g[1]}),combo:tr('Hit a x{n} combo',{n:g[1]})}[g[0]]);
 const goalShort = g => ({height:tr('{n} high',{n:g[1]}),perfects:tr('{n} perfects',{n:g[1]}),score:tr('{n} pts',{n:g[1]}),dodge:tr('{n} dodges',{n:g[1]}),combo:tr('x{n} combo',{n:g[1]})}[g[0]]);
 
@@ -951,7 +955,7 @@ const ACH = [
   {id:'camp1',icon:'map',name:'Off the Map',desc:'Clear campaign stage 1',coins:15,test:()=>cleared(1,1)},
   {id:'w1',icon:'leaf',name:'Meadow Master',desc:'Clear all of World 1',coins:40,test:()=>cleared(1,6)},
   {id:'stars30',icon:'star',name:'Star Collector',desc:'Earn 30 campaign stars',coins:60,test:()=>starsTotal()>=30},
-  {id:'camp24',icon:'crown',name:'Campaign Complete',desc:'Clear all 24 stages',coins:150,test:()=>cleared(1,24)},
+  {id:'camp24',icon:'crown',name:'Campaign Complete',desc:'Clear the first 24 stages',coins:150,test:()=>cleared(1,24)},
   {id:'col5',icon:'palette',name:'Collector',desc:'Own 5 themes',coins:40,test:()=>S.owned.length>=5},
   {id:'col10',icon:'award',name:'Curator',desc:'Own 10 themes',coins:100,test:()=>S.owned.length>=10},
   {id:'st3',icon:'flame',name:'On a Roll',desc:'3-day login streak',coins:20,test:()=>S.streak>=3},
@@ -962,13 +966,13 @@ const ACH = [
   {id:'c50',icon:'sparkles',name:'Unstoppable',desc:'50 perfect drops in a row',coins:120,test:x=>x.combo>=50},
   {id:'p2000',icon:'crosshair',name:'Laser Focus',desc:'2000 perfect drops total',coins:150,test:()=>S.perfects>=2000},
   {id:'t150',icon:'building2',name:'Space Tower',desc:'Stack 150 blocks in one run',coins:100,test:x=>x.height>=150},
-  {id:'boss1',icon:'crown',name:'Boss Slayer',desc:'Defeat a boss stage',coins:40,test:()=>[6,12,18,24].some(n=>S.camp&&S.camp[n]>=1)},
+  {id:'boss1',icon:'crown',name:'Boss Slayer',desc:'Defeat a boss stage',coins:40,test:()=>[6,12,18,24,30,36,42].some(n=>S.camp&&S.camp[n]>=1)},
   {id:'boss4',icon:'crown',name:'Boss Rush',desc:'Defeat all four bosses',coins:120,test:()=>[6,12,18,24].every(n=>S.camp&&S.camp[n]>=1)},
   {id:'w2',icon:'map',name:'Ice Breaker',desc:'Clear all of World 2',coins:50,test:()=>cleared(7,12)},
   {id:'w3',icon:'map',name:'Glue Gunner',desc:'Clear all of World 3',coins:60,test:()=>cleared(13,18)},
   {id:'bomb100',icon:'bomb',name:'Demolition Expert',desc:'Dodge 100 bombs total',coins:80,test:()=>S.dodged>=100},
   {id:'shield10',icon:'shield',name:'Fortress',desc:'Use 10 shields',coins:40,test:()=>S.shields>=10},
-  {id:'stars72',icon:'star',name:'Every Star',desc:'Earn all 72 campaign stars',coins:200,test:()=>starsTotal()>=72},
+  {id:'stars72',icon:'star',name:'Every Star',desc:'Earn every campaign star',coins:300,test:()=>starsTotal()>=STAGES.length*3},
   {id:'plays100',icon:'play',name:'Regular',desc:'Finish 100 rounds',coins:50,test:()=>S.played>=100},
   {id:'friend',icon:'trophy',name:'Friendly Rivalry',desc:'Beat a friend in a friend race',coins:40,test:()=>S.friendWins>=1},
   {id:'duel100',icon:'crown',name:'Century Rival',desc:'Beat a friend with 100 points or more, no boosts',coins:80,test:()=>S.friendBig>=1}
@@ -1425,6 +1429,7 @@ let lives=1, maxLives=1, timeLeft=0, timerOn=false, lastBomb=false, shield=false
 /* boosters armed for this run: they are only used up (taken from the inventory) when they actually help */
 let armed={}, boosted=false, slowLeft=0, regrowUsed=0, boostShield=false;
 let duelLogged=false;
+let upDur=0, upT=0, upNext=8, upAng=0, upMin=6;      // the final boss turns the screen upside down for a few seconds now and then
 let freeBlocks=0;                               // blocks a Speed-up added for free: they do not count towards the speed-up of the game, only blocks you place do
 const placedN=()=>stack.length-freeBlocks;
 let friendStart=false, friendRun=false, friendMode='classic';      // friendRun: a round of a friend race (yours from the Friend race sheet, or a friend's): only Speed-ups work
@@ -1562,6 +1567,7 @@ function spawnCur(noBomb){
   const top=stack[stack.length-1];
   dir = (stack.length%2) ? 1 : -1;
   cur={ x: dir>0 ? 0 : W-top.w, w: top.w, y: stack.length*BH, i: stack.length, sq:0 };
+  if(mod.flip && state==='playing' && rollAt(stack.length,8)<mod.flip) cur.flipAt=W*(.25+.5*rollAt(stack.length,9));      // this block will turn round once, part-way across
   if(state==='playing' && bombsOn() && !noBomb && (forceBomb || (!lastBomb && stack.length>=4 && rollAt(stack.length)<CFG.bombChance))){
     cur.bomb=true; cur.ttl=CFG.bombTtl; lastBomb=true; forceBomb=false;
   } else {
@@ -1627,7 +1633,7 @@ function newRun(){
   score=0; combo=0; bestCombo=0; perfectsRun=0; runBlocks=0; dodgedRun=0; revived=false; cam=0; shake=0; flash=0; lastBomb=false; shield=false;
   paused=false; grace=0; clearCount(); $('pause').classList.add('hidden');
   lives=mod.lives||M.lives; maxLives=lives; timeLeft=CFG.timedSeconds; timerOn=false;
-  lift=null; freeBlocks=0; duelLogged=false; armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
+  lift=null; freeBlocks=0; duelLogged=false; upDur=0; upT=0; upAng=0; upMin=6; upNext=rand(6,10); armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
   if(challenge && challenge.mode!==mode) challenge=null;
   runSeed=challenge?challenge.seed:(Math.random()*2147483647)|0; assisted=assistOn();
   prunePicks(); held=[]; powerPhase='off'; tsc=1; $('power').classList.add('hidden');
@@ -2309,6 +2315,7 @@ function update(dt){
     cur.x+=dir*speed()*dt;
     if(cur.x<0){ cur.x=0; dir=1; }
     if(cur.x+cur.w>W){ cur.x=W-cur.w; dir=-1; }
+    if(cur.flipAt!==undefined && !cur.flipped && state==='playing' && ((dir>0 && cur.x+cur.w/2>=cur.flipAt) || (dir<0 && cur.x+cur.w/2<=cur.flipAt))){ dir=-dir; cur.flipped=true; burst(cur.x+cur.w/2,cur.y+BH/2,200,10,200*u,400); sfx.tap(); }
     if(state==='playing' && cur.bomb){
       cur.ttl-=dt;
       if(cur.ttl<=0){
@@ -2327,6 +2334,11 @@ function update(dt){
   }
   for(const b of stack){ if(b.dy){ b.dy*=Math.pow(.0008,dt); if(b.dy<.5) b.dy=0; } if(b.hot>0) b.hot=Math.max(0,b.hot-dt*.9); if(b.sq>0) b.sq=Math.max(0,b.sq-dt*4); if(b.fx){ b.fx*=Math.pow(.0004,dt); if(Math.abs(b.fx)<.3) b.fx=0; } }
   updateWind(dt); stepLift(dt);
+  if(mod.upside && state==='playing' && !paused && !reduceOn()){
+    if(!upDur){ upNext-=dt; if(upNext<=0 && stack.length>=upMin){ upDur=3.2; upT=0; banner={text:tr('UPSIDE DOWN!'),life:1}; sfx.gust(); vib([20,30,20]); } }
+    else { upT+=dt; if(upT>=upDur){ upDur=0; upNext=rand(8,14); } }
+    const a=upDur?smooth(upT/.5)*(1-smooth((upT-(upDur-.5))/.5)):0; upAng=Math.PI*a;
+  } else if(upAng && !(mod.upside && state==='playing')){ upAng=0; upDur=0; }
   const target=Math.max(0, stack.length*BH - H*.35);
   cam+=(target-cam)*Math.min(1,dt*5);
   shake*=Math.pow(.002,dt); if(shake<.2) shake=0;
@@ -2632,6 +2644,7 @@ function drawShieldAura(){
 function draw(){
   ctx.save();
   if(shake>0) ctx.translate(rand(-shake,shake),rand(-shake,shake));
+  if(upAng){ ctx.translate(W/2,H/2); ctx.rotate(upAng); ctx.translate(-W/2,-H/2); }
   drawBG();
   if(mode==='campaign' && mod.boss && state==='playing'){ const g=ctx.createRadialGradient(W/2,H/2,H*.32,W/2,H/2,H*.78); g.addColorStop(0,'rgba(255,60,40,0)'); g.addColorStop(1,'rgba(255,60,40,.17)'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H); }
   drawGhost();
@@ -2671,7 +2684,8 @@ function draw(){
   }
   ctx.restore();
   if(mod.dark && state==='playing'){                                              // a cave: only the top of the tower is lit, by a lantern that flickers
-    const cx=W/2+windOff, cy=Y(stack.length*BH+BH*.5), rad=(170+8*Math.sin(t*7)+5*Math.sin(t*13))*u, g=ctx.createRadialGradient(cx,cy,rad*.25,cx,cy,rad*1.25);
+    let cx=W/2+windOff, cy=Y(stack.length*BH+BH*.5); if(upAng){ const dx=cx-W/2, dy=cy-H/2, c=Math.cos(upAng), sn=Math.sin(upAng); cx=W/2+dx*c-dy*sn; cy=H/2+dx*sn+dy*c; }
+    const rad=(170+8*Math.sin(t*7)+5*Math.sin(t*13))*u, g=ctx.createRadialGradient(cx,cy,rad*.25,cx,cy,rad*1.25);
     g.addColorStop(0,'rgba(5,3,12,0)'); g.addColorStop(.55,'rgba(5,3,12,.55)'); g.addColorStop(1,'rgba(5,3,12,.94)'); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
   }
   if(tsc<1){ ctx.fillStyle=`rgba(10,6,32,${(.5*(1-tsc)).toFixed(3)})`; ctx.fillRect(0,0,W,H); }                       // the world dims as time slows to a stop
@@ -3405,7 +3419,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ get mod(){ return mod; }, get pieces(){ return pieces; }, get friendRun(){ return friendRun; }, startFriend, speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ get upAng(){ return upAng; }, get banner(){ return banner; }, forceUpside(){ upNext=0; upMin=0; }, get mod(){ return mod; }, get pieces(){ return pieces; }, get friendRun(){ return friendRun; }, startFriend, speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},

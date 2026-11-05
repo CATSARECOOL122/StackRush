@@ -553,3 +553,8 @@
 553|Lav! Düşerse altındaki 2 bloğu eritir.
 554|ERİDİ! -{n}
 555|SARSINTI!
+556|İlk 24 aşamayı bitir
+557|Kristal Derinlikler
+558|Her kampanya yıldızını kazan
+559|Magma Çekirdeği
+560|TERS DÖNDÜ!

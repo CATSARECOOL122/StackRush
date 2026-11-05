@@ -553,3 +553,8 @@
 553|Lave ! Si elle tombe, elle fait fondre les 2 blocs en dessous.
 554|FONTE ! -{n}
 555|SECOUSSE !
+556|Termine les 24 premiers niveaux
+557|Profondeurs de cristal
+558|Gagne toutes les étoiles de la campagne
+559|Cœur de magma
+560|À L'ENVERS !

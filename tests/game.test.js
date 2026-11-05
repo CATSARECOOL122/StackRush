@@ -97,8 +97,8 @@ module.exports=[
 ['campaign: stage 1 clears with 3 stars and unlocks stage 2; a failed stage 2 keeps stage 3 locked', async(e,L)=>{
   const p=await L.open(e);
   await p.click('#openCampaign'); await p.waitForTimeout(250);
-  assert.equal(await p.locator('.stg').count(),30);
-  assert.equal(await p.locator('.stg.lock').count(),29);
+  assert.equal(await p.locator('.stg').count(),42);
+  assert.equal(await p.locator('.stg.lock').count(),41);
   await p.click('[data-stage="1"]'); await p.waitForTimeout(250);
   await L.perfects(p,8); await p.waitForTimeout(1300);
   assert.match((await p.textContent('#oLabel')),/1/);

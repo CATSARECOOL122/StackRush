@@ -553,3 +553,8 @@
 553|Lava! Se cair, derrete os 2 blocos abaixo.
 554|DERRETEU! -{n}
 555|TREMOR!
+556|Conclua as primeiras 24 fases
+557|Profundezas de cristal
+558|Ganhe todas as estrelas da campanha
+559|Núcleo de magma
+560|DE CABEÇA PARA BAIXO!

@@ -38,7 +38,7 @@ async function monkey(e,{seed,actions,viewport,resize=.0,tablet=false,iphone=fal
       else if(roll<.70){ const k=pick(['Space','Enter','Escape','KeyP','Tab','KeyX']); act='key '+k; window.dispatchEvent(new KeyboardEvent('keydown',{code:k,bubbles:true})); }
       else if(roll<.74){ act='hidden'; window.__hidden=!window.__hidden; document.dispatchEvent(new Event('visibilitychange')); }
       else if(roll<.76){ act='startMode'; sr.startMode(pick(['classic','timed','lives','hazard','zen','daily'])); }
-      else if(roll<.77){ act='startStage'; sr.startStage(1+Math.floor(R()*30)); }
+      else if(roll<.77){ act='startStage'; sr.startStage(1+Math.floor(R()*42)); }
       else if(roll<.78){ act='practice'; sr.startPractice(); }
       else if(roll<.79){ act='lang'; sr.setLanguage(pick(['auto','en','es','ja','ru','hi','de'])); }
       else if(roll<.80){ act='theme'; sr.setTheme(pick(Object.keys(sr.THEMES))); }

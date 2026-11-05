@@ -553,3 +553,8 @@
 553|Lava! Wenn sie landet, schmilzt sie die 2 Blöcke darunter.
 554|SCHMELZE! -{n}
 555|BEBEN!
+556|Schließe die ersten 24 Stufen ab
+557|Kristalltiefen
+558|Sammle jeden Kampagnen-Stern
+559|Magmakern
+560|AUF DEM KOPF!
