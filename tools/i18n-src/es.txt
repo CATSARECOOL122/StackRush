@@ -539,3 +539,13 @@
 539|Empezar mi partida
 540|Toca Compartir para retar a un amigo.
 541|Toca uno para usarlo ahora.
+542|Gana a un amigo con 100 puntos o más, sin potenciadores
+543|con impulso
+544|Rival centenario
+545|¡Victoria de cien! +{n} {coin}
+546|HISTORIAL
+547|Perdiste {a} – {b}
+548|Empate {a} – {b}
+549|Ganaste {a} – {b}
+550|Ganadas {w} · Perdidas {l}
+551|Tus carreras con amigos aparecerán aquí.

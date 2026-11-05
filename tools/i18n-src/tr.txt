@@ -539,3 +539,13 @@
 539|Turumu başlat
 540|Arkadaşına meydan okumak için Paylaş'a dokun.
 541|Şimdi kullanmak için birine dokun.
+542|Güçlendirme olmadan 100 puan veya üstüyle bir arkadaşını yen
+543|destekli
+544|Yüzlük Rakip
+545|Yüzlük zafer! +{n} {coin}
+546|GEÇMİŞ
+547|Kaybettin {a} – {b}
+548|Berabere {a} – {b}
+549|Kazandın {a} – {b}
+550|Galibiyet {w} · Mağlubiyet {l}
+551|Arkadaş yarışların burada görünecek.

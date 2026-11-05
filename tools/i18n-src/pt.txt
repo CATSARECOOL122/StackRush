@@ -539,3 +539,13 @@
 539|Começar minha partida
 540|Toque em Compartilhar para desafiar um amigo.
 541|Toque em um para usá-lo agora.
+542|Vença um amigo com 100 pontos ou mais, sem reforços
+543|com reforço
+544|Rival centenário
+545|Vitória de cem! +{n} {coin}
+546|HISTÓRICO
+547|Perdeu {a} – {b}
+548|Empate {a} – {b}
+549|Ganhou {a} – {b}
+550|Vitórias {w} · Derrotas {l}
+551|Suas corridas com amigos aparecerão aqui.

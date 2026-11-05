@@ -539,3 +539,13 @@
 539|Inizia la mia partita
 540|Tocca Condividi per sfidare un amico.
 541|Tocca uno per usarlo adesso.
+542|Batti un amico con 100 punti o più, senza potenziamenti
+543|potenziata
+544|Rivale da cento
+545|Vittoria da cento! +{n} {coin}
+546|CRONOLOGIA
+547|Perso {a} – {b}
+548|Pareggio {a} – {b}
+549|Vinto {a} – {b}
+550|Vinte {w} · Perse {l}
+551|Le tue sfide con gli amici appariranno qui.

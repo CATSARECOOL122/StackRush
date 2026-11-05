@@ -2,6 +2,7 @@
 const assert=require('assert');
 const BASE=(p,boosts,pick)=>p.evaluate(([b,pk])=>{ const s=__sr, S=s.S; S.assist='off'; S.boostAuto=false; S.hintPow=9; S.seenTip=true; S.tutSeen=true; for(const m of Object.keys(s.MODES)) S.tips[m]=1;
   Object.assign(S.shop.boosts,{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0},b); S.shop.pick=pk; },[boosts,pick]);
+const endIt=async(p)=>{ for(let i=0;i<6 && await p.evaluate(()=>__sr.state)==='playing';i++){ await require('./lib.js').miss(p); await p.waitForTimeout(200); } await p.waitForTimeout(1300); };
 const openP=async p=>{ await p.click('#powerBtn'); await p.waitForFunction(()=>__sr.powerPhase==='open',null,{timeout:4000}); };
 module.exports=[
 
@@ -80,6 +81,22 @@ module.exports=[
   await p.evaluate(()=>{ document.getElementById('themes').scrollTop=900; }); await p.waitForTimeout(200);
   const r=await p.evaluate(()=>{ const tb=document.querySelector('#themes .topbar').getBoundingClientRect(), t=document.getElementById('tTabs').getBoundingClientRect(); return {tb:tb.bottom,t:t.top,sc:document.getElementById('themes').scrollTop}; });
   assert.ok(r.sc>100,'it scrolled'); assert.ok(r.t>=r.tb-2,`tabs (${r.t}) are not above the top bar bottom (${r.tb})`);
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['friend race: the last raceable round survives a reload (an update), and results go in a history; beating a friend with 100+ and no boosts pays once per challenge', async(e,L)=>{
+  const p=await L.open(e); await BASE(p,{},[]);
+  await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(150); await L.perfects(p,4); await L.miss(p); await p.waitForTimeout(1500);
+  assert.ok(await p.evaluate(()=>!!__sr.S.lastChal),'remembered');
+  await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
+  await p.evaluate(()=>{ __sr.showModes(); }); await p.click('#mGrid [data-mode=friend]'); assert.ok(await p.isVisible('#fsShare'),'still there after a reload: no "no round to send"'); await p.click('#fsClose');
+  await p.evaluate(()=>{ __sr.S.coins=0; __sr.startChallenge(__sr.parseChallenge('classic.30.5')); }); await p.waitForTimeout(200);
+  await L.climb(p,20,60000); await endIt(p);
+  let r=await p.evaluate(()=>({d:__sr.S.duels.length,w:__sr.S.friendWins,big:__sr.S.friendBig,c:__sr.S.coins,ach:!!__sr.S.ach.duel100,last:__sr.S.duels[__sr.S.duels.length-1]}));
+  assert.equal(r.d,1); assert.equal(r.w,1); assert.equal(r.big,1); assert.ok(r.ach,'Century Rival unlocked'); assert.ok(r.c>=60,'the bonus was paid ('+r.c+')'); assert.ok(r.last.a>=100&&r.last.b===30);
+  const c1=r.c; await p.click('#again'); await p.waitForTimeout(300); await L.climb(p,20,60000); await endIt(p);
+  r=await p.evaluate(()=>({d:__sr.S.duels.length,big:__sr.S.friendBig,c:__sr.S.coins})); assert.equal(r.d,2,'the replay is in the history'); assert.equal(r.big,1,'but pays no second bonus'); assert.ok(r.c-c1<60,'coins: only the normal round pay');
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.showModes(); }); await p.click('#mGrid [data-mode=friend]'); assert.equal(await p.locator('#fsHist .frow').count(),2); assert.match(await p.textContent('#fsHist'),/Won 2/);
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 

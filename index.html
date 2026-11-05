@@ -180,6 +180,7 @@
   .shbg{flex:1;min-height:24px;cursor:pointer}
   .shcard{background:linear-gradient(180deg,#1d1245,#150d33);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;padding:16px 16px calc(env(safe-area-inset-bottom) + 16px);width:min(520px,100%);align-self:center;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 -20px 50px #0009}
   .shcard h2{margin:0;letter-spacing:3px;font-size:16px}
+  .shcard>h2{position:sticky;top:-16px;z-index:2;margin-top:-16px;padding-top:16px;padding-bottom:10px;background:#1d1245;box-shadow:0 8px 8px -4px #1d1245;align-self:stretch;text-align:center}      /* the title stays put and crisp while the sheet scrolls under it */
   .fsteps{margin:0;padding:0 0 0 22px;text-align:left;font-size:14px;line-height:1.45;color:#ddd;width:100%}
   .fsteps li{margin:4px 0}
   .fsm{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
@@ -206,7 +207,7 @@
   #power .bpick:active:not(.empty){transform:scale(.98)}
   .coinpill{cursor:pointer;gap:6px;min-height:44px}
   .coinpill .plus{width:16px;height:16px;color:#2a1a00;background:linear-gradient(180deg,#ffd36b,#ffb23d);border-radius:50%;padding:2px;box-sizing:content-box;margin-left:2px}
-  .shcard{max-height:calc(100% - 16px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}      /* every sheet scrolls inside itself, never past the screen (on a tablet the UI is scaled, so a vh height would be wrong) */
+  .shcard{max-height:calc(100% - env(safe-area-inset-top,0px) - 16px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}      /* every sheet scrolls inside itself, never past the screen (on a tablet the UI is scaled, so a vh height would be wrong) */
   .shcard>*{flex-shrink:0}
   .shcard.cs{align-items:stretch}
   .shcard.cs .lead{max-width:none}
@@ -240,6 +241,14 @@
   .sw img{display:block;width:100%;height:100%;object-fit:cover}
   .sw .ico{position:absolute;inset:0;display:grid;place-items:center;font-size:30px}
   #chCatch{width:min(400px,100%);display:flex;flex-direction:column;gap:8px}
+  #fsHist{width:100%;display:flex;flex-direction:column;gap:6px}
+  #fsHist .fhead{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;letter-spacing:2px;color:var(--mute);font-weight:800}
+  #fsHist .fhead span{letter-spacing:0;color:var(--gold)}
+  #fsHist .frow{display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--line);border-radius:12px;padding:6px 10px}
+  #fsHist .frow i{font-style:normal;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:#ffffff14;flex:none}
+  #fsHist .frow.win i{color:#7dff9b;background:#4be08a22} #fsHist .frow.loss i{color:#ff8f8f;background:#ff5a5a22}
+  #fsHist .frow div{flex:1;min-width:0} #fsHist .frow b{display:block;font-size:14px} #fsHist .frow small{display:block;font-size:11px;color:var(--mute);font-weight:700}
+  #fsHist .frow em{font-style:normal;font-size:12px;color:var(--mute);font-weight:700;flex:none}
   #fsCatch{width:100%;display:flex;flex-direction:column;gap:8px}
   #chCatch .cu,#fsCatch .cu{display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:8px 10px;text-align:left}
   #chCatch .cu>i,#fsCatch .cu>i{font-style:normal;width:36px;height:36px;flex:none;border-radius:12px;display:grid;place-items:center;background:#ffffff1a}
@@ -490,6 +499,7 @@ button{position:relative;overflow:hidden;touch-action:manipulation}
 
 /* ===== tablets (iPad, Android tablets, foldables): a centred portrait column no wider than 3:4, with the whole UI scaled up by --z ===== */
 body.tablet #stage{width:min(100vw,75vh);width:min(100vw,75dvh);top:0;bottom:0;border-radius:0;box-shadow:0 0 0 1px #ffffff1a,0 0 90px #000c}
+body.tablet .shcard>h2{top:-20px;margin-top:-20px;padding-top:20px}
 body.tablet .shcard{width:min(580px,calc(100% - 32px));border-radius:28px;border-bottom:1px solid var(--line);margin-bottom:calc(env(safe-area-inset-bottom) + 18px);padding:20px 20px 22px;gap:12px;box-shadow:0 24px 60px #000c}
 body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(100% / var(--z));transform:scale(var(--z));transform-origin:0 0}
 
@@ -748,6 +758,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <button id="fsStart" class="btn primary big">Start my round</button>
       <p class="lead" id="fsLast"></p>
       <button id="fsShare" class="btn hidden"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg> <span id="fsShareT"></span></button>
+      <div id="fsHist"></div>
       <p class="lead">Got a link from a friend?</p>
       <button id="fsPaste" class="btn">Paste a friend's challenge</button>
       <button id="fsClose" class="btn">Close</button>
@@ -802,6 +813,8 @@ const CFG = {
   dailyBonus: 50,
   milestone: 25,
   weeklyCoins: 400,
+  duelBonus: 60,         // coins for beating a friend with a score of at least duelMin, without boosts (once per challenge)
+  duelMin: 100,
   bossBonus: 60,         // extra coins the first time a boss stage is cleared
   timedSeconds: 30, timedBonus: 2, timedCap: 90, timedMissPenalty: 3, timedExtra: 30,
   bombChance: 0.26, bombTtl: 2.8, bombDodgePts: 2,
@@ -954,12 +967,13 @@ const ACH = [
   {id:'shield10',icon:'shield',name:'Fortress',desc:'Use 10 shields',coins:40,test:()=>S.shields>=10},
   {id:'stars72',icon:'star',name:'Every Star',desc:'Earn all 72 campaign stars',coins:200,test:()=>starsTotal()>=72},
   {id:'plays100',icon:'play',name:'Regular',desc:'Finish 100 rounds',coins:50,test:()=>S.played>=100},
-  {id:'friend',icon:'trophy',name:'Friendly Rivalry',desc:'Beat a friend in a friend race',coins:40,test:()=>S.friendWins>=1}
+  {id:'friend',icon:'trophy',name:'Friendly Rivalry',desc:'Beat a friend in a friend race',coins:40,test:()=>S.friendWins>=1},
+  {id:'duel100',icon:'crown',name:'Century Rival',desc:'Beat a friend with 100 points or more, no boosts',coins:80,test:()=>S.friendBig>=1}
 ];
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,friendWins:0,revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -974,9 +988,13 @@ function cleanSave(raw){
   const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
   const num=(v,max=1e9)=>{ v=Math.floor(Number(v)); return Number.isFinite(v)?Math.max(0,Math.min(max,v)):0; };
   const dateOk=v=>typeof v==='string' && /^\d{4}-\d{2}-\d{2}$/.test(v);
-  for(const k of ['best','coins','blocks','perfects','played','revives','dodged','shields','bestCombo','maxHeight','streak','twistDone','friendWins']) if(own(raw,k)) out[k]=num(raw[k]);
+  for(const k of ['best','coins','blocks','perfects','played','revives','dodged','shields','bestCombo','maxHeight','streak','twistDone','friendWins','friendBig']) if(own(raw,k)) out[k]=num(raw[k]);
   if(own(raw,'fsHint')) out.fsHint=num(raw.fsHint,99);
   if(own(raw,'hintPow')) out.hintPow=num(raw.hintPow,9);
+  /* the last raceable round (so Friend race can still send it after an update) and the friend-race history: checked by shape, because the challenge parser is not ready yet */
+  const lc=raw.lastChal; if(lc && typeof lc==='object' && ['classic','timed','lives','hazard'].includes(lc.mode) && typeof lc.link==='string' && lc.link.length<3200 && /^https?:\/\/[^\s?#]{1,300}\?c=[A-Za-z0-9_.-]+$/.test(lc.link)) out.lastChal={mode:lc.mode,score:num(lc.score),link:lc.link};
+  if(Array.isArray(raw.duels)) out.duels=raw.duels.filter(d=>d && typeof d==='object' && ['classic','timed','lives','hazard'].includes(d.m)).slice(-40).map(d=>({m:d.m,a:num(d.a),b:num(d.b),t:num(d.t,9e12),x:d.x?1:0}));
+  if(Array.isArray(raw.duelPaid)) out.duelPaid=raw.duelPaid.filter(v=>Number.isFinite(v)).slice(-60);
   for(const k of ['mute','music','haptics','reduce','reduceSet','tutSeen','seenTip','ghostOutline','silentSound','boostAuto']) if(own(raw,k)) out[k]=!!raw[k];
   if(typeof raw.theme==='string' && own(THEMES,raw.theme)) out.theme=raw.theme;
   if(Array.isArray(raw.owned)) out.owned=[...new Set(['sunset',...raw.owned.filter(id=>typeof id==='string' && own(THEMES,id))])];
@@ -1403,6 +1421,7 @@ let stack=[], cur=null, dir=1, score=0, combo=0, bestCombo=0, perfectsRun=0, run
 let lives=1, maxLives=1, timeLeft=0, timerOn=false, lastBomb=false, shield=false, forceBomb=false;
 /* boosters armed for this run: they are only used up (taken from the inventory) when they actually help */
 let armed={}, boosted=false, slowLeft=0, regrowUsed=0, boostShield=false;
+let duelLogged=false;
 let freeBlocks=0;                               // blocks a Speed-up added for free: they do not count towards the speed-up of the game, only blocks you place do
 const placedN=()=>stack.length-freeBlocks;
 let friendStart=false, friendRun=false, friendMode='classic';      // friendRun: a round of a friend race (yours from the Friend race sheet, or a friend's): only Speed-ups work
@@ -1604,7 +1623,7 @@ function newRun(){
   score=0; combo=0; bestCombo=0; perfectsRun=0; runBlocks=0; dodgedRun=0; revived=false; cam=0; shake=0; flash=0; lastBomb=false; shield=false;
   paused=false; grace=0; clearCount(); $('pause').classList.add('hidden');
   lives=mod.lives||M.lives; maxLives=lives; timeLeft=CFG.timedSeconds; timerOn=false;
-  lift=null; freeBlocks=0; armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
+  lift=null; freeBlocks=0; duelLogged=false; armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
   if(challenge && challenge.mode!==mode) challenge=null;
   runSeed=challenge?challenge.seed:(Math.random()*2147483647)|0; assisted=assistOn();
   prunePicks(); held=[]; powerPhase='off'; tsc=1; $('power').classList.add('hidden');
@@ -1755,7 +1774,7 @@ function rememberChallenge(){ if(challengeOk()){ try{ S.lastChal={mode,score,lin
 function renderFriendModes(){ $('fsModes').innerHTML=CH_MODES.map(m=>`<button data-fm="${m}" class="${m===friendMode?'on':''}" aria-pressed="${m===friendMode}">${tr(MODES[m].name)}</button>`).join(''); }
 function startFriend(){ closeFriend(); challenge=null; friendStart=true; startMode(friendMode); }
 function openFriend(){
-  renderFriendModes(); renderCatch();
+  renderFriendModes(); renderCatch(); $('fsHist').innerHTML=duelHistoryHtml();
   const lc=S.lastChal, ok=lc && MODES[lc.mode] && typeof lc.link==='string' && parseChallenge((lc.link.split('?c=')[1]||''));
   $('fsLast').innerHTML=ok?tr('Your last round: <b>{n}</b> in {mode}',{n:lc.score,mode:tr(MODES[lc.mode].name)}):tr('No round to send yet. Play one first!');
   $('fsShare').classList.toggle('hidden',!ok); $('fsShareT').textContent=tr('Send my last round');
@@ -1784,6 +1803,27 @@ function stepCatch(id,d){
     S.coins-=bo.price[0]; S.shop.boosts[id]=Math.min(999,n+1); catchUp[id]=k+1; save(); setCoins(); sfx.up();
   }
   sfx.tap(); renderCatch();
+}
+/* a friend-race result: kept in a short history, and a win of 100+ points without boosts pays a bonus (once per challenge, so replaying one cannot farm coins) */
+function recordDuel(f){
+  if(duelLogged) return; duelLogged=true;
+  S.duels.push({m:mode,a:score,b:f,t:Date.now(),x:boosted?1:0}); S.duels=S.duels.slice(-40);
+  if(score>f){
+    S.friendWins=(S.friendWins||0)+1;
+    if(!boosted && score>=CFG.duelMin && challenge && !S.duelPaid.includes(runSeed)){
+      S.duelPaid.push(runSeed); S.duelPaid=S.duelPaid.slice(-60); S.friendBig=(S.friendBig||0)+1; S.coins+=CFG.duelBonus; setCoins(); sfx.up();
+      toast(`${I('trophy','ic-gold')} ${tr('Century win! +{n} {coin}',{n:CFG.duelBonus,coin:I('coin')})}`,2800);
+    }
+  }
+  save(); checkAch();
+}
+function duelHistoryHtml(){
+  const d=S.duels||[]; if(!d.length) return `<p class="lead">${tr('Your friend races will show up here.')}</p>`;
+  const w=d.filter(x=>x.a>x.b).length, l=d.filter(x=>x.a<x.b).length;
+  const fmt=t=>{ try{ return new Intl.DateTimeFormat(lang==='auto'?undefined:lang,{month:'short',day:'numeric'}).format(new Date(t)); }catch(e){ return ''; } };
+  return `<div class="fhead"><b>${tr('HISTORY')}</b><span>${tr('Won {w} · Lost {l}',{w,l})}</span></div>`+d.slice(-8).reverse().map(x=>{
+    const k=x.a>x.b?'win':x.a<x.b?'loss':'tie', t=k==='win'?tr('Won {a} – {b}',{a:x.a,b:x.b}):k==='loss'?tr('Lost {a} – {b}',{a:x.a,b:x.b}):tr('Tied {a} – {b}',{a:x.a,b:x.b});
+    return `<div class="frow ${k}"><i>${I(k==='win'?'trophy':k==='loss'?'x':'check')}</i><div><b>${t}</b><small>${tr(MODES[x.m].name)}${x.x?' · '+tr('boosted'):''}</small></div><em>${fmt(x.t)}</em></div>`; }).join('');
 }
 function openChallenge(ch){
   offered=ch; hideAll(); $('chal').classList.remove('hidden'); renderCatch();
@@ -2127,7 +2167,7 @@ function showOver(r){
   const nu=nextUnlock(); $('oNext').innerHTML = nu ? `${I('target')} ${tr('Next unlock: <b>{x}</b>',{x:nu})}` : '';
   const rv=$('revive'), showRv=M.revive && !revived && score>=5;
   rv.classList.toggle('hidden', !showRv);
-  if(challenge && challenge.mode===mode && !r.win){ const f=challenge.score; if(score>f){ S.friendWins=(S.friendWins||0)+1; save(); checkAch(); } $('oNext').innerHTML = score>f ? `${I('trophy','ic-gold')} ${tr('You beat your friend!')} (${score} – ${f})` : score===f ? tr('A tie!') : tr('Your friend wins {a} to {b}.',{a:f,b:score}); if(boosted) $('oNext').innerHTML+='<br>'+tr('You used Speed-ups, so this score is marked as boosted.'); }
+  if(challenge && challenge.mode===mode && !r.win){ const f=challenge.score; recordDuel(f); $('oNext').innerHTML = score>f ? `${I('trophy','ic-gold')} ${tr('You beat your friend!')} (${score} – ${f})` : score===f ? tr('A tie!') : tr('Your friend wins {a} to {b}.',{a:f,b:score}); if(boosted) $('oNext').innerHTML+='<br>'+tr('You used Speed-ups, so this score is marked as boosted.'); }
   if(friendRun && !challenge && challengeOk()) $('oNext').innerHTML=`${I('share')} ${tr('Tap Share to challenge a friend.')}`;
   rv.innerHTML=tr('Revive · {n} {coin}',{n:CFG.reviveCost,coin:I('coin')});
   rv.classList.toggle('off', S.coins<CFG.reviveCost);

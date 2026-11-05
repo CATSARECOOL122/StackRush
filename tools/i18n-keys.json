@@ -539,5 +539,15 @@
  "Start my round",
  "Tap Share to challenge a friend.",
  "Your friend plays the same round. Only Speed-ups work, for both of you.",
- "Tap one to use it now."
+ "Tap one to use it now.",
+ "Beat a friend with 100 points or more, no boosts",
+ "boosted",
+ "Century Rival",
+ "Century win! +{n} {coin}",
+ "HISTORY",
+ "Lost {a} – {b}",
+ "Tied {a} – {b}",
+ "Won {a} – {b}",
+ "Won {w} · Lost {l}",
+ "Your friend races will show up here."
 ]

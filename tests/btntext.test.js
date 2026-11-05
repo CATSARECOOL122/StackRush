@@ -39,7 +39,9 @@ module.exports=[
     const p=await L.open(e,o); await p.evaluate(()=>{ const S=__sr.S; S.tutSeen=true; S.seenTip=true; S.coins=5000; S.shop.gift=true; S.shop.boosts.up10=2; S.shop.boosts.shield=2; S.shop.pick=['shield','up10']; S.played=4; });
     const fit=async what=>{ await p.waitForTimeout(350); const r=await p.evaluate(()=>{ const c=[...document.querySelectorAll('.sheet:not(.hidden) .shcard')][0]; if(!c) return null; const b=c.getBoundingClientRect(); return {top:b.top,bottom:b.bottom,h:innerHeight}; });
       assert.ok(r,name+': '+what+' is open'); assert.ok(r.top>=-1 && r.bottom<=r.h+1,`${name}: ${what} fits the screen (${Math.round(r.top)}..${Math.round(r.bottom)} of ${r.h})`); };
-    await p.click('#openModes'); await p.click('#mGrid [data-mode=friend]'); await fit('friend sheet'); await p.click('#fsClose'); await p.click('#closeModes');
+    await p.click('#openModes'); await p.click('#mGrid [data-mode=friend]'); await fit('friend sheet');
+    await p.evaluate(()=>{ document.querySelector('#fsheet .shcard').scrollTop=300; }); await p.waitForTimeout(150);
+    { const t=await p.evaluate(()=>{ const c=document.querySelector('#fsheet .shcard').getBoundingClientRect(), h=document.querySelector('#fsheet .shcard>h2'), r=h.getBoundingClientRect(); return {gap:r.top-c.top,pos:getComputedStyle(h).position,bg:getComputedStyle(h).backgroundColor}; }); assert.ok(t.gap<=24 && t.pos==='sticky' && !/rgba\(.*, 0\)/.test(t.bg),`${name}: the sheet title stays pinned and solid (${JSON.stringify(t)})`); } await p.click('#fsClose'); await p.click('#closeModes');
     await p.click('#openBoosts'); await fit('boosts sheet'); await p.click('#boostDone');
     await p.click('#openCoins'); await fit('coins sheet'); await p.click('#csDone');
     await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(200); await p.evaluate(()=>__sr.openPower()); await p.waitForFunction(()=>__sr.powerPhase==='open',null,{timeout:5000}); await fit('power menu');

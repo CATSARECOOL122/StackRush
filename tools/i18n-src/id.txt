@@ -539,3 +539,13 @@
 539|Mulai rondeku
 540|Ketuk Bagikan untuk menantang teman.
 541|Ketuk satu untuk memakainya sekarang.
+542|Kalahkan teman dengan 100 poin atau lebih, tanpa booster
+543|berbantuan
+544|Rival Seratus
+545|Menang seratus! +{n} {coin}
+546|RIWAYAT
+547|Kalah {a} – {b}
+548|Seri {a} – {b}
+549|Menang {a} – {b}
+550|Menang {w} · Kalah {l}
+551|Balapan temanmu akan muncul di sini.

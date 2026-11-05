@@ -539,3 +539,13 @@
 539|Lancer ma partie
 540|Touche Partager pour défier un ami.
 541|Touche-en un pour l'utiliser maintenant.
+542|Bats un ami avec 100 points ou plus, sans boosts
+543|avec boost
+544|Rival du siècle
+545|Victoire à cent ! +{n} {coin}
+546|HISTORIQUE
+547|Perdu {a} – {b}
+548|Égalité {a} – {b}
+549|Gagné {a} – {b}
+550|Gagnées {w} · Perdues {l}
+551|Tes défis entre amis apparaîtront ici.

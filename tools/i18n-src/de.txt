@@ -539,3 +539,13 @@
 539|Meine Runde starten
 540|Tippe auf Teilen, um einen Freund herauszufordern.
 541|Tippe auf eines, um es jetzt zu nutzen.
+542|Schlage einen Freund mit 100 Punkten oder mehr, ohne Boosts
+543|mit Boost
+544|Hunderter-Rivale
+545|Hunderter-Sieg! +{n} {coin}
+546|VERLAUF
+547|Verloren {a} – {b}
+548|Unentschieden {a} – {b}
+549|Gewonnen {a} – {b}
+550|Gewonnen {w} · Verloren {l}
+551|Deine Freunde-Duelle erscheinen hier.
