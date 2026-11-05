@@ -8,11 +8,14 @@ module.exports=[
 ['speed-up: +10 adds ten free blocks and ten points in a quick burst, uses one up, marks the round boosted, and the game carries on', async(e,L)=>{
   const p=await L.open(e); await BASE(p,{up10:2},['up10']); await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(150);
   await L.perfects(p,3); const b=await p.evaluate(()=>({h:__sr.stackLen,s:__sr.score}));
+  const sp0=await p.evaluate(()=>__sr.speed());
   await openP(p); await p.click('#powerList [data-power=up10]');
   await p.waitForFunction(()=>!__sr.lift,null,{timeout:5000});
+  assert.equal(await p.evaluate(()=>__sr.speed()),sp0,'free blocks do not speed the game up');
   const a=await p.evaluate(()=>({h:__sr.stackLen,s:__sr.score,inv:__sr.S.shop.boosts.up10,boosted:__sr.boosted,state:__sr.state,cur:!!__sr.cur}));
   assert.equal(a.h,b.h+10,'ten blocks higher'); assert.equal(a.s,b.s+10,'ten points more'); assert.equal(a.inv,1); assert.equal(a.boosted,true); assert.equal(a.state,'playing'); assert.equal(a.cur,true,'the moving block is back');
   await L.perfects(p,2); assert.equal(await p.evaluate(()=>__sr.stackLen),b.h+12,'play continues on top');
+  assert.equal(await p.evaluate(()=>__sr.placedN()),b.h+2,'only the blocks you placed count for the speed');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 

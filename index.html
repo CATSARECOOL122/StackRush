@@ -1380,6 +1380,8 @@ let stack=[], cur=null, dir=1, score=0, combo=0, bestCombo=0, perfectsRun=0, run
 let lives=1, maxLives=1, timeLeft=0, timerOn=false, lastBomb=false, shield=false, forceBomb=false;
 /* boosters armed for this run: they are only used up (taken from the inventory) when they actually help */
 let armed={}, boosted=false, slowLeft=0, regrowUsed=0, boostShield=false;
+let freeBlocks=0;                               // blocks a Speed-up added for free: they do not count towards the speed-up of the game, only blocks you place do
+const placedN=()=>stack.length-freeBlocks;
 let lift=null, catchUp={}, cuLeft={};      // a Speed-up in progress ({left,acc,per}), and in a friend race: how many of each Speed-up were equipped / are still left
 let held=[], powerPhase='off', tsc=1;       // the boosts in hand this round (you choose when), the boost menu's state (off | slowing | open | resuming) and the game-time scale (1, easing to 0 while the menu is open)
 const BOOST_MODES=['classic','timed','lives','hazard','campaign'];
@@ -1463,7 +1465,7 @@ function rampOf(n){
 function speed(){
   if(state==='menu') return W*CFG.baseSpeed*.55;
   const M=MODES[mode];
-  let m = M.ramp===false ? 1 : rampOf(stack.length);
+  let m = M.ramp===false ? 1 : rampOf(placedN());
   if(mode==='timed') m*=1.12;
   if(mode==='practice') m*=.6;
   if(assistOn()) m*=CFG.assistSlow;
@@ -1578,7 +1580,7 @@ function newRun(){
   score=0; combo=0; bestCombo=0; perfectsRun=0; runBlocks=0; dodgedRun=0; revived=false; cam=0; shake=0; flash=0; lastBomb=false; shield=false;
   paused=false; grace=0; clearCount(); $('pause').classList.add('hidden');
   lives=mod.lives||M.lives; maxLives=lives; timeLeft=CFG.timedSeconds; timerOn=false;
-  lift=null; armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
+  lift=null; freeBlocks=0; armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
   if(challenge && challenge.mode!==mode) challenge=null;
   runSeed=challenge?challenge.seed:(Math.random()*2147483647)|0; assisted=assistOn();
   prunePicks(); held=[]; powerPhase='off'; tsc=1; $('power').classList.add('hidden');
@@ -1890,7 +1892,7 @@ function drop(){
   setScore(score); setCombo(combo); setSpeedBadge(true);
   maybeGust();
   if(slowLeft>0) slowLeft--;
-  if(armed.slow && slowLeft===0 && rampOf(stack.length)>=1.5){                                 // Slow-Mo boost: once the speed has picked up
+  if(armed.slow && slowLeft===0 && rampOf(placedN())>=1.5){                                 // Slow-Mo boost: once the speed has picked up
     slowLeft=6; useBoost('slow'); texts.length=0; texts.push({x:W/2,y:stack.length*BH+BH*2,vy:80,text:tr('SLOW-MO!'),size:26*u,color:'#7fe8ff',life:1}); sfx.speed();
   }
   setAux();
@@ -1965,7 +1967,7 @@ function usePower(id){
 function startLift(n){ lift={left:n,acc:0,per:clamp(.9/n,.015,.05),k:0}; if(cur) cur=null; }
 function pushFree(){
   const top=stack[stack.length-1], nb={x:top.x,w:top.w,y:stack.length*BH,i:stack.length,sq:.6};
-  stack.push(nb); score++; lift.left--; lift.k++;
+  stack.push(nb); freeBlocks++; score++; lift.left--; lift.k++;
   runRec.blocks.push({x:+(nb.x/W).toFixed(3),w:+(nb.w/W).toFixed(3)}); runRec.scores.push(score); runRec.ts.push(+(t-runT0).toFixed(2));
   setScore(score); burst(nb.x+nb.w/2+windOff,nb.y+BH,hue(TH(),nb.i),5,180*u); if(lift.k%3===1) sfx.perfect(Math.min(8,1+lift.k/3|0));
   if((stack.length-1)%CFG.milestone===0){ banner={text:tr('{n} HIGH!',{n:stack.length-1}),life:1}; }
@@ -2188,7 +2190,7 @@ function setAux(force){
 function setSpeedBadge(cue){
   const el=$('speedB');
   if(state!=='playing' || MODES[mode].ramp===false){ el.classList.add('hidden'); return; }
-  const r=rampOf(stack.length), tier=Math.floor(r*4);
+  const r=rampOf(placedN()), tier=Math.floor(r*4);
   el.classList.remove('hidden'); el.innerHTML=I('fast')+' ×'+r.toFixed(1); el.classList.toggle('hot',r>=2);
   if(cue && tier>speedTier){
     speedCue={life:1}; sfx.speed(); vib(18);
@@ -3300,7 +3302,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},
