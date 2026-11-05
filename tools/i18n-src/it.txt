@@ -494,3 +494,18 @@
 494|Lo apre e gioca la stessa partita, sfidando la tua torre.
 495|A fine partita tocca Condividi e invia il link al tuo amico.
 496|La tua ultima partita: <b>{n}</b> in {mode}
+497|+{n} BLOCCHI!
+498|Aggiunge 10 blocchi gratis alla torre e 10 al punteggio.
+499|Aggiunge 100 blocchi gratis alla torre e 100 al punteggio.
+500|Aggiunge 20 blocchi gratis alla torre e 20 al punteggio.
+501|Già in salita
+502|Meno
+503|Cinque potenziamenti Scatto +10.
+504|Più
+505|Non nei livelli campagna
+506|Stessi blocchi per entrambi. L'aiuto al tempismo è disattivato e funzionano solo gli Scatti.
+507|Scatto +10
+508|Scatto +100
+509|Scatto +20
+510|Pacchetto Scatti
+511|Hai usato degli Scatti, quindi questo punteggio è segnato come potenziato.

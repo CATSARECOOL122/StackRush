@@ -494,3 +494,18 @@
 494|Er öffnet ihn und spielt dieselbe Runde gegen deinen Turm.
 495|Tippe nach der Runde auf Teilen und schick deinem Freund den Link.
 496|Deine letzte Runde: <b>{n}</b> in {mode}
+497|+{n} BLÖCKE!
+498|Fügt deinem Turm 10 Gratis-Blöcke und deinem Punktestand 10 hinzu.
+499|Fügt deinem Turm 100 Gratis-Blöcke und deinem Punktestand 100 hinzu.
+500|Fügt deinem Turm 20 Gratis-Blöcke und deinem Punktestand 20 hinzu.
+501|Schon im Aufstieg
+502|Weniger
+503|Fünf Boost-Aufstiege +10.
+504|Mehr
+505|Nicht in Kampagnen-Stufen
+506|Gleiche Blöcke für euch beide. Zeithilfe ist aus, und nur Aufstiege funktionieren.
+507|Aufstieg +10
+508|Aufstieg +100
+509|Aufstieg +20
+510|Aufstiegs-Paket
+511|Du hast Aufstiege benutzt, daher gilt dieser Punktestand als geboostet.

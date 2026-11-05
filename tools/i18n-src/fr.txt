@@ -494,3 +494,18 @@
 494|Il l'ouvre et joue la même partie, face à votre tour.
 495|À la fin de la partie, touchez Partager et envoyez le lien à votre ami.
 496|Votre dernière partie : <b>{n}</b> en {mode}
+497|+{n} BLOCS !
+498|Ajoute 10 blocs gratuits à ta tour et 10 à ton score.
+499|Ajoute 100 blocs gratuits à ta tour et 100 à ton score.
+500|Ajoute 20 blocs gratuits à ta tour et 20 à ton score.
+501|Déjà en montée
+502|Moins
+503|Cinq boosts Élan +10.
+504|Plus
+505|Pas dans les niveaux de campagne
+506|Mêmes blocs pour vous deux. L'aide au timing est désactivée et seuls les Élans fonctionnent.
+507|Élan +10
+508|Élan +100
+509|Élan +20
+510|Pack d'Élans
+511|Tu as utilisé des Élans, ce score est donc marqué comme boosté.

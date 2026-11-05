@@ -54,7 +54,7 @@ module.exports=[
   await p.click('#openThemes');
   const want=await p.evaluate(()=>{ const n=o=>Object.keys(o).length, sr=__sr; return {
     themes:[n(sr.THEMES),0], blocks:[n(sr.SHOP.style),0], colors:[n(sr.SHOP.palette),0], scenes:[sr.S.owned.length+1,0],
-    sounds:[n(sr.SHOP.sfx),0], music:[n(sr.SHOP.music),0], extras:[n(sr.SHOP.fx)+n(sr.SHOP.topper)+n(sr.SHOP.accent),0], boosts:[0,n(sr.BOOSTS)], coins:[4,2] }; });
+    sounds:[n(sr.SHOP.sfx),0], music:[n(sr.SHOP.music),0], extras:[n(sr.SHOP.fx)+n(sr.SHOP.topper)+n(sr.SHOP.accent),0], boosts:[0,n(sr.BOOSTS)+1], coins:[4,2] }; });
   const tabs=await p.evaluate(()=>__sr.TABS.map(t=>t[0]));
   assert.deepEqual(tabs,Object.keys(want),'the test knows every tab');
   for(const id of tabs){
@@ -134,7 +134,7 @@ module.exports=[
   assert.equal(got.coins,0,'garbage coins become 0');
   assert.deepEqual(got.owned,['style:foil','style:flat','product:starter'],'only real item keys survive ("product:starter" is the Starter pack marker)');
   assert.deepEqual(got.equip,{style:'foil',palette:'auto',scene:'auto',sfx:'classic',music:'classic',fx:'sparkle',topper:'none',accent:'sunset'},'unowned or invalid choices fall back to the defaults');
-  assert.deepEqual(got.boosts,{shield:999,slow:0,regrow:0,time:0},'counts are clamped to 0..999');
+  assert.deepEqual(got.boosts,{shield:999,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0},'counts are clamped to 0..999');
   assert.deepEqual(got.pick,['shield','slow'],'at most two real boosts, no repeats'); assert.equal(got.gift,true);
   assert.deepEqual(got.tokens,['ok','two'],'only reasonable purchase tokens are kept'); assert.deepEqual(got.bb,{classic:12,zen:0});
   await p.click('#openThemes');
@@ -268,7 +268,7 @@ module.exports=[
   await p.evaluate(()=>{ __sr.S.shop.pick=[]; __sr.S.lastMode='classic'; __sr.renderMenu(); });
   assert.equal((await p.textContent('#boostN')).trim(),'0');
   await p.click('#openBoosts'); await p.waitForTimeout(250);
-  assert.equal(await p.locator('#boostList .bpick').count(),4);
+  assert.equal(await p.locator('#boostList .bpick').count(),7);
   await p.click('#boostList [data-boost=shield]'); await p.click('#boostList [data-boost=slow]');
   assert.deepEqual(await p.evaluate(()=>__sr.S.shop.pick),['shield','slow']); assert.equal((await p.textContent('#boostN')).trim(),'2');
   await p.click('#boostList [data-boost=regrow]'); await toastHas(p,'Pick up to 2');
@@ -306,15 +306,15 @@ module.exports=[
 ['boosts: the welcome gift comes once, and streak days 3, 5 and 7 each bring one boost', async(e,L)=>{
   const p=await L.open(e);
   await p.evaluate(()=>__sr.showMenu());
-  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:0,slow:0,regrow:0,time:0},'no gift before the first game');
+  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0},'no gift before the first game');
   await p.evaluate(()=>{ __sr.S.played=1; __sr.showMenu(); });
-  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1,time:1},'one of each after the first game'); await toastHas(p,'Welcome gift');
-  await p.evaluate(()=>__sr.showMenu()); assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1,time:1},'only once');
+  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1,time:1,up10:0,up20:0,up100:0},'one of each after the first game'); await toastHas(p,'Welcome gift');
+  await p.evaluate(()=>__sr.showMenu()); assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1,time:1,up10:0,up20:0,up100:0},'only once');
   await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
-  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1,time:1},'and not again after a reload');
+  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:1,slow:1,regrow:1,time:1,up10:0,up20:0,up100:0},'and not again after a reload');
   const y=yest(), got={};
   for(let day=1;day<=10;day++){
-    await p.evaluate(([d,y])=>{ const S=__sr.S; S.streak=d-1; S.lastClaim=d===1?'':y; S.shop.boosts={shield:0,slow:0,regrow:0,time:0}; __sr.renderMenu(); },[day,y]);
+    await p.evaluate(([d,y])=>{ const S=__sr.S; S.streak=d-1; S.lastClaim=d===1?'':y; S.shop.boosts={shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0}; __sr.renderMenu(); },[day,y]);
     await p.click('#dailyCard [data-act=claim]'); await p.waitForTimeout(80);
     const b=await p.evaluate(()=>__sr.S.shop.boosts), s=await p.evaluate(()=>__sr.S.streak);
     assert.equal(s,day,`streak day ${day}`); got[day]=Object.entries(b).filter(([,n])=>n).map(([k,n])=>k+n).join('');
@@ -326,9 +326,9 @@ module.exports=[
 ['boosts: coins buy them in ones and threes, and a boost is never bought without enough coins', async(e,L)=>{
   const p=await L.open(e); await p.evaluate(()=>{ __sr.S.coins=700; });
   const st=()=>p.evaluate(()=>({c:__sr.S.coins,b:Object.assign({},__sr.S.shop.boosts)}));
-  assert.equal(await p.evaluate(()=>__sr.boostAction('shield',1)),true); assert.deepEqual(await st(),{c:580,b:{shield:1,slow:0,regrow:0,time:0}});
-  assert.equal(await p.evaluate(()=>__sr.boostAction('slow',3)),true); assert.deepEqual(await st(),{c:180,b:{shield:1,slow:3,regrow:0,time:0}});
-  assert.equal(await p.evaluate(()=>__sr.boostAction('regrow',1)),false); await toastHas(p,'Need'); assert.deepEqual(await st(),{c:180,b:{shield:1,slow:3,regrow:0,time:0}},'too few coins: nothing happens');
+  assert.equal(await p.evaluate(()=>__sr.boostAction('shield',1)),true); assert.deepEqual(await st(),{c:580,b:{shield:1,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0}});
+  assert.equal(await p.evaluate(()=>__sr.boostAction('slow',3)),true); assert.deepEqual(await st(),{c:180,b:{shield:1,slow:3,regrow:0,time:0,up10:0,up20:0,up100:0}});
+  assert.equal(await p.evaluate(()=>__sr.boostAction('regrow',1)),false); await toastHas(p,'Need'); assert.deepEqual(await st(),{c:180,b:{shield:1,slow:3,regrow:0,time:0,up10:0,up20:0,up100:0}},'too few coins: nothing happens');
   assert.equal(await p.evaluate(()=>__sr.boostAction('nope',1)),false);
   await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('boosts'));
   assert.match(await p.textContent('#tGrid'),/You have 3/); assert.deepEqual(p.errs,[]); await L.close(p);
@@ -351,7 +351,7 @@ module.exports=[
 
 ['store: every product has a legal, unique Google Play id, and android/README.md lists them all', async(e,L)=>{
   const p=await L.open(e); const keys=await p.evaluate(()=>__sr.iapKeys().map(k=>[k,__sr.skuOf(k)]));
-  assert.equal(keys.length,10,`${keys.length} products: 4 coin packs, the Starter pack, 3 premium themes, 2 premium cosmetics`);
+  assert.equal(keys.length,11,`${keys.length} products: 4 coin packs, the Starter pack, the Speed-up pack, 3 premium themes, 2 premium cosmetics`);
   const skus=keys.map(k=>k[1]); assert.equal(new Set(skus).size,skus.length,'ids are unique');
   for(const s of skus) assert.match(s,/^[a-z][a-z0-9_]{2,39}$/,`${s} is a legal Play product id`);
   const doc=fs.readFileSync(path.join(root,'android/README.md'),'utf8');
@@ -366,7 +366,7 @@ module.exports=[
   const c0=(await S()).c;
   assert.equal(await p.evaluate(()=>__sr.grantProduct('coins_l')),true); assert.equal((await S()).c,c0+4000);
   assert.equal(await p.evaluate(()=>__sr.grantProduct('starter')),true);
-  let s=await S(); assert.equal(s.c,c0+5000); assert.deepEqual(s.b,{shield:2,slow:2,regrow:2,time:2}); assert.deepEqual(s.own.sort(),['product:starter','style:neon','topper:black']);
+  let s=await S(); assert.equal(s.c,c0+5000); assert.deepEqual(s.b,{shield:2,slow:2,regrow:2,time:2,up10:0,up20:0,up100:0}); assert.deepEqual(s.own.sort(),['product:starter','style:neon','topper:black']);
   await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('coins'));
   assert.match(await p.textContent('#tGrid [data-act=pack][data-id=starter]'),/Owned/); assert.ok(await p.locator('#tGrid [data-act=pack][data-id=starter]').isDisabled(),'the Starter pack button is off once owned');
   await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready'));
@@ -499,7 +499,7 @@ module.exports=[
 
 
 ['boosts: a boost that runs out leaves the pick list, so the two-boost limit holds and a reload never drops the wrong pick (found by the monkey in CI)', async(e,L)=>{
-  const p=await L.open(e); await stock(p,{shield:1,slow:1,regrow:1,time:0},['shield','slow']);
+  const p=await L.open(e); await stock(p,{shield:1,slow:1,regrow:1,time:0,up10:0,up20:0,up100:0},['shield','slow']);
   await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(150); await L.perfects(p,2); await L.miss(p); await p.waitForTimeout(500);   // the Shield saves the miss and is used up
   assert.equal(await inv(p,'shield'),0); assert.deepEqual(await p.evaluate(()=>__sr.S.shop.pick),['slow'],'the used-up Shield is no longer picked');
   await p.evaluate(()=>{ __sr.pause(); }); await p.click('#quit'); await p.waitForTimeout(300);

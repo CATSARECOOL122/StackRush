@@ -494,3 +494,18 @@
 494|Mereka membukanya dan memainkan ronde yang sama, beradu dengan menaramu.
 495|Setelah ronde selesai, ketuk Bagikan dan kirim tautannya ke temanmu.
 496|Ronde terakhirmu: <b>{n}</b> di {mode}
+497|+{n} BLOK!
+498|Menambah 10 blok gratis ke menara dan 10 ke skormu.
+499|Menambah 100 blok gratis ke menara dan 100 ke skormu.
+500|Menambah 20 blok gratis ke menara dan 20 ke skormu.
+501|Sedang naik
+502|Kurangi
+503|Lima booster Lompatan +10.
+504|Tambah
+505|Tidak di tahap kampanye
+506|Blok sama untuk kalian berdua. Bantuan waktu mati, dan hanya Lompatan yang berfungsi.
+507|Lompatan +10
+508|Lompatan +100
+509|Lompatan +20
+510|Paket Lompatan
+511|Kamu memakai Lompatan, jadi skor ini ditandai sebagai berbantuan.

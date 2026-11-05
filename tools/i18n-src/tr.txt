@@ -494,3 +494,18 @@
 494|O bağlantıyı açar ve aynı turu senin kulenle yarışarak oynar.
 495|Tur bitince Paylaş'a dokun ve bağlantıyı arkadaşına gönder.
 496|Son turun: {mode} modunda <b>{n}</b>
+497|+{n} BLOK!
+498|Kuleye 10 bedava blok ve skoruna 10 puan ekler.
+499|Kuleye 100 bedava blok ve skoruna 100 puan ekler.
+500|Kuleye 20 bedava blok ve skoruna 20 puan ekler.
+501|Zaten yükseliyor
+502|Daha az
+503|Beş Hızlandırma +10 desteği.
+504|Daha çok
+505|Kampanya aşamalarında yok
+506|İkinize de aynı bloklar gelir. Zamanlama yardımı kapalı, yalnızca Hızlandırmalar çalışır.
+507|Hızlandırma +10
+508|Hızlandırma +100
+509|Hızlandırma +20
+510|Hızlandırma paketi
+511|Hızlandırma kullandın, bu yüzden bu skor destekli olarak işaretlendi.

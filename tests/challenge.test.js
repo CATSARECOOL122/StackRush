@@ -33,7 +33,7 @@ module.exports=[
 ['challenge: a friend\'s link on a fresh install shows the challenge card, the address is cleaned, Accept plays that mode with that seed; Not now leaves it all alone', async(e,L)=>{
   const p=await viaLink(e,L,'classic.42.1234567');
   assert.ok(await p.isVisible('#chal'),'the card is shown'); assert.equal(await p.textContent('#chScore'),'42'); assert.match(await p.textContent('#chText'),/A friend scored 42 in Classic/);
-  assert.match(await p.textContent('#chNote'),/Boosts and timing assist are off/);
+  assert.match(await p.textContent('#chNote'),/Timing assist is off, and only Speed-ups work here/);
   assert.equal(await p.evaluate(()=>location.search),'','the ?c=... is removed from the address (a reload does not open it again)'); assert.equal(await p.evaluate(()=>location.hash),'#debug');
   assert.equal(await p.isVisible('#menu'),false,'the menu is hidden behind the card');
   await p.click('#chNo'); await p.waitForTimeout(300); assert.ok(await p.isVisible('#menu')); assert.equal(await p.evaluate(()=>__sr.challenge),null);
@@ -60,7 +60,7 @@ module.exports=[
   await p.evaluate(()=>{ __sr.showMenu(); __sr.startChallenge(__sr.parseChallenge('classic.30.5')); }); await p.waitForTimeout(150);
   assert.deepEqual(await p.evaluate(()=>({assist:__sr.assistOn(),assisted:__sr.assisted,armed:Object.keys(__sr.armed),held:__sr.held,boosted:__sr.boosted,shield:__sr.shield,tol:__sr.tolFactor()})),{assist:false,assisted:false,armed:[],held:[],boosted:false,shield:false,tol:1},'a challenge: strict timing, nothing armed, nothing in hand');
   const base=await p.evaluate(()=>__sr.W*0.42), sp=await p.evaluate(()=>__sr.sp); assert.ok(Math.abs(sp/base-1)<.02,`full speed (x${(sp/base).toFixed(2)})`);
-  assert.deepEqual(await p.evaluate(()=>__sr.S.shop.boosts),{shield:3,slow:3,regrow:3,time:3},'and none of the boosts was touched');
+  assert.deepEqual(await p.evaluate(()=>{ const b=__sr.S.shop.boosts; return {shield:b.shield,slow:b.slow,regrow:b.regrow,time:b.time}; }),{shield:3,slow:3,regrow:3,time:3},'and none of the boosts was touched');
   await p.evaluate(()=>{ __sr.pause(); }); await p.click('#quit'); await p.waitForTimeout(250); assert.equal(await p.evaluate(()=>__sr.challenge),null,'back at the menu: the challenge is over');
   await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(150); assert.equal(await p.evaluate(()=>__sr.assistOn()),true,'and your own rounds have their assist again');
   assert.deepEqual(p.errs,[]); await L.close(p);

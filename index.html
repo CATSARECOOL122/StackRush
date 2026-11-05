@@ -222,6 +222,15 @@
   .tabh{grid-column:1/-1;margin:6px 2px 0;font-size:11px;letter-spacing:2px;color:var(--mute);font-weight:900;text-align:left}
   .sw img{display:block;width:100%;height:100%;object-fit:cover}
   .sw .ico{position:absolute;inset:0;display:grid;place-items:center;font-size:30px}
+  #chCatch{width:min(400px,100%);display:flex;flex-direction:column;gap:8px}
+  #chCatch .cu{display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:8px 10px;text-align:left}
+  #chCatch .cu>i{font-style:normal;width:36px;height:36px;flex:none;border-radius:12px;display:grid;place-items:center;background:#ffffff1a}
+  #chCatch .cu>div{flex:1;min-width:0}
+  #chCatch .cu b{display:block;font-size:15px}
+  #chCatch .cu small{display:block;font-size:12px;font-weight:800;color:var(--gold)}
+  #chCatch .stp{display:flex;align-items:center;gap:6px;flex:none}
+  #chCatch .stp button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:#ffffff1a;color:#fff;font-size:22px;font-weight:900}
+  #chCatch .stp output{min-width:26px;text-align:center;font-weight:900;font-size:18px}
   .bst{grid-column:1/-1;display:flex;align-items:center;gap:12px;background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:left}
   .bst>i{font-style:normal;width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;background:#ffffff1a;font-size:26px}
   .bst>div{flex:1;min-width:0}
@@ -516,6 +525,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 <symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="m11 3-3 6 4 13 4-13-3-6M2 9h20"/></symbol>
 <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
 <symbol id="i-crosshair" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M22 12h-4M6 12H2M12 6V2M12 22v-4"/></symbol>
+<symbol id="i-arrowup" viewBox="0 0 24 24"><path d="M12 3 5 11h4v9h6v-9h4z"/></symbol>
 <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></symbol>
 <symbol id="i-crown" viewBox="0 0 24 24"><path d="m2 8 5 4 5-8 5 8 5-4-2 12H4z"/></symbol>
 <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
@@ -595,7 +605,8 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     <div class="label">CHALLENGE</div>
     <div class="big-score" id="chScore">0</div>
     <div class="sub" id="chText"></div>
-    <div class="sub" id="chNote">Same blocks for both of you. Boosts and timing assist are off.</div>
+    <div class="sub" id="chNote">Same blocks for both of you. Timing assist is off, and only Speed-ups work here.</div>
+    <div id="chCatch"></div>
     <button id="chGo" class="btn primary big">Accept</button>
     <button id="chNo" class="btn">Not now</button>
   </div></section>
@@ -911,7 +922,7 @@ const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:''
              coins:0,blocks:0,perfects:0,played:0,revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
-             shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0},pick:[],gift:false,tokens:[]},boostBests:{},
+             shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0},pick:[],gift:false,tokens:[]},boostBests:{},
              lastClaim:'',streak:0,daily:{day:'',perfects:0,done:false},seenTip:false,weekly:{week:'',p:[0,0,0],claimed:false}};
 const store = {
   get(){ try{ return JSON.parse(localStorage.getItem('stackrush.v2')||'{}'); }catch(e){ return {}; } },
@@ -1349,12 +1360,13 @@ let stack=[], cur=null, dir=1, score=0, combo=0, bestCombo=0, perfectsRun=0, run
 let lives=1, maxLives=1, timeLeft=0, timerOn=false, lastBomb=false, shield=false, forceBomb=false;
 /* boosters armed for this run: they are only used up (taken from the inventory) when they actually help */
 let armed={}, boosted=false, slowLeft=0, regrowUsed=0, boostShield=false;
+let lift=null, catchUp={}, cuLeft={};      // a Speed-up in progress ({left,acc,per}), and in a friend race: how many of each Speed-up were equipped / are still left
 let held=[], powerPhase='off', tsc=1;       // the boosts in hand this round (you choose when), the boost menu's state (off | slowing | open | resuming) and the game-time scale (1, easing to 0 while the menu is open)
 const BOOST_MODES=['classic','timed','lives','hazard','campaign'];
 const boostsAllowed=m=>BOOST_MODES.includes(m);
 const prunePicks=()=>{ S.shop.pick=S.shop.pick.filter((k,i,a)=>(S.shop.boosts[k]||0)>0 && a.indexOf(k)===i).slice(0,2); };   // only boosts you still have can stay picked, at most two
 function useBoost(id){
-  S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); boosted=true; armed[id]=false; prunePicks(); held=held.filter(k=>(S.shop.boosts[k]||0)>0); save(); syncPower();
+  S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); boosted=true; armed[id]=false; if(challenge && cuLeft[id]) cuLeft[id]--; prunePicks(); held=held.filter(k=>(S.shop.boosts[k]||0)>0 && (!challenge || cuLeft[k]>0)); save(); syncPower();
   const bo=BOOSTS[id]; toast(`${I(bo.icon,'ic-cyan')} ${tr(bo.name)} · ${tr('{n} left',{n:S.shop.boosts[id]})}`,1800);
 }
 let paused=false, grace=0;
@@ -1546,13 +1558,16 @@ function newRun(){
   score=0; combo=0; bestCombo=0; perfectsRun=0; runBlocks=0; dodgedRun=0; revived=false; cam=0; shake=0; flash=0; lastBomb=false; shield=false;
   paused=false; grace=0; clearCount(); $('pause').classList.add('hidden');
   lives=mod.lives||M.lives; maxLives=lives; timeLeft=CFG.timedSeconds; timerOn=false;
-  armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
+  lift=null; armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
   if(challenge && challenge.mode!==mode) challenge=null;
   runSeed=challenge?challenge.seed:(Math.random()*2147483647)|0; assisted=assistOn();
   prunePicks(); held=[]; powerPhase='off'; tsc=1; $('power').classList.add('hidden');
+  cuLeft={};
   if(boostsAllowed(mode) && !challenge){
-    const mine=S.shop.pick.filter(id=>(S.shop.boosts[id]||0)>0 && (id!=='time' || mode==='timed'));
-    if(manualOn()) held=mine; else for(const id of mine) armed[id]=true;          // you choose when (the bolt), or they fire by themselves when they help (Settings)
+    const mine=S.shop.pick.filter(id=>(S.shop.boosts[id]||0)>0 && (id!=='time' || mode==='timed') && (!BOOSTS[id].lift || mode!=='campaign'));
+    if(manualOn()) held=mine; else { held=mine.filter(id=>BOOSTS[id].lift); for(const id of mine) if(!BOOSTS[id].lift) armed[id]=true; }          // you choose when (the bolt), or they fire by themselves when they help (Settings; a Speed-up is always your call)
+  } else if(challenge){                                                              // a friend race: only the Speed-ups you equipped on the challenge card
+    for(const id of LIFTS){ const k=Math.min(catchUp[id]||0,S.shop.boosts[id]||0); if(k>0){ cuLeft[id]=k; held.push(id); } }
   }
   if(armed.shield){ shield=true; boostShield=true; }
   pieces=[]; parts=[]; rings=[]; texts=[]; banner=null; speedCue=null; speedTier=Math.floor(rampOf(1)*4);
@@ -1706,8 +1721,22 @@ async function shareLast(){
     else { await navigator.clipboard.writeText(lc.link); toast(tr('Challenge link copied')); }
   }catch(e){ if(e && e.name==='AbortError') return; try{ await navigator.clipboard.writeText(lc.link); toast(tr('Challenge link copied')); }catch(_){ toast(tr('Could not share')); } }
 }
+function renderCatch(){
+  $('chCatch').innerHTML=LIFTS.map(id=>{ const bo=BOOSTS[id], n=S.shop.boosts[id]||0, k=Math.min(catchUp[id]||0,n); catchUp[id]=k;
+    return `<div class="cu"><i>${I(bo.icon)}</i><div><b>${tr(bo.name)}</b><small>${tr('You have {n}',{n})} · ${I('coin')} ${bo.price[0]}</small></div><div class="stp"><button data-cu="${id}" data-d="-1" aria-label="${tr('Fewer')}">−</button><output aria-live="polite">${k}</output><button data-cu="${id}" data-d="1" aria-label="${tr('More')}">+</button></div></div>`; }).join('');
+}
+function stepCatch(id,d){
+  const bo=BOOSTS[id], n=S.shop.boosts[id]||0, k=catchUp[id]||0;
+  if(d<0){ catchUp[id]=Math.max(0,k-1); }
+  else if(k<n){ catchUp[id]=k+1; }
+  else {                                                                              // none spare: + buys one with coins
+    if(S.coins<bo.price[0]){ toast(tr('Need {n} {coin} — you have {m}',{n:bo.price[0],coin:I('coin'),m:S.coins})); return; }
+    S.coins-=bo.price[0]; S.shop.boosts[id]=Math.min(999,n+1); catchUp[id]=k+1; save(); setCoins(); sfx.up();
+  }
+  sfx.tap(); renderCatch();
+}
 function openChallenge(ch){
-  offered=ch; hideAll(); $('chal').classList.remove('hidden');
+  offered=ch; hideAll(); $('chal').classList.remove('hidden'); renderCatch();
   $('chScore').textContent=ch.score; $('chText').textContent=tr('A friend scored {n} in {mode}. Can you beat it?',{n:ch.score,mode:tr(MODES[ch.mode].name)});
 }
 function startChallenge(ch){ challenge=ch; offered=null; startMode(ch.mode); }
@@ -1871,6 +1900,7 @@ function powerWhy(id){                                                       // 
   if(id==='slow') return slowLeft>0 ? tr('Active for {n} more drops',{n:slowLeft}) : '';
   if(id==='regrow') return regrowUsed>=2 ? tr('Two Regrows a round is the limit') : (top.w>=baseW-1 ? tr('Your tower is already full width') : '');
   if(id==='time') return !timerOn ? tr('The clock starts on your first tap') : '';
+  if(BOOSTS[id].lift) return lift ? tr('Already lifting') : mode==='campaign' ? tr('Not in campaign stages') : '';
   return '';
 }
 function syncPower(fresh){
@@ -1908,7 +1938,25 @@ function usePower(id){
     runRec.blocks[stack.length-1]={x:+(top.x/W).toFixed(3),w:+(top.w/W).toFixed(3)}; regrowUsed++; useBoost('regrow'); say1(tr('REGROW!')); burst(cx+windOff,top.y+BH,190,26,300*u,500); sfx.shield();
   }
   else if(id==='time'){ timeLeft=Math.min(CFG.timedCap,timeLeft+CFG.timedExtra); useBoost('time'); say1(tr('EXTRA TIME!')); flash=.2; sfx.speed(); }
+  else if(bo.lift){ useBoost(id); startLift(bo.lift); say1(tr('+{n} BLOCKS!',{n:bo.lift})); sfx.speed(); }
   setAux(true); syncPower(); closePower(); return true;
+}
+/* A Speed-up: N free, perfectly placed blocks pile on in a quick burst (+1 score each), then the moving block comes back. The round counts as boosted. */
+function startLift(n){ lift={left:n,acc:0,per:clamp(.9/n,.015,.05),k:0}; if(cur) cur=null; }
+function pushFree(){
+  const top=stack[stack.length-1], nb={x:top.x,w:top.w,y:stack.length*BH,i:stack.length,sq:.6};
+  stack.push(nb); score++; lift.left--; lift.k++;
+  runRec.blocks.push({x:+(nb.x/W).toFixed(3),w:+(nb.w/W).toFixed(3)}); runRec.scores.push(score); runRec.ts.push(+(t-runT0).toFixed(2));
+  setScore(score); burst(nb.x+nb.w/2+windOff,nb.y+BH,hue(TH(),nb.i),5,180*u); if(lift.k%3===1) sfx.perfect(Math.min(8,1+lift.k/3|0));
+  if((stack.length-1)%CFG.milestone===0){ banner={text:tr('{n} HIGH!',{n:stack.length-1}),life:1}; }
+}
+function stepLift(dt){
+  if(!lift) return;
+  if(state!=='playing'){ lift=null; return; }
+  if(paused) return;
+  lift.acc+=dt;
+  while(lift.left>0 && lift.acc>=lift.per){ lift.acc-=lift.per; pushFree(); }
+  if(lift.left<=0){ lift=null; setAux(true); setCombo(combo); checkAch(); checkGoal(); if(state==='playing' && !cur) spawnCur(true); }
 }
 function useShield(what){
   if(boostShield){ boostShield=false; useBoost('shield'); }
@@ -2029,7 +2077,7 @@ function showOver(r){
   const nu=nextUnlock(); $('oNext').innerHTML = nu ? `${I('target')} ${tr('Next unlock: <b>{x}</b>',{x:nu})}` : '';
   const rv=$('revive'), showRv=M.revive && !revived && score>=5;
   rv.classList.toggle('hidden', !showRv);
-  if(challenge && challenge.mode===mode && !r.win){ const f=challenge.score; $('oNext').innerHTML = score>f ? `${I('trophy','ic-gold')} ${tr('You beat your friend!')} (${score} – ${f})` : score===f ? tr('A tie!') : tr('Your friend wins {a} to {b}.',{a:f,b:score}); }
+  if(challenge && challenge.mode===mode && !r.win){ const f=challenge.score; $('oNext').innerHTML = score>f ? `${I('trophy','ic-gold')} ${tr('You beat your friend!')} (${score} – ${f})` : score===f ? tr('A tie!') : tr('Your friend wins {a} to {b}.',{a:f,b:score}); if(boosted) $('oNext').innerHTML+='<br>'+tr('You used Speed-ups, so this score is marked as boosted.'); }
   rv.innerHTML=tr('Revive · {n} {coin}',{n:CFG.reviveCost,coin:I('coin')});
   rv.classList.toggle('off', S.coins<CFG.reviveCost);
   $('next').classList.toggle('hidden', !(r.win && stage<STAGES.length));
@@ -2170,7 +2218,7 @@ function update(dt){
     else { if(timeLeft<=5 && Math.ceil(timeLeft)!==before) sfx.tick(); setAux(); }
   }
   for(const b of stack){ if(b.sq>0) b.sq=Math.max(0,b.sq-dt*4); if(b.fx){ b.fx*=Math.pow(.0004,dt); if(Math.abs(b.fx)<.3) b.fx=0; } }
-  updateWind(dt);
+  updateWind(dt); stepLift(dt);
   const target=Math.max(0, stack.length*BH - H*.35);
   cam+=(target-cam)*Math.min(1,dt*5);
   shake*=Math.pow(.002,dt); if(shake<.2) shake=0;
@@ -2618,7 +2666,7 @@ function claimDaily(){
 }
 function showMenu(){
   rollDay(); endPreview(true); clearCount();
-  if(!S.shop.gift && S.played>=1){ S.shop.gift=true; for(const b of Object.keys(BOOSTS)) S.shop.boosts[b]=Math.min(999,(S.shop.boosts[b]||0)+1); save(); setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('Welcome gift: one of each boost. Pick them with the bolt button.')}`,3400),500); }
+  if(!S.shop.gift && S.played>=1){ S.shop.gift=true; for(const b of Object.keys(BOOSTS)) if(!BOOSTS[b].lift) S.shop.boosts[b]=Math.min(999,(S.shop.boosts[b]||0)+1); save(); setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('Welcome gift: one of each boost. Pick them with the bolt button.')}`,3400),500); }
   state='menu'; setBase(); paused=false; tut.on=false; $('pause').classList.add('hidden'); demoStack(); hideAll(); $('menu').classList.remove('hidden'); held=[]; syncPower();
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden'); $('speedB').classList.add('hidden');
   $('hand').classList.add('hidden'); $('coach').classList.add('hidden'); $('skipTut').classList.add('hidden');
@@ -2756,7 +2804,8 @@ const SHOP_TABS={
       return `<div class="bst"><i>${I(bo.icon)}</i><div><b>${tr(bo.name)}</b><span>${tr(bo.desc)}</span><small>${tr('You have {n}',{n})}</small></div><div class="bb">
         <button class="btn ${S.coins>=p1?'gold':'off'}" data-act="boost" data-id="${id}" data-n="1">×1 · ${I('coin')} ${p1}</button>
         <button class="btn ${S.coins>=p3?'gold':'off'}" data-act="boost" data-id="${id}" data-n="3">×3 · ${I('coin')} ${p3}</button></div></div>`;
-    }).join('') + `<div class="sub" style="grid-column:1/-1">${tr('Boosts are only used up when they actually help you. Pick up to 2 for a round with the Boosts button on the menu.')}</div>`;
+    }).join('') + `<div class="bst"><i>${I('arrowup')}</i><div><b>${tr('Speed-up pack')}</b><span>${tr('Five Speed-up +10 boosts.')}</span><small>${tr('You have {n}',{n:S.shop.boosts.up10||0})}</small></div><div class="bb"><button class="btn gold" data-act="pack" data-id="lift5">×5 · ${priceOf('lift5',PRODUCTS.lift5.price)}</button></div></div>`
+      + `<div class="sub" style="grid-column:1/-1">${tr('Boosts are only used up when they actually help you. Pick up to 2 for a round with the Boosts button on the menu.')}</div>`;
   },
   coins(){
     const packs=Object.entries(PRODUCTS).filter(([k,p])=>!p.boosts).map(([k,p])=>`<div class="th"><div class="sw" style="cursor:default"><div class="ico" style="background:linear-gradient(135deg,#6b4a00,#2a1a00);color:var(--gold)">${I('coin')}<b style="margin-left:6px;font-size:22px">${nf(p.coins)}</b></div></div><b>${tr('{n} coins',{n:nf(p.coins)})}</b><button class="btn gold" data-act="pack" data-id="${k}">${priceOf(k,p.price)}</button></div>`).join('');
@@ -2848,10 +2897,15 @@ const BOOSTS={
   shield:{name:'Shield',icon:'shield',desc:'Blocks your next miss or bomb.',price:[120,300]},
   slow:{name:'Slow-Mo',icon:'hourglass',desc:'Slows the blocks for 6 drops.',price:[160,400]},
   regrow:{name:'Regrow',icon:'expand',desc:'Restores your full width.',price:[200,500]},
-  time:{name:'Extra Time',icon:'timer',desc:'Timed Rush only: adds 30 seconds.',price:[180,450]}
+  time:{name:'Extra Time',icon:'timer',desc:'Timed Rush only: adds 30 seconds.',price:[180,450]},
+  up10:{name:'Speed-up +10',icon:'arrowup',desc:'Adds 10 free blocks to your tower and 10 to your score.',price:[1000,2700],lift:10},
+  up20:{name:'Speed-up +20',icon:'arrowup',desc:'Adds 20 free blocks to your tower and 20 to your score.',price:[1600,4300],lift:20},
+  up100:{name:'Speed-up +100',icon:'arrowup',desc:'Adds 100 free blocks to your tower and 100 to your score.',price:[10000,27000],lift:100}
 };
+const LIFTS=Object.keys(BOOSTS).filter(k=>BOOSTS[k].lift);
 const PRODUCTS={ coins_s:{coins:600,price:'$0.99'}, coins_m:{coins:1800,price:'$2.99'}, coins_l:{coins:4000,price:'$4.99'}, coins_xl:{coins:9000,price:'$9.99'},
-                 starter:{coins:1000,boosts:{shield:2,slow:2,regrow:2,time:2},items:['style:neon','topper:black'],price:'$2.99'} };
+                 starter:{coins:1000,boosts:{shield:2,slow:2,regrow:2,time:2},items:['style:neon','topper:black'],price:'$2.99'},
+                 lift5:{boosts:{up10:5},price:'$4.99'} };
 const PLAY_BILLING='https://play.google.com/billing';
 const skuOf=key=>'item_'+String(key).replace(/[^a-z0-9]+/g,'_');          // Play product ids: lowercase letters, digits, underscores
 /* everything that costs real money: coin packs, the starter pack, premium themes and premium cosmetics */
@@ -3106,6 +3160,7 @@ $('sGrid').addEventListener('click',e=>{
 });
 $('closeStages').onclick=()=>{ sfx.tap(); if(stagesFrom==='menu') showMenu(); else showModes(); };
 $('again').onclick=()=>{ sfx.tap(); restart(); };
+$('chCatch').addEventListener('click',e=>{ const b=e.target.closest('[data-cu]'); if(b) stepCatch(b.dataset.cu,+b.dataset.d); });
 $('chGo').onclick=()=>{ sfx.tap(); if(offered) startChallenge(offered); };
 $('chNo').onclick=()=>{ sfx.tap(); offered=null; showMenu(); };
 $('next').onclick=()=>{ sfx.tap(); startStage(stage+1); };
@@ -3223,7 +3278,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ friendNow, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},

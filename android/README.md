@@ -91,6 +91,7 @@ amounts in the code are only a fallback). Generate this table any time with `nod
 | `item_coins_l` | consumable | $4.99 | 4000 coins |
 | `item_coins_xl` | consumable | $9.99 | 9000 coins |
 | `item_starter` | one-time | $2.99 | Starter pack |
+| `item_lift5` | consumable | $4.99 | Speed-up pack (5 x Speed-up +10) |
 | `item_gold` | one-time | $1.00 | Gold Rush theme |
 | `item_galaxy` | one-time | $1.00 | Galaxy theme |
 | `item_cyber` | one-time | $1.00 | Cyber City theme |

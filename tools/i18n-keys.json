@@ -494,5 +494,20 @@
  "Send my last round",
  "They open it and play the same round, racing your tower.",
  "When the round ends, tap Share and send your friend the link.",
- "Your last round: <b>{n}</b> in {mode}"
+ "Your last round: <b>{n}</b> in {mode}",
+ "+{n} BLOCKS!",
+ "Adds 10 free blocks to your tower and 10 to your score.",
+ "Adds 100 free blocks to your tower and 100 to your score.",
+ "Adds 20 free blocks to your tower and 20 to your score.",
+ "Already lifting",
+ "Fewer",
+ "Five Speed-up +10 boosts.",
+ "More",
+ "Not in campaign stages",
+ "Same blocks for both of you. Timing assist is off, and only Speed-ups work here.",
+ "Speed-up +10",
+ "Speed-up +100",
+ "Speed-up +20",
+ "Speed-up pack",
+ "You used Speed-ups, so this score is marked as boosted."
 ]

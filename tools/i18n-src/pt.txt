@@ -494,3 +494,18 @@
 494|Ele abre e joga a mesma partida, correndo contra a sua torre.
 495|Quando a partida acabar, toque em Compartilhar e envie o link ao seu amigo.
 496|Sua última partida: <b>{n}</b> em {mode}
+497|+{n} BLOCOS!
+498|Adiciona 10 blocos grátis à torre e 10 à pontuação.
+499|Adiciona 100 blocos grátis à torre e 100 à pontuação.
+500|Adiciona 20 blocos grátis à torre e 20 à pontuação.
+501|Já está subindo
+502|Menos
+503|Cinco reforços Impulso +10.
+504|Mais
+505|Não nas fases da campanha
+506|Os mesmos blocos para os dois. A ajuda de tempo está desligada e só os Impulsos funcionam.
+507|Impulso +10
+508|Impulso +100
+509|Impulso +20
+510|Pacote de Impulsos
+511|Você usou Impulsos, então esta pontuação é marcada como reforçada.
