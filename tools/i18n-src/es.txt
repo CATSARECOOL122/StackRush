@@ -533,3 +533,8 @@
 533|Apila 150 bloques en una partida
 534|Imparable
 535|Usa 10 escudos
+536|Elige un modo y tus Impulsos.
+537|Juega tu partida y toca Compartir.
+538|Tu amigo juega la misma partida. Solo funcionan los Impulsos, para los dos.
+539|Empezar mi partida
+540|Toca Compartir para retar a un amigo.

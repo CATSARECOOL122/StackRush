@@ -182,6 +182,10 @@
   .shcard h2{margin:0;letter-spacing:3px;font-size:16px}
   .fsteps{margin:0;padding:0 0 0 22px;text-align:left;font-size:14px;line-height:1.45;color:#ddd;width:100%}
   .fsteps li{margin:4px 0}
+  .fsm{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+  .fsm button{min-height:44px;border-radius:14px;border:1px solid var(--line);background:#ffffff14;color:#fff;font-weight:900;font-size:14px;padding:6px}
+  .fsm button.on{background:linear-gradient(180deg,var(--cta1,#ffb23d),var(--cta2,#ff6a3d));color:var(--ctaink,#2a0d00);border:0}
+  #fsCatch{width:100%;display:flex;flex-direction:column;gap:8px}
   .shcard>.btn{width:100%}
   #boostList{display:flex;flex-direction:column;gap:8px;width:100%}
   .bpick{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:8px 12px;border-radius:16px;border:2px solid var(--line);background:#ffffff10;color:#fff;font:inherit;text-align:left;cursor:pointer}
@@ -214,7 +218,7 @@
   #powerBtn .chev{transform:rotate(-90deg);animation:bob 1.2s ease-in-out infinite}
   @keyframes bob{0%,100%{translate:0 2px}50%{translate:0 -3px}}
   #powerBtn.glow{border-color:var(--gold);box-shadow:0 0 18px #ffc83d88}
-  .tabs{display:flex;gap:8px;width:calc(100% + 28px);margin:0 -14px;padding:6px 14px 10px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;pointer-events:auto;flex:none;position:sticky;top:-1px;z-index:3;background:linear-gradient(180deg,#0e0826cc 65%,#0e082600);backdrop-filter:blur(6px)}
+  .tabs{display:flex;gap:8px;width:calc(100% + 28px);margin:0 -14px;padding:6px 14px 10px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;pointer-events:auto;flex:none;position:sticky;top:60px;z-index:2;background:linear-gradient(180deg,#0e0826cc 65%,#0e082600);backdrop-filter:blur(6px)}
   .tabs::-webkit-scrollbar{display:none}
   .tab{flex:none;scroll-snap-align:center;min-width:64px;min-height:56px;padding:8px 12px;border-radius:18px;border:1px solid var(--line);background:#ffffff0f;color:#cfc6ee;font:inherit;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:transform .2s var(--ease),background .2s}
   .tab .ic{width:22px;height:22px}
@@ -222,15 +226,15 @@
   .tabh{grid-column:1/-1;margin:6px 2px 0;font-size:11px;letter-spacing:2px;color:var(--mute);font-weight:900;text-align:left}
   .sw img{display:block;width:100%;height:100%;object-fit:cover}
   .sw .ico{position:absolute;inset:0;display:grid;place-items:center;font-size:30px}
-  #chCatch{width:min(400px,100%);display:flex;flex-direction:column;gap:8px}
-  #chCatch .cu{display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:8px 10px;text-align:left}
-  #chCatch .cu>i{font-style:normal;width:36px;height:36px;flex:none;border-radius:12px;display:grid;place-items:center;background:#ffffff1a}
-  #chCatch .cu>div{flex:1;min-width:0}
-  #chCatch .cu b{display:block;font-size:15px}
-  #chCatch .cu small{display:block;font-size:12px;font-weight:800;color:var(--gold)}
-  #chCatch .stp{display:flex;align-items:center;gap:6px;flex:none}
-  #chCatch .stp button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:#ffffff1a;color:#fff;font-size:22px;font-weight:900}
-  #chCatch .stp output{min-width:26px;text-align:center;font-weight:900;font-size:18px}
+  #chCatch,#fsCatch{width:min(400px,100%);display:flex;flex-direction:column;gap:8px}
+  #chCatch .cu,#fsCatch .cu{display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:8px 10px;text-align:left}
+  #chCatch .cu>i,#fsCatch .cu>i{font-style:normal;width:36px;height:36px;flex:none;border-radius:12px;display:grid;place-items:center;background:#ffffff1a}
+  #chCatch .cu>div,#fsCatch .cu>div{flex:1;min-width:0}
+  #chCatch .cu b,#fsCatch .cu b{display:block;font-size:15px}
+  #chCatch .cu small,#fsCatch .cu small{display:block;font-size:12px;font-weight:800;color:var(--gold)}
+  #chCatch .stp,#fsCatch .stp{display:flex;align-items:center;gap:6px;flex:none}
+  #chCatch .stp button,#fsCatch .stp button{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:#ffffff1a;color:#fff;font-size:22px;font-weight:900}
+  #chCatch .stp output,#fsCatch .stp output{min-width:26px;text-align:center;font-weight:900;font-size:18px}
   .bst{grid-column:1/-1;display:flex;align-items:center;gap:12px;background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:left}
   .bst>i{font-style:normal;width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;background:#ffffff1a;font-size:26px}
   .bst>div{flex:1;min-width:0}
@@ -716,15 +720,18 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 
   <section id="fsheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Race a friend">
     <div class="shbg" id="fsBg"></div>
-    <div class="shcard">
+    <div class="shcard cs">
       <h2>Race a friend</h2>
       <ol class="fsteps">
-        <li>Play Classic, Timed, Lives or Hazard.</li>
-        <li>When the round ends, tap Share and send your friend the link.</li>
-        <li>They open it and play the same round, racing your tower.</li>
+        <li>Pick a mode and your Speed-ups.</li>
+        <li>Play your round, then tap Share.</li>
+        <li>Your friend plays the same round. Only Speed-ups work, for both of you.</li>
       </ol>
+      <div id="fsModes" class="fsm" role="group"></div>
+      <div id="fsCatch"></div>
+      <button id="fsStart" class="btn primary big">Start my round</button>
       <p class="lead" id="fsLast"></p>
-      <button id="fsShare" class="btn primary hidden"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg> <span id="fsShareT"></span></button>
+      <button id="fsShare" class="btn hidden"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg> <span id="fsShareT"></span></button>
       <p class="lead">Got a link from a friend?</p>
       <button id="fsPaste" class="btn">Paste a friend's challenge</button>
       <button id="fsClose" class="btn">Close</button>
@@ -1382,13 +1389,14 @@ let lives=1, maxLives=1, timeLeft=0, timerOn=false, lastBomb=false, shield=false
 let armed={}, boosted=false, slowLeft=0, regrowUsed=0, boostShield=false;
 let freeBlocks=0;                               // blocks a Speed-up added for free: they do not count towards the speed-up of the game, only blocks you place do
 const placedN=()=>stack.length-freeBlocks;
+let friendStart=false, friendRun=false, friendMode='classic';      // friendRun: a round of a friend race (yours from the Friend race sheet, or a friend's): only Speed-ups work
 let lift=null, catchUp={}, cuLeft={};      // a Speed-up in progress ({left,acc,per}), and in a friend race: how many of each Speed-up were equipped / are still left
 let held=[], powerPhase='off', tsc=1;       // the boosts in hand this round (you choose when), the boost menu's state (off | slowing | open | resuming) and the game-time scale (1, easing to 0 while the menu is open)
 const BOOST_MODES=['classic','timed','lives','hazard','campaign'];
 const boostsAllowed=m=>BOOST_MODES.includes(m);
 const prunePicks=()=>{ S.shop.pick=S.shop.pick.filter((k,i,a)=>(S.shop.boosts[k]||0)>0 && a.indexOf(k)===i).slice(0,2); };   // only boosts you still have can stay picked, at most two
 function useBoost(id){
-  S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); boosted=true; armed[id]=false; if(challenge && cuLeft[id]) cuLeft[id]--; prunePicks(); held=held.filter(k=>(S.shop.boosts[k]||0)>0 && (!challenge || cuLeft[k]>0)); save(); syncPower();
+  S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); boosted=true; armed[id]=false; if(friendRun && cuLeft[id]) cuLeft[id]--; prunePicks(); held=held.filter(k=>(S.shop.boosts[k]||0)>0 && (!friendRun || cuLeft[k]>0)); save(); syncPower();
   const bo=BOOSTS[id]; toast(`${I(bo.icon,'ic-cyan')} ${tr(bo.name)} · ${tr('{n} left',{n:S.shop.boosts[id]})}`,1800);
 }
 let paused=false, grace=0;
@@ -1572,7 +1580,7 @@ function modeTip(id){
   if(!MODE_TIPS[id] || S.tips[id] || !S.tutSeen) return;
   S.tips[id]=1; save(); toast(`${I('sparkles','ic-gold')} ${tr(MODE_TIPS[id])}`,3600);
 }
-function restart(){ if(mode==='campaign') startStage(stage); else startMode(mode==='practice'?S.lastMode:mode); }
+function restart(){ if(friendRun && !challenge && mode!=='campaign') friendStart=true; if(mode==='campaign') startStage(stage); else startMode(mode==='practice'?S.lastMode:mode); }
 function newRun(){
   const M=MODES[mode];
   baseW=Math.min(W*(mod.startFrac||CFG.startFrac), CFG.maxW*u);
@@ -1584,11 +1592,11 @@ function newRun(){
   if(challenge && challenge.mode!==mode) challenge=null;
   runSeed=challenge?challenge.seed:(Math.random()*2147483647)|0; assisted=assistOn();
   prunePicks(); held=[]; powerPhase='off'; tsc=1; $('power').classList.add('hidden');
-  cuLeft={};
-  if(boostsAllowed(mode) && !challenge){
+  cuLeft={}; friendRun=friendStart||!!challenge; friendStart=false;
+  if(boostsAllowed(mode) && !friendRun){
     const mine=S.shop.pick.filter(id=>(S.shop.boosts[id]||0)>0 && (id!=='time' || mode==='timed') && (!BOOSTS[id].lift || mode!=='campaign'));
     if(manualOn()) held=mine; else { held=mine.filter(id=>BOOSTS[id].lift); for(const id of mine) if(!BOOSTS[id].lift) armed[id]=true; }          // you choose when (the bolt), or they fire by themselves when they help (Settings; a Speed-up is always your call)
-  } else if(challenge){                                                              // a friend race: only the Speed-ups you equipped on the challenge card
+  } else if(friendRun){                                                              // a friend race: only the Speed-ups you equipped on the challenge card
     for(const id of LIFTS){ const k=Math.min(catchUp[id]||0,S.shop.boosts[id]||0); if(k>0){ cuLeft[id]=k; held.push(id); } }
   }
   if(armed.shield){ shield=true; boostShield=true; }
@@ -1724,11 +1732,14 @@ function challengeCode(){
   const dt=[], sc=[]; for(let i=0;i<n;i++){ dt.push(i?clamp(Math.round(((runRec.ts[i]||0)-(runRec.ts[i-1]||0))*10),0,255):0); sc.push(i?clamp((runRec.scores[i]||0)-(runRec.scores[i-1]||0),0,255):0); }
   return `${mode}.${score}.${runSeed}.${b64}.${enc(dt)}.${enc(sc)}`;
 }
-const challengeOk=()=>CH_MODES.includes(mode) && !boosted && !assisted && !soft() && score>0;
+const challengeOk=()=>CH_MODES.includes(mode) && (!boosted || friendRun) && !assisted && !soft() && score>0;
 const challengeLink=()=>location.origin+location.pathname+'?c='+challengeCode();
 /* The "Race a friend" tile: remembers the link of the last round that can be raced, so it can be sent from the Game modes screen too. */
 function rememberChallenge(){ if(challengeOk()){ try{ S.lastChal={mode,score,link:challengeLink()}; save(); }catch(e){} } }
+function renderFriendModes(){ $('fsModes').innerHTML=CH_MODES.map(m=>`<button data-fm="${m}" class="${m===friendMode?'on':''}" aria-pressed="${m===friendMode}">${tr(MODES[m].name)}</button>`).join(''); }
+function startFriend(){ closeFriend(); challenge=null; friendStart=true; startMode(friendMode); }
 function openFriend(){
+  renderFriendModes(); renderCatch();
   const lc=S.lastChal, ok=lc && MODES[lc.mode] && typeof lc.link==='string' && parseChallenge((lc.link.split('?c=')[1]||''));
   $('fsLast').innerHTML=ok?tr('Your last round: <b>{n}</b> in {mode}',{n:lc.score,mode:tr(MODES[lc.mode].name)}):tr('No round to send yet. Play one first!');
   $('fsShare').classList.toggle('hidden',!ok); $('fsShareT').textContent=tr('Send my last round');
@@ -1744,8 +1755,9 @@ async function shareLast(){
   }catch(e){ if(e && e.name==='AbortError') return; try{ await navigator.clipboard.writeText(lc.link); toast(tr('Challenge link copied')); }catch(_){ toast(tr('Could not share')); } }
 }
 function renderCatch(){
-  $('chCatch').innerHTML=LIFTS.map(id=>{ const bo=BOOSTS[id], n=S.shop.boosts[id]||0, k=Math.min(catchUp[id]||0,n); catchUp[id]=k;
+  const html=LIFTS.map(id=>{ const bo=BOOSTS[id], n=S.shop.boosts[id]||0, k=Math.min(catchUp[id]||0,n); catchUp[id]=k;
     return `<div class="cu"><i>${I(bo.icon)}</i><div><b>${tr(bo.name)}</b><small>${tr('You have {n}',{n})} · ${I('coin')} ${bo.price[0]}</small></div><div class="stp"><button data-cu="${id}" data-d="-1" aria-label="${tr('Fewer')}">−</button><output aria-live="polite">${k}</output><button data-cu="${id}" data-d="1" aria-label="${tr('More')}">+</button></div></div>`; }).join('');
+  for(const id of ['chCatch','fsCatch']) $(id).innerHTML=html;
 }
 function stepCatch(id,d){
   const bo=BOOSTS[id], n=S.shop.boosts[id]||0, k=catchUp[id]||0;
@@ -2100,6 +2112,7 @@ function showOver(r){
   const rv=$('revive'), showRv=M.revive && !revived && score>=5;
   rv.classList.toggle('hidden', !showRv);
   if(challenge && challenge.mode===mode && !r.win){ const f=challenge.score; if(score>f){ S.friendWins=(S.friendWins||0)+1; save(); checkAch(); } $('oNext').innerHTML = score>f ? `${I('trophy','ic-gold')} ${tr('You beat your friend!')} (${score} – ${f})` : score===f ? tr('A tie!') : tr('Your friend wins {a} to {b}.',{a:f,b:score}); if(boosted) $('oNext').innerHTML+='<br>'+tr('You used Speed-ups, so this score is marked as boosted.'); }
+  if(friendRun && !challenge && challengeOk()) $('oNext').innerHTML=`${I('share')} ${tr('Tap Share to challenge a friend.')}`;
   rv.innerHTML=tr('Revive · {n} {coin}',{n:CFG.reviveCost,coin:I('coin')});
   rv.classList.toggle('off', S.coins<CFG.reviveCost);
   $('next').classList.toggle('hidden', !(r.win && stage<STAGES.length));
@@ -2843,6 +2856,7 @@ function renderThemes(){
   if(shopTab==='coins' && !coinsTabOn()) shopTab='themes';
   $('tTabs').innerHTML=TABS.filter(([id])=>id!=='coins' || coinsTabOn()).map(([id,name])=>`<button class="tab${id===shopTab?' on':''}" role="tab" aria-selected="${id===shopTab}" data-tab="${id}"><svg class="ic" aria-hidden="true"><use href="#i-${TAB_ICON[id]}"/></svg><span>${tr(name)}</span></button>`).join('');
   { const t=$('tTabs'), on=t.querySelector('.on'); if(on) t.scrollLeft=on.offsetLeft-(t.clientWidth-on.offsetWidth)/2; }
+  { const tb=$('themes').querySelector('.topbar'); if(tb && tb.offsetHeight) $('tTabs').style.top=(tb.offsetHeight-1)+'px'; }
   $('tGrid').innerHTML=SHOP_TABS[shopTab]()+(inPlayApp()?'':`<div class="redeemRow"><span class="sub">${tr('Bought something in your browser? Paste the code here to unlock it in this app.')}</span><button class="btn" data-act="redeem">${tr('Paste a purchase code')}</button></div>`); stagger('#tGrid .th');
 }
 function startPreview(id,slot=null){
@@ -3239,6 +3253,9 @@ $('endZen').onclick=()=>{ if(state==='playing' && mode==='zen') endRun('zen'); }
 }
 $('powerList').addEventListener('click',e=>{ const b=e.target.closest('[data-power]'); if(!b) return; if(b.getAttribute('aria-disabled')==='true'){ sfx.tap(); return; } usePower(b.dataset.power); });
 $('powerBg').onclick=$('powerDone').onclick=()=>{ sfx.tap(); closePower(); };
+$('fsStart').onclick=()=>{ sfx.tap(); startFriend(); };
+$('fsModes').addEventListener('click',e=>{ const b=e.target.closest('[data-fm]'); if(!b) return; friendMode=b.dataset.fm; sfx.tap(); renderFriendModes(); });
+$('fsCatch').addEventListener('click',e=>{ const b=e.target.closest('[data-cu]'); if(b) stepCatch(b.dataset.cu,+b.dataset.d); });
 $('fsPaste').onclick=()=>{ sfx.tap(); closeFriend(); openUnlockDlg('friend'); };
 $('fsShare').onclick=()=>{ sfx.tap(); shareLast(); };
 $('fsClose').onclick=$('fsBg').onclick=()=>{ sfx.tap(); closeFriend(); };
@@ -3302,7 +3319,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ get friendRun(){ return friendRun; }, startFriend, speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},

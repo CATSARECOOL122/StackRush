@@ -533,3 +533,8 @@
 533|Staple 150 Blöcke in einer Runde
 534|Unaufhaltsam
 535|Benutze 10 Schilde
+536|Wähle einen Modus und deine Aufstiege.
+537|Spiel deine Runde und tippe auf Teilen.
+538|Dein Freund spielt dieselbe Runde. Nur Aufstiege funktionieren, für euch beide.
+539|Meine Runde starten
+540|Tippe auf Teilen, um einen Freund herauszufordern.

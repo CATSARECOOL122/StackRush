@@ -533,3 +533,8 @@
 533|Impila 150 blocchi in una partita
 534|Inarrestabile
 535|Usa 10 scudi
+536|Scegli una modalità e i tuoi Scatti.
+537|Gioca la tua partita e tocca Condividi.
+538|Il tuo amico gioca la stessa partita. Funzionano solo gli Scatti, per entrambi.
+539|Inizia la mia partita
+540|Tocca Condividi per sfidare un amico.

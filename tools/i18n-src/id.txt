@@ -533,3 +533,8 @@
 533|Tumpuk 150 blok dalam satu ronde
 534|Tak Terhentikan
 535|Gunakan 10 perisai
+536|Pilih mode dan Lompatanmu.
+537|Mainkan rondemu, lalu ketuk Bagikan.
+538|Temanmu memainkan ronde yang sama. Hanya Lompatan yang berfungsi, untuk kalian berdua.
+539|Mulai rondeku
+540|Ketuk Bagikan untuk menantang teman.

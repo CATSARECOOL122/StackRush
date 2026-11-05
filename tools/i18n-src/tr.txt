@@ -533,3 +533,8 @@
 533|Bir turda 150 blok yığ
 534|Durdurulamaz
 535|10 kalkan kullan
+536|Bir mod ve Hızlandırmalarını seç.
+537|Turunu oyna, sonra Paylaş'a dokun.
+538|Arkadaşın aynı turu oynar. İkiniz için de yalnızca Hızlandırmalar çalışır.
+539|Turumu başlat
+540|Arkadaşına meydan okumak için Paylaş'a dokun.

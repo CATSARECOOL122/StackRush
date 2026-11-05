@@ -44,7 +44,7 @@ module.exports=[
   assert.deepEqual(await p.evaluate(()=>[__sr.cuLeft.up10,__sr.held.slice()]),[1,['up10']],'one equipped Speed-up left');
   await L.miss(p); await p.waitForTimeout(1500);
   assert.match(await p.textContent('#oNext'),/boosted/);
-  assert.equal(await p.evaluate(()=>__sr.challengeOk()),false,'a boosted round cannot be raced again');
+  assert.equal(await p.evaluate(()=>__sr.challengeOk()),true,'a friend-race round (Speed-ups only) can be shared on');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
@@ -56,6 +56,30 @@ module.exports=[
   assert.deepEqual(r,{w:1,a:true},'one win, award unlocked');
   const k=await p.evaluate(()=>{ const S=__sr.S; S.camp[6]=3; S.dodged=100; S.shields=10; S.played=100; __sr.showMenu(); __sr.checkAch(); return ['boss1','bomb100','shield10','plays100','boss4','stars72'].map(id=>!!S.ach[id]); });
   assert.deepEqual(k,[true,true,true,true,false,false],'the right ones, and not the all-bosses or all-stars awards');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['friend race: start it from the Friend race sheet (mode + Speed-ups), play, then Share; only Speed-ups work, and the shared link replays your tower', async(e,L)=>{
+  const p=await L.open(e); await BASE(p,{shield:3,up10:2},['shield']);
+  await p.evaluate(()=>{ __sr.S.coins=0; __sr.showModes(); }); await p.click('#mGrid [data-mode=friend]');
+  assert.equal(await p.locator('#fsModes button').count(),4); assert.equal(await p.locator('#fsCatch .cu').count(),3);
+  await p.click('#fsModes [data-fm=lives]'); await p.click('#fsCatch [data-cu=up10][data-d="1"]');
+  await p.click('#fsStart'); await p.waitForTimeout(250);
+  const i=await p.evaluate(()=>({m:__sr.mode,f:__sr.friendRun,held:__sr.held.slice(),c:__sr.challenge}));
+  assert.deepEqual(i,{m:'lives',f:true,held:['up10'],c:null},'a friend-race round: only the equipped Speed-up');
+  await L.perfects(p,2); await openP(p); await p.click('#powerList [data-power=up10]'); await p.waitForFunction(()=>!__sr.lift,null,{timeout:5000});
+  await L.perfects(p,1); await L.miss(p); await L.miss(p); await L.miss(p); await p.waitForTimeout(1600);
+  assert.equal(await p.evaluate(()=>__sr.state),'over'); assert.match(await p.textContent('#oNext'),/Share/);
+  const ch=await p.evaluate(()=>{ const ok=__sr.challengeOk(); const c=__sr.parseChallenge(__sr.challengeCode()); return {ok,n:c&&c.ghost.length,score:c&&c.score}; });
+  assert.equal(ch.ok,true); assert.ok(ch.n>=13,'the link carries the tower with the free blocks ('+ch.n+')'); assert.ok(ch.score>=10);
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['shop: the tab strip stays just under the top bar while scrolling (never above it, under the notch)', async(e,L)=>{
+  const p=await L.open(e,{}); await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('extras')); await p.waitForTimeout(150);
+  await p.evaluate(()=>{ document.getElementById('themes').scrollTop=900; }); await p.waitForTimeout(200);
+  const r=await p.evaluate(()=>{ const tb=document.querySelector('#themes .topbar').getBoundingClientRect(), t=document.getElementById('tTabs').getBoundingClientRect(); return {tb:tb.bottom,t:t.top,sc:document.getElementById('themes').scrollTop}; });
+  assert.ok(r.sc>100,'it scrolled'); assert.ok(r.t>=r.tb-2,`tabs (${r.t}) are not above the top bar bottom (${r.tb})`);
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 

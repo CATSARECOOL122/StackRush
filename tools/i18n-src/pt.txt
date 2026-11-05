@@ -533,3 +533,8 @@
 533|Empilhe 150 blocos em uma partida
 534|Imparável
 535|Use 10 escudos
+536|Escolha um modo e seus Impulsos.
+537|Jogue sua partida e toque em Compartilhar.
+538|Seu amigo joga a mesma partida. Só os Impulsos funcionam, para os dois.
+539|Começar minha partida
+540|Toque em Compartilhar para desafiar um amigo.

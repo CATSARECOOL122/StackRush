@@ -533,3 +533,8 @@
 533|Empile 150 blocs en une partie
 534|Inarrêtable
 535|Utilise 10 boucliers
+536|Choisis un mode et tes Élans.
+537|Joue ta partie, puis touche Partager.
+538|Ton ami joue la même partie. Seuls les Élans fonctionnent, pour vous deux.
+539|Lancer ma partie
+540|Touche Partager pour défier un ami.
