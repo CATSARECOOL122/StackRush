@@ -530,4 +530,16 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['preview: an app colour shows real buttons in that colour (not the tower); other previews do not; closing puts it all back', async(e,L)=>{
+  const p=await L.open(e); await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('extras')); await p.waitForTimeout(100);
+  const cta=()=>p.evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--cta1').trim());
+  const c0=await cta();
+  await p.evaluate(()=>__sr.startPreview('red','accent')); await p.waitForTimeout(150);
+  assert.ok(await p.isVisible('#peekDemo'),'sample buttons are shown'); assert.notEqual(await cta(),c0,'in the previewed colour');
+  assert.equal(await p.evaluate(()=>[...document.querySelectorAll('#peekDemo .btn')].length),3);
+  await p.evaluate(()=>__sr.endPreview()); assert.equal(await p.isVisible('#peekDemo'),false); assert.equal(await cta(),c0,'the colour is put back');
+  await p.evaluate(()=>__sr.startPreview('neon','style')); await p.waitForTimeout(100); assert.equal(await p.isVisible('#peekDemo'),false,'a block style still shows the tower'); await p.evaluate(()=>__sr.endPreview());
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

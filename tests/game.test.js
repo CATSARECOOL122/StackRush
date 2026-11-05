@@ -88,7 +88,7 @@ module.exports=[
   assert.equal(await p.evaluate(()=>__sr.lives),3);
   assert.ok((await p.evaluate(()=>__sr.twist().name)).length>2);
   const c0=await p.evaluate(()=>__sr.S.coins);
-  await L.perfects(p,9);
+  await L.climb(p,12,40000);
   assert.equal(await p.evaluate(()=>__sr.S.twist.done),true,'goal reached');
   assert.ok(await p.evaluate(()=>__sr.S.coins)>=c0+60,'reward paid');
   assert.deepEqual(p.errs,[]); await L.close(p);
@@ -129,10 +129,10 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
-['screens: modes (7 + the Friend race tile), awards (26 + 6 stats), share card (1080x1350)', async(e,L)=>{
+['screens: modes (7 + the Friend race tile), awards (38 + 6 stats), share card (1080x1350)', async(e,L)=>{
   const p=await L.open(e);
   await p.click('#openModes'); await p.waitForTimeout(250); assert.equal(await p.locator('.mode').count(),8); await p.click('#closeModes');
-  await p.click('#openAwards'); await p.waitForTimeout(250); assert.equal(await p.locator('.aw').count(),26); assert.equal(await p.locator('#aStats div').count(),6); await p.click('#closeAwards');
+  await p.click('#openAwards'); await p.waitForTimeout(250); assert.equal(await p.locator('.aw').count(),38); assert.equal(await p.locator('#aStats div').count(),6); await p.click('#closeAwards');
   const s=await p.evaluate(()=>{ const r=__sr.shareInfo(); return {w:r.w,h:r.h}; });
   assert.deepEqual(s,{w:1080,h:1350});
   assert.deepEqual(p.errs,[]); await L.close(p);

@@ -509,3 +509,27 @@
 509|Élan +20
 510|Pack d'Élans
 511|Tu as utilisé des Élans, ce score est donc marqué comme boosté.
+512|2000 chutes parfaites au total
+513|50 chutes parfaites d'affilée
+514|Bats un ami dans un défi ami
+515|Rush des boss
+516|Tueur de boss
+517|Termine tout le Monde 2
+518|Termine tout le Monde 3
+519|Bats un niveau de boss
+520|Bats les quatre boss
+521|Expert en démolition
+522|Esquive 100 bombes au total
+523|Gagne les 72 étoiles de la campagne
+524|Toutes les étoiles
+525|Termine 100 parties
+526|Forteresse
+527|Rivalité amicale
+528|Pistolet à colle
+529|Brise-glace
+530|Concentration laser
+531|Habitué
+532|Tour spatiale
+533|Empile 150 blocs en une partie
+534|Inarrêtable
+535|Utilise 10 boucliers

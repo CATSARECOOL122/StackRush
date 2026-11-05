@@ -509,3 +509,27 @@
 509|Impulso +20
 510|Pacote de Impulsos
 511|Você usou Impulsos, então esta pontuação é marcada como reforçada.
+512|2000 quedas perfeitas no total
+513|50 quedas perfeitas seguidas
+514|Vença um amigo numa corrida de amigos
+515|Corrida dos chefes
+516|Caçador de chefes
+517|Conclua todo o Mundo 2
+518|Conclua todo o Mundo 3
+519|Derrote uma fase de chefe
+520|Derrote os quatro chefes
+521|Especialista em demolição
+522|Desvie de 100 bombas no total
+523|Ganhe as 72 estrelas da campanha
+524|Todas as estrelas
+525|Termine 100 partidas
+526|Fortaleza
+527|Rivalidade amigável
+528|Atirador de cola
+529|Quebra-gelo
+530|Foco a laser
+531|Frequentador
+532|Torre espacial
+533|Empilhe 150 blocos em uma partida
+534|Imparável
+535|Use 10 escudos

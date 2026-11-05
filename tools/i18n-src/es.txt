@@ -509,3 +509,27 @@
 509|Impulso +20
 510|Pack de Impulsos
 511|Usaste Impulsos, así que esta puntuación se marca como potenciada.
+512|2000 caídas perfectas en total
+513|50 caídas perfectas seguidas
+514|Gana a un amigo en una carrera de amigos
+515|Ronda de jefes
+516|Cazajefes
+517|Supera todo el Mundo 2
+518|Supera todo el Mundo 3
+519|Derrota a un jefe
+520|Derrota a los cuatro jefes
+521|Experto en demolición
+522|Esquiva 100 bombas en total
+523|Consigue las 72 estrellas de la campaña
+524|Todas las estrellas
+525|Termina 100 partidas
+526|Fortaleza
+527|Rivalidad amistosa
+528|Pistolero del pegamento
+529|Rompehielos
+530|Enfoque láser
+531|Habitual
+532|Torre espacial
+533|Apila 150 bloques en una partida
+534|Imparable
+535|Usa 10 escudos

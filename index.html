@@ -248,6 +248,10 @@
   .th .btn{margin-top:6px;padding:7px 10px;font-size:13px;width:100%;border-radius:12px;min-height:44px}
   .peek{position:absolute;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 14px);display:flex;align-items:center;gap:10px;background:#150d33f2;border:1px solid #ffffff33;border-radius:20px;padding:12px 14px;pointer-events:auto;box-shadow:0 12px 34px #000a;z-index:6}
   .peek div{flex:1;min-width:0}
+  .peekDemo{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);width:min(320px,calc(100% - 40px));display:flex;flex-direction:column;align-items:center;gap:14px;padding:20px 18px;border-radius:24px;background:#150d33ee;border:1px solid #ffffff33;box-shadow:0 12px 34px #000a;z-index:5;pointer-events:none}
+  .peekDemo .btn{width:100%}
+  .peekDemo .row{display:flex;gap:10px;width:100%}
+  .peekDemo .row .btn{flex:1}
   .peek b{display:block;font-size:17px}
   .peek span{font-size:12px;color:var(--mute);font-weight:700}
   .peek .btn{padding:10px 16px;min-height:40px}
@@ -638,6 +642,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <div id="tGrid"></div>
     </div>
   </section>
+  <div id="peekDemo" class="peekDemo hidden" aria-hidden="true"><div class="label">PREVIEW</div><button class="btn primary big" tabindex="-1">PLAY</button><div class="row"><button class="btn gold" tabindex="-1">Accept</button><button class="btn" tabindex="-1">Settings</button></div></div>
   <div id="peek" class="peek hidden"><div><b id="peekName"></b><span id="peekSub"></span></div><button id="peekAct" class="btn gold"></button><button id="peekClose" class="btn" aria-label="Close preview"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button></div>
 
   <section id="awards" class="screen hidden" aria-label="Awards">
@@ -914,12 +919,24 @@ const ACH = [
   {id:'st7',icon:'calendar-check',name:'Dedicated',desc:'7-day login streak',coins:60,test:()=>S.streak>=7},
   {id:'l5',icon:'star',name:'Rising Star',desc:'Reach level 5',coins:25,test:()=>levelOf(S.blocks)>=5},
   {id:'l10',icon:'award',name:'Veteran',desc:'Reach level 10',coins:75,test:()=>levelOf(S.blocks)>=10},
-  {id:'rich',icon:'coin',name:'Piggy Bank',desc:'Hold 500 coins',coins:0,test:()=>S.coins>=500}
+  {id:'rich',icon:'coin',name:'Piggy Bank',desc:'Hold 500 coins',coins:0,test:()=>S.coins>=500},
+  {id:'c50',icon:'sparkles',name:'Unstoppable',desc:'50 perfect drops in a row',coins:120,test:x=>x.combo>=50},
+  {id:'p2000',icon:'crosshair',name:'Laser Focus',desc:'2000 perfect drops total',coins:150,test:()=>S.perfects>=2000},
+  {id:'t150',icon:'building2',name:'Space Tower',desc:'Stack 150 blocks in one run',coins:100,test:x=>x.height>=150},
+  {id:'boss1',icon:'crown',name:'Boss Slayer',desc:'Defeat a boss stage',coins:40,test:()=>[6,12,18,24].some(n=>S.camp&&S.camp[n]>=1)},
+  {id:'boss4',icon:'crown',name:'Boss Rush',desc:'Defeat all four bosses',coins:120,test:()=>[6,12,18,24].every(n=>S.camp&&S.camp[n]>=1)},
+  {id:'w2',icon:'map',name:'Ice Breaker',desc:'Clear all of World 2',coins:50,test:()=>cleared(7,12)},
+  {id:'w3',icon:'map',name:'Glue Gunner',desc:'Clear all of World 3',coins:60,test:()=>cleared(13,18)},
+  {id:'bomb100',icon:'bomb',name:'Demolition Expert',desc:'Dodge 100 bombs total',coins:80,test:()=>S.dodged>=100},
+  {id:'shield10',icon:'shield',name:'Fortress',desc:'Use 10 shields',coins:40,test:()=>S.shields>=10},
+  {id:'stars72',icon:'star',name:'Every Star',desc:'Earn all 72 campaign stars',coins:200,test:()=>starsTotal()>=72},
+  {id:'plays100',icon:'play',name:'Regular',desc:'Finish 100 rounds',coins:50,test:()=>S.played>=100},
+  {id:'friend',icon:'trophy',name:'Friendly Rivalry',desc:'Beat a friend in a friend race',coins:40,test:()=>S.friendWins>=1}
 ];
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,friendWins:0,revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -934,7 +951,7 @@ function cleanSave(raw){
   const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
   const num=(v,max=1e9)=>{ v=Math.floor(Number(v)); return Number.isFinite(v)?Math.max(0,Math.min(max,v)):0; };
   const dateOk=v=>typeof v==='string' && /^\d{4}-\d{2}-\d{2}$/.test(v);
-  for(const k of ['best','coins','blocks','perfects','played','revives','dodged','shields','bestCombo','maxHeight','streak','twistDone']) if(own(raw,k)) out[k]=num(raw[k]);
+  for(const k of ['best','coins','blocks','perfects','played','revives','dodged','shields','bestCombo','maxHeight','streak','twistDone','friendWins']) if(own(raw,k)) out[k]=num(raw[k]);
   if(own(raw,'fsHint')) out.fsHint=num(raw.fsHint,99);
   if(own(raw,'hintPow')) out.hintPow=num(raw.hintPow,9);
   for(const k of ['mute','music','haptics','reduce','reduceSet','tutSeen','seenTip','ghostOutline','silentSound','boostAuto']) if(own(raw,k)) out[k]=!!raw[k];
@@ -1133,7 +1150,7 @@ async function loadLang(code){
   }catch(e){ dict={}; return 'en'; }
 }
 /* containers whose content is generated by JS (already passed through tr()) */
-const I18N_SKIP='#csEarn,#csBuy,#powerList,#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
+const I18N_SKIP='#unlockRows small,#csEarn,#csBuy,#powerList,#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
 const origText=new WeakMap(), origAttr=new WeakMap();
 function staticTextNodes(root){
   const out=[];
@@ -1311,7 +1328,9 @@ const probeBox=css=>{ const d=document.createElement('div'); d.style.cssText='po
 const safeInset=()=>probeBox('padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)').pad;   // [top,right,bottom,left]
 const isStandalone=()=>{ if(navigator.standalone===true) return true; try{ return matchMedia('(display-mode: standalone)').matches; }catch(e){ return false; } };
 let shortView=false, shortT=0, hintShown=false;
+const typing=()=>{ const a=document.activeElement; return !!a && /^(INPUT|TEXTAREA)$/.test(a.tagName); };      // the on-screen keyboard makes the page short too: that is not a strip
 function checkShortViewport(){
+  if(typing()) return;
   const html=document.documentElement, full=Math.max(screen.width||0,screen.height||0), clear=()=>{ if(html.style.minHeight) html.style.minHeight=''; shortView=false; clearTimeout(shortT); };
   if(!(IS_IOS && !IS_IPAD && isStandalone()) || innerWidth>innerHeight || !full){ clear(); return; }
   if(safeInset()[0]<20){ clear(); return; }                                       // opaque status bar (or no notch): the page rightly starts below it
@@ -1319,6 +1338,7 @@ function checkShortViewport(){
   html.style.minHeight=full+'px';                                                 // try: make the page as tall as the screen
   clearTimeout(shortT);
   shortT=setTimeout(()=>{                                                          // give the browser a moment to re-measure, then decide
+    if(typing()){ shortView=false; return; }
     shortView=IS_IOS && isStandalone() && innerWidth<=innerHeight && Math.max(screen.width,screen.height)-innerHeight>=20 && safeInset()[0]>=20;
     if(shortView && !hintShown && (S.fsHint||0)<4){ hintShown=true; S.fsHint=(S.fsHint||0)+1; save(); toast(tr('Empty strip at the bottom? In Settings copy your Save code, remove this app from your Home Screen, add it again, then paste the code under Load code.'),12000); }
   },900);
@@ -2077,7 +2097,7 @@ function showOver(r){
   const nu=nextUnlock(); $('oNext').innerHTML = nu ? `${I('target')} ${tr('Next unlock: <b>{x}</b>',{x:nu})}` : '';
   const rv=$('revive'), showRv=M.revive && !revived && score>=5;
   rv.classList.toggle('hidden', !showRv);
-  if(challenge && challenge.mode===mode && !r.win){ const f=challenge.score; $('oNext').innerHTML = score>f ? `${I('trophy','ic-gold')} ${tr('You beat your friend!')} (${score} – ${f})` : score===f ? tr('A tie!') : tr('Your friend wins {a} to {b}.',{a:f,b:score}); if(boosted) $('oNext').innerHTML+='<br>'+tr('You used Speed-ups, so this score is marked as boosted.'); }
+  if(challenge && challenge.mode===mode && !r.win){ const f=challenge.score; if(score>f){ S.friendWins=(S.friendWins||0)+1; save(); checkAch(); } $('oNext').innerHTML = score>f ? `${I('trophy','ic-gold')} ${tr('You beat your friend!')} (${score} – ${f})` : score===f ? tr('A tie!') : tr('Your friend wins {a} to {b}.',{a:f,b:score}); if(boosted) $('oNext').innerHTML+='<br>'+tr('You used Speed-ups, so this score is marked as boosted.'); }
   rv.innerHTML=tr('Revive · {n} {coin}',{n:CFG.reviveCost,coin:I('coin')});
   rv.classList.toggle('off', S.coins<CFG.reviveCost);
   $('next').classList.toggle('hidden', !(r.win && stage<STAGES.length));
@@ -2825,11 +2845,12 @@ function renderThemes(){
 }
 function startPreview(id,slot=null){
   previewId=id; previewSlot=slot; initAmb(); applyAccent(); $('themes').classList.add('peeking'); updatePeek(); $('peek').classList.remove('hidden');
+  $('peekDemo').classList.toggle('hidden',slot!=='accent');                          // an app colour tints the buttons, so show real buttons instead of the tower
   if(slot==='sfx'){ sfx.land(); setTimeout(()=>sfx.perfect(3),170); setTimeout(()=>sfx.perfect(5),330); }
 }
 function endPreview(silent){
   if(previewId===null) return;
-  previewId=null; previewSlot=null; initAmb(); applyAccent(); $('themes').classList.remove('peeking'); $('peek').classList.add('hidden');
+  previewId=null; previewSlot=null; initAmb(); applyAccent(); $('themes').classList.remove('peeking'); $('peek').classList.add('hidden'); $('peekDemo').classList.add('hidden');
   if(!silent) renderThemes();
 }
 function updatePeek(){
@@ -3021,6 +3042,7 @@ function showSettings(){
   set('language',LANGS[lang]||'English',true);
   document.querySelector('[data-set=haptics]').closest('.set').classList.toggle('hidden',!HAS_VIBRATE);
   $('unlockRows').classList.toggle('hidden',!webStore() && !WEB_KEYS.some(ownsWeb));
+  { const inApp=isStandalone(), hasW=WEB_KEYS.some(ownsWeb); $('unlockRows').querySelector('small').textContent=inApp?tr('Bought something in your browser? Paste the code here to unlock it in this app.'):tr('Bought a premium item in your browser? Copy this code, then paste it into the Home Screen app.'); $('unlockRows').querySelector('[data-set=ucopy]').classList.toggle('hidden',inApp||!hasW); }
 }
 
 /* ----- save code (move progress between devices) ----- */
@@ -3278,7 +3300,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},

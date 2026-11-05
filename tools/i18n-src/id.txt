@@ -509,3 +509,27 @@
 509|Lompatan +20
 510|Paket Lompatan
 511|Kamu memakai Lompatan, jadi skor ini ditandai sebagai berbantuan.
+512|2000 jatuhan sempurna total
+513|50 jatuhan sempurna beruntun
+514|Kalahkan teman di balapan teman
+515|Serbuan Bos
+516|Pembasmi Bos
+517|Selesaikan seluruh Dunia 2
+518|Selesaikan seluruh Dunia 3
+519|Kalahkan satu tahap bos
+520|Kalahkan keempat bos
+521|Ahli Pembongkaran
+522|Hindari 100 bom total
+523|Dapatkan semua 72 bintang kampanye
+524|Semua Bintang
+525|Selesaikan 100 ronde
+526|Benteng
+527|Persaingan Akrab
+528|Penembak Lem
+529|Pemecah Es
+530|Fokus Laser
+531|Pemain Setia
+532|Menara Luar Angkasa
+533|Tumpuk 150 blok dalam satu ronde
+534|Tak Terhentikan
+535|Gunakan 10 perisai

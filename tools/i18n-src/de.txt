@@ -509,3 +509,27 @@
 509|Aufstieg +20
 510|Aufstiegs-Paket
 511|Du hast Aufstiege benutzt, daher gilt dieser Punktestand als geboostet.
+512|2000 perfekte Drops insgesamt
+513|50 perfekte Drops in Folge
+514|Schlage einen Freund im Freunde-Duell
+515|Boss-Rausch
+516|Bosskiller
+517|Schließe ganz Welt 2 ab
+518|Schließe ganz Welt 3 ab
+519|Besiege eine Boss-Stufe
+520|Besiege alle vier Bosse
+521|Abrissprofi
+522|Weiche insgesamt 100 Bomben aus
+523|Sammle alle 72 Kampagnen-Sterne
+524|Jeder Stern
+525|Beende 100 Runden
+526|Festung
+527|Freundschaftliche Rivalität
+528|Klebepistolero
+529|Eisbrecher
+530|Laserfokus
+531|Stammgast
+532|Weltraumturm
+533|Staple 150 Blöcke in einer Runde
+534|Unaufhaltsam
+535|Benutze 10 Schilde

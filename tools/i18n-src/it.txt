@@ -509,3 +509,27 @@
 509|Scatto +20
 510|Pacchetto Scatti
 511|Hai usato degli Scatti, quindi questo punteggio è segnato come potenziato.
+512|2000 cadute perfette in totale
+513|50 cadute perfette di fila
+514|Batti un amico in una sfida tra amici
+515|Assalto ai boss
+516|Ammazzaboss
+517|Completa tutto il Mondo 2
+518|Completa tutto il Mondo 3
+519|Sconfiggi un livello boss
+520|Sconfiggi tutti e quattro i boss
+521|Esperto di demolizioni
+522|Schiva 100 bombe in totale
+523|Ottieni tutte le 72 stelle della campagna
+524|Ogni stella
+525|Finisci 100 partite
+526|Fortezza
+527|Rivalità amichevole
+528|Pistolero della colla
+529|Rompighiaccio
+530|Concentrazione laser
+531|Habitué
+532|Torre spaziale
+533|Impila 150 blocchi in una partita
+534|Inarrestabile
+535|Usa 10 scudi

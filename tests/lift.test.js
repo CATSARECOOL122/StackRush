@@ -45,4 +45,15 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['awards: beating a friend counts once per win and unlocks Friendly Rivalry; the boss and bomb awards unlock from the save', async(e,L)=>{
+  const p=await L.open(e); await BASE(p,{},[]);
+  await p.evaluate(()=>{ __sr.startChallenge(__sr.parseChallenge('classic.2.5')); }); await p.waitForTimeout(150);
+  await L.perfects(p,3); await L.miss(p); await p.waitForTimeout(1500);
+  const r=await p.evaluate(()=>({w:__sr.S.friendWins,a:!!__sr.S.ach.friend}));
+  assert.deepEqual(r,{w:1,a:true},'one win, award unlocked');
+  const k=await p.evaluate(()=>{ const S=__sr.S; S.camp[6]=3; S.dodged=100; S.shields=10; S.played=100; __sr.showMenu(); __sr.checkAch(); return ['boss1','bomb100','shield10','plays100','boss4','stars72'].map(id=>!!S.ach[id]); });
+  assert.deepEqual(k,[true,true,true,true,false,false],'the right ones, and not the all-bosses or all-stars awards');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

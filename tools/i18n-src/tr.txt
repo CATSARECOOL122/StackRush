@@ -509,3 +509,27 @@
 509|Hızlandırma +20
 510|Hızlandırma paketi
 511|Hızlandırma kullandın, bu yüzden bu skor destekli olarak işaretlendi.
+512|Toplam 2000 kusursuz bırakış
+513|Üst üste 50 kusursuz bırakış
+514|Arkadaş yarışında bir arkadaşını yen
+515|Patron Koşusu
+516|Patron Avcısı
+517|Dünya 2'nin hepsini bitir
+518|Dünya 3'ün hepsini bitir
+519|Bir patron aşamasını yen
+520|Dört patronu da yen
+521|Yıkım Uzmanı
+522|Toplam 100 bombadan kaç
+523|72 kampanya yıldızının hepsini kazan
+524|Her Yıldız
+525|100 tur bitir
+526|Kale
+527|Dostane Rekabet
+528|Yapışkan Nişancı
+529|Buz Kırıcı
+530|Lazer Odak
+531|Müdavim
+532|Uzay Kulesi
+533|Bir turda 150 blok yığ
+534|Durdurulamaz
+535|10 kalkan kullan
