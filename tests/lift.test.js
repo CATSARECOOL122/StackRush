@@ -100,4 +100,29 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['campaign power-ups: Titan, Magnet, Freeze and Second Wind are only in campaign stages, never make the round boosted, and do what they say; relics pay coins and every third gives a power-up', async(e,L)=>{
+  const p=await L.open(e); await BASE(p,{},[]);
+  await p.evaluate(()=>{ Object.assign(__sr.S.shop.boosts,{titan:1,magnet:1,freeze:1,windp:1}); __sr.startMode('classic'); }); await p.waitForTimeout(150);
+  assert.deepEqual(await p.evaluate(()=>__sr.held.slice()),[],'none outside the campaign');
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.tips.relic=1; __sr.startStage(1); }); await p.waitForTimeout(200);
+  assert.deepEqual(await p.evaluate(()=>__sr.held.slice().sort()),['freeze','magnet','titan','windp']);
+  const near='s=>s.cur&&Math.abs(s.cur.x-s.topX)>28&&Math.abs(s.cur.x-s.topX)<70';
+  await openP(p); await p.click('#powerList [data-power=titan]'); await p.waitForTimeout(200);
+  const w0=await p.evaluate(()=>__sr.top.w); await L.act(p,near); await p.waitForTimeout(100);
+  assert.ok(Math.abs(await p.evaluate(()=>__sr.top.w)-w0)<1,'Titan: the block kept its width'); assert.equal(await p.evaluate(()=>__sr.titanLeft),9);
+  assert.equal(await p.evaluate(()=>__sr.boosted),false,'a campaign power-up does not make the round boosted');
+  await openP(p); await p.click('#powerList [data-power=magnet]'); await p.waitForTimeout(150); const c0=await p.evaluate(()=>__sr.S.perfects+__sr.perfectsRun);
+  await L.act(p,near); await p.waitForTimeout(100); assert.equal(await p.evaluate(()=>__sr.magnetLeft),4,'Magnet used a drop'); assert.ok(await p.evaluate(()=>__sr.combo)>=1,'the near drop snapped on: a perfect');
+  await openP(p); await p.click('#powerList [data-power=freeze]'); await p.waitForTimeout(100); const x1=await p.evaluate(()=>__sr.cur.x); await p.waitForTimeout(600); assert.equal(await p.evaluate(()=>__sr.cur.x),x1,'Freeze: the block stands still');
+  const l0=await p.evaluate(()=>__sr.lives); await openP(p); await p.click('#powerList [data-power=windp]'); assert.equal(await p.evaluate(()=>__sr.lives),l0+1,'Second Wind: a life');
+  assert.deepEqual(await p.evaluate(()=>[__sr.S.shop.boosts.titan,__sr.S.shop.boosts.magnet,__sr.S.shop.boosts.freeze,__sr.S.shop.boosts.windp]),[0,0,0,0],'used up');
+  /* relics */
+  await p.waitForTimeout(2200); const r0=await p.evaluate(()=>[__sr.S.relics,__sr.S.coins]);
+  await p.evaluate(()=>{ __sr.cur.relic=1; }); await L.perfect(p); await p.waitForTimeout(100);
+  const r1=await p.evaluate(()=>[__sr.S.relics,__sr.S.coins]); assert.equal(r1[0],r0[0]+1,'a relic'); assert.ok(r1[1]>=r0[1]+6,'and its coins');
+  await p.evaluate(()=>{ __sr.S.relics=2; __sr.cur.relic=1; }); await L.perfect(p); await p.waitForTimeout(100);
+  assert.equal(await p.evaluate(()=>__sr.S.shop.boosts.titan),1,'the third relic earns a power-up');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

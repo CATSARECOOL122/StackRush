@@ -558,3 +558,21 @@
 558|Ottieni ogni stella della campagna
 559|Nucleo di magma
 560|SOTTOSOPRA!
+561|{name} ottenuto!
+562|Una reliquia! Atterra perfettamente con questo blocco per prenderla.
+563|Attivo ora
+564|Aggiunge una vita.
+565|Premio del boss: {a} + {b}
+566|Cinque vite sono il limite
+567|Congela
+568|CONGELATO!
+569|Calamita
+570|CALAMITA!
+571|Reliquia trovata! +{n} {coin}
+572|Secondo respiro
+573|SECONDO RESPIRO!
+574|Il blocco resta fermo per 2 secondi.
+575|Le prossime 5 cadute si agganciano alla torre.
+576|Titano
+577|TITANO!
+578|Il tuo blocco non si restringe per 10 cadute.
