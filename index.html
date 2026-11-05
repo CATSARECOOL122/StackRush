@@ -187,6 +187,7 @@
   .fsm button.on{background:linear-gradient(180deg,var(--cta1,#ffb23d),var(--cta2,#ff6a3d));color:var(--ctaink,#2a0d00);border:0}
   #fsCatch{width:100%;display:flex;flex-direction:column;gap:8px}
   .shcard>.btn{width:100%}
+  .shcard.cs>*{flex-shrink:0}                      /* a scrolling sheet must not squash its buttons (the text then sits low and off centre) */
   #boostList{display:flex;flex-direction:column;gap:8px;width:100%}
   .bpick{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:8px 12px;border-radius:16px;border:2px solid var(--line);background:#ffffff10;color:#fff;font:inherit;text-align:left;cursor:pointer}
   .bpick.on{border-color:var(--gold);background:#ffc83d1c}
