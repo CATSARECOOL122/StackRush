@@ -538,3 +538,4 @@
 538|Dein Freund spielt dieselbe Runde. Nur Aufstiege funktionieren, für euch beide.
 539|Meine Runde starten
 540|Tippe auf Teilen, um einen Freund herauszufordern.
+541|Tippe auf eines, um es jetzt zu nutzen.

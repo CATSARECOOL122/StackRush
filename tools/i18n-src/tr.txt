@@ -538,3 +538,4 @@
 538|Arkadaşın aynı turu oynar. İkiniz için de yalnızca Hızlandırmalar çalışır.
 539|Turumu başlat
 540|Arkadaşına meydan okumak için Paylaş'a dokun.
+541|Şimdi kullanmak için birine dokun.

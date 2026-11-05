@@ -31,4 +31,20 @@ module.exports=[
     assert.ok(seen.length===0,`${w}x${h}: off-centre or squashed button text -> `+seen.join(" | ")); assert.deepEqual(p.errs,[]); await p.ctx.close();
   }
 }],
+['sheets stay on the screen and scroll inside themselves: iPad portrait and landscape, a small phone; the power menu is tidy', async(e,L)=>{
+  const IPAD_UA='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15';
+  const init=()=>{ try{ delete Navigator.prototype.vibrate; }catch(e){} Object.defineProperty(navigator,'maxTouchPoints',{get:()=>5}); Object.defineProperty(navigator,'platform',{get:()=>'MacIntel'}); };
+  for(const [name,w,h,ipad] of [['iPad portrait',834,1194,true],['iPad landscape',1024,768,true],['small phone',320,568,false]]){
+    const o=ipad?{ctx:{viewport:{width:w,height:h},screen:{width:w,height:h},hasTouch:true,isMobile:true,userAgent:IPAD_UA},init}:{ctx:{viewport:{width:w,height:h}}};
+    const p=await L.open(e,o); await p.evaluate(()=>{ const S=__sr.S; S.tutSeen=true; S.seenTip=true; S.coins=5000; S.shop.gift=true; S.shop.boosts.up10=2; S.shop.boosts.shield=2; S.shop.pick=['shield','up10']; S.played=4; });
+    const fit=async what=>{ await p.waitForTimeout(350); const r=await p.evaluate(()=>{ const c=[...document.querySelectorAll('.sheet:not(.hidden) .shcard')][0]; if(!c) return null; const b=c.getBoundingClientRect(); return {top:b.top,bottom:b.bottom,h:innerHeight}; });
+      assert.ok(r,name+': '+what+' is open'); assert.ok(r.top>=-1 && r.bottom<=r.h+1,`${name}: ${what} fits the screen (${Math.round(r.top)}..${Math.round(r.bottom)} of ${r.h})`); };
+    await p.click('#openModes'); await p.click('#mGrid [data-mode=friend]'); await fit('friend sheet'); await p.click('#fsClose'); await p.click('#closeModes');
+    await p.click('#openBoosts'); await fit('boosts sheet'); await p.click('#boostDone');
+    await p.click('#openCoins'); await fit('coins sheet'); await p.click('#csDone');
+    await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(200); await p.evaluate(()=>__sr.openPower()); await p.waitForFunction(()=>__sr.powerPhase==='open',null,{timeout:5000}); await fit('power menu');
+    assert.equal(await p.locator('#powerList .bpick').count(),2); assert.deepEqual(p.errs,[]); await p.ctx.close();
+  }
+}],
+
 ];

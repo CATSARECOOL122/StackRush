@@ -538,3 +538,4 @@
 538|Temanmu memainkan ronde yang sama. Hanya Lompatan yang berfungsi, untuk kalian berdua.
 539|Mulai rondeku
 540|Ketuk Bagikan untuk menantang teman.
+541|Ketuk satu untuk memakainya sekarang.

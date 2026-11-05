@@ -538,3 +538,4 @@
 538|Il tuo amico gioca la stessa partita. Funzionano solo gli Scatti, per entrambi.
 539|Inizia la mia partita
 540|Tocca Condividi per sfidare un amico.
+541|Tocca uno per usarlo adesso.

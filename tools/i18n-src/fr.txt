@@ -538,3 +538,4 @@
 538|Ton ami joue la même partie. Seuls les Élans fonctionnent, pour vous deux.
 539|Lancer ma partie
 540|Touche Partager pour défier un ami.
+541|Touche-en un pour l'utiliser maintenant.

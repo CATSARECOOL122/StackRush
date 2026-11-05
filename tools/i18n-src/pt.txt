@@ -538,3 +538,4 @@
 538|Seu amigo joga a mesma partida. Só os Impulsos funcionam, para os dois.
 539|Começar minha partida
 540|Toque em Compartilhar para desafiar um amigo.
+541|Toque em um para usá-lo agora.
