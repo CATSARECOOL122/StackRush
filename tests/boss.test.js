@@ -126,4 +126,15 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['hazard difficulty: PLAY on the menu with Hazard selected asks for the level first (not only the Game modes tile); Back closes it and stays on the menu', async(e,L)=>{
+  const p=await L.open(e); await quiet(p);
+  await p.evaluate(()=>{ __sr.S.lastMode='hazard'; __sr.S.hzLevel='medium'; __sr.showMenu(); }); await p.evaluate(()=>document.getElementById('play').click()); await p.waitForTimeout(200);
+  assert.ok(await p.isVisible('#hzsheet'),'the picker opens'); assert.equal(await p.evaluate(()=>__sr.state),'menu','the round has not started');
+  await p.evaluate(()=>history.back()); await p.waitForTimeout(300); assert.equal(await p.isVisible('#hzsheet'),false); assert.ok(await p.isVisible('#menu'),'still on the menu');
+  await p.evaluate(()=>document.getElementById('play').click()); await p.click('#hzList [data-hz=advanced]'); await p.waitForTimeout(200);
+  assert.deepEqual(await p.evaluate(()=>[__sr.state,__sr.mode,__sr.S.hzLevel]),['playing','hazard','advanced']);
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.lastMode='classic'; __sr.renderMenu(); }); await p.evaluate(()=>document.getElementById('play').click()); await p.waitForTimeout(150); assert.equal(await p.evaluate(()=>__sr.mode),'classic','other modes start straight away');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

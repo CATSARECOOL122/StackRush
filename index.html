@@ -3433,7 +3433,7 @@ $('csBuy').addEventListener('click',e=>{ const b=e.target.closest('[data-pack]')
    the browser's own and the app can close. */
 function soon(f){ if(typeof queueMicrotask==='function') queueMicrotask(f); else setTimeout(f,0); }       // right after the current handler finishes, before anything else can happen
 let backState='off', backWant=false, backAfter=null;          // off: no sentinel · armed: one is in the history · popping: we are removing it ourselves
-const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
+const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('hzsheet').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
 function armBack(){
   if(backState==='off'){ try{ history.pushState({sr:1},''); backState='armed'; }catch(e){} }
   else if(backState==='popping') backWant=true;                // (arm again as soon as our own removal is done)
@@ -3494,7 +3494,7 @@ addEventListener('pagehide',pause);
 addEventListener('resize',resize);
 try{ new ResizeObserver(()=>resize()).observe($('stage')); }catch(e){}
 
-function quickPlay(){ sfx.tap(); if(!S.tutSeen){ showTutOffer(); return; } startMode(S.lastMode); }
+function quickPlay(){ sfx.tap(); if(!S.tutSeen){ showTutOffer(); return; } if(S.lastMode==='hazard'){ openHz(); return; } startMode(S.lastMode); }          // Hazard always asks for its difficulty first
 $('play').onclick=quickPlay;
 $('openModes').onclick=()=>{ sfx.tap(); showModes(); };
 $('tutGo').onclick=()=>{ sfx.tap(); startPractice(); };
