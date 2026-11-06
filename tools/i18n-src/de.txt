@@ -661,3 +661,5 @@
 661|Mittel
 662|Das klassische Gefahr: Bomben, Eis, Kleber und Wind.
 663|ULTRA
+664|Lava, Eis, Kleber, Wind, Beben, ein Bildschirm auf dem Kopf und die schnellsten Blöcke. Münzen x1,5.
+665|Lava! Über deinem Turm schmilzt sie die 2 Blöcke darunter. Tippe sie abseits des Turms an, um sie abzuwerfen.

@@ -661,3 +661,5 @@
 661|Medio
 662|Il Pericolo classico: bombe, ghiaccio, colla e vento.
 663|ULTRA
+664|Lava, ghiaccio, colla, vento, scosse, schermo capovolto e i blocchi più veloci. Monete x1,5.
+665|Lava! Sopra la torre scioglie i 2 blocchi sotto. Toccala lontano dalla torre per farla cadere.

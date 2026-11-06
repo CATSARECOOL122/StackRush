@@ -926,10 +926,10 @@ const STAGES = [
   ['height',12,{startFrac:.45,speed:1.3}],['perfects',6,{startFrac:.45,speed:1.3}],['score',45,{startFrac:.45,speed:1.3}],['height',20,{startFrac:.45,speed:1.3}],['combo',6,{startFrac:.45,speed:1.3}],['height',30,{startFrac:.45,speed:1.3,boss:1,hz:{ice:5,glue:8,wind:6},chance:{ice:.25,glue:.25,gust:.25},gap:6}],
   ['height',14,{startFrac:.45,speed:1.4,dark:1,hz:{lava:6},chance:{lava:.12}}],['perfects',8,{startFrac:.45,speed:1.4,dark:1,hz:{lava:4},chance:{lava:.15}}],['score',60,{startFrac:.45,speed:1.4,dark:1,tremor:1,hz:{wind:4,lava:5},chance:{gust:.22,lava:.14},gap:6}],
   ['height',18,{startFrac:.45,speed:1.45,dark:1,tremor:1,hz:{wind:4,lava:3},chance:{gust:.25,lava:.15},gap:5}],['combo',8,{startFrac:.45,speed:1.45,dark:1,hz:{lava:4},chance:{lava:.18}}],['height',22,{startFrac:.42,speed:1.5,boss:1,dark:1,tremor:1,hz:{lava:3,wind:5},chance:{lava:.15,gust:.3},gap:5}],
-  ['height',16,{startFrac:.42,speed:1.5,flip:.5,hz:{ice:3},chance:{ice:.3}}],['perfects',9,{startFrac:.42,speed:1.5,flip:.5,hz:{glue:3},chance:{glue:.3}}],['score',80,{startFrac:.42,speed:1.55,flip:.6,hz:{ice:3,glue:5},chance:{ice:.25,glue:.25}}],
-  ['height',22,{startFrac:.42,speed:1.55,flip:.6,hz:{wind:4,ice:3},chance:{gust:.25,ice:.25},gap:5}],['combo',9,{startFrac:.42,speed:1.55,flip:.5,hz:{glue:3},chance:{glue:.3}}],['height',26,{startFrac:.4,speed:1.6,boss:1,flip:.7,hz:{ice:3,glue:5,wind:6},chance:{ice:.25,glue:.25,gust:.25},gap:5}],
-  ['height',18,{startFrac:.4,speed:1.65,dark:1,bombs:true,hz:{lava:4},chance:{lava:.15}}],['dodge',6,{startFrac:.4,speed:1.65,bombs:true,hz:{lava:3,ice:4},chance:{lava:.15,ice:.2}}],['score',100,{startFrac:.4,speed:1.7,dark:1,flip:.5,hz:{lava:3,glue:4},chance:{lava:.15,glue:.2}}],
-  ['height',24,{startFrac:.4,speed:1.7,tremor:1,flip:.5,hz:{lava:3,wind:4,ice:5},chance:{lava:.15,gust:.25,ice:.2},gap:5}],['combo',10,{startFrac:.4,speed:1.7,dark:1,flip:.5,hz:{lava:3},chance:{lava:.15}}],['height',30,{startFrac:.38,speed:1.8,boss:1,upside:1,dark:1,tremor:1,flip:.6,bombs:true,hz:{lava:3,ice:5,glue:7,wind:6},chance:{lava:.15,ice:.2,glue:.2,gust:.25},gap:5}],
+  ['height',16,{startFrac:.42,speed:1.5,hz:{ice:3},chance:{ice:.3}}],['perfects',9,{startFrac:.42,speed:1.5,hz:{glue:3},chance:{glue:.3}}],['score',80,{startFrac:.42,speed:1.55,hz:{ice:3,glue:5},chance:{ice:.25,glue:.25}}],
+  ['height',22,{startFrac:.42,speed:1.55,hz:{wind:4,ice:3},chance:{gust:.25,ice:.25},gap:5}],['combo',9,{startFrac:.42,speed:1.55,hz:{glue:3},chance:{glue:.3}}],['height',26,{startFrac:.4,speed:1.6,boss:1,hz:{ice:3,glue:5,wind:6},chance:{ice:.25,glue:.25,gust:.25},gap:5}],
+  ['height',18,{startFrac:.4,speed:1.65,dark:1,bombs:true,hz:{lava:4},chance:{lava:.15}}],['dodge',6,{startFrac:.4,speed:1.65,bombs:true,hz:{lava:3,ice:4},chance:{lava:.15,ice:.2}}],['score',100,{startFrac:.4,speed:1.7,dark:1,hz:{lava:3,glue:4},chance:{lava:.15,glue:.2}}],
+  ['height',24,{startFrac:.4,speed:1.7,tremor:1,hz:{lava:3,wind:4,ice:5},chance:{lava:.15,gust:.25,ice:.2},gap:5}],['combo',10,{startFrac:.4,speed:1.7,dark:1,hz:{lava:3},chance:{lava:.15}}],['height',30,{startFrac:.38,speed:1.8,boss:1,upside:1,dark:1,tremor:1,bombs:true,hz:{lava:3,ice:5,glue:7,wind:6},chance:{lava:.15,ice:.2,glue:.2,gust:.25},gap:5}],
 ];
 const WORLD_NAMES = ['Meadow','Speedway','Minefield','Skyline','Caverns','Crystal Depths','Magma Core'];
 const goalLabel = g => ({height:tr('Reach {n} blocks',{n:g[1]}),perfects:tr('Land {n} perfects',{n:g[1]}),score:tr('Score {n}',{n:g[1]}),dodge:tr('Dodge {n} bombs',{n:g[1]}),combo:tr('Hit a x{n} combo',{n:g[1]})}[g[0]]);
@@ -1662,7 +1662,7 @@ function specialAt(h){
 }
 const gustDue=(h,last)=>{ const f=hzFrom('wind'); return f!==undefined && h>=f && h-last>=(mod.gap||CFG.gustGap) && rollAt(h,3)<chanceOf('gust',CFG.gustChance); };
 let windOff=0, gust=null, lastGustH=-99, windFx=[];
-const hzTipText=k=>k==='lava'?tr('Lava! Tap it to knock it off the tower. Leave it and it drifts away.'):k==='ice'?tr('Ice! The block slides on after you tap, so tap a little early.'):k==='glue'?tr('Glue! The block is pulled back after you tap, so tap a little late.'):tr('Gust! The wind sways the tower. Aim for where the top block is now.');
+const hzTipText=k=>k==='lava'?tr('Lava! Over your tower it melts the 2 blocks under it. Tap it away from the tower to knock it off.'):k==='ice'?tr('Ice! The block slides on after you tap, so tap a little early.'):k==='glue'?tr('Glue! The block is pulled back after you tap, so tap a little late.'):tr('Gust! The wind sways the tower. Aim for where the top block is now.');
 function hzTip(k){
   if(S.tips[k] || !S.tutSeen || state!=='playing') return;
   S.tips[k]=1; save(); toast(`${I(k==='ice'?'snow':k==='glue'?'drop':k==='lava'?'flame':'wind',k==='lava'?'ic-orange':'ic-cyan')} ${hzTipText(k)}`,4200);
@@ -1690,7 +1690,6 @@ function spawnCur(noBomb){
   dir = (stack.length%2) ? 1 : -1;
   cur={ x: dir>0 ? 0 : W-top.w, w: top.w, y: stack.length*BH, i: stack.length, sq:0 };
   if(mode==='campaign' && state==='playing' && stack.length>=3 && relicRun<3 && (S.camp[stage]||0)<3 && !relicTaken.has(stack.length) && rollAt(stack.length,10)<CFG.relicChance){ cur.relic=1; if(!S.tips.relic && S.tutSeen){ S.tips.relic=1; save(); toast(`${I('gem','ic-cyan')} ${tr('A relic! Land this block perfectly to collect it.')}`,3600); } }
-  if(mod.flip && state==='playing' && rollAt(stack.length,8)<mod.flip) cur.flipAt=W*(.25+.5*rollAt(stack.length,9));      // this block will turn round once, part-way across
   if(state==='playing' && bombsOn() && !noBomb && (forceBomb || (!lastBomb && stack.length>=4 && rollAt(stack.length)<CFG.bombChance*(mod.bombMul||1)))){
     cur.bomb=true; cur.ttl=CFG.bombTtl; lastBomb=true; forceBomb=false;
   } else {
@@ -1726,7 +1725,7 @@ const HZ_LEVELS={
   beginner:{name:'Beginner',desc:'Bombs only at first. Ice and glue come late and rarely.',mod:{hz:{ice:14,glue:18,wind:9999},chance:{ice:.12,glue:.12},speed:.92,bombMul:.8,coinMul:.8}},
   medium:{name:'Medium',desc:'The classic Hazard: bombs, ice, glue and wind.',mod:{}},
   advanced:{name:'Advanced',desc:'Everything arrives sooner and more often, and the blocks are faster.',mod:{hz:{ice:3,glue:4,wind:5},chance:{ice:.3,glue:.3,gust:.3},gap:5,speed:1.12,bombMul:1.3,startFrac:.5,coinMul:1.2}},
-  ultra:{name:'ULTRA',desc:'Lava, ice, glue, wind, tremors, turning blocks and an upside-down screen. Coins x1.5.',mod:{hz:{lava:3,ice:3,glue:3,wind:4},chance:{lava:.18,ice:.3,glue:.3,gust:.35},gap:4,speed:1.3,bombMul:1.5,startFrac:.42,tremor:1,flip:.4,upside:1,coinMul:1.5}}
+  ultra:{name:'ULTRA',desc:'Lava, ice, glue, wind, tremors, an upside-down screen and the fastest blocks. Coins x1.5.',mod:{hz:{lava:3,ice:3,glue:3,wind:4},chance:{lava:.18,ice:.3,glue:.3,gust:.35},gap:4,speed:1.3,bombMul:1.5,startFrac:.42,tremor:1,upside:1,coinMul:1.5}}
 };
 const hzKey=m=>(m==='hazard' && S.hzLevel!=='medium' && !friendRun && !challenge && !passPlay)?S.hzLevel:null;
 const bestGet=m=>{ const k=hzKey(m); return k?(S.hzBests[k]||0):(S.bests[m]||0); };
@@ -2068,15 +2067,17 @@ function drop(){
   $('tip').classList.add('hidden');
   if(mode==='timed') timerOn=true;
   if(cur.bomb){ explode(); return; }
-  if(cur.mat==='lava' && waterLeft<=0){                                                   // tap a lava block to knock it off: it falls away, the tower is not touched, nothing is lost (even when it is nowhere near the tower)
-    addPiece(cur,dir); burst(cur.x+cur.w/2+windOff,cur.y+BH/2,18,14,200*u,400); sfx.tap(); vib(10);
-    texts.length=0; texts.push({x:cur.x+cur.w/2,y:cur.y+BH*2,vy:70,text:tr('SKIPPED'),size:24*u,color:'#ff9a3d',life:1}); cur=null; spawnCur(true); return;
-  }
   const top=stack[stack.length-1], topX=top.x+windOff;                                      // (a gust sways the tower: the target is where the top block is now)
   if(cur.mat && cur.mat!=='lava'){ const k=cur.mat==='ice'?1:-1, sh=k*dir*speed()*(cur.mat==='ice'?CFG.iceSlide:CFG.glueDrag), nx=clamp(cur.x+sh,0,W-cur.w); cur.fx=cur.x-nx; cur.x=nx; }   // ice slides on, glue is pulled back
   let left=Math.max(cur.x,topX), right=Math.min(cur.x+cur.w,topX+top.w);
   let ov=right-left;
-  if(ov<=3){ miss(); return; }
+  if(ov<=3){
+    if(cur.mat==='lava' && waterLeft<=0){                                                  // lava that is not over the tower is knocked off safely: it falls away, nothing is lost
+      addPiece(cur,dir); burst(cur.x+cur.w/2+windOff,cur.y+BH/2,18,14,200*u,400); sfx.tap(); vib(10);
+      texts.length=0; texts.push({x:cur.x+cur.w/2,y:cur.y+BH*2,vy:70,text:tr('SKIPPED'),size:24*u,color:'#ff9a3d',life:1}); cur=null; spawnCur(true); return;
+    }
+    miss(); return;
+  }
   if(magnetLeft>0 && Math.abs(cur.x-topX)<cur.w*.35){ cur.x=topX; }                       // Magnet: a near drop snaps onto the tower
   const dx=cur.x-topX;
   const perfect=Math.abs(dx)<=CFG.perfectPx*u*tolFactor();
@@ -2507,7 +2508,6 @@ function update(dt){
     if(!(freezeT>0 && state==='playing')) cur.x+=dir*speed()*dt;
     if(cur.x<0){ cur.x=0; dir=1; }
     if(cur.x+cur.w>W){ cur.x=W-cur.w; dir=-1; }
-    if(cur.flipAt!==undefined && !cur.flipped && state==='playing' && ((dir>0 && cur.x+cur.w/2>=cur.flipAt) || (dir<0 && cur.x+cur.w/2<=cur.flipAt))){ dir=-dir; cur.flipped=true; burst(cur.x+cur.w/2,cur.y+BH/2,200,10,200*u,400); sfx.tap(); }
     if(state==='playing' && cur.mat==='lava' && waterLeft<=0 && !paused){            // lava can be skipped: untouched, it falls away and the next block comes
       cur.ttl-=dt;
       if(cur.ttl<=0){ addPiece(cur,dir); texts.length=0; texts.push({x:cur.x+cur.w/2,y:cur.y+BH*2,vy:70,text:tr('SKIPPED'),size:24*u,color:'#ff9a3d',life:1}); cur=null; spawnCur(true); }

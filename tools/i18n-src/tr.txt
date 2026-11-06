@@ -661,3 +661,5 @@
 661|Orta
 662|Klasik Tehlike: bombalar, buz, yapışkan ve rüzgâr.
 663|ULTRA
+664|Lav, buz, yapışkan, rüzgâr, sarsıntı, ters ekran ve en hızlı bloklar. Jeton x1,5.
+665|Lav! Kulenin üzerindeyse altındaki 2 bloğu eritir. Düşürmek için kuleden uzakken dokun.

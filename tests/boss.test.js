@@ -68,15 +68,15 @@ module.exports=[
   await p.evaluate(()=>{ for(let n=1;n<=24;n++) __sr.S.camp[n]=3; __sr.startStage(25); }); await p.waitForTimeout(200);
   assert.equal(await p.evaluate(()=>!!__sr.mod.dark),true,'a cave stage is dark');
   await L.perfects(p,4); const before=await p.evaluate(()=>__sr.stackLen);
-  await p.evaluate(()=>{ __sr.cur.mat='lava'; __sr.cur.x=0; });
+  await p.evaluate(()=>{ __sr.cur.mat='lava'; __sr.cur.w=40; __sr.cur.x=0; });
   await p.evaluate(()=>{ document.getElementById('c').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})); }); await p.waitForTimeout(150);
-  assert.deepEqual(await p.evaluate(()=>[__sr.stackLen,__sr.lives,__sr.state]),[before,3,'playing'],'tapping a lava block anywhere knocks it off: no life lost, the tower untouched');
-  await p.evaluate(()=>__sr.meltTest()); await p.waitForTimeout(150);
+  assert.deepEqual(await p.evaluate(()=>[__sr.stackLen,__sr.lives,__sr.state]),[before,3,'playing'],'tapping a lava block away from the tower knocks it off: no life lost, the tower untouched');
+  await p.waitForTimeout(300); await p.evaluate(()=>{ __sr.cur.mat='lava'; }); await L.perfect(p); await p.waitForTimeout(150);
   const a=await p.evaluate(()=>({n:__sr.stackLen,melt:__sr.pieces.filter(q=>q.melt).length,hot:__sr.top.hot,dy:__sr.top.dy,mat:__sr.top.mat}));
   assert.equal(a.n,before-1,'lava placed, 2 melted: one block lower than before ('+before+' -> '+a.n+')'); assert.equal(a.melt,2,'two melting pieces'); assert.ok(a.hot>0,'glowing'); assert.ok(a.dy>0,'sinking'); assert.equal(a.mat,undefined,'it is a plain block afterwards');
   await p.waitForTimeout(1500); assert.equal(await p.evaluate(()=>__sr.top.dy||0),0,'settled');
   await p.evaluate(()=>{ __sr.showMenu(); __sr.startStage(25); }); await p.waitForTimeout(150);
-  await p.evaluate(()=>__sr.meltTest()); await p.waitForTimeout(100);
+  await p.evaluate(()=>{ __sr.cur.mat='lava'; }); await L.perfect(p); await p.waitForTimeout(100);
   assert.equal(await p.evaluate(()=>__sr.stackLen),2,'with only the base and one block, the base is never melted');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
@@ -113,7 +113,7 @@ module.exports=[
   await p.evaluate(()=>__sr.showModes()); await p.click('#mGrid [data-mode=hazard]'); assert.ok(await p.isVisible('#hzsheet')); assert.equal(await p.locator('#hzList .bpick').count(),4);
   await p.click('#hzList [data-hz=ultra]'); await p.waitForTimeout(200);
   let m=await p.evaluate(()=>({mode:__sr.mode,lvl:__sr.S.hzLevel,lava:__sr.mod.hz&&__sr.mod.hz.lava,up:!!__sr.mod.upside,flip:__sr.mod.flip,coin:__sr.mod.coinMul}));
-  assert.deepEqual(m,{mode:'hazard',lvl:'ultra',lava:3,up:true,flip:.4,coin:1.5});
+  assert.deepEqual(m,{mode:'hazard',lvl:'ultra',lava:3,up:true,flip:undefined,coin:1.5});
   await p.evaluate(()=>{ __sr.showMenu(); __sr.S.hzLevel='medium'; __sr.startMode('hazard'); }); await p.waitForTimeout(150);
   assert.deepEqual(await p.evaluate(()=>Object.keys(__sr.mod)),[],'Medium is the original hazard mode');
   await p.evaluate(()=>{ __sr.showMenu(); __sr.S.hzLevel='beginner'; __sr.startMode('hazard'); }); await p.waitForTimeout(150);

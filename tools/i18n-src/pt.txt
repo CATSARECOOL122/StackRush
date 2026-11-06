@@ -661,3 +661,5 @@
 661|Médio
 662|O Perigo clássico: bombas, gelo, cola e vento.
 663|ULTRA
+664|Lava, gelo, cola, vento, tremores, tela de cabeça para baixo e os blocos mais rápidos. Moedas x1,5.
+665|Lava! Sobre a torre, derrete os 2 blocos abaixo. Toque nela longe da torre para derrubá-la.

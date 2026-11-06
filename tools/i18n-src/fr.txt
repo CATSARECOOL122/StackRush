@@ -661,3 +661,5 @@
 661|Moyen
 662|Le Danger classique : bombes, glace, colle et vent.
 663|ULTRA
+664|Lave, glace, colle, vent, secousses, écran à l'envers et les blocs les plus rapides. Pièces x1,5.
+665|Lave ! Au-dessus de ta tour, elle fait fondre les 2 blocs en dessous. Touche-la loin de la tour pour la faire tomber.
