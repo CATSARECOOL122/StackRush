@@ -652,5 +652,14 @@
  "SKIPPED",
  "Water",
  "WATER!",
- "Lava! Tap it to knock it off the tower. Leave it and it drifts away."
+ "Lava! Tap it to knock it off the tower. Leave it and it drifts away.",
+ "Hazard difficulty",
+ "Advanced",
+ "Beginner",
+ "Bombs only at first. Ice and glue come late and rarely.",
+ "Everything arrives sooner and more often, and the blocks are faster.",
+ "Lava, ice, glue, wind, tremors, turning blocks and an upside-down screen. Coins x1.5.",
+ "Medium",
+ "The classic Hazard: bombs, ice, glue and wind.",
+ "ULTRA"
 ]

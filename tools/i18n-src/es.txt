@@ -652,3 +652,12 @@
 652|Agua
 653|¡AGUA!
 654|¡Lava! Tócala para tirarla de la torre. Si la dejas, se aleja.
+655|Dificultad de Peligro
+656|Avanzado
+657|Principiante
+658|Solo bombas al principio. El hielo y el pegamento llegan tarde y poco.
+659|Todo llega antes y más a menudo, y los bloques son más rápidos.
+660|Lava, hielo, pegamento, viento, temblores, bloques que giran y pantalla al revés. Monedas x1,5.
+661|Medio
+662|El Peligro clásico: bombas, hielo, pegamento y viento.
+663|ULTRA

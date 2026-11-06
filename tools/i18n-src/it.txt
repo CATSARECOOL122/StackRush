@@ -652,3 +652,12 @@
 652|Acqua
 653|ACQUA!
 654|Lava! Toccala per farla cadere dalla torre. Se la lasci, si allontana.
+655|Difficoltà Pericolo
+656|Avanzato
+657|Principiante
+658|All'inizio solo bombe. Ghiaccio e colla arrivano tardi e di rado.
+659|Tutto arriva prima e più spesso, e i blocchi sono più veloci.
+660|Lava, ghiaccio, colla, vento, scosse, blocchi che girano e schermo capovolto. Monete x1,5.
+661|Medio
+662|Il Pericolo classico: bombe, ghiaccio, colla e vento.
+663|ULTRA

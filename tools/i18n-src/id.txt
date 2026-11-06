@@ -652,3 +652,12 @@
 652|Air
 653|AIR!
 654|Lava! Ketuk untuk menjatuhkannya dari menara. Jika dibiarkan, ia pergi sendiri.
+655|Kesulitan Bahaya
+656|Mahir
+657|Pemula
+658|Awalnya hanya bom. Es dan lem datang terlambat dan jarang.
+659|Semuanya datang lebih cepat dan lebih sering, blok lebih cepat.
+660|Lava, es, lem, angin, gempa, blok yang berbalik, dan layar terbalik. Koin x1,5.
+661|Sedang
+662|Bahaya klasik: bom, es, lem, dan angin.
+663|ULTRA

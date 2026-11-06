@@ -652,3 +652,12 @@
 652|Eau
 653|EAU !
 654|Lave ! Touche-la pour la faire tomber de la tour. Si tu la laisses, elle s'éloigne.
+655|Difficulté Danger
+656|Avancé
+657|Débutant
+658|Seulement des bombes au début. Glace et colle arrivent tard et rarement.
+659|Tout arrive plus tôt et plus souvent, et les blocs sont plus rapides.
+660|Lave, glace, colle, vent, secousses, blocs qui tournent et écran à l'envers. Pièces x1,5.
+661|Moyen
+662|Le Danger classique : bombes, glace, colle et vent.
+663|ULTRA

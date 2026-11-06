@@ -652,3 +652,12 @@
 652|Água
 653|ÁGUA!
 654|Lava! Toque nela para derrubá-la da torre. Se deixar, ela se afasta.
+655|Dificuldade do Perigo
+656|Avançado
+657|Iniciante
+658|Só bombas no começo. Gelo e cola chegam tarde e raramente.
+659|Tudo chega mais cedo e com mais frequência, e os blocos são mais rápidos.
+660|Lava, gelo, cola, vento, tremores, blocos que viram e tela de cabeça para baixo. Moedas x1,5.
+661|Médio
+662|O Perigo clássico: bombas, gelo, cola e vento.
+663|ULTRA

@@ -187,6 +187,7 @@
   .fsm button{min-height:44px;border-radius:14px;border:1px solid var(--line);background:#ffffff14;color:#fff;font-weight:900;font-size:14px;padding:6px}
   .fsm button.on{background:linear-gradient(180deg,var(--cta1,#ffb23d),var(--cta2,#ff6a3d));color:var(--ctaink,#2a0d00);border:0}
   .shcard>.btn{width:100%}
+  #hzList{display:flex;flex-direction:column;gap:8px;width:100%}
   #boostList{display:flex;flex-direction:column;gap:8px;width:100%}
   .bpick{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:8px 12px;border-radius:16px;border:2px solid var(--line);background:#ffffff10;color:#fff;font:inherit;text-align:left;cursor:pointer}
   .bpick.on{border-color:var(--gold);background:#ffc83d1c}
@@ -772,6 +773,15 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     </div>
   </section>
 
+  <section id="hzsheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Hazard difficulty">
+    <div class="shbg" id="hzBg"></div>
+    <div class="shcard">
+      <h2>Hazard difficulty</h2>
+      <div id="hzList"></div>
+      <button id="hzClose" class="btn">Close</button>
+    </div>
+  </section>
+
   <section id="coinsSheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Coins">
     <div class="shbg" id="coinsBg"></div>
     <div class="shcard cs">
@@ -1019,7 +1029,7 @@ const ACH = [
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -1037,6 +1047,8 @@ function cleanSave(raw){
   for(const k of ['best','coins','blocks','perfects','played','revives','dodged','shields','bestCombo','maxHeight','streak','twistDone','friendWins','friendBig','relics','untouch']) if(own(raw,k)) out[k]=num(raw[k]);
   if(own(raw,'fsHint')) out.fsHint=num(raw.fsHint,99);
   if(own(raw,'hintPow')) out.hintPow=num(raw.hintPow,9);
+  if(['beginner','medium','advanced','ultra'].includes(raw.hzLevel)) out.hzLevel=raw.hzLevel;
+  if(raw.hzBests && typeof raw.hzBests==='object') for(const k of ['beginner','advanced','ultra']) if(own(raw.hzBests,k)) out.hzBests[k]=num(raw.hzBests[k]);
   /* the last raceable round (so Friend race can still send it after an update) and the friend-race history: checked by shape, because the challenge parser is not ready yet */
   const lc=raw.lastChal; if(lc && typeof lc==='object' && ['classic','timed','lives','hazard'].includes(lc.mode) && typeof lc.link==='string' && lc.link.length<3200 && /^https?:\/\/[^\s?#]{1,300}\?c=[A-Za-z0-9_.-]+$/.test(lc.link)) out.lastChal={mode:lc.mode,score:num(lc.score),link:lc.link,f:lc.f?1:0};
   if(Array.isArray(raw.duels)) out.duels=raw.duels.filter(d=>d && typeof d==='object' && ['classic','timed','lives','hazard'].includes(d.m)).slice(-40).map(d=>({m:d.m,a:num(d.a),b:num(d.b),t:num(d.t,9e12),x:d.x?1:0}));
@@ -1676,7 +1688,7 @@ function spawnCur(noBomb){
   cur={ x: dir>0 ? 0 : W-top.w, w: top.w, y: stack.length*BH, i: stack.length, sq:0 };
   if(mode==='campaign' && state==='playing' && stack.length>=3 && relicRun<3 && (S.camp[stage]||0)<3 && !relicTaken.has(stack.length) && rollAt(stack.length,10)<CFG.relicChance){ cur.relic=1; if(!S.tips.relic && S.tutSeen){ S.tips.relic=1; save(); toast(`${I('gem','ic-cyan')} ${tr('A relic! Land this block perfectly to collect it.')}`,3600); } }
   if(mod.flip && state==='playing' && rollAt(stack.length,8)<mod.flip) cur.flipAt=W*(.25+.5*rollAt(stack.length,9));      // this block will turn round once, part-way across
-  if(state==='playing' && bombsOn() && !noBomb && (forceBomb || (!lastBomb && stack.length>=4 && rollAt(stack.length)<CFG.bombChance))){
+  if(state==='playing' && bombsOn() && !noBomb && (forceBomb || (!lastBomb && stack.length>=4 && rollAt(stack.length)<CFG.bombChance*(mod.bombMul||1)))){
     cur.bomb=true; cur.ttl=CFG.bombTtl; lastBomb=true; forceBomb=false;
   } else {
     lastBomb=false;
@@ -1706,10 +1718,20 @@ function demoStep(){
     spawnCur(true);
   }
 }
+/* Hazard difficulty: Beginner, Medium (the original), Advanced and ULTRA (lava, every hazard, turning blocks, an upside-down screen). Friend races and pass and play always use Medium so both players get the same round. */
+const HZ_LEVELS={
+  beginner:{name:'Beginner',desc:'Bombs only at first. Ice and glue come late and rarely.',mod:{hz:{ice:14,glue:18,wind:9999},chance:{ice:.12,glue:.12},speed:.92,bombMul:.8,coinMul:.8}},
+  medium:{name:'Medium',desc:'The classic Hazard: bombs, ice, glue and wind.',mod:{}},
+  advanced:{name:'Advanced',desc:'Everything arrives sooner and more often, and the blocks are faster.',mod:{hz:{ice:3,glue:4,wind:5},chance:{ice:.3,glue:.3,gust:.3},gap:5,speed:1.12,bombMul:1.3,startFrac:.5,coinMul:1.2}},
+  ultra:{name:'ULTRA',desc:'Lava, ice, glue, wind, tremors, turning blocks and an upside-down screen. Coins x1.5.',mod:{hz:{lava:3,ice:3,glue:3,wind:4},chance:{lava:.18,ice:.3,glue:.3,gust:.35},gap:4,speed:1.3,bombMul:1.5,startFrac:.42,tremor:1,flip:.4,upside:1,coinMul:1.5}}
+};
+const hzKey=m=>(m==='hazard' && S.hzLevel!=='medium' && !friendRun && !challenge && !passPlay)?S.hzLevel:null;
+const bestGet=m=>{ const k=hzKey(m); return k?(S.hzBests[k]||0):(S.bests[m]||0); };
 function startMode(id){
   rollDay();
   mode=id; if(id!=='campaign' && id!=='practice') S.lastMode=id; save();
   if(id==='daily'){ const tw=todaysTwist(); mod=Object.assign({lives:3},tw); }
+  else if(id==='hazard' && !challenge && !friendStart && !passPlay && HZ_LEVELS[S.hzLevel]) mod=Object.assign({},HZ_LEVELS[S.hzLevel].mod);
   else mod={};
   newRun();
   if(id==='daily') toast(`${I('calendar')} ${tr(todaysTwist().name)}: ${tr(todaysTwist().desc)}`,3000);
@@ -1756,7 +1778,7 @@ function newRun(){
   }
   if(armed.shield){ shield=true; boostShield=true; }
   pieces=[]; parts=[]; rings=[]; texts=[]; banner=null; speedCue=null; speedTier=Math.floor(rampOf(1)*4);
-  ghost = (M.ghost && S.ghosts[mode] && S.ghosts[mode].blocks && S.ghosts[mode].blocks.length>2) ? S.ghosts[mode] : null;
+  ghost = (M.ghost && !hzKey(mode) && S.ghosts[mode] && S.ghosts[mode].blocks && S.ghosts[mode].blocks.length>2) ? S.ghosts[mode] : null;
   if(challenge) ghost=challenge.ghost?{score:challenge.score,blocks:challenge.ghost,scores:[],live:challenge.times?{times:challenge.times,sc:challenge.incs}:null}:null;     // a friend's round: their tower is the one to beat (a link with timing replays how it was built)
   runT0=t; lastFs=-1;
   runRec={blocks:[{x:+(stack[0].x/W).toFixed(3),w:+(stack[0].w/W).toFixed(3)}],scores:[0],ts:[0]};
@@ -1891,6 +1913,14 @@ const challengeOk=()=>CH_MODES.includes(mode) && (!boosted || friendRun) && !ass
 const challengeLink=()=>location.origin+location.pathname+'?c='+challengeCode();
 /* The "Race a friend" tile: remembers the link of the last round that can be raced, so it can be sent from the Game modes screen too. */
 function rememberChallenge(){ if(challengeOk()){ try{ S.lastChal={mode,score,link:challengeLink(),f:(friendRun&&!challenge)?1:0}; save(); }catch(e){} } }
+function openHz(){
+  $('hzList').innerHTML=Object.entries(HZ_LEVELS).map(([id,l])=>{ const b=id==='medium'?(S.bests.hazard||0):(S.hzBests[id]||0);
+    return `<button class="bpick${S.hzLevel===id?' on':''}" data-hz="${id}"><i>${I(id==='ultra'?'flame':id==='advanced'?'bomb':id==='medium'?'target':'leaf')}</i><div><b>${tr(l.name)}</b><span>${tr(l.desc)}</span></div><em>${tr('Best {n}',{n:b})}</em></button>`; }).join('');
+  $('hzsheet').classList.remove('hidden'); soon(syncBack);
+}
+function closeHz(){ $('hzsheet').classList.add('hidden'); soon(syncBack); }
+$('hzList').addEventListener('click',e=>{ const b=e.target.closest('[data-hz]'); if(!b) return; S.hzLevel=b.dataset.hz; save(); sfx.tap(); closeHz(); startMode('hazard'); });
+$('hzClose').onclick=$('hzBg').onclick=()=>{ sfx.tap(); closeHz(); };
 function renderFriendModes(){ $('fsModes').innerHTML=CH_MODES.map(m=>`<button data-fm="${m}" class="${m===friendMode?'on':''}" aria-pressed="${m===friendMode}">${tr(MODES[m].name)}</button>`).join(''); }
 function startPass(){ closeFriend(); challenge=null; passPlay=1; friendStart=true; startMode(friendMode); }
 function startFriend(){ closeFriend(); challenge=null; friendStart=true; startMode(friendMode); }
@@ -2274,18 +2304,18 @@ function endRun(reason){
   const M=MODES[mode];
   if(reason==='fail'){ shake=Math.max(shake,14*u); }
   const before=JSON.parse(JSON.stringify({coins:S.coins,perfects:S.perfects,played:S.played,blocks:S.blocks,bestCombo:S.bestCombo,maxHeight:S.maxHeight,best:S.best,bests:S.bests,boostBests:S.boostBests,ghosts:S.ghosts,ach:S.ach,weekly:S.weekly,twistBest:S.twist&&S.twist.best}));
-  const earned = M.coins===false ? 0 : Math.floor(score/5)+Math.floor(perfectsRun/2);
+  const earned = M.coins===false ? 0 : Math.floor((Math.floor(score/5)+Math.floor(perfectsRun/2))*(mod.coinMul||1));
   S.coins+=earned; S.perfects+=perfectsRun; S.played++;
   const xp=applyXp(runBlocks);
   if(!boosted){ S.bestCombo=Math.max(S.bestCombo||0,bestCombo); S.maxHeight=Math.max(S.maxHeight||0,stack.length-1); }
   if(mode==='daily') S.twist.best=Math.max(S.twist.best||0,score);
-  const prevBest=boosted?(S.boostBests[mode]||0):(S.bests[mode]||0);
+  const prevBest=boosted?(S.boostBests[mode]||0):bestGet(mode);
   const newBest=!M.noBest && score>prevBest && score>0;
   if(newBest){
     if(boosted) S.boostBests[mode]=score;                                              // a boosted run keeps its own record
     else{
-      S.bests[mode]=score; if(mode==='classic') S.best=score;
-      if(M.ghost) { const E=S.shop.equip; S.ghosts[mode]={score,blocks:runRec.blocks.slice(0,400),scores:runRec.scores.slice(0,400),th:S.theme,st:E.style,pl:E.palette,sc:E.scene,tp:E.topper,ts:Date.now()}; }
+      { const hk=hzKey(mode); if(hk) S.hzBests[hk]=score; else S.bests[mode]=score; } if(mode==='classic') S.best=score;
+      if(M.ghost && !hzKey(mode)) { const E=S.shop.equip; S.ghosts[mode]={score,blocks:runRec.blocks.slice(0,400),scores:runRec.scores.slice(0,400),th:S.theme,st:E.style,pl:E.palette,sc:E.scene,tp:E.topper,ts:Date.now()}; }
     }
   }
   checkAch(boosted?{height:0,combo:0,score:0}:{height:stack.length-1,combo:bestCombo,score});
@@ -2337,7 +2367,7 @@ function showOver(r){
   const livesLeft=clamp(lives,1,3);
   if(camp) $('oBest').innerHTML = r.win ? `${goalLabel(g)} ${I('check','ic-green')} · ${livesLeft===1?tr('<b>1</b> life left'):tr('<b>{n}</b> lives left',{n:livesLeft})}` : tr('Goal: {goal} · you got <b>{a}/{b}</b>',{goal:goalLabel(g),a:Math.min(goalVal(g),g[1]),b:g[1]});
   else if(mode==='daily') $('oBest').innerHTML=tr("Today's best <b>{n}</b>",{n:S.twist.best||0})+' · '+(S.twist.done?I('check-circle','ic-green')+' '+tr('twist complete'):tr('goal <b>{n}</b>',{n:CFG.twistGoal}));
-  else $('oBest').innerHTML=(boosted?`${I('zap','ic-cyan')} ${tr('Boosted run')} · `:'')+tr('Best <b>{n}</b> · Height <b>{h}</b>',{n:(boosted?S.boostBests[mode]:S.bests[mode])||0,h})+(bestCombo>1?tr(' · Combo <b>x{c}</b>',{c:bestCombo}):'');
+  else $('oBest').innerHTML=(boosted?`${I('zap','ic-cyan')} ${tr('Boosted run')} · `:'')+tr('Best <b>{n}</b> · Height <b>{h}</b>',{n:(boosted?S.boostBests[mode]:bestGet(mode))||0,h})+(bestCombo>1?tr(' · Combo <b>x{c}</b>',{c:bestCombo}):'');
   $('oCoins').innerHTML = (M.coins===false && !camp) ? tr('Zen earns no coins — just relax') : (camp && !r.win) ? '' : tr('+<b>{n}</b> {coin}',{n:r.earned,coin:I('coin')})+(r.worldBonus?tr(' · World cleared! +<b>{n}</b> {coin}',{n:r.worldBonus,coin:I('coin')}):'');
   let lv='';
   if(r.lvl>r.prevLvl) lv=tr("LEVEL UP! You're level <b>{n}</b> · +<b>{b}</b> {coin}",{n:r.lvl,b:r.lvBonus,coin:I('coin')});
@@ -2929,7 +2959,7 @@ async function shareScore(){
 }
 
 /* ================= Menu / UI ================= */
-const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet'];
+const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet'];
 function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
@@ -2945,8 +2975,8 @@ function nextUnlock(){
 function renderMenu(){
   const lvl=levelOf(S.blocks), a=levelStart(lvl), b=levelStart(lvl+1);
   $('mCoins').textContent=S.coins; $('lvlN').textContent=lvl; $('xpFill').style.width=(clamp((S.blocks-a)/(b-a),0,1)*100)+'%';
-  const lm=S.lastMode, M0=MODES[lm], best=lm==='daily'?(S.twist.best||0):(S.bests[lm]||0);
-  $('modeName').innerHTML=`${I(M0.icon)} ${tr(M0.name)}`;
+  const lm=S.lastMode, M0=MODES[lm], best=lm==='daily'?(S.twist.best||0):bestGet(lm);
+  $('modeName').innerHTML=`${I(M0.icon)} ${tr(M0.name)}${hzKey(lm)?' · '+tr(HZ_LEVELS[S.hzLevel].name):''}`;
   $('playSub').textContent = best>0 ? (lm==='daily'?tr("Today's best {n}",{n:best}):tr('Best {n}',{n:best})) : tr("Let's go!");
   const armedN=S.shop.pick.filter(id=>(S.shop.boosts[id]||0)>0).length; $('boostN').textContent=armedN; $('openBoosts').classList.toggle('has',armedN>0);
   $('openAwards').classList.toggle('dot',weeklyReady());
@@ -2976,7 +3006,7 @@ function claimDaily(){
 function showMenu(){
   rollDay(); endPreview(true); clearCount();
   if(!S.shop.gift && S.played>=1){ S.shop.gift=true; for(const b of Object.keys(BOOSTS)) if(!BOOSTS[b].lift && !BOOSTS[b].camp) S.shop.boosts[b]=Math.min(999,(S.shop.boosts[b]||0)+1); save(); setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('Welcome gift: one of each boost. Pick them with the bolt button.')}`,3400),500); }
-  passPlay=0; state='menu'; setBase(); paused=false; tut.on=false; $('pause').classList.add('hidden'); demoStack(); hideAll(); $('menu').classList.remove('hidden'); held=[]; syncPower();
+  passPlay=0; friendRun=false; state='menu'; setBase(); paused=false; tut.on=false; $('pause').classList.add('hidden'); demoStack(); hideAll(); $('menu').classList.remove('hidden'); held=[]; syncPower();
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden'); $('speedB').classList.add('hidden');
   $('hand').classList.add('hidden'); $('coach').classList.add('hidden'); $('skipTut').classList.add('hidden');
   challenge=null;
@@ -2992,7 +3022,7 @@ function showModes(){
     const m=MODES[id]; let desc=tr(m.desc), em, extra='';
     if(id==='daily'){ desc=`<b style="color:#fff">${tr(tw.name)}</b> — ${tr(tw.desc)} ${tr('Score {goal} for +{reward} {coin}',{goal:CFG.twistGoal,reward:CFG.twistReward,coin:I('coin')})}`; em=S.twist.done?`${tr('DONE')}<br>${I('check-circle','ic-green')}`:`${tr('TODAY')}<br>${S.twist.best||0}`; extra=S.twist.done?'':' hot'; }
     else if(id==='campaign'){ em=`${I('star','ic-gold fill')} ${starsTotal()}<br>/ ${STAGES.length*3}`; }
-    else em=`${tr('BEST')}<br>${S.bests[id]||0}`;
+    else em=`${tr('BEST')}<br>${bestGet(id)}`;
     return cls==='tile'
       ? `<button class="mode tile" data-mode="${id}"><i>${I(m.icon)}</i><b>${tr(m.name)}</b><span>${desc}</span><em>${em.replace('<br>',' ')}</em></button>`
       : `<button class="mode${extra}" data-mode="${id}"><i>${I(m.icon)}</i><div><b>${tr(m.name)}</b><span>${desc}</span></div><em>${em}</em></button>`;
@@ -3415,6 +3445,7 @@ function handleBack(){
   if(open('power')){ closePower(); return; }
   if(open('udlg')){ closeUnlockDlg(); return; }
   if(open('fsheet')){ closeFriend(); return; }
+  if(open('hzsheet')){ closeHz(); return; }
   if(open('coinsSheet')){ closeCoins(); return; }
   if(state==='playing'){ if(paused) tap('resume'); else pause(); return; }
   for(const [scr,btn] of [['modes','closeModes'],['stages','closeStages'],['themes','closeThemes'],['museum','closeMuseum'],['awards','closeAwards'],['langs','closeLangs'],['settings','closeSettings'],['chal','chNo'],['over','toMenu']]) if(open(scr)){ tap(btn); return; }
@@ -3470,6 +3501,7 @@ $('closeModes').onclick=()=>{ sfx.tap(); if(state==='over'){ hideAll(); $('over'
 $('mGrid').addEventListener('click',e=>{
   const b=e.target.closest('[data-mode]'); if(!b) return; sfx.tap();
   if(b.dataset.mode==='friend') openFriend();
+  else if(b.dataset.mode==='hazard') openHz();
   else if(b.dataset.mode==='campaign'){ stagesFrom='modes'; showStages(); } else startMode(b.dataset.mode);
 });
 $('sGrid').addEventListener('click',e=>{
@@ -3608,7 +3640,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

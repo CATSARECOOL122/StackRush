@@ -652,3 +652,12 @@
 652|Wasser
 653|WASSER!
 654|Lava! Tippe darauf, um sie vom Turm zu stoßen. Lässt du sie, zieht sie weiter.
+655|Gefahr-Schwierigkeit
+656|Fortgeschritten
+657|Anfänger
+658|Zuerst nur Bomben. Eis und Kleber kommen spät und selten.
+659|Alles kommt früher und öfter, und die Blöcke sind schneller.
+660|Lava, Eis, Kleber, Wind, Beben, wendende Blöcke und ein Bildschirm auf dem Kopf. Münzen x1,5.
+661|Mittel
+662|Das klassische Gefahr: Bomben, Eis, Kleber und Wind.
+663|ULTRA

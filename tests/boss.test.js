@@ -108,4 +108,22 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['hazard difficulty: tapping Hazard asks for Beginner, Medium, Advanced or ULTRA; ULTRA adds lava, every hazard, turning blocks and an upside-down screen; Medium is the original; each level keeps its own best; friend races always use Medium', async(e,L)=>{
+  const p=await L.open(e); await quiet(p);
+  await p.evaluate(()=>__sr.showModes()); await p.click('#mGrid [data-mode=hazard]'); assert.ok(await p.isVisible('#hzsheet')); assert.equal(await p.locator('#hzList .bpick').count(),4);
+  await p.click('#hzList [data-hz=ultra]'); await p.waitForTimeout(200);
+  let m=await p.evaluate(()=>({mode:__sr.mode,lvl:__sr.S.hzLevel,lava:__sr.mod.hz&&__sr.mod.hz.lava,up:!!__sr.mod.upside,flip:__sr.mod.flip,coin:__sr.mod.coinMul}));
+  assert.deepEqual(m,{mode:'hazard',lvl:'ultra',lava:3,up:true,flip:.4,coin:1.5});
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.hzLevel='medium'; __sr.startMode('hazard'); }); await p.waitForTimeout(150);
+  assert.deepEqual(await p.evaluate(()=>Object.keys(__sr.mod)),[],'Medium is the original hazard mode');
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.hzLevel='beginner'; __sr.startMode('hazard'); }); await p.waitForTimeout(150);
+  assert.ok(await p.evaluate(()=>__sr.mod.hz.wind>1000 && __sr.mod.speed<1),'Beginner: no wind, slower');
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.hzLevel='ultra'; __sr.S.hzBests.ultra=77; __sr.S.bests.hazard=33; });
+  assert.deepEqual(await p.evaluate(()=>[__sr.bestGet('hazard'),__sr.S.bests.hazard]),[77,33],'ULTRA has its own best');
+  await p.evaluate(()=>{ __sr.startFriend && 0; __sr.S.hzLevel='ultra'; __sr.startChallenge(__sr.parseChallenge('hazard.20.5')); }); await p.waitForTimeout(150);
+  assert.deepEqual(await p.evaluate(()=>Object.keys(__sr.mod)),[],'a friend challenge in Hazard is always Medium');
+  await p.evaluate(()=>__sr.showMenu()); await p.evaluate(()=>__sr.showModes()); await p.click('#mGrid [data-mode=hazard]'); await p.evaluate(()=>history.back()); await p.waitForTimeout(300); assert.equal(await p.isVisible('#hzsheet'),false,'Back closes the picker');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

@@ -652,3 +652,12 @@
 652|Su
 653|SU!
 654|Lav! Kuleden düşürmek için dokun. Bırakırsan uzaklaşır.
+655|Tehlike zorluğu
+656|İleri
+657|Acemi
+658|Başta yalnızca bombalar. Buz ve yapışkan geç ve nadir gelir.
+659|Her şey daha erken ve daha sık gelir, bloklar daha hızlıdır.
+660|Lav, buz, yapışkan, rüzgâr, sarsıntı, dönen bloklar ve ters ekran. Jeton x1,5.
+661|Orta
+662|Klasik Tehlike: bombalar, buz, yapışkan ve rüzgâr.
+663|ULTRA
