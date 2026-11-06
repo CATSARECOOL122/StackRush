@@ -1366,6 +1366,7 @@ const MUSIC={
   /* lofi: its own little band (see lofiStep): a drum loop with swing, warm electric-piano chords, a bass line, a soft melody and vinyl noise. No random notes. */
   lofi:{lofi:1,bpm:76,roots:[0,5,-2,3],q:['m9','m9','d9','M9'],swing:.22,hat:1,snare:1,vinyl:.5,mel:1},
   lofirain:{lofi:1,bpm:66,roots:[0,-3,2,-5],q:['M9','m9','m9','d9'],swing:.18,hat:.6,snare:0,vinyl:.4,rain:1,mel:1},
+  magma:{lofi:1,band:'magma',bpm:104},      /* the Magma Core campaign track (World 7), not in the shop: see magmaStep */
   cave:{lofi:1,bpm:58,roots:[0,-5,-7,-2],q:['o','o','o','o'],swing:0,hat:0,snare:0,vinyl:.15,echo:.52,mel:1,sparse:1}
 };
 /* ---------- lofi band ---------- */
@@ -1390,6 +1391,27 @@ function lkey(freq,t0,dur,v,cut,wob){                       // a warm electric-p
 }
 function lbass(freq,t0,dur,v){ const o=ac.createOscillator(), g=ac.createGain(), f=ac.createBiquadFilter(); o.type='triangle'; o.frequency.value=freq; f.type='lowpass'; f.frequency.value=380;
   g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(v,t0+.015); g.gain.exponentialRampToValueAtTime(.0001,t0+dur); o.connect(f); f.connect(g); g.connect(mus.gain); o.start(t0); o.stop(t0+dur+.05); }
+/* the World 7 track "Magma Core": a heavy, driving minor groove: pulsing saw bass, kick and snare, hats, slow-sweeping dark pads on a i - bII - i - bVII loop, a Phrygian riff, and a drum fill every fourth bar. Tension rises with the combo, and on boss stages the riff doubles at the octave. */
+function lsaw(freq,t0,dur,v,cut0,cut1){
+  const o=ac.createOscillator(), o2=ac.createOscillator(), g=ac.createGain(), f=ac.createBiquadFilter(); o.type='sawtooth'; o2.type='sawtooth'; o.frequency.value=freq; o2.frequency.value=freq; o2.detune.value=9; f.type='lowpass'; f.Q.value=2.5;
+  f.frequency.setValueAtTime(cut0,t0); f.frequency.exponentialRampToValueAtTime(Math.max(120,cut1),t0+dur);
+  g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(v,t0+.01); g.gain.exponentialRampToValueAtTime(.0001,t0+dur);
+  o.connect(f); o2.connect(f); f.connect(g); g.connect(mus.gain); o.start(t0); o2.start(t0); o.stop(t0+dur+.05); o2.stop(t0+dur+.05);
+}
+const MG_ROOT=[0,1,0,-2], MG_RIFF=[[0,0],[3,1],[4,0],[6,3],[8,0],[10,-2],[11,0],[14,1]];                      // [16th step, semitones above the root]: a Phrygian figure
+function magmaStep(M,s,t0,dur16,key){
+  const bar=Math.floor(s/16), p=s%16, ch=bar%4, root=MG_ROOT[ch]-12, f=semi=>220*Math.pow(2,semi/12), beat=dur16*4, boss=!!(mod&&mod.boss), lv=1.2*(.75+.5*musLvl);
+  const T=t0+((p%2)?dur16*.06:0);
+  if(p%2===0) lsaw(f(root-12),T,dur16*1.7,(p%8===0?.11:.07)*lv,520,140);                                      // pulsing bass, accented on the beat
+  if(p===6||p===14) lsaw(f(root),T,dur16*1.2,.05*lv,700,200);
+  if(p===0){ for(const iv of (ch===1?[0,7,12,15]:[0,7,12,15])) lsaw(f(root+iv+12),T,beat*3.8,.016*lv,500,1500); }               // a dark pad that opens up over the bar
+  if(p===0||p===8||(p===6&&bar%2)||(p===14&&bar%4===3)) lkick(T,(p===0?.34:.27)*lv);
+  if(p===4||p===12) lsnare(T,.26*lv);
+  if(bar%4===3 && p>=12 && p%1===0) lsnare(T,(.10+.03*(p-12))*lv);                                              // a snare roll into the next loop
+  if(p%2===0) nburst(T,.045,'highpass',8000,.7,(p%4===2?.024:.016)*lv); else if(musLvl>.4) nburst(T,.03,'highpass',8500,.7,.01*lv);
+  if(bar%2===1){ for(const [st,iv] of MG_RIFF) if(st===p){ lsaw(f(root+iv+12),T,dur16*2.2,.035*lv,1900,500); if(boss||musLvl>.6) lsaw(f(root+iv+24),T,dur16*1.8,.016*lv,2400,700); } }
+  if(p%4===0 && Math.random()<.35) nburst(T+Math.random()*dur16,.05,'lowpass',900,.5,.03,.002);                // embers crackling
+}
 function lofiStep(M,s,t0,dur16,key){
   const bar=Math.floor(s/16), p=s%16, ch=bar%4, root=M.roots[ch]+key, f=semi=>220*Math.pow(2,semi/12), q=LCH[M.q[ch]], lv=1.35*(.7+.5*musLvl), beat=dur16*4;
   const sw=(p%2)?dur16*M.swing:0, T=t0+sw;                    // swung 16ths
@@ -1413,10 +1435,10 @@ function musicTick(){
   if(ac.state!=='running' || !(S.music && !S.mute && !paused && !document.hidden)){ mus.next=0; return; }
   const goal=(state==='playing' && !paused) ? clamp(combo/18,0,1) : 0; musLvl+=(goal-musLvl)*(goal>musLvl?.25:.12); if(musLvl<.01) musLvl=0;
   const now=ac.currentTime; if(mus.next<now) mus.next=now+.05;
-  const M=MUSIC[eqv('music')]||MUSIC.classic, eighth=M.lofi?60/M.bpm/4:60/M.bpm/2, key=KEYS[Object.keys(THEMES).indexOf(S.theme)%KEYS.length];
+  const M=MUSIC[(mode==='campaign' && state==='playing' && stage>=37)?'magma':eqv('music')]||MUSIC.classic, eighth=M.lofi?60/M.bpm/4:60/M.bpm/2, key=KEYS[Object.keys(THEMES).indexOf(S.theme)%KEYS.length];
   const f=semi=>220*Math.pow(2,semi/12);
   while(mus.next<now+.35){
-    if(M.lofi){ lofiStep(M,mus.step++,mus.next,eighth,key%12>6?key-12:key); mus.next+=eighth; continue; }
+    if(M.lofi){ (M.band==='magma'?magmaStep:lofiStep)(M,mus.step++,mus.next,eighth,key%12>6?key-12:key); mus.next+=eighth; continue; }
     const s=mus.step++, bar=Math.floor(s/8)%4, p=s%8, root=M.prog[bar]+key, t0=mus.next+((s%2)?eighth*(M.swing||0):0);
     if(M.crackle && Math.random()<M.crackle) mnote(2400+Math.random()*4200,.018,'sawtooth',.0035+.003*Math.random(),t0+Math.random()*eighth);       // vinyl crackle (or rain)
     if(p===0){ for(const iv of (M.ch||[0,3,7,12])) mnote(f(root+iv),eighth*8,M.pad,M.padV,t0); mnote(f(root-12),eighth*3,'sine',.11,t0); }
@@ -3586,7 +3608,7 @@ if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.ho
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;
-      while(t<sec-.5){ if(M.lofi) lofiStep(M,st,t,eighth,key); st++; t+=eighth; }
+      while(t<sec-.5){ if(M.lofi) (M.band==='magma'?magmaStep:lofiStep)(M,st,t,eighth,key); st++; t+=eighth; }
       const buf=await ac.startRendering(); return {sr,l:Array.from(buf.getChannelData(0))};
     } finally { ac=oldAc; mus.gain=oldG; mus.step=oldStep; mus.next=oldNext; musLvl=oldLvl; S.shop.equip.music=oldEq; noiseBuf=null; }
   }, startPass, get passPlay(){ return passPlay; }, themeActOf:themeAct, closeThemesNow(){ showMenu(); }, get titanLeft(){ return titanLeft; }, get magnetLeft(){ return magnetLeft; }, get freezeT(){ return freezeT; }, get lives(){ return lives; }, get upAng(){ return upAng; }, get banner(){ return banner; }, forceUpside(){ upNext=0; upMin=0; }, get mod(){ return mod; }, get pieces(){ return pieces; }, get friendRun(){ return friendRun; }, startFriend, speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
