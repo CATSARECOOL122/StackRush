@@ -1647,7 +1647,7 @@ function specialAt(h){
 }
 const gustDue=(h,last)=>{ const f=hzFrom('wind'); return f!==undefined && h>=f && h-last>=(mod.gap||CFG.gustGap) && rollAt(h,3)<chanceOf('gust',CFG.gustChance); };
 let windOff=0, gust=null, lastGustH=-99, windFx=[];
-const hzTipText=k=>k==='lava'?tr('Lava! If it lands, it melts the 2 blocks under it. Do not tap it and it drifts away.'):k==='ice'?tr('Ice! The block slides on after you tap, so tap a little early.'):k==='glue'?tr('Glue! The block is pulled back after you tap, so tap a little late.'):tr('Gust! The wind sways the tower. Aim for where the top block is now.');
+const hzTipText=k=>k==='lava'?tr('Lava! Tap it to knock it off the tower. Leave it and it drifts away.'):k==='ice'?tr('Ice! The block slides on after you tap, so tap a little early.'):k==='glue'?tr('Glue! The block is pulled back after you tap, so tap a little late.'):tr('Gust! The wind sways the tower. Aim for where the top block is now.');
 function hzTip(k){
   if(S.tips[k] || !S.tutSeen || state!=='playing') return;
   S.tips[k]=1; save(); toast(`${I(k==='ice'?'snow':k==='glue'?'drop':k==='lava'?'flame':'wind',k==='lava'?'ic-orange':'ic-cyan')} ${hzTipText(k)}`,4200);
@@ -2035,6 +2035,10 @@ function drop(){
   $('tip').classList.add('hidden');
   if(mode==='timed') timerOn=true;
   if(cur.bomb){ explode(); return; }
+  if(cur.mat==='lava' && waterLeft<=0){                                                   // tap a lava block to knock it off: it falls away, the tower is not touched, nothing is lost (even when it is nowhere near the tower)
+    addPiece(cur,dir); burst(cur.x+cur.w/2+windOff,cur.y+BH/2,18,14,200*u,400); sfx.tap(); vib(10);
+    texts.length=0; texts.push({x:cur.x+cur.w/2,y:cur.y+BH*2,vy:70,text:tr('SKIPPED'),size:24*u,color:'#ff9a3d',life:1}); cur=null; spawnCur(true); return;
+  }
   const top=stack[stack.length-1], topX=top.x+windOff;                                      // (a gust sways the tower: the target is where the top block is now)
   if(cur.mat && cur.mat!=='lava'){ const k=cur.mat==='ice'?1:-1, sh=k*dir*speed()*(cur.mat==='ice'?CFG.iceSlide:CFG.glueDrag), nx=clamp(cur.x+sh,0,W-cur.w); cur.fx=cur.x-nx; cur.x=nx; }   // ice slides on, glue is pulled back
   let left=Math.max(cur.x,topX), right=Math.min(cur.x+cur.w,topX+top.w);
@@ -3604,7 +3608,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

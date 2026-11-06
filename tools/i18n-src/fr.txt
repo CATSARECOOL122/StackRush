@@ -651,3 +651,4 @@
 651|IGNORÉ !
 652|Eau
 653|EAU !
+654|Lave ! Touche-la pour la faire tomber de la tour. Si tu la laisses, elle s'éloigne.

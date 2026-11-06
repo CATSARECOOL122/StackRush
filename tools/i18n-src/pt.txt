@@ -651,3 +651,4 @@
 651|PULADO!
 652|Água
 653|ÁGUA!
+654|Lava! Toque nela para derrubá-la da torre. Se deixar, ela se afasta.

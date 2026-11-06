@@ -651,3 +651,4 @@
 651|ATLANDI!
 652|Su
 653|SU!
+654|Lav! Kuleden düşürmek için dokun. Bırakırsan uzaklaşır.

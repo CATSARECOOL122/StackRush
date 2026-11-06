@@ -651,3 +651,4 @@
 651|ÜBERSPRUNGEN!
 652|Wasser
 653|WASSER!
+654|Lava! Tippe darauf, um sie vom Turm zu stoßen. Lässt du sie, zieht sie weiter.

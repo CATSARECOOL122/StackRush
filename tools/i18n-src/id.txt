@@ -651,3 +651,4 @@
 651|DILEWATI!
 652|Air
 653|AIR!
+654|Lava! Ketuk untuk menjatuhkannya dari menara. Jika dibiarkan, ia pergi sendiri.

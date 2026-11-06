@@ -651,3 +651,4 @@
 651|SALTATO!
 652|Acqua
 653|ACQUA!
+654|Lava! Toccala per farla cadere dalla torre. Se la lasci, si allontana.

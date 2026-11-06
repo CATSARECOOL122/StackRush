@@ -651,3 +651,4 @@
 651|¡OMITIDO!
 652|Agua
 653|¡AGUA!
+654|¡Lava! Tócala para tirarla de la torre. Si la dejas, se aleja.
