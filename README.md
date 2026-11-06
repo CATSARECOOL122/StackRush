@@ -220,3 +220,6 @@ Four power-ups that are **earned, never sold**, and only appear in campaign stag
 
 ## Pass and play (one phone, two players)
 *Game modes > Friend race > Pass & play* (pick the mode first). **Player 1** plays a round, then a card says *Player 1 scored N. Pass the phone to Player 2!*; **Player 2** plays **the same round** (same seed, so the same hazards) with Player 1's tower building as the faded ghost, and the result says who won (or a tie). No boosts in pass and play, it does not touch the friend history or the friend-win count, and **AGAIN** is a rematch starting with Player 1. Ordinary coins for the rounds are paid as usual.
+
+## Lava: skipping, Water, and relic limits
+**Skip lava:** a lava block that you do not tap **drifts away after about 4 seconds** (it blinks near the end) and the next block comes, with no penalty (it used to slide across the screen for ever, which looked like it was floating). **Water** (a new campaign power-up, earned like the others, and you get 2 free the first time you enter the caves) cools lava for 6 drops: the lava block turns blue and just lands like a normal block, with a blue frame on the tower. **Relics** now appear at most 3 times a round, never again at a height you already took one (going down with lava and up again used to bring the same relic back), and not on stages where you already have 3 stars.

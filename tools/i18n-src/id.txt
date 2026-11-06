@@ -645,3 +645,9 @@
 645|Pemain 1 menang! {a} – {b}
 646|Pemain 2 menang! {a} – {b}
 647|Pemain 2: mulai!
+648|Mendinginkan lava selama 6 jatuhan sehingga tidak melelehkan menaramu.
+649|Lava di depan! Ini 2 power-up Air. Kamu juga bisa membiarkan blok lava pergi.
+650|Lava! Jika mendarat, ia melelehkan 2 blok di bawahnya. Jangan ketuk dan ia akan pergi.
+651|DILEWATI!
+652|Air
+653|AIR!

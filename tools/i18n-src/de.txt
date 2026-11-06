@@ -645,3 +645,9 @@
 645|Spieler 1 gewinnt! {a} – {b}
 646|Spieler 2 gewinnt! {a} – {b}
 647|Spieler 2: los!
+648|Kühlt Lava für 6 Drops, sodass sie deinen Turm nicht schmelzen kann.
+649|Lava voraus! Hier sind 2 Wasser-Power-ups. Du kannst einen Lavablock auch einfach vorbeiziehen lassen.
+650|Lava! Wenn sie landet, schmilzt sie die 2 Blöcke darunter. Tippe nicht, dann zieht sie weiter.
+651|ÜBERSPRUNGEN!
+652|Wasser
+653|WASSER!

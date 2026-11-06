@@ -645,3 +645,9 @@
 645|Le joueur 1 gagne ! {a} – {b}
 646|Le joueur 2 gagne ! {a} – {b}
 647|Joueur 2 : à toi !
+648|Refroidit la lave pendant 6 chutes : elle ne peut plus faire fondre ta tour.
+649|Lave en vue ! Voici 2 power-ups Eau. Tu peux aussi laisser un bloc de lave s'éloigner.
+650|Lave ! Si elle tombe, elle fait fondre les 2 blocs en dessous. Ne la touche pas et elle s'éloigne.
+651|IGNORÉ !
+652|Eau
+653|EAU !

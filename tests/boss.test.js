@@ -90,4 +90,20 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['lava can be skipped (untouched it drifts away, nothing lost); Water cools lava so it cannot melt; entering the caves gives 2 Water once', async(e,L)=>{
+  const p=await L.open(e); await quiet(p);
+  await p.evaluate(()=>{ for(let n=1;n<=24;n++) __sr.S.camp[n]=3; __sr.startStage(25); }); await p.waitForTimeout(300);
+  assert.equal(await p.evaluate(()=>__sr.S.shop.boosts.water),2,'two Water for the caves'); assert.ok(await p.evaluate(()=>__sr.S.tips.watergift));
+  await L.perfects(p,4); const n0=await p.evaluate(()=>__sr.stackLen);
+  await p.evaluate(()=>{ __sr.cur.mat='lava'; __sr.cur.ttl=.4; }); await p.waitForTimeout(900);
+  const a=await p.evaluate(()=>({n:__sr.stackLen,state:__sr.state,lava:__sr.cur&&__sr.cur.mat==='lava',lives:__sr.lives}));
+  assert.equal(a.n,n0,'the tower is untouched'); assert.equal(a.state,'playing'); assert.equal(a.lava,false,'a new, plain block came'); assert.equal(a.lives,3,'no life lost');
+  const g=await p.evaluate(()=>{ __sr.S.shop.boosts.water=1; return __sr.S.shop.boosts.water; });
+  await p.evaluate(()=>{ __sr.openPower(); }); await p.waitForFunction(()=>__sr.powerPhase==='open',null,{timeout:4000}); await p.click('#powerList [data-power=water]'); await p.waitForTimeout(200);
+  assert.equal(await p.evaluate(()=>__sr.waterLeft),6); const n1=await p.evaluate(()=>__sr.stackLen);
+  await p.evaluate(()=>{ __sr.cur.mat='lava'; }); await L.perfect(p); await p.waitForTimeout(150);
+  assert.equal(await p.evaluate(()=>__sr.stackLen),n1+1,'cooled lava: the block just lands'); assert.equal(await p.evaluate(()=>__sr.waterLeft),5);
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

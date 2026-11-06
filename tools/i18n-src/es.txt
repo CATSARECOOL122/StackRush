@@ -645,3 +645,9 @@
 645|¡Gana el Jugador 1! {a} – {b}
 646|¡Gana el Jugador 2! {a} – {b}
 647|Jugador 2: ¡adelante!
+648|Enfría la lava durante 6 caídas, así no derrite tu torre.
+649|¡Lava a la vista! Aquí tienes 2 potenciadores de Agua. También puedes dejar que un bloque de lava se vaya.
+650|¡Lava! Si cae, derrite los 2 bloques de debajo. Si no lo tocas, se aleja.
+651|¡OMITIDO!
+652|Agua
+653|¡AGUA!

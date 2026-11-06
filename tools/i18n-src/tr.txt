@@ -645,3 +645,9 @@
 645|Oyuncu 1 kazandı! {a} – {b}
 646|Oyuncu 2 kazandı! {a} – {b}
 647|Oyuncu 2: başla!
+648|Lavı 6 bırakış boyunca soğutur, kuleni eritemez.
+649|Önde lav var! İşte 2 Su gücü. Bir lav bloğunu kendi haline bırakıp geçebilirsin de.
+650|Lav! Düşerse altındaki 2 bloğu eritir. Dokunmazsan uzaklaşır.
+651|ATLANDI!
+652|Su
+653|SU!

@@ -645,3 +645,9 @@
 645|O Jogador 1 venceu! {a} – {b}
 646|O Jogador 2 venceu! {a} – {b}
 647|Jogador 2: vai!
+648|Esfria a lava por 6 quedas, então ela não derrete sua torre.
+649|Lava à vista! Aqui estão 2 poderes de Água. Você também pode deixar um bloco de lava ir embora.
+650|Lava! Se cair, derrete os 2 blocos abaixo. Se não tocar, ela se afasta.
+651|PULADO!
+652|Água
+653|ÁGUA!

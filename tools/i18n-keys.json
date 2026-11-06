@@ -645,5 +645,11 @@
  "Player 1 scored {n}. Pass the phone to Player 2!",
  "Player 1 wins! {a} – {b}",
  "Player 2 wins! {a} – {b}",
- "Player 2: go!"
+ "Player 2: go!",
+ "Cools lava for 6 drops, so it cannot melt your tower.",
+ "Lava ahead! Here are 2 Water power-ups. You can also let a lava block drift away.",
+ "Lava! If it lands, it melts the 2 blocks under it. Do not tap it and it drifts away.",
+ "SKIPPED",
+ "Water",
+ "WATER!"
 ]

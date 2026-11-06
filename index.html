@@ -825,6 +825,7 @@ const CFG = {
   bossBonus: 60,         // extra coins the first time a boss stage is cleared
   timedSeconds: 30, timedBonus: 2, timedCap: 90, timedMissPenalty: 3, timedExtra: 30,
   bombChance: 0.26, bombTtl: 2.8, bombDodgePts: 2,
+  lavaTtl: 4.2,        // a lava block drifts away (is skipped) after this many seconds if you do not tap it
   relicChance: 0.09,   // campaign: chance that a block carries a relic
   relicCoins: 6,
   lavaChance: 0.15,    // lava blocks melt the 2 blocks under them
@@ -1021,7 +1022,7 @@ const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:''
              coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
-             shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0},pick:[],gift:false,tokens:[]},boostBests:{},
+             shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
              lastClaim:'',streak:0,daily:{day:'',perfects:0,done:false},seenTip:false,weekly:{week:'',p:[0,0,0],claimed:false}};
 const store = {
   get(){ try{ return JSON.parse(localStorage.getItem('stackrush.v2')||'{}'); }catch(e){ return {}; } },
@@ -1045,7 +1046,7 @@ function cleanSave(raw){
   if(Array.isArray(raw.owned)) out.owned=[...new Set(['sunset',...raw.owned.filter(id=>typeof id==='string' && own(THEMES,id))])];
   if(typeof raw.lastMode==='string' && own(MODES,raw.lastMode)) out.lastMode=raw.lastMode;
   if(typeof raw.lang==='string' && (raw.lang==='auto' || own(LANGS,raw.lang))) out.lang=raw.lang;
-  if(raw.tips && typeof raw.tips==='object') for(const k of [...Object.keys(MODES),'ice','glue','gust','lava','relic']) if(raw.tips[k]) out.tips[k]=1;
+  if(raw.tips && typeof raw.tips==='object') for(const k of [...Object.keys(MODES),'ice','glue','gust','lava','relic','watergift']) if(raw.tips[k]) out.tips[k]=1;
   if(['auto','on','off'].includes(raw.assist)) out.assist=raw.assist;
   if(dateOk(raw.lastClaim)) out.lastClaim=raw.lastClaim;
   if(raw.bests && typeof raw.bests==='object') for(const id of Object.keys(MODES)) if(own(raw.bests,id)) out.bests[id]=num(raw.bests[id]);
@@ -1510,7 +1511,7 @@ let stack=[], cur=null, dir=1, score=0, combo=0, bestCombo=0, perfectsRun=0, run
 let lives=1, maxLives=1, timeLeft=0, timerOn=false, lastBomb=false, shield=false, forceBomb=false;
 /* boosters armed for this run: they are only used up (taken from the inventory) when they actually help */
 let armed={}, boosted=false, slowLeft=0, regrowUsed=0, boostShield=false;
-let titanLeft=0, magnetLeft=0, freezeT=0;      // campaign power-ups running
+let titanLeft=0, magnetLeft=0, freezeT=0, waterLeft=0, relicTaken=new Set(), relicRun=0;      // campaign power-ups running
 let duelLogged=false;
 let upDur=0, upT=0, upNext=8, upAng=0, upMin=6;      // the final boss turns the screen upside down for a few seconds now and then
 let passPlay=0;                                  // pass and play on one phone: 1 = Player 1's round, 2 = Player 2 racing Player 1's tower
@@ -1624,7 +1625,7 @@ function specialAt(h){
 }
 const gustDue=(h,last)=>{ const f=hzFrom('wind'); return f!==undefined && h>=f && h-last>=(mod.gap||CFG.gustGap) && rollAt(h,3)<chanceOf('gust',CFG.gustChance); };
 let windOff=0, gust=null, lastGustH=-99, windFx=[];
-const hzTipText=k=>k==='lava'?tr('Lava! If it lands, it melts the 2 blocks under it.'):k==='ice'?tr('Ice! The block slides on after you tap, so tap a little early.'):k==='glue'?tr('Glue! The block is pulled back after you tap, so tap a little late.'):tr('Gust! The wind sways the tower. Aim for where the top block is now.');
+const hzTipText=k=>k==='lava'?tr('Lava! If it lands, it melts the 2 blocks under it. Do not tap it and it drifts away.'):k==='ice'?tr('Ice! The block slides on after you tap, so tap a little early.'):k==='glue'?tr('Glue! The block is pulled back after you tap, so tap a little late.'):tr('Gust! The wind sways the tower. Aim for where the top block is now.');
 function hzTip(k){
   if(S.tips[k] || !S.tutSeen || state!=='playing') return;
   S.tips[k]=1; save(); toast(`${I(k==='ice'?'snow':k==='glue'?'drop':k==='lava'?'flame':'wind',k==='lava'?'ic-orange':'ic-cyan')} ${hzTipText(k)}`,4200);
@@ -1651,14 +1652,14 @@ function spawnCur(noBomb){
   const top=stack[stack.length-1];
   dir = (stack.length%2) ? 1 : -1;
   cur={ x: dir>0 ? 0 : W-top.w, w: top.w, y: stack.length*BH, i: stack.length, sq:0 };
-  if(mode==='campaign' && state==='playing' && stack.length>=3 && rollAt(stack.length,10)<CFG.relicChance){ cur.relic=1; if(!S.tips.relic && S.tutSeen){ S.tips.relic=1; save(); toast(`${I('gem','ic-cyan')} ${tr('A relic! Land this block perfectly to collect it.')}`,3600); } }
+  if(mode==='campaign' && state==='playing' && stack.length>=3 && relicRun<3 && (S.camp[stage]||0)<3 && !relicTaken.has(stack.length) && rollAt(stack.length,10)<CFG.relicChance){ cur.relic=1; if(!S.tips.relic && S.tutSeen){ S.tips.relic=1; save(); toast(`${I('gem','ic-cyan')} ${tr('A relic! Land this block perfectly to collect it.')}`,3600); } }
   if(mod.flip && state==='playing' && rollAt(stack.length,8)<mod.flip) cur.flipAt=W*(.25+.5*rollAt(stack.length,9));      // this block will turn round once, part-way across
   if(state==='playing' && bombsOn() && !noBomb && (forceBomb || (!lastBomb && stack.length>=4 && rollAt(stack.length)<CFG.bombChance))){
     cur.bomb=true; cur.ttl=CFG.bombTtl; lastBomb=true; forceBomb=false;
   } else {
     lastBomb=false;
     const m=(state==='playing' && !noBomb)?specialAt(stack.length):null;
-    if(m){ cur.mat=m; hzTip(m); }
+    if(m){ cur.mat=m; hzTip(m); if(m==='lava') cur.ttl=CFG.lavaTtl; }
   }
 }
 function demoStack(){
@@ -1694,6 +1695,7 @@ function startMode(id){
 }
 function startStage(n){
   rollDay();
+  if(n>=25 && !S.tips.watergift){ S.tips.watergift=1; S.shop.boosts.water=Math.min(99,(S.shop.boosts.water||0)+2); save(); setTimeout(()=>toast(`${I('drop','ic-cyan')} ${tr('Lava ahead! Here are 2 Water power-ups. You can also let a lava block drift away.')}`,5200),600); }
   stage=n; mode='campaign'; mod=Object.assign({lives:3},STAGES[n-1][2]);
   newRun();
   toast(tr('Stage {n}: {goal}',{n,goal:goalLabel(STAGES[n-1])}),2600);
@@ -1718,7 +1720,7 @@ function newRun(){
   score=0; combo=0; bestCombo=0; perfectsRun=0; runBlocks=0; dodgedRun=0; revived=false; cam=0; shake=0; flash=0; lastBomb=false; shield=false;
   paused=false; grace=0; clearCount(); $('pause').classList.add('hidden');
   lives=mod.lives||M.lives; maxLives=lives; timeLeft=CFG.timedSeconds; timerOn=false;
-  lift=null; freeBlocks=0; duelLogged=false; titanLeft=0; magnetLeft=0; freezeT=0; upDur=0; upT=0; upAng=0; upMin=6; upNext=rand(6,10); armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
+  lift=null; freeBlocks=0; duelLogged=false; titanLeft=0; magnetLeft=0; freezeT=0; waterLeft=0; relicTaken=new Set(); relicRun=0; upDur=0; upT=0; upAng=0; upMin=6; upNext=rand(6,10); armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
   if(challenge && challenge.mode!==mode) challenge=null;
   runSeed=challenge?challenge.seed:(Math.random()*2147483647)|0; assisted=assistOn();
   prunePicks(); held=[]; powerPhase='off'; tsc=1; $('power').classList.add('hidden');
@@ -2064,10 +2066,11 @@ function drop(){
   nb.x-=windOff;                                                                          // stored in the tower's own frame, so the whole tower can sway
   runBlocks++; hopT=t;
   if(titanLeft>0) titanLeft--; if(magnetLeft>0) magnetLeft--;
+  const wet=waterLeft>0; if(waterLeft>0) waterLeft--;
   if(cur.relic && perfect) collectRelic(nb.x+nb.w/2,cur.y+BH);
   stack.push(nb);
   runRec.blocks.push({x:+(nb.x/W).toFixed(3),w:+(nb.w/W).toFixed(3)}); runRec.scores.push(score); runRec.ts.push(+(t-runT0).toFixed(2));
-  if(cur.mat==='lava') meltTwo();
+  if(cur.mat==='lava' && !wet) meltTwo();
   setScore(score); setCombo(combo); setSpeedBadge(true);
   maybeGust();
   if(slowLeft>0) slowLeft--;
@@ -2104,6 +2107,7 @@ function powerWhy(id){                                                       // 
   if(id==='titan') return titanLeft>0 ? tr('Active for {n} more drops',{n:titanLeft}) : '';
   if(id==='magnet') return magnetLeft>0 ? tr('Active for {n} more drops',{n:magnetLeft}) : '';
   if(id==='freeze') return freezeT>0 ? tr('Active now') : '';
+  if(id==='water') return waterLeft>0 ? tr('Active for {n} more drops',{n:waterLeft}) : '';
   if(id==='windp') return lives>=5 ? tr('Five lives is the limit') : '';
   if(BOOSTS[id].lift) return lift ? tr('Already lifting') : mode==='campaign' ? tr('Not in campaign stages') : '';
   return '';
@@ -2148,6 +2152,7 @@ function usePower(id){
     if(id==='titan'){ titanLeft=10; say1(tr('TITAN!'),'#ffd36b'); }
     else if(id==='magnet'){ magnetLeft=5; say1(tr('MAGNET!'),'#ffd36b'); }
     else if(id==='freeze'){ freezeT=2; say1(tr('FREEZE!')); }
+    else if(id==='water'){ waterLeft=6; say1(tr('WATER!'),'#6cc4ff'); }
     else { lives=Math.min(5,lives+1); maxLives=Math.max(maxLives,lives); say1(tr('SECOND WIND!'),'#ff8fb0'); }
     sfx.shield(); flash=.18; burst(W/2,stack.length*BH+BH,45,30,320*u,500);
   }
@@ -2157,6 +2162,7 @@ function usePower(id){
 /* A lava block: it lands, glows white-hot and melts the two blocks under it; the melted blocks run down in glowing drips and the lava block sinks to settle on what is left (the base is never melted) */
 /* a relic: a gem riding on some blocks of a campaign stage (seeded by height); land that block perfectly to take it. Three relics earn a campaign power-up */
 function collectRelic(x,y){
+  relicTaken.add(stack.length); relicRun++;
   S.relics=(S.relics||0)+1; S.coins+=CFG.relicCoins; setCoins(); sfx.up(); burst(x,y,48,26,300*u,600); texts.push({x,y:y+BH,vy:90,text:`+${CFG.relicCoins}`,size:26*u,color:'#7fe8ff',life:1});
   if(S.relics%3===0){ const id=CAMP_POW[(S.relics/3-1)%CAMP_POW.length]; S.shop.boosts[id]=Math.min(99,(S.shop.boosts[id]||0)+1); toast(`${I('gem','ic-cyan')} ${tr('{name} earned!',{name:tr(BOOSTS[id].name)})}`,2600); }
   else toast(`${I('gem','ic-cyan')} ${tr('Relic found! +{n} {coin}',{n:CFG.relicCoins,coin:I('coin')})}`,1600);
@@ -2443,7 +2449,11 @@ function update(dt){
     if(cur.x<0){ cur.x=0; dir=1; }
     if(cur.x+cur.w>W){ cur.x=W-cur.w; dir=-1; }
     if(cur.flipAt!==undefined && !cur.flipped && state==='playing' && ((dir>0 && cur.x+cur.w/2>=cur.flipAt) || (dir<0 && cur.x+cur.w/2<=cur.flipAt))){ dir=-dir; cur.flipped=true; burst(cur.x+cur.w/2,cur.y+BH/2,200,10,200*u,400); sfx.tap(); }
-    if(state==='playing' && cur.bomb){
+    if(state==='playing' && cur.mat==='lava' && waterLeft<=0 && !paused){            // lava can be skipped: untouched, it falls away and the next block comes
+      cur.ttl-=dt;
+      if(cur.ttl<=0){ addPiece(cur,dir); texts.length=0; texts.push({x:cur.x+cur.w/2,y:cur.y+BH*2,vy:70,text:tr('SKIPPED'),size:24*u,color:'#ff9a3d',life:1}); cur=null; spawnCur(true); }
+    }
+    if(cur && state==='playing' && cur.bomb){
       cur.ttl-=dt;
       if(cur.ttl<=0){
         S.dodged=(S.dodged||0)+1; dodgedRun++; score+=CFG.bombDodgePts; setScore(score); sfx.dodge(); vib(15);
@@ -2621,7 +2631,7 @@ function drawBlock(b,alpha=1){
   if(sy>H+BH || sy<-BH*2) return;
   const x=b.x+(b.fx||0);                                           // a block that just slid (ice) or was pulled back (glue) settles into place
   paintBlock(ctx,x,sy,b.w,BH,b.i,b.sq,TH(),u,alpha);
-  if(b.mat) paintMat(ctx,b.mat,x,sy,b.w,BH,u,t,alpha);
+  if(b.mat) paintMat(ctx,(b.mat==='lava'&&waterLeft>0)?'cooled':b.mat,x,sy,b.w,BH,u,t,alpha);
   if(b.relic){ const gx=x+b.w/2, gy=sy-9*u+Math.sin(t*4)*2*u; ctx.save(); ctx.shadowColor='#7fe8ff'; ctx.shadowBlur=14*u; ctx.fillStyle='#9ff3ff'; ctx.strokeStyle='#e8fdff'; ctx.lineWidth=1.5*u; ctx.beginPath(); ctx.moveTo(gx,gy-9*u); ctx.lineTo(gx+7*u,gy); ctx.lineTo(gx,gy+9*u); ctx.lineTo(gx-7*u,gy); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore(); }
   if(b.hot>0) paintMat(ctx,'lava',x,sy,b.w,BH,u,t,alpha*b.hot);               // a block that just melted its way down is still glowing
 }
@@ -2634,6 +2644,9 @@ function paintMat(g,mat,x,sy,w,bh,uu,tt,alpha=1){
     g.fillStyle=gr; g.fillRect(x,sy,w,bb);
     g.strokeStyle='rgba(255,255,255,.7)'; g.lineWidth=2*uu; g.lineCap='round';
     for(let k=0;k<3;k++){ const gx=x+w*(.22+k*.28)+Math.sin(tt*1.4+k)*3*uu; g.beginPath(); g.moveTo(gx+bb*.5,sy+2*uu); g.lineTo(gx-bb*.15,sy+bb-2*uu); g.stroke(); }
+  } else if(mat==='cooled'){
+    const gr=g.createLinearGradient(0,sy,0,sy+bb); gr.addColorStop(0,'rgba(170,225,255,.8)'); gr.addColorStop(1,'rgba(40,90,150,.85)'); g.fillStyle=gr; g.fillRect(x,sy,w,bb);
+    g.fillStyle='rgba(255,255,255,.45)'; for(let k=0;k<3;k++){ g.beginPath(); g.arc(x+w*(.2+k*.3),sy+bb*(.5+.25*Math.sin(tt*3+k)),2.4*uu,0,6.283); g.fill(); }
   } else if(mat==='lava'){
     const gr=g.createLinearGradient(0,sy,0,sy+bb); gr.addColorStop(0,'rgba(255,215,90,.9)'); gr.addColorStop(.5,'rgba(255,100,25,.82)'); gr.addColorStop(1,'rgba(140,20,5,.9)');
     g.fillStyle=gr; g.fillRect(x,sy,w,bb);
@@ -2647,7 +2660,8 @@ function paintMat(g,mat,x,sy,w,bh,uu,tt,alpha=1){
   }
   g.restore();
   g.save(); g.globalAlpha=alpha; rr(x,sy,w,bb,7*uu,g);
-  if(mat==='lava'){ g.strokeStyle='rgba(255,190,80,.95)'; g.lineWidth=2.2*uu; g.shadowColor='#ff5a1f'; g.shadowBlur=(14+5*Math.sin(tt*6))*uu; g.stroke();
+  if(mat==='cooled'){ g.strokeStyle='rgba(150,215,255,.95)'; g.lineWidth=2*uu; g.shadowColor='#6cc4ff'; g.shadowBlur=10*uu; g.stroke(); }
+  else if(mat==='lava'){ g.strokeStyle='rgba(255,190,80,.95)'; g.lineWidth=2.2*uu; g.shadowColor='#ff5a1f'; g.shadowBlur=(14+5*Math.sin(tt*6))*uu; g.stroke();
     g.shadowBlur=0; for(let k=0;k<4;k++){ const ph=(tt*.9+k*.27)%1; g.fillStyle=`rgba(255,${150+k*20},60,${(1-ph)*.9})`; g.beginPath(); g.arc(x+w*(.15+k*.23)+Math.sin(tt*3+k)*3*uu,sy-ph*20*uu,(2.4-ph)*uu,0,6.283); g.fill(); } }
   else if(mat==='ice'){ g.strokeStyle='rgba(235,250,255,.95)'; g.lineWidth=2*uu; g.shadowColor='#bfeaff'; g.shadowBlur=10*uu; g.stroke(); }
   else {
@@ -2764,10 +2778,10 @@ function drawBomb(b){
   ctx.restore();
 }
 function drawTitan(){                                                    // Titan (gold) or Magnet (blue) is running: a glowing frame round the top block, with the drops left
-  if(titanLeft<=0 && magnetLeft<=0) return;
-  const b=stack[stack.length-1], sy=Y(b.y+BH), col=titanLeft>0?'rgba(255,215,100,.92)':'rgba(130,230,255,.92)';
+  if(titanLeft<=0 && magnetLeft<=0 && waterLeft<=0) return;
+  const b=stack[stack.length-1], sy=Y(b.y+BH), col=titanLeft>0?'rgba(255,215,100,.92)':magnetLeft>0?'rgba(130,230,255,.92)':'rgba(90,170,255,.92)';
   ctx.save(); ctx.strokeStyle=col; ctx.lineWidth=3*u; ctx.shadowColor=col; ctx.shadowBlur=(14+4*Math.sin(t*6))*u; rr(b.x-4*u,sy-4*u,b.w+8*u,BH+4*u,9*u); ctx.stroke(); ctx.restore();
-  text(String(titanLeft>0?titanLeft:magnetLeft),b.x+b.w/2,sy-12*u,16*u,'#fff');
+  text(String(titanLeft>0?titanLeft:magnetLeft>0?magnetLeft:waterLeft),b.x+b.w/2,sy-12*u,16*u,'#fff');
 }
 function drawShieldAura(){
   if(!shield || state!=='playing') return;
@@ -2792,7 +2806,7 @@ function draw(){
     const sy=Y(p.y+BH); ctx.save(); ctx.translate(p.x+p.w/2,sy+BH/2); ctx.rotate(p.rot);
     ctx.translate(-(p.x+p.w/2),-(sy+BH/2)); drawBlock({x:p.x,y:p.y,w:p.w,i:p.i,sq:0,mat:p.mat},p.a); ctx.restore();
   }
-  if(cur){ if(cur.bomb) drawBomb(cur); else drawBlock(cur); }
+  if(cur){ if(cur.bomb) drawBomb(cur); else drawBlock(cur,(cur.mat==='lava'&&waterLeft<=0&&cur.ttl<1.2)?.35+.65*Math.abs(Math.sin(t*14)):1); }
   ctx.save(); if(windOff) ctx.translate(windOff,0); drawTopper(); ctx.restore();   // in front of the moving block: the flag, star or cat stays in view while the next block slides past
   drawWind();
   for(const r of rings){
@@ -3177,6 +3191,7 @@ const BOOSTS={
   magnet:{name:'Magnet',icon:'target',desc:'The next 5 drops snap onto the tower.',price:[0,0],camp:1},
   freeze:{name:'Freeze',icon:'snow',desc:'The block stands still for 2 seconds.',price:[0,0],camp:1},
   windp:{name:'Second Wind',icon:'heart',desc:'Adds one life.',price:[0,0],camp:1},
+  water:{name:'Water',icon:'drop',desc:'Cools lava for 6 drops, so it cannot melt your tower.',price:[0,0],camp:1},
   up100:{name:'Speed-up +100',icon:'arrowup',desc:'Adds 100 free blocks to your tower and 100 to your score.',price:[10000,27000],lift:100}
 };
 const LIFTS=Object.keys(BOOSTS).filter(k=>BOOSTS[k].lift);
@@ -3567,7 +3582,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

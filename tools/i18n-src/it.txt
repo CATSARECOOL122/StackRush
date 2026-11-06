@@ -645,3 +645,9 @@
 645|Vince il giocatore 1! {a} – {b}
 646|Vince il giocatore 2! {a} – {b}
 647|Giocatore 2: via!
+648|Raffredda la lava per 6 cadute, così non scioglie la torre.
+649|Lava in vista! Ecco 2 potenziamenti Acqua. Puoi anche lasciar andare via un blocco di lava.
+650|Lava! Se atterra, scioglie i 2 blocchi sotto. Non toccarla e si allontana.
+651|SALTATO!
+652|Acqua
+653|ACQUA!
