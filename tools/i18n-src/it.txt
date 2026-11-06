@@ -639,3 +639,9 @@
 639|Veterano dei colpi di scena
 640|Due settimane di fila
 641|Usa 25 scudi
+642|Passa e gioca
+643|Passa e gioca: giochi tu, poi passi il telefono a un amico per la stessa partita.
+644|Il giocatore 1 ha fatto {n}! Passa il telefono al giocatore 2.
+645|Vince il giocatore 1! {a} – {b}
+646|Vince il giocatore 2! {a} – {b}
+647|Giocatore 2: via!

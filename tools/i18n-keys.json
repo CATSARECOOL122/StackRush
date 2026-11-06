@@ -639,5 +639,11 @@
  "Time Lord",
  "Twist Veteran",
  "Two Weeks Strong",
- "Use 25 shields"
+ "Use 25 shields",
+ "Pass & play",
+ "Pass & play: you play, then hand the phone to a friend for the same round.",
+ "Player 1 scored {n}. Pass the phone to Player 2!",
+ "Player 1 wins! {a} – {b}",
+ "Player 2 wins! {a} – {b}",
+ "Player 2: go!"
 ]

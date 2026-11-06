@@ -150,4 +150,21 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['pass and play: Player 1 plays, the phone is handed over, Player 2 races the same round with Player 1\'s tower as the ghost; the result names the winner, nothing is paid as a friend win, and rematch starts again', async(e,L)=>{
+  const p=await L.open(e); await BASE(p,{shield:3,up10:2},['shield']);
+  const d0=await p.evaluate(()=>[__sr.S.duels.length,__sr.S.friendWins]);
+  await p.evaluate(()=>__sr.startPass()); await p.waitForTimeout(200);
+  assert.deepEqual(await p.evaluate(()=>[__sr.passPlay,__sr.held.slice()]),[1,[]],'no boosts in pass and play');
+  await L.perfects(p,3); await endIt(p);
+  assert.ok(await p.isVisible('#chal'),'the hand-over card'); assert.match(await p.textContent('#chText'),/Player 1 scored/); assert.equal(await p.textContent('#chGo'),'Player 2: go!'); assert.equal(await p.isVisible('#chCatch'),false);
+  await p.click('#chGo'); await p.waitForTimeout(250);
+  assert.deepEqual(await p.evaluate(()=>[__sr.passPlay,!!__sr.challenge,__sr.held.length]),[2,true,0],'Player 2 races the challenge, no boosts');
+  await L.climb(p,12,60000); await endIt(p);
+  assert.match(await p.textContent('#oNext'),/Player [12] wins|A tie/); 
+  assert.deepEqual(await p.evaluate(()=>[__sr.S.duels.length,__sr.S.friendWins]),d0,'pass and play does not touch the friend history or win count');
+  await p.click('#again'); await p.waitForTimeout(250); assert.deepEqual(await p.evaluate(()=>[__sr.passPlay,__sr.challenge]),[1,null],'rematch: Player 1 again');
+  await p.evaluate(()=>__sr.showMenu()); assert.equal(await p.evaluate(()=>__sr.passPlay),0);
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

@@ -760,6 +760,8 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <div id="fsModes" class="fsm" role="group"></div>
       <div id="fsCatch"></div>
       <button id="fsStart" class="btn primary big">Start my round</button>
+      <button id="fsPass" class="btn">Pass &amp; play</button>
+      <p class="lead">Pass &amp; play: you play, then hand the phone to a friend for the same round.</p>
       <p class="lead" id="fsLast"></p>
       <button id="fsCode" class="btn hidden"><svg class="ic" aria-hidden="true"><use href="#i-copy"/></svg> <span id="fsCodeT"></span></button>
       <button id="fsShare" class="btn hidden"><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg> <span id="fsShareT"></span></button>
@@ -1472,6 +1474,7 @@ let armed={}, boosted=false, slowLeft=0, regrowUsed=0, boostShield=false;
 let titanLeft=0, magnetLeft=0, freezeT=0;      // campaign power-ups running
 let duelLogged=false;
 let upDur=0, upT=0, upNext=8, upAng=0, upMin=6;      // the final boss turns the screen upside down for a few seconds now and then
+let passPlay=0;                                  // pass and play on one phone: 1 = Player 1's round, 2 = Player 2 racing Player 1's tower
 let freeBlocks=0;                               // blocks a Speed-up added for free: they do not count towards the speed-up of the game, only blocks you place do
 const placedN=()=>stack.length-freeBlocks;
 let friendStart=false, friendRun=false, friendMode='classic';      // friendRun: a round of a friend race (yours from the Friend race sheet, or a friend's): only Speed-ups work
@@ -1668,7 +1671,7 @@ function modeTip(id){
   if(!MODE_TIPS[id] || S.tips[id] || !S.tutSeen) return;
   S.tips[id]=1; save(); toast(`${I('sparkles','ic-gold')} ${tr(MODE_TIPS[id])}`,3600);
 }
-function restart(){ if(friendRun && !challenge && mode!=='campaign') friendStart=true; if(mode==='campaign') startStage(stage); else startMode(mode==='practice'?S.lastMode:mode); }
+function restart(){ if(passPlay){ challenge=null; passPlay=1; friendStart=true; } else if(friendRun && !challenge && mode!=='campaign') friendStart=true; if(mode==='campaign') startStage(stage); else startMode(mode==='practice'?S.lastMode:mode); }
 function newRun(){
   const M=MODES[mode];
   baseW=Math.min(W*(mod.startFrac||CFG.startFrac), CFG.maxW*u);
@@ -1685,7 +1688,7 @@ function newRun(){
     const mine=S.shop.pick.filter(id=>(S.shop.boosts[id]||0)>0 && (id!=='time' || mode==='timed') && (!BOOSTS[id].lift || mode!=='campaign'));
     if(manualOn()) held=mine; else { held=mine.filter(id=>BOOSTS[id].lift); for(const id of mine) if(!BOOSTS[id].lift) armed[id]=true; }          // you choose when (the bolt), or they fire by themselves when they help (Settings; a Speed-up is always your call)
     if(mode==='campaign') for(const id of CAMP_POW) if((S.shop.boosts[id]||0)>0) held.push(id);       // campaign power-ups are always in hand
-  } else if(friendRun){                                                              // a friend race: only the Speed-ups you equipped on the challenge card
+  } else if(friendRun && !passPlay){                                                 // a friend race: only the Speed-ups you equipped on the challenge card
     for(const id of LIFTS){ const k=Math.min(catchUp[id]||0,S.shop.boosts[id]||0); if(k>0){ cuLeft[id]=k; held.push(id); } }
   }
   if(armed.shield){ shield=true; boostShield=true; }
@@ -1826,6 +1829,7 @@ const challengeLink=()=>location.origin+location.pathname+'?c='+challengeCode();
 /* The "Race a friend" tile: remembers the link of the last round that can be raced, so it can be sent from the Game modes screen too. */
 function rememberChallenge(){ if(challengeOk()){ try{ S.lastChal={mode,score,link:challengeLink(),f:(friendRun&&!challenge)?1:0}; save(); }catch(e){} } }
 function renderFriendModes(){ $('fsModes').innerHTML=CH_MODES.map(m=>`<button data-fm="${m}" class="${m===friendMode?'on':''}" aria-pressed="${m===friendMode}">${tr(MODES[m].name)}</button>`).join(''); }
+function startPass(){ closeFriend(); challenge=null; passPlay=1; friendStart=true; startMode(friendMode); }
 function startFriend(){ closeFriend(); challenge=null; friendStart=true; startMode(friendMode); }
 function openFriend(){
   renderFriendModes(); renderCatch(); $('fsHist').innerHTML=duelHistoryHtml();
@@ -1882,7 +1886,8 @@ function duelHistoryHtml(){
 }
 function openChallenge(ch){
   offered=ch; hideAll(); $('chal').classList.remove('hidden'); renderCatch();
-  $('chScore').textContent=ch.score; $('chText').textContent=tr('A friend scored {n} in {mode}. Can you beat it?',{n:ch.score,mode:tr(MODES[ch.mode].name)});
+  const pp=passPlay===2; $('chCatch').classList.toggle('hidden',pp); $('chNote').classList.toggle('hidden',pp); $('chGo').textContent=pp?tr('Player 2: go!'):tr('Accept');
+  $('chScore').textContent=ch.score; $('chText').textContent=pp?tr('Player 1 scored {n}. Pass the phone to Player 2!',{n:ch.score}):tr('A friend scored {n} in {mode}. Can you beat it?',{n:ch.score,mode:tr(MODES[ch.mode].name)});
 }
 function startChallenge(ch){ challenge=ch; offered=null; startMode(ch.mode); }
 let incoming=null;
@@ -2250,6 +2255,7 @@ function showOver(r){
   if(state!=='over') return;
   const M=MODES[mode], camp=mode==='campaign';
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden'); $('speedB').classList.add('hidden');
+  if(passPlay===1){ if(challengeOk()){ const ch=parseChallenge(challengeCode()); if(ch){ passPlay=2; openChallenge(ch); return; } } passPlay=0; }          // Player 1 is done: hand the phone over
   const g=camp?STAGES[stage-1]:null;
   $('oLabel').textContent = r.win ? (r.boss ? tr('BOSS DEFEATED!') : tr('STAGE {n} CLEAR',{n:stage})) : camp ? tr('STAGE {n} FAILED',{n:stage}) : r.reason==='time' ? tr("TIME'S UP") : (mode==='zen' ? tr('ZEN SESSION') : ucase(tr(M.name)));
   if(r.win) $('oScore').innerHTML=I('star','fill').repeat(r.stars)+I('star').repeat(3-r.stars); else countUp($('oScore'),score);
@@ -2269,7 +2275,7 @@ function showOver(r){
   const nu=nextUnlock(); $('oNext').innerHTML = nu ? `${I('target')} ${tr('Next unlock: <b>{x}</b>',{x:nu})}` : '';
   const rv=$('revive'), showRv=M.revive && !revived && score>=5;
   rv.classList.toggle('hidden', !showRv);
-  if(challenge && challenge.mode===mode && !r.win){ const f=challenge.score; recordDuel(f); $('oNext').innerHTML = score>f ? `${I('trophy','ic-gold')} ${tr('You beat your friend!')} (${score} – ${f})` : score===f ? tr('A tie!') : tr('Your friend wins {a} to {b}.',{a:f,b:score}); if(boosted) $('oNext').innerHTML+='<br>'+tr('You used Speed-ups, so this score is marked as boosted.'); }
+  if(challenge && challenge.mode===mode && !r.win){ const f=challenge.score; if(passPlay!==2) recordDuel(f); if(passPlay===2){ $('oNext').innerHTML=score>f?`${I('trophy','ic-gold')} ${tr('Player 2 wins! {a} – {b}',{a:score,b:f})}`:score===f?tr('A tie!'):tr('Player 1 wins! {a} – {b}',{a:f,b:score}); } else $('oNext').innerHTML = score>f ? `${I('trophy','ic-gold')} ${tr('You beat your friend!')} (${score} – ${f})` : score===f ? tr('A tie!') : tr('Your friend wins {a} to {b}.',{a:f,b:score}); if(boosted) $('oNext').innerHTML+='<br>'+tr('You used Speed-ups, so this score is marked as boosted.'); }
   const viaMenu=friendRun && !challenge && challengeOk();
   $('copyCode').classList.toggle('hidden',!viaMenu); $('share').classList.toggle('hidden',viaMenu);        // started from Friend race: copy a code (no link); after any other round Share still sends the link
   if(friendRun && !challenge && challengeOk()) $('oNext').innerHTML=`${I('share')} ${tr('Tap Share to challenge a friend.')}`;
@@ -2891,7 +2897,7 @@ function claimDaily(){
 function showMenu(){
   rollDay(); endPreview(true); clearCount();
   if(!S.shop.gift && S.played>=1){ S.shop.gift=true; for(const b of Object.keys(BOOSTS)) if(!BOOSTS[b].lift && !BOOSTS[b].camp) S.shop.boosts[b]=Math.min(999,(S.shop.boosts[b]||0)+1); save(); setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('Welcome gift: one of each boost. Pick them with the bolt button.')}`,3400),500); }
-  state='menu'; setBase(); paused=false; tut.on=false; $('pause').classList.add('hidden'); demoStack(); hideAll(); $('menu').classList.remove('hidden'); held=[]; syncPower();
+  passPlay=0; state='menu'; setBase(); paused=false; tut.on=false; $('pause').classList.add('hidden'); demoStack(); hideAll(); $('menu').classList.remove('hidden'); held=[]; syncPower();
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden'); $('speedB').classList.add('hidden');
   $('hand').classList.add('hidden'); $('coach').classList.add('hidden'); $('skipTut').classList.add('hidden');
   challenge=null;
@@ -3456,6 +3462,7 @@ $('endZen').onclick=()=>{ if(state==='playing' && mode==='zen') endRun('zen'); }
 $('powerList').addEventListener('click',e=>{ const b=e.target.closest('[data-power]'); if(!b) return; if(b.getAttribute('aria-disabled')==='true'){ sfx.tap(); return; } usePower(b.dataset.power); });
 $('powerBg').onclick=$('powerDone').onclick=()=>{ sfx.tap(); closePower(); };
 $('fsStart').onclick=()=>{ sfx.tap(); startFriend(); };
+$('fsPass').onclick=()=>{ sfx.tap(); startPass(); };
 $('fsModes').addEventListener('click',e=>{ const b=e.target.closest('[data-fm]'); if(!b) return; friendMode=b.dataset.fm; sfx.tap(); renderFriendModes(); });
 $('fsCatch').addEventListener('click',e=>{ const b=e.target.closest('[data-cu]'); if(b) stepCatch(b.dataset.cu,+b.dataset.d); });
 $('fsPaste').onclick=()=>{ sfx.tap(); closeFriend(); openUnlockDlg('friend'); };
@@ -3521,7 +3528,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ themeActOf:themeAct, closeThemesNow(){ showMenu(); }, get titanLeft(){ return titanLeft; }, get magnetLeft(){ return magnetLeft; }, get freezeT(){ return freezeT; }, get lives(){ return lives; }, get upAng(){ return upAng; }, get banner(){ return banner; }, forceUpside(){ upNext=0; upMin=0; }, get mod(){ return mod; }, get pieces(){ return pieces; }, get friendRun(){ return friendRun; }, startFriend, speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
+  window.__sr={ startPass, get passPlay(){ return passPlay; }, themeActOf:themeAct, closeThemesNow(){ showMenu(); }, get titanLeft(){ return titanLeft; }, get magnetLeft(){ return magnetLeft; }, get freezeT(){ return freezeT; }, get lives(){ return lives; }, get upAng(){ return upAng; }, get banner(){ return banner; }, forceUpside(){ upNext=0; upMin=0; }, get mod(){ return mod; }, get pieces(){ return pieces; }, get friendRun(){ return friendRun; }, startFriend, speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},
     get score(){return score;}, get combo(){return combo;}, get lives(){return lives;}, get timeLeft(){return timeLeft;},
     get ghost(){return ghost;}, get S(){return S;}, get W(){return W;}, get stackLen(){return stack.length;}, get shield(){return shield;},
     get paused(){return paused;}, get stage(){return stage;}, get dodgedRun(){return dodgedRun;}, get tut(){return tut;}, get previewId(){return previewId;},

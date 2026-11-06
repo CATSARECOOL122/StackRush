@@ -639,3 +639,9 @@
 639|Veterano de reviravoltas
 640|Duas semanas firmes
 641|Use 25 escudos
+642|Passe e jogue
+643|Passe e jogue: você joga e depois passa o celular a um amigo para a mesma partida.
+644|O Jogador 1 fez {n}! Passe o celular ao Jogador 2.
+645|O Jogador 1 venceu! {a} – {b}
+646|O Jogador 2 venceu! {a} – {b}
+647|Jogador 2: vai!

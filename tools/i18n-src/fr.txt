@@ -639,3 +639,9 @@
 639|Vétéran des défis
 640|Deux semaines d'affilée
 641|Utilise 25 boucliers
+642|Passe et joue
+643|Passe et joue : tu joues, puis tu passes le téléphone à un ami pour la même partie.
+644|Le joueur 1 a fait {n} ! Passe le téléphone au joueur 2.
+645|Le joueur 1 gagne ! {a} – {b}
+646|Le joueur 2 gagne ! {a} – {b}
+647|Joueur 2 : à toi !

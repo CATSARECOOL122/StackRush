@@ -639,3 +639,9 @@
 639|Wendungs-Veteran
 640|Zwei Wochen stark
 641|Benutze 25 Schilde
+642|Weitergeben & spielen
+643|Weitergeben & spielen: Du spielst, dann reichst du das Handy für dieselbe Runde an einen Freund weiter.
+644|Spieler 1 hat {n} erreicht! Gib das Handy an Spieler 2.
+645|Spieler 1 gewinnt! {a} – {b}
+646|Spieler 2 gewinnt! {a} – {b}
+647|Spieler 2: los!

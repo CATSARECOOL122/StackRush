@@ -639,3 +639,9 @@
 639|Veterano de giros
 640|Dos semanas seguidas
 641|Usa 25 escudos
+642|Pasar y jugar
+643|Pasar y jugar: juegas tú y luego le pasas el móvil a un amigo para la misma partida.
+644|¡El Jugador 1 hizo {n}! Pasa el móvil al Jugador 2.
+645|¡Gana el Jugador 1! {a} – {b}
+646|¡Gana el Jugador 2! {a} – {b}
+647|Jugador 2: ¡adelante!

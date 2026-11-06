@@ -639,3 +639,9 @@
 639|Veteran Twist
 640|Dua Minggu Tangguh
 641|Gunakan 25 perisai
+642|Oper & main
+643|Oper & main: kamu main, lalu oper ponsel ke teman untuk ronde yang sama.
+644|Pemain 1 meraih {n}! Serahkan ponsel ke Pemain 2.
+645|Pemain 1 menang! {a} – {b}
+646|Pemain 2 menang! {a} – {b}
+647|Pemain 2: mulai!

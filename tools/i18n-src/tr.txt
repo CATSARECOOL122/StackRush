@@ -639,3 +639,9 @@
 639|Bükülme Gazisi
 640|İki Hafta Kararlı
 641|25 kalkan kullan
+642|Uzat ve oyna
+643|Uzat ve oyna: sen oynarsın, sonra aynı tur için telefonu bir arkadaşına uzatırsın.
+644|Oyuncu 1 {n} yaptı! Telefonu Oyuncu 2'ye ver.
+645|Oyuncu 1 kazandı! {a} – {b}
+646|Oyuncu 2 kazandı! {a} – {b}
+647|Oyuncu 2: başla!
