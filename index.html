@@ -176,7 +176,10 @@
   #tGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:min(420px,100%)}
   .boostpill{min-height:44px;padding:0 12px;display:flex;align-items:center;gap:6px;font-size:15px}
   .boostpill.has{border-color:var(--gold)} .boostpill.has b{color:var(--gold)}
-  .sheet{justify-content:flex-end;background:#0a0620b8;animation:none}
+  .sheet{justify-content:flex-end;background:#0a0620b8;animation:none;z-index:10}         /* above the menu's bottom bar */
+  .stickyfoot{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom));z-index:2;padding:12px 0 2px;margin-bottom:-2px;background:linear-gradient(#1a1040f0 72%,#1a104000);width:100%;display:flex;gap:10px;justify-content:center;flex:none}
+  .stickyfoot .btn{flex:1;max-width:260px}
+  body.tablet .stickyfoot{bottom:-22px}
   .shbg{flex:1;min-height:24px;cursor:pointer}
   .shcard{background:linear-gradient(180deg,#1d1245,#150d33);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;padding:16px 16px calc(env(safe-area-inset-bottom) + 16px);width:min(520px,100%);align-self:center;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 -20px 50px #0009}
   .shcard h2{margin:0;letter-spacing:3px;font-size:16px}
@@ -723,7 +726,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <h2>BOOSTS</h2>
       <p class="lead" id="boostNote"></p>
       <div id="boostList"></div>
-      <div class="row"><button id="boostShop" class="btn">Get more</button><button id="boostDone" class="btn primary">Done</button></div>
+      <div class="row stickyfoot"><button id="boostShop" class="btn">Get more</button><button id="boostDone" class="btn primary">Done</button></div>
     </div>
   </section>
 
@@ -733,7 +736,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <h2><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg>BOOSTS</h2>
       <p class="psub">Tap one to use it now.</p>
       <div id="powerList"></div>
-      <div class="row"><button id="powerDone" class="btn primary">Keep playing</button></div>
+      <div class="row stickyfoot"><button id="powerDone" class="btn primary">Keep playing</button></div>
     </div>
   </section>
 
@@ -769,7 +772,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <div id="fsHist"></div>
       <p class="lead">Got a link from a friend?</p>
       <button id="fsPaste" class="btn">Paste a friend's challenge</button>
-      <button id="fsClose" class="btn">Close</button>
+      <div class="row stickyfoot"><button id="fsClose" class="btn">Close</button></div>
     </div>
   </section>
 
@@ -778,7 +781,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     <div class="shcard">
       <h2>Hazard difficulty</h2>
       <div id="hzList"></div>
-      <button id="hzClose" class="btn">Close</button>
+      <div class="row stickyfoot"><button id="hzClose" class="btn">Close</button></div>
     </div>
   </section>
 
@@ -790,7 +793,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <div id="csEarn"></div>
       <div class="tabh">GET MORE COINS</div>
       <div id="csBuy"></div>
-      <div class="row"><button id="csDone" class="btn primary">Done</button></div>
+      <div class="row stickyfoot"><button id="csDone" class="btn primary">Done</button></div>
     </div>
   </section>
 
