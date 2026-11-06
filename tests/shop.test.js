@@ -176,7 +176,7 @@ module.exports=[
   }
   await p.click('#closeThemes'); await p.waitForTimeout(200);
   assert.ok(await p.evaluate(()=>__sr.musicOn),'music is on');
-  for(const id of ['classic','chill','chiptune']){
+  for(const id of ['classic','chill','chiptune','lofi','lofirain','cave']){
     await p.evaluate(id=>__sr.itemAction('equip','music',id),id); await p.waitForTimeout(150);
     const a=await n(); await p.waitForTimeout(4200);
     assert.ok((await n())-a>=3,`music style ${id} plays notes (${a} -> ${await n()})`);
