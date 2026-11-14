@@ -737,3 +737,13 @@
 737|Qui funzionano i potenziamenti (non gli Scatti).
 738|Blocchi più lenti, metà dei pericoli, partenza più larga, niente scosse né schermo capovolto.
 739|Hai schiuso l'uovo. Bravo!
+740|Bonus di {n} monete se lo schiudi nei primi {a} tentativi.
+741|Bonus di {n} monete assicurato! Schiudi l'uovo per incassarlo.
+742|BONUS: ENTRO 100 TENTATIVI
+743|Acquistabile tutte le volte che vuoi. (Perdi il bonus di {n} monete.)
+744|Comprarlo annulla il bonus di {n} monete. Tocca ancora per comprare.
+745|Schiudilo nei primi {a} tentativi, senza comprarne altri, per un bonus di {n} monete!
+746|Tocca ancora
+747|Ottieni monete
+748|Non hai ancora abbastanza monete
+749|Hai {m} di {n} monete. Ne mancano {k}.

@@ -737,3 +737,13 @@
 737|Power-up berfungsi di sini (kecuali Lompatan).
 738|Blok lebih lambat, separuh bahaya, awal lebih lebar, tanpa gempa dan layar terbalik.
 739|Kamu menetaskan telurnya. Hebat!
+740|Bonus {n} koin jika kamu menetaskannya dalam {a} percobaan pertama.
+741|Bonus {n} koin aman! Tetaskan telur untuk mengambilnya.
+742|BONUS: DALAM 100 PERCOBAAN
+743|Beli sebanyak yang kamu mau. (Bonus {n} koin hilang.)
+744|Membeli ini membatalkan bonus {n} koin. Ketuk lagi untuk membeli.
+745|Tetaskan dalam {a} percobaan pertama, tanpa membeli lagi, untuk bonus {n} koin!
+746|Ketuk lagi
+747|Dapatkan koin
+748|Koin belum cukup
+749|Kamu punya {m} dari {n} koin. Kurang {k} lagi.

@@ -13,6 +13,8 @@ module.exports=[
   await p.evaluate(()=>{ __sr.setNow(new Date(2026,11,14,23,0).getTime()); __sr.S.coins=19999; __sr.showMenu(); }); await p.waitForTimeout(200); assert.ok(await p.isVisible('#evCard'),'still there on the last evening');
   await p.click('#evCard'); assert.ok(await p.isVisible('#evsheet')); assert.match(await p.textContent('#evBody'),/20,000/);
   await p.click('#evBody [data-ev=enter]'); assert.equal(await p.evaluate(()=>__sr.S.ev),null,'19,999 is not enough'); assert.equal(await p.evaluate(()=>__sr.S.coins),19999);
+  assert.ok(await p.isVisible('#evBody .evneed'),'the sheet itself says why, right away (not hidden behind it)'); assert.match(await p.textContent('#evBody .evneed'),/19,999 of 20,000 coins. 1 more to go/);
+  await p.click('#evBody [data-ev=coins]'); await p.waitForTimeout(300); assert.ok(await p.isVisible('#coinsSheet'),'Get coins opens the coins sheet'); await p.click('#csDone'); await p.click('#evCard');
   await p.evaluate(()=>{ __sr.S.coins=20500; }); await p.click('#evBody [data-ev=enter]'); await p.waitForTimeout(200);
   assert.deepEqual(await p.evaluate(()=>[__sr.S.coins,__sr.S.ev.id,__sr.S.ev.attempts,__sr.S.ev.best]),[600,'aurora26',0,0],'paid once (20,500 - 20,000, +100 for the Event Entrant award)');
   assert.match(await p.textContent('#evBody'),/100 attempts left/); assert.equal(await p.locator('#evBody [data-ev=enter]').count(),0,'no second entry');
@@ -71,6 +73,7 @@ module.exports=[
 ['event: +100 attempts for 5,000 coins (any number of times), the map 50% easier for 9,000 (once), power-ups allowed but not Speed-ups', async(e,L)=>{
   const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=20000+5000*2+9000+100; __sr.enterEvent(); __sr.S.ev.attempts=100; __sr.openEvent(); });
   assert.match(await p.textContent('#evBody'),/0 attempts left/); assert.match(await p.textContent('#evBody'),/No attempts left/);
+  await p.click('#evBody [data-ev=more]'); assert.equal(await p.evaluate(()=>__sr.S.ev.more||0),0,'the first tap only warns about the bonus'); assert.match(await p.textContent('#evBody'),/gives up the 50,000 coin bonus/);
   await p.click('#evBody [data-ev=more]'); assert.deepEqual(await p.evaluate(()=>[__sr.S.ev.more,__sr.evMax(__sr.S.ev)]),[1,200]); assert.match(await p.textContent('#evBody'),/100 attempts left/);
   await p.click('#evBody [data-ev=more]'); assert.equal(await p.evaluate(()=>__sr.evMax(__sr.S.ev)),300,'and again');
   const hard=await p.evaluate(()=>__sr.evMod(__sr.activeEvent(),__sr.S.ev));
@@ -99,6 +102,24 @@ module.exports=[
   await p.click('#evToast'); await p.waitForTimeout(400); assert.ok(await p.isVisible('#evsheet'),'tapping it opens the event');
   await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
   assert.equal(await show(D(2026,11,14,16)),'','remembered after a reload');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['event: hatching within the first 100 attempts (no extra attempts bought) pays a 50,000 coin bonus, and the player is told; buying more gives it up', async(e,L)=>{
+  const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=20000; __sr.enterEvent(); __sr.openEvent(); });
+  assert.match(await p.textContent('#evBody'),/50,000 coins if you hatch it within your first 100 attempts/);
+  await p.evaluate(()=>{ __sr.startEvent(); }); await p.waitForTimeout(150);
+  await p.evaluate(()=>{ __sr.S.ev.best=0; }); await p.evaluate(()=>{ const st=__sr.S.ev; st.attempts=63; }); 
+  await p.evaluate(()=>{ __sr.forceScore && __sr.forceScore(1000); });
+  await p.evaluate(()=>{ __sr.endNow && __sr.endNow(); }); await p.waitForTimeout(1500);
+  assert.deepEqual(await p.evaluate(()=>[__sr.S.ev.best>=1000,__sr.S.ev.fast]),[true,1],'reached 1,000 in attempt 63 with nothing bought');
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.openEvent(); }); assert.match(await p.textContent('#evBody'),/50,000 coins secured/);
+  const c0=await p.evaluate(()=>__sr.S.coins);
+  await p.evaluate(()=>{ __sr.openHatch(); __sr.hat.p=.999; __sr.hat.hold=true; }); await p.waitForSelector('#hatchOk:not(.hidden)',{timeout:25000});
+  const c1=await p.evaluate(()=>__sr.S.coins); assert.ok(c1-c0>=55000,'5,000 + the 50,000 bonus ('+(c1-c0)+')'); assert.match(await p.textContent('#hatchRw'),/WITHIN 100 ATTEMPTS/);
+  /* a second player who bought more: no bonus */
+  await p.evaluate(()=>{ __sr.S.ev={id:'aurora26',attempts:150,more:1,best:0,hatched:0,chestOk:[]}; __sr.startEvent(); __sr.forceScore(1000); __sr.endNow(); }); await p.waitForTimeout(1500);
+  assert.equal(await p.evaluate(()=>__sr.S.ev.fast),0,'bought more: no bonus');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 

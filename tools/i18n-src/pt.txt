@@ -737,3 +737,13 @@
 737|Poderes funcionam aqui (não os Impulsos).
 738|Blocos mais lentos, metade dos perigos, começo mais largo, sem tremores nem tela de cabeça para baixo.
 739|Você chocou o ovo. Muito bem!
+740|Bônus de {n} moedas se você chocar nas primeiras {a} tentativas.
+741|Bônus de {n} moedas garantido! Choque o ovo para receber.
+742|BÔNUS: EM 100 TENTATIVAS
+743|Compre quantas vezes quiser. (Você perde o bônus de {n} moedas.)
+744|Comprar isto cancela o bônus de {n} moedas. Toque de novo para comprar.
+745|Choque nas primeiras {a} tentativas, sem comprar mais, e ganhe {n} moedas de bônus!
+746|Toque de novo
+747|Obter moedas
+748|Moedas insuficientes por enquanto
+749|Você tem {m} de {n} moedas. Faltam {k}.

@@ -737,3 +737,13 @@
 737|Power-ups funktionieren hier (keine Aufstiege).
 738|Langsamere Blöcke, halb so viele Gefahren, ein breiterer Start, keine Beben und kein Bildschirm auf dem Kopf.
 739|Du hast das Ei ausgebrütet. Gut gemacht!
+740|{n} Münzen Bonus, wenn du es in deinen ersten {a} Versuchen ausbrütest.
+741|{n} Münzen Bonus gesichert! Brüte das Ei aus, um ihn zu kassieren.
+742|BONUS: IN 100 VERSUCHEN
+743|Beliebig oft kaufbar. (Du verlierst den Bonus von {n} Münzen.)
+744|Damit verzichtest du auf den Bonus von {n} Münzen. Tippe erneut zum Kaufen.
+745|Brüte es in deinen ersten {a} Versuchen aus, ohne mehr zu kaufen, und erhalte {n} Münzen Bonus!
+746|Erneut tippen
+747|Münzen holen
+748|Noch nicht genug Münzen
+749|Du hast {m} von {n} Münzen. Noch {k}.

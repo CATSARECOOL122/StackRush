@@ -737,3 +737,13 @@
 737|Güçler burada çalışır (Hızlandırmalar hariç).
 738|Daha yavaş bloklar, yarı yarıya tehlike, daha geniş başlangıç, sarsıntı ve ters ekran yok.
 739|Yumurtayı çatlattın. Aferin!
+740|İlk {a} denemende çatlatırsan {n} jeton bonus.
+741|{n} jeton bonus garantilendi! Almak için yumurtayı çatlat.
+742|BONUS: 100 DENEMEDE
+743|İstediğin kadar al. ({n} jetonluk bonusu kaybedersin.)
+744|Bunu almak {n} jetonluk bonusu iptal eder. Almak için yeniden dokun.
+745|İlk {a} denemende, fazlasını almadan çatlat ve {n} jeton bonus kazan!
+746|Yeniden dokun
+747|Jeton al
+748|Henüz yeterli jeton yok
+749|{n} jetonun {m} tanesi sende. {k} kaldı.

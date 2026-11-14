@@ -737,5 +737,15 @@
  "LAST DAY!!",
  "Power-ups work here (not Speed-ups).",
  "Slower blocks, half the hazards, a wider start, no tremors or upside-down screen.",
- "You hatched the egg. Well done!"
+ "You hatched the egg. Well done!",
+ "Bonus {n} coins if you hatch it within your first {a} attempts.",
+ "Bonus {n} coins secured! Hatch the egg to collect it.",
+ "BONUS: WITHIN 100 ATTEMPTS",
+ "Buy as many times as you like. (You lose the {n} coin bonus.)",
+ "Buying this gives up the {n} coin bonus. Tap again to buy.",
+ "Hatch it within your first {a} attempts, without buying more, for a {n} coin bonus!",
+ "Tap again",
+ "Get coins",
+ "Not enough coins yet",
+ "You have {m} of {n} coins. {k} more to go."
 ]

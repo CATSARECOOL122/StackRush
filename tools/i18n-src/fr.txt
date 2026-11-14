@@ -737,3 +737,13 @@
 737|Les power-ups marchent ici (pas les Élans).
 738|Blocs plus lents, moitié moins de dangers, départ plus large, sans secousses ni écran à l'envers.
 739|Tu as fait éclore l'œuf. Bravo !
+740|Bonus de {n} pièces si tu le fais éclore dans tes {a} premiers essais.
+741|Bonus de {n} pièces assuré ! Fais éclore l'œuf pour l'encaisser.
+742|BONUS : EN 100 ESSAIS
+743|À acheter autant que tu veux. (Tu perds le bonus de {n} pièces.)
+744|Acheter ceci annule le bonus de {n} pièces. Touche encore pour acheter.
+745|Fais-le éclore dans tes {a} premiers essais, sans en acheter plus, pour un bonus de {n} pièces !
+746|Touche encore
+747|Obtenir des pièces
+748|Pas encore assez de pièces
+749|Tu as {m} sur {n} pièces. Encore {k}.

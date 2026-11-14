@@ -737,3 +737,13 @@
 737|Aquí funcionan los potenciadores (no los Impulsos).
 738|Bloques más lentos, la mitad de peligros, un inicio más ancho, sin temblores ni pantalla al revés.
 739|Has eclosionado el huevo. ¡Bien hecho!
+740|Bonificación de {n} monedas si lo eclosionas en tus primeros {a} intentos.
+741|¡Bonificación de {n} monedas asegurada! Eclosiona el huevo para cobrarla.
+742|BONIFICACIÓN: EN 100 INTENTOS
+743|Cómpralo tantas veces como quieras. (Pierdes la bonificación de {n} monedas.)
+744|Comprar esto anula la bonificación de {n} monedas. Toca otra vez para comprar.
+745|¡Eclosiónalo en tus primeros {a} intentos, sin comprar más, y gana {n} monedas extra!
+746|Toca otra vez
+747|Conseguir monedas
+748|Aún no tienes suficientes monedas
+749|Tienes {m} de {n} monedas. Te faltan {k}.
