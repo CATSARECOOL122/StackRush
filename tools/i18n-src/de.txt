@@ -664,3 +664,63 @@
 664|Lava, Eis, Kleber, Wind, Beben, ein Bildschirm auf dem Kopf und die schnellsten Blöcke. Münzen x1,5.
 665|Lava! Über deinem Turm schmilzt sie die 2 Blöcke darunter. Tippe sie abseits des Turms an, um sie abzuwerfen.
 666|Wiederbeleben + Regrow · {n} {coin}
+667|Noch {d}d {h}h
+668|Noch {h}h {m}m
+669|Noch {m}m {s}s
+670|Noch {n} Versuche
+671|Noch 30d 3h
+672|Aurora-Champion
+673|Aurora-Gipfel
+674|Aurora-Geist
+675|AUSZEICHNUNG
+676|Bestwert {n} / {g}
+677|Bestwert <b>{n}</b> / {g}
+678|Truhe bei {n}
+679|Truhe geöffnet! +{n} {coin}
+680|Truhe freigeschaltet! Öffne sie im Event.
+681|Weiter
+682|Eiersammler
+683|Ei geschlüpft!
+684|EI GESCHLÜPFT!
+685|Glutkatze
+686|Glut-Monarch
+687|Glutthron
+688|Teilnehmen · {n} {coin}
+689|Nimm an einem Sonderevent teil
+690|Event
+691|Event-Teilnehmer
+692|Erstes Ei
+693|HALLE DER EIER
+694|Brüte ein Event-Ei aus
+695|Brüte das Ei von {name} aus
+696|Brüte das Ei des Aurora-Gipfels aus
+697|Brüte das Ei aus
+698|EI AUSBRÜTEN
+699|Brüte das Ei bei {n} aus und erhalte eine einmalige Belohnung.
+700|Brüte das Ei des Glutthrons aus
+701|Brüte drei Event-Eier aus
+702|HALTEN ZUM AUSBRÜTEN
+703|IM EI
+704|Weiter halten… {n}%
+705|MEILENSTEIN-TRUHEN
+706|Meilenstein-Truhen bei 250, 500 und 750 unterwegs.
+707|NEUES DESIGN
+708|NEUER AUFSATZ · SUPERSELTEN
+709|Keine Versuche mehr
+710|Ein Eintritt pro Event. Keine Rückerstattung.
+711|Öffnen
+712|Geöffnet
+713|Einen Versuch spielen
+714|Halte gedrückt, um das Ei auszubrüten
+715|Erreiche {n} Punkte auf einer sehr schweren Karte.
+716|Sonderevent
+717|Sonderevent · {n} Münzen
+718|Sonderevent · 20.000 Münzen
+719|SUPERSELTEN
+720|Superseltene Auszeichnung
+721|SUPERSELTENE AUSZEICHNUNG
+722|Das Ei ist bereit zum Ausbrüten!
+723|Die Karte des Sonderevents.
+724|Du hast {n} Versuche.
+725|Klettere unter den Polarlichtern.
+726|Beherrsche das Feuer.

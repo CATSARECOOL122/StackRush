@@ -664,3 +664,63 @@
 664|Lav, buz, yapışkan, rüzgâr, sarsıntı, ters ekran ve en hızlı bloklar. Jeton x1,5.
 665|Lav! Kulenin üzerindeyse altındaki 2 bloğu eritir. Düşürmek için kuleden uzakken dokun.
 666|Canlan + Regrow · {n} {coin}
+667|{d}g {h}sa kaldı
+668|{h}sa {m}dk kaldı
+669|{m}dk {s}sn kaldı
+670|{n} deneme kaldı
+671|30g 3sa kaldı
+672|Aurora Şampiyonu
+673|Aurora Zirvesi
+674|Aurora Ruhu
+675|ÖDÜL
+676|En iyi {n} / {g}
+677|En iyi <b>{n}</b> / {g}
+678|{n} puanda sandık
+679|Sandık açıldı! +{n} {coin}
+680|Sandık açıldı! Etkinlikte aç.
+681|Devam
+682|Yumurta Koleksiyoncusu
+683|Yumurta çatladı!
+684|YUMURTA ÇATLADI!
+685|Kor Kedi
+686|Kor Hükümdarı
+687|Kor Taht
+688|Katıl · {n} {coin}
+689|Özel bir etkinliğe katıl
+690|Etkinlik
+691|Etkinlik Katılımcısı
+692|İlk Yumurta
+693|YUMURTA SALONU
+694|Bir etkinlik yumurtası çatlat
+695|{name} yumurtasını çatlat
+696|Aurora Zirvesi yumurtasını çatlat
+697|Yumurtayı çatlat
+698|YUMURTAYI ÇATLAT
+699|{n} puanda yumurtayı çatlat, eşsiz bir ödül kazan.
+700|Kor Taht yumurtasını çatlat
+701|Üç etkinlik yumurtası çatlat
+702|ÇATLATMAK İÇİN BASILI TUT
+703|YUMURTANIN İÇİNDE
+704|Basılı tutmaya devam et… %{n}
+705|KİLOMETRE TAŞI SANDIKLARI
+706|Yolda 250, 500 ve 750'de sandıklar.
+707|YENİ TEMA
+708|YENİ SÜS · ÇOK NADİR
+709|Deneme kalmadı
+710|Etkinlik başına tek giriş. İade yok.
+711|Aç
+712|Açıldı
+713|Bir deneme oyna
+714|Yumurtayı çatlatmak için basılı tut
+715|Çok zor bir haritada {n} puana ulaş.
+716|Özel etkinlik
+717|Özel etkinlik · {n} jeton
+718|Özel etkinlik · 20.000 jeton
+719|ÇOK NADİR
+720|Çok nadir ödül
+721|ÇOK NADİR ÖDÜL
+722|Yumurta çatlamaya hazır!
+723|Özel etkinlik haritası.
+724|{n} denemen var.
+725|Kuzey ışıklarının altında tırman.
+726|Ateşe hükmet.

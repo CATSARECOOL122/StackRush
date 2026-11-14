@@ -177,6 +177,38 @@
   .boostpill{min-height:44px;padding:0 12px;display:flex;align-items:center;gap:6px;font-size:15px}
   .boostpill.has{border-color:var(--gold)} .boostpill.has b{color:var(--gold)}
   .sheet{justify-content:flex-end;background:#0a0620b8;animation:none;z-index:10}         /* above the menu's bottom bar */
+  .evcard{pointer-events:auto;display:flex;align-items:center;gap:12px;width:min(400px,100%);text-align:left;color:#fff;font:inherit;border-radius:18px;padding:10px 14px;border:1.5px solid #7ff0d0;background:linear-gradient(120deg,#0a3a4acc,#3a1a6acc,#0a3a4acc);background-size:220% 100%;animation:evshine 4s linear infinite;box-shadow:0 0 22px #2fd6a155;cursor:pointer}
+  @media (max-height:720px){ #menu.evon #nextCard{display:none} .evcard{padding:5px 12px;gap:10px} .evcard i{width:30px;height:30px} .evcard span{display:none} .evcard b{font-size:15px} }
+  @keyframes evshine{from{background-position:0 0}to{background-position:220% 0}}
+  .evcard i{font-style:normal;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#ffffff22;color:#9ffbe0;flex:none}
+  .evcard div{flex:1;min-width:0} .evcard b{display:block;font-size:16px} .evcard span{display:block;font-size:12px;font-weight:700;color:#cfeee6}
+  .evcard em{font-style:normal;font-weight:900;font-size:13px;color:#ffe27a;flex:none}
+  #evBody{display:flex;flex-direction:column;gap:10px;width:100%}
+  #evBody .evtag{margin:0;text-align:center;color:var(--mute);font-weight:700}
+  #evBody .evleft{text-align:center;font-weight:900;color:#ffe27a;font-size:17px}
+  #evBody ul{margin:0;padding-left:20px;font-size:14px;line-height:1.5;color:#ddd}
+  #evBody h4{margin:6px 0 0;font-size:12px;letter-spacing:2px;color:var(--mute)}
+  .evbar{position:relative;height:30px;border-radius:99px;background:#ffffff1a;border:1px solid var(--line);overflow:hidden}
+  .evfill{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#2fd6a1,#7ff0d0,#ffe27a);border-radius:99px;transition:width .6s}
+  .evseg{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0,transparent calc(10% - 2px),#0a0620aa calc(10% - 2px),#0a0620aa 10%)}
+  .evbarL{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:var(--mute)}
+  .evch{display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:8px 12px}
+  .evch i{font-style:normal;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#ffffff14;flex:none}
+  .evch div{flex:1;min-width:0} .evch b{display:block;font-size:14px} .evch small{display:block;font-size:12px;color:var(--mute);font-weight:700}
+  .evch .btn{min-height:40px;padding:6px 12px;font-size:14px}
+  .evch.ok{border-color:#4be08a88} .evch.done{opacity:.6}
+  .evegg{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+  .evegg span{font-size:12px;font-weight:800;padding:4px 10px;border-radius:99px;background:#ffc83d22;border:1px solid #ffc83d66;color:#ffe27a}
+  #hatch{z-index:40;background:#02040c;padding:0;justify-content:flex-end}
+  #hatchCv{position:absolute;inset:0;width:100%;height:100%}
+  #hatchUi{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;padding:16px 20px calc(env(safe-area-inset-bottom) + 24px);max-height:100%}
+  #hatchMsg{font-weight:900;font-size:26px;letter-spacing:3px;text-align:center;color:#fff;text-shadow:0 2px 18px #000}
+  #hatchRw{display:flex;flex-direction:column;gap:8px;width:min(380px,100%);max-height:42vh;overflow-y:auto}
+  #hatchRw .rw{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:16px;background:#0c1030ee;border:1.5px solid #ffc83dcc;box-shadow:0 0 18px #ffc83d66;animation:rwin .5s var(--spring) both}
+  #hatchRw .rw i{font-style:normal;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#ffc83d26;color:#ffe27a;flex:none}
+  #hatchRw .rw b{display:block;font-size:16px} #hatchRw .rw small{display:block;font-size:12px;color:#ffe27a;font-weight:800;letter-spacing:1px}
+  @keyframes rwin{from{opacity:0;transform:translateY(16px) scale(.9)}to{opacity:1;transform:none}}
+  .aw.rare2{border-color:#ffe27a;background:linear-gradient(120deg,#ffc83d26,#9a6bff26,#ffc83d26);background-size:220% 100%;animation:evshine 3.2s linear infinite;box-shadow:0 0 16px #ffc83d66}
   .stickyfoot{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom));z-index:2;padding:12px 0 2px;margin-bottom:-2px;background:linear-gradient(#1a1040f0 72%,#1a104000);width:100%;display:flex;gap:10px;justify-content:center;flex:none}
   .stickyfoot .btn{flex:1;max-width:260px}
   body.tablet .stickyfoot{bottom:-22px}
@@ -612,6 +644,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
         <button id="modePrev" class="mc" aria-label="Previous mode"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><span id="modeName" aria-live="polite"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg> Classic</span><button id="modeNext" class="mc" aria-label="Next mode"><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
       </div>
       <button id="openModes" class="btn">More game modes</button>
+      <button id="evCard" class="evcard hidden" aria-label="Special event"></button>
       <div class="card" id="dailyCard"></div>
       <div class="card slim" id="nextCard"></div>
     </div>
@@ -786,6 +819,25 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     </div>
   </section>
 
+  <section id="evsheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Special event">
+    <div class="shbg" id="evBg"></div>
+    <div class="shcard cs">
+      <h2 id="evTitle"></h2>
+      <div id="evBody"></div>
+      <div class="row stickyfoot"><button id="evClose" class="btn">Close</button></div>
+    </div>
+  </section>
+
+  <section id="hatch" class="screen hidden" role="dialog" aria-modal="true" aria-label="Hatch the egg">
+    <canvas id="hatchCv"></canvas>
+    <div id="hatchUi">
+      <div id="hatchMsg"></div>
+      <div id="hatchRw"></div>
+      <button id="hatchBtn" class="btn primary big">HOLD TO HATCH</button>
+      <button id="hatchOk" class="btn primary big hidden">Continue</button>
+    </div>
+  </section>
+
   <section id="coinsSheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Coins">
     <div class="shbg" id="coinsBg"></div>
     <div class="shcard cs">
@@ -834,6 +886,7 @@ const CFG = {
   dailyBonus: 50,
   milestone: 25,
   weeklyCoins: 400,
+  evCost: 20000, evAttempts: 100, evGoal: 1000,      // the special event map: entry price, attempts allowed, score that hatches the egg
   duelBonus: 60,         // coins for beating a friend with a score of at least duelMin, without boosts (once per challenge)
   duelMin: 100,
   bossBonus: 60,         // extra coins the first time a boss stage is cleared
@@ -884,6 +937,7 @@ const SHOP = {
   topper:{ none:{name:'No topper',free:1}, black:{name:'Black cat',coins:600,fur:'#2b2b36',eye:'#e9ff7a'}, orange:{name:'Orange cat',coins:600,fur:'#f2994a',belly:'#ffe5c4',tab:'#d8742a'},
            siamese:{name:'Siamese cat',coins:700,fur:'#f3e4cc',pts:'#5b4636',mask:1,belly:'#fff7ea',eye:'#62b4ff'}, tuxedo:{name:'Tuxedo cat',coins:700,fur:'#2b2b36',belly:'#ffffff',paws:'#ffffff',eye:'#e9ff7a'},
            calico:{name:'Calico cat',coins:800,fur:'#fbf3e6',patches:['#f2994a','#2f2f3a'],belly:'#ffffff',eye:'#7be08a'}, grey:{name:'Grey cat',coins:700,fur:'#9ba4b4',tab:'#6d7788',belly:'#e6eaf1',eye:'#ffd36b'}, white:{name:'White cat',coins:700,fur:'#fbfbff',belly:'#ffffff',eye:'#62b4ff'},
+           aurora:{name:'Aurora Spirit',evt:'aurora26',rare:2,fur:'#7ff0d0',belly:'#e8fff8',tab:'#2fd6a1',eye:'#ffffff',glow:'#7ff0d0'}, embercat:{name:'Ember Cat',evt:'ember27',rare:2,fur:'#ff7a3a',belly:'#ffe0b0',tab:'#c4401a',eye:'#fff2a0',glow:'#ff8a3a'},
            flag:{name:'Flag',coins:800,kind:'flag',c1:'#ff4d6d',c2:'#ffffff'}, star:{name:'Star',coins:1000,kind:'star',c1:'#ffd54a',c2:'#fff6c2'}, gold:{name:'Golden cat',iap:'$0.99',fur:'#ffc83d',belly:'#fff0b8',tab:'#e29a14',eye:'#62d6ff',glow:'#ffd54a'} },
   accent:{
     sunset:{name:'Sunset',free:1,c1:'#ffb23d',c2:'#ff6a3d',sh:'#a63d14',ink:'#2a0d00'},
@@ -902,6 +956,7 @@ const MODES = {
   timed:{name:'Timed Rush',icon:'timer',desc:'30 seconds. Perfect drops add time.',lives:1,timer:true,ghost:true},
   lives:{name:'Lives',icon:'heart',desc:'3 lives. Only a full miss costs one.',lives:3,revive:true,ghost:true},
   hazard:{name:'Hazard',icon:'bomb',desc:'Bombs, ice, glue and gusts of wind.',lives:3,bombs:true,hz:{ice:6,glue:10,wind:14},revive:true,ghost:true},
+  event:{name:'Event',icon:'gem',desc:'The special event map.',lives:3,bombs:true,coins:false,noBest:true,ghost:false},
   zen:{name:'Zen',icon:'leaf',desc:'No speed-up, no fail. Just stack.',lives:99,ramp:false,coins:false,soft:true,ghost:false},
   daily:{name:'Daily Twist',icon:'calendar',desc:'',lives:3,ghost:false},
   campaign:{name:'Campaign',icon:'map',desc:'24 stages. Earn up to 3 stars each.',lives:3,coins:false,noBest:true,ghost:false,rampK:.6},
@@ -956,6 +1011,8 @@ const THEMES = {
   amethyst:{name:'Amethyst',unlock:{t:'ach',id:'r_crystal'},bg:['#150a2e','#4b1f86','#c08bff'],sun:'rgba(230,200,255,.5)',hill:['#2c1258','#1d0b3c'],ground:'#12062a',h0:280,hr:60,hs:.3,s:80,l:66,glow:true,amb:{type:'fireflies',hue:285,n:30}},
   obsidian:{name:'Obsidian',unlock:{t:'ach',id:'r_core'},bg:['#050505','#1a0f0f','#3a1208'],sun:'rgba(255,120,40,.4)',hill:['#0e0a0a','#070505'],ground:'#030202',h0:12,hr:40,hs:.3,s:95,l:55,glow:true,amb:{type:'embers',hue:15,n:34}},
   voidcrown:{name:'Void Crown',unlock:{t:'ach',id:'stars72'},bg:['#000000','#0a0420','#1d0a45'],sun:'rgba(255,215,120,.45)',hill:['#06021a','#030110'],ground:'#010008',h0:45,hr:30,hs:.3,s:95,l:58,glow:true,stars:2},
+  aurora:{name:'Aurora Peak',unlock:{t:'event',id:'aurora26'},bg:['#020816','#0a3a4a','#2fd6a1'],sun:'rgba(150,255,210,.45)',hill:['#0a2638','#061827'],ground:'#04101c',h0:160,hr:90,hs:.28,s:90,l:62,glow:true,amb:{type:'fireflies',hue:150,n:44}},
+  emberthrone:{name:'Ember Throne',unlock:{t:'event',id:'ember27'},bg:['#0a0204','#3a0a14','#ff6a2a'],sun:'rgba(255,170,70,.5)',hill:['#1c060a','#10030a'],ground:'#080204',h0:10,hr:40,hs:.3,s:95,l:56,glow:true,amb:{type:'embers',hue:12,n:44}},
   gold:{name:'Gold Rush',unlock:{t:'iap',price:'$1.00'},bg:['#0b0b0b','#1e1709','#3d2c0b'],sun:'rgba(255,205,90,.4)',hill:['#251b08','#170f04'],ground:'#0d0902',h0:38,hr:16,hs:.3,s:92,l:56,glow:true,amb:{type:'fireflies',hue:45,n:26}},
   galaxy:{name:'Galaxy',unlock:{t:'iap',price:'$1.00'},bg:['#02010a','#150a37','#2c1062'],sun:'rgba(175,115,255,.5)',hill:['#1b0c3f','#0f0626'],ground:'#080321',h0:250,hr:90,hs:.3,s:85,l:62,stars:2},
   cyber:{name:'Cyber City',unlock:{t:'iap',price:'$1.00'},bg:['#050510','#0a1a3a','#1b0a4a'],sun:'rgba(0,255,220,.35)',hill:['#0a0f2a','#060a1c'],ground:'#04060f',h0:170,hr:140,hs:.35,s:100,l:55,glow:true,amb:{type:'matrix',n:34}}
@@ -1028,12 +1085,17 @@ const ACH = [
   {id:'relic10',icon:'gem',name:'Gem Spotter',desc:'Collect 10 relics',coins:40,test:()=>S.relics>=10},
   {id:'w4',icon:'map',name:'Skyline Champion',desc:'Clear all of World 4',coins:80,test:()=>cleared(19,24)},
   {id:'camp42',icon:'crown',name:'Deep Core Complete',desc:'Clear all 42 stages',coins:300,test:()=>cleared(1,42)},
+  {id:'egg1',icon:'gem',name:'First Egg',desc:'Hatch an event egg',coins:1500,rare:2,test:()=>(S.eggs||[]).length>=1},
+  {id:'egg3',icon:'gem',name:'Egg Collector',desc:'Hatch three event eggs',coins:5000,rare:2,test:()=>(S.eggs||[]).length>=3},
+  {id:'ev_enter',icon:'gem',name:'Event Entrant',desc:'Enter a special event',coins:100,test:()=>!!S.ev},
+  {id:'ev_aurora',icon:'crown',name:'Aurora Champion',desc:'Hatch the Aurora Peak egg',coins:2000,rare:2,test:()=>(S.eggs||[]).includes('aurora26')},
+  {id:'ev_ember',icon:'flame',name:'Ember Monarch',desc:'Hatch the Ember Throne egg',coins:2000,rare:2,test:()=>(S.eggs||[]).includes('ember27')},
   {id:'duel100',icon:'crown',name:'Century Rival',desc:'Beat a friend with 100 points or more, no boosts',coins:80,test:()=>S.friendBig>=1}
 ];
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -1051,6 +1113,9 @@ function cleanSave(raw){
   for(const k of ['best','coins','blocks','perfects','played','revives','dodged','shields','bestCombo','maxHeight','streak','twistDone','friendWins','friendBig','relics','untouch']) if(own(raw,k)) out[k]=num(raw[k]);
   if(own(raw,'fsHint')) out.fsHint=num(raw.fsHint,99);
   if(own(raw,'hintPow')) out.hintPow=num(raw.hintPow,9);
+  if(raw.ev && typeof raw.ev==='object' && typeof raw.ev.id==='string' && /^[a-z0-9]{3,20}$/.test(raw.ev.id)) out.ev={id:raw.ev.id,attempts:num(raw.ev.attempts,1000),best:num(raw.ev.best,1e6),hatched:raw.ev.hatched?1:0,chestOk:Array.isArray(raw.ev.chestOk)?[...new Set(raw.ev.chestOk.map(Number).filter(n=>n>=0&&n<8))]:[]};
+  if(Array.isArray(raw.eggs)) out.eggs=[...new Set(raw.eggs.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}$/.test(v)))].slice(0,60);
+  if(typeof raw.evSeen==='string' && /^[a-z0-9]{0,20}$/.test(raw.evSeen)) out.evSeen=raw.evSeen;
   if(['beginner','medium','advanced','ultra'].includes(raw.hzLevel)) out.hzLevel=raw.hzLevel;
   if(raw.hzBests && typeof raw.hzBests==='object') for(const k of ['beginner','advanced','ultra']) if(own(raw.hzBests,k)) out.hzBests[k]=num(raw.hzBests[k]);
   /* the last raceable round (so Friend race can still send it after an update) and the friend-race history: checked by shape, because the challenge parser is not ready yet */
@@ -1253,7 +1318,7 @@ async function loadLang(code){
   }catch(e){ dict={}; return 'en'; }
 }
 /* containers whose content is generated by JS (already passed through tr()) */
-const I18N_SKIP='#unlockRows small,#csEarn,#csBuy,#powerList,#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
+const I18N_SKIP='#evCard,#evBody,#evTitle,#hatchMsg,#hatchRw,#unlockRows small,#csEarn,#csBuy,#powerList,#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
 const origText=new WeakMap(), origAttr=new WeakMap();
 function staticTextNodes(root){
   const out=[];
@@ -1770,7 +1835,7 @@ function modeTip(id){
   if(!MODE_TIPS[id] || S.tips[id] || !S.tutSeen) return;
   S.tips[id]=1; save(); toast(`${I('sparkles','ic-gold')} ${tr(MODE_TIPS[id])}`,3600);
 }
-function restart(){ if(passPlay){ challenge=null; passPlay=1; friendStart=true; } else if(friendRun && !challenge && mode!=='campaign') friendStart=true; if(mode==='campaign') startStage(stage); else startMode(mode==='practice'?S.lastMode:mode); }
+function restart(){ if(mode==='event'){ startEvent(); return; } if(passPlay){ challenge=null; passPlay=1; friendStart=true; } else if(friendRun && !challenge && mode!=='campaign') friendStart=true; if(mode==='campaign') startStage(stage); else startMode(mode==='practice'?S.lastMode:mode); }
 function newRun(){
   const M=MODES[mode];
   baseW=Math.min(W*(mod.startFrac||CFG.startFrac), CFG.maxW*u);
@@ -1780,7 +1845,7 @@ function newRun(){
   lives=mod.lives||M.lives; maxLives=lives; timeLeft=CFG.timedSeconds; timerOn=false;
   lift=null; freeBlocks=0; duelLogged=false; titanLeft=0; magnetLeft=0; freezeT=0; waterLeft=0; relicTaken=new Set(); relicRun=0; upDur=0; upT=0; upAng=0; upMin=6; upNext=rand(6,10); armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
   if(challenge && challenge.mode!==mode) challenge=null;
-  runSeed=challenge?challenge.seed:(Math.random()*2147483647)|0; assisted=assistOn();
+  runSeed=challenge?challenge.seed:(mode==='event' && activeEvent())?activeEvent().seed:(Math.random()*2147483647)|0; assisted=assistOn();
   prunePicks(); held=[]; powerPhase='off'; tsc=1; $('power').classList.add('hidden');
   cuLeft={}; friendRun=friendStart||!!challenge; friendStart=false;
   if(boostsAllowed(mode) && !friendRun){
@@ -2326,7 +2391,7 @@ function endRun(reason){
   const before=JSON.parse(JSON.stringify({coins:S.coins,perfects:S.perfects,played:S.played,blocks:S.blocks,bestCombo:S.bestCombo,maxHeight:S.maxHeight,best:S.best,bests:S.bests,boostBests:S.boostBests,ghosts:S.ghosts,ach:S.ach,weekly:S.weekly,twistBest:S.twist&&S.twist.best}));
   const earned = M.coins===false ? 0 : Math.floor((Math.floor(score/5)+Math.floor(perfectsRun/2))*(mod.coinMul||1));
   S.coins+=earned; S.perfects+=perfectsRun; S.played++;
-  const xp=applyXp(runBlocks);
+  const xp=applyXp(runBlocks); if(mode==='event') evAfterRound();
   if(!boosted){ S.bestCombo=Math.max(S.bestCombo||0,bestCombo); S.maxHeight=Math.max(S.maxHeight||0,stack.length-1); }
   if(mode==='daily') S.twist.best=Math.max(S.twist.best||0,score);
   const prevBest=boosted?(S.boostBests[mode]||0):bestGet(mode);
@@ -2400,6 +2465,7 @@ function showOver(r){
   const viaMenu=friendRun && !challenge && challengeOk();
   $('copyCode').classList.toggle('hidden',!viaMenu); $('share').classList.toggle('hidden',viaMenu);        // started from Friend race: copy a code (no link); after any other round Share still sends the link
   if(friendRun && !challenge && challengeOk()) $('oNext').innerHTML=`${I('share')} ${tr('Tap Share to challenge a friend.')}`;
+  if(mode==='event') evOverText();
   rv.innerHTML=tr('Revive · {n} {coin}',{n:CFG.reviveCost,coin:I('coin')});
   rv.classList.toggle('off', S.coins<CFG.reviveCost);
   const rv2=$('revive2'); rv2.classList.toggle('hidden',!showRv); rv2.innerHTML=tr('Revive + Regrow · {n} {coin}',{n:CFG.reviveCost*2,coin:I('coin')}); rv2.classList.toggle('off',S.coins<CFG.reviveCost*2);
@@ -2981,7 +3047,7 @@ async function shareScore(){
 }
 
 /* ================= Menu / UI ================= */
-const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet'];
+const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet','evsheet','hatch'];
 function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
@@ -2994,6 +3060,171 @@ function nextUnlock(){
   }
   return best?best.txt:'';
 }
+
+/* ================= Special events: an ultra-rare, one-off map that comes and goes ================= */
+const EVENTS=[
+  {id:'aurora26',name:'Aurora Peak',tag:'Climb under the northern lights.',from:[2026,10,14],to:[2026,11,14],seed:20261214,egg:['#7ff0d0','#2fd6a1'],
+   mod:{startFrac:.4,speed:1.6,tremor:1,upside:1,bombMul:1.4,gap:4,hz:{lava:3,ice:3,glue:4,wind:4},chance:{lava:.14,ice:.25,glue:.22,gust:.3}},
+   chests:[{at:250,coins:1500},{at:500,coins:3000,item:['fx','confetti']},{at:750,coins:4500,item:['accent','ocean']}],
+   reward:{coins:5000,theme:'aurora',item:['topper','aurora']}},
+  {id:'ember27',name:'Ember Throne',tag:'Rule the fire.',from:[2027,0,14],to:[2027,1,14],seed:20270214,egg:['#ff8a3a','#c4401a'],
+   mod:{startFrac:.38,speed:1.7,dark:1,tremor:1,bombMul:1.5,gap:4,hz:{lava:3,ice:4,glue:4,wind:4},chance:{lava:.2,ice:.22,glue:.22,gust:.3}},
+   chests:[{at:250,coins:1500},{at:500,coins:3000,item:['fx','stars']},{at:750,coins:4500,item:['accent','red']}],
+   reward:{coins:5000,theme:'emberthrone',item:['topper','embercat']}}
+];
+let fakeNow=0;                                                    // tests set this
+const evNow=()=>fakeNow||Date.now();
+const evStart=e=>new Date(e.from[0],e.from[1],e.from[2]).getTime(), evEnd=e=>new Date(e.to[0],e.to[1],e.to[2],23,59,59).getTime();
+const activeEvent=()=>{ const n=evNow(); return EVENTS.find(e=>n>=evStart(e)&&n<=evEnd(e))||null; };
+const evState=ev=>(ev && S.ev && S.ev.id===ev.id)?S.ev:null;
+function fmtLeft(ms){
+  const t=Math.max(0,Math.floor(ms/1000)), d=Math.floor(t/86400), h=Math.floor(t%86400/3600), m=Math.floor(t%3600/60), sec=t%60;
+  return d>0?tr('{d}d {h}h left',{d,h}):h>0?tr('{h}h {m}m left',{h,m}):tr('{m}m {s}s left',{m,s:sec});
+}
+function renderEventCard(){
+  const el=$('evCard'), ev=activeEvent(); if(!el) return;
+  $('menu').classList.toggle('evon',!!ev);
+  if(!ev){ el.classList.add('hidden'); return; }
+  el.classList.remove('hidden'); const st=evState(ev);
+  el.innerHTML=`<i>${I('gem')}</i><div><b>${tr(ev.name)}</b><span>${st?(st.hatched?tr('Egg hatched!'):tr('Best {n} / {g}',{n:st.best,g:CFG.evGoal})):tr('Special event · {n} coins',{n:nf(CFG.evCost)})}</span></div><em>${fmtLeft(evEnd(ev)-evNow())}</em>`;
+}
+setInterval(()=>{ try{ if(state==='menu' && !$('menu').classList.contains('hidden')) renderEventCard(); if(!$('evsheet').classList.contains('hidden')) renderEvent(true); }catch(e){} },1000);
+const evItemName=it=>tr(itemName(it[0],it[1]));
+function evRewardNames(ev){
+  const r=ev.reward, out=[`${I('coin')} ${nf(r.coins)}`]; if(r.theme) out.push(`${I('palette')} ${tr(THEMES[r.theme].name)}`); if(r.item) out.push(`${I('sparkles')} ${evItemName(r.item)}`); out.push(`${I('award')} ${tr('Super rare award')}`); return out;
+}
+function openEvent(){ const ev=activeEvent(); if(!ev) return; $('evsheet').classList.remove('hidden'); renderEvent(); soon(syncBack); }
+function closeEvent(){ $('evsheet').classList.add('hidden'); soon(syncBack); }
+function renderEvent(tick){
+  const ev=activeEvent(); if(!ev){ closeEvent(); return; }
+  const st=evState(ev), left=fmtLeft(evEnd(ev)-evNow());
+  if(tick && $('evBody').querySelector('.evleft')){ $('evBody').querySelector('.evleft').textContent=left; return; }       // once a second: only the clock
+  $('evTitle').textContent=tr(ev.name);
+  let h=`<p class="evtag">${tr(ev.tag)}</p><div class="evleft">${left}</div>`;
+  if(!st){
+    h+=`<ul><li>${tr('Reach a score of {n} on one very hard map.',{n:nf(CFG.evGoal)})}</li><li>${tr('You get {n} attempts.',{n:CFG.evAttempts})}</li><li>${tr('Milestone chests at 250, 500 and 750 along the way.',{})}</li><li>${tr('Hatch the egg at {n} for a one-of-a-kind reward.',{n:nf(CFG.evGoal)})}</li></ul>`
+      +`<h4>${tr('IN THE EGG')}</h4><div class="evegg">${evRewardNames(ev).map(x=>`<span>${x}</span>`).join('')}</div>`
+      +`<button class="btn gold big" data-ev="enter">${tr('Enter · {n} {coin}',{n:nf(CFG.evCost),coin:I('coin')})}</button><p class="lead" style="max-width:none">${tr('One entry per event. No refunds.')}</p>`;
+  } else {
+    const pct=clamp(st.best/CFG.evGoal,0,1)*100, left2=CFG.evAttempts-st.attempts;
+    h+=`<div class="evbar"><div class="evfill" style="width:${pct}%"></div><div class="evseg"></div></div><div class="evbarL"><span>${tr('Best {n} / {g}',{n:st.best,g:nf(CFG.evGoal)})}</span><span>${tr('{n} attempts left',{n:left2})}</span></div>`;
+    h+=`<h4>${tr('MILESTONE CHESTS')}</h4>`+ev.chests.map((c,i)=>{ const got=st.chestOk.includes(i), can=st.best>=c.at && !got;
+      return `<div class="evch${can?' ok':''}${got?' done':''}"><i>${I(got?'check':'gem')}</i><div><b>${tr('Chest at {n}',{n:c.at})}</b><small>${nf(c.coins)} ${I('coin')}${c.item?' · '+evItemName(c.item):''}</small></div>${can?`<button class="btn gold" data-ev="chest" data-i="${i}">${tr('Open')}</button>`:got?`<span>${tr('Opened')}</span>`:''}</div>`; }).join('');
+    if(st.hatched) h+=`<div class="evch done"><i>${I('trophy')}</i><div><b>${tr('Egg hatched!')}</b><small>${evRewardNames(ev).join(' · ')}</small></div></div>`;
+    else if(st.best>=CFG.evGoal) h+=`<button class="btn gold big" data-ev="hatch">${tr('HATCH THE EGG')}</button>`;
+    h+=`<button class="btn primary${left2<=0?' off':''}" data-ev="play">${left2>0?tr('Play an attempt'):tr('No attempts left')}</button>`;
+  }
+  h+=`<h4>${tr('HALL OF EGGS')}</h4><div class="evegg">`+EVENTS.filter(e=>evStart(e)<=evNow()||S.eggs.includes(e.id)).map(e=>S.eggs.includes(e.id)?`<span>${I('trophy')} ${tr(e.name)}</span>`:`<span style="opacity:.55">${I('lock')} ???</span>`).join('')+`</div>`;
+  $('evBody').innerHTML=h;
+}
+function enterEvent(){
+  const ev=activeEvent(); if(!ev || evState(ev)) return;
+  if(S.coins<CFG.evCost){ toast(tr('Need {n} {coin} — you have {m}',{n:nf(CFG.evCost),coin:I('coin'),m:nf(S.coins)})); return; }
+  S.coins-=CFG.evCost; S.ev={id:ev.id,attempts:0,best:0,hatched:0,chestOk:[]}; save(); setCoins(); sfx.up(); checkAch(); renderEvent(); renderEventCard();
+}
+function grantItem(it){ const k=it[0]+':'+it[1]; if(SHOP[it[0]] && SHOP[it[0]][it[1]] && !S.shop.owned.includes(k)) S.shop.owned.push(k); }
+function claimChest(i){
+  const ev=activeEvent(), st=evState(ev); if(!st) return; const c=ev.chests[i];
+  if(!c || st.best<c.at || st.chestOk.includes(i)) return;
+  st.chestOk.push(i); S.coins+=c.coins; if(c.item) grantItem(c.item); save(); setCoins(); sfx.up(); burst(W/2,H*.4,50,40,400*u,600);
+  toast(`${I('gem','ic-gold')} ${tr('Chest opened! +{n} {coin}',{n:nf(c.coins),coin:I('coin')})}${c.item?' · '+evItemName(c.item):''}`,3200); renderEvent();
+}
+function startEvent(){
+  const ev=activeEvent(), st=evState(ev); if(!ev || !st){ showMenu(); return; }
+  if(st.attempts>=CFG.evAttempts){ toast(tr('No attempts left')); return; }
+  rollDay(); st.attempts++; save(); mode='event'; mod=Object.assign({lives:3,bombs:true},ev.mod); newRun();
+}
+function evAfterRound(){
+  const ev=activeEvent(), st=evState(ev); if(!st) return;
+  const was=st.best; st.best=Math.max(st.best,score);
+  const n=ev.chests.filter((c,i)=>was<c.at && st.best>=c.at).length;
+  if(n) setTimeout(()=>toast(`${I('gem','ic-gold')} ${tr('Chest unlocked! Open it in the event.')}`,3200),900);
+  if(was<CFG.evGoal && st.best>=CFG.evGoal) setTimeout(()=>toast(`${I('gem','ic-gold')} ${tr('The egg is ready to hatch!')}`,3600),1400);
+  save();
+}
+function evOverText(){
+  const ev=activeEvent(), st=evState(ev); if(!ev||!st) return;
+  $('oLabel').textContent=ucase(tr(ev.name)); $('oBest').innerHTML=tr('Best <b>{n}</b> / {g}',{n:st.best,g:nf(CFG.evGoal)}); $('oCoins').innerHTML=tr('{n} attempts left',{n:Math.max(0,CFG.evAttempts-st.attempts)});
+  $('oNext').innerHTML=st.best>=CFG.evGoal&&!st.hatched?`${I('gem','ic-gold')} ${tr('The egg is ready to hatch!')}`:'';
+}
+$('evCard').onclick=()=>{ sfx.tap(); openEvent(); };
+$('evBg').onclick=$('evClose').onclick=()=>{ sfx.tap(); closeEvent(); };
+$('evBody').addEventListener('click',e=>{ const b=e.target.closest('[data-ev]'); if(!b) return; const k=b.dataset.ev; sfx.tap();
+  if(k==='enter') enterEvent(); else if(k==='chest') claimChest(+b.dataset.i); else if(k==='play'){ closeEvent(); startEvent(); } else if(k==='hatch'){ closeEvent(); openHatch(); } });
+
+/* ----- hatching the egg: press and hold for about 15 seconds while it cracks and glows, then it bursts and the rewards are revealed one by one ----- */
+const hat={phase:'off',p:0,hold:false,t:0,raf:0,last:0,cracks:[],sparks:[],frags:[],conf:[],rays:0,flash:0,seenK:0,ev:null,shown:0};
+const HATCH_SECONDS=15;
+function openHatch(){
+  const ev=activeEvent(), st=evState(ev); if(!ev||!st||st.hatched||st.best<CFG.evGoal) return;
+  Object.assign(hat,{phase:'hold',p:0,hold:false,t:0,sparks:[],frags:[],conf:[],rays:0,flash:0,seenK:0,ev,shown:0});
+  const rnd=((a)=>()=>{ a=(a*1664525+1013904223)>>>0; return a/4294967296; })(ev.seed); hat.cracks=[];
+  for(let i=0;i<9;i++){ const ang=-Math.PI/2+(i-4)*.62+(rnd()-.5)*.4, len=.55+rnd()*.5, pts=[[0,-.05+(rnd()-.5)*.2]]; let x=0,y=pts[0][1]; for(let k=1;k<=6;k++){ x+=Math.cos(ang)*len/6+(rnd()-.5)*.09; y+=Math.sin(ang)*len/6+(rnd()-.5)*.09; pts.push([x,y]); } hat.cracks.push({pts,th:(i+1)/11}); }
+  hideAll(); $('hatch').classList.remove('hidden'); $('hatchRw').innerHTML=''; $('hatchBtn').classList.remove('hidden'); $('hatchOk').classList.add('hidden'); $('hatchMsg').textContent=tr('Press and hold to hatch the egg'); soon(syncBack);
+  hat.last=performance.now(); cancelAnimationFrame(hat.raf); hat.raf=requestAnimationFrame(hatchLoop);
+}
+function closeHatch(){ hat.phase='off'; cancelAnimationFrame(hat.raf); $('hatch').classList.add('hidden'); showMenu(); openEvent(); }
+function hatchLoop(now){
+  const dt=Math.min(.05,(now-hat.last)/1000); hat.last=now; hat.t+=dt;
+  const cv=$('hatchCv'), dpr=Math.min(2,window.devicePixelRatio||1), w=cv.clientWidth, h=cv.clientHeight;
+  if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){ cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr); }
+  const g=cv.getContext('2d'); g.setTransform(dpr,0,0,dpr,0,0); g.clearRect(0,0,w,h);
+  const ev=hat.ev, c0=ev.egg[0], c1=ev.egg[1], cx=w/2, cy=h*.38, R=Math.min(w*.34,h*.24);
+  if(hat.phase==='hold'){
+    hat.p=clamp(hat.p+(hat.hold?dt/HATCH_SECONDS:-dt*.02),0,1);
+    const k=hat.cracks.filter(c=>hat.p>=c.th*.9).length; if(k>hat.seenK){ hat.seenK=k; sfx.perfect(Math.min(8,k)); vib([14,20,14]); }
+    if(hat.hold && !reduceOn() && Math.random()<dt*20*hat.p) vib(6);
+    $('hatchMsg').textContent=hat.p<=0?tr('Press and hold to hatch the egg'):tr('Keep holding… {n}%',{n:Math.floor(hat.p*100)});
+    if(hat.p>=1){ hatchBurst(); }
+  }
+  const sh=(hat.phase==='hold'&&!reduceOn())?hat.p*hat.p*(hat.hold?12:3):0, ox=(Math.random()-.5)*sh, oy=(Math.random()-.5)*sh;
+  const glow=hat.phase==='hold'?.12+hat.p*.75:Math.max(0,.9-hat.t*.2);
+  const rg=g.createRadialGradient(cx,cy,R*.2,cx,cy,R*3.2); rg.addColorStop(0,c0+Math.round(glow*255).toString(16).padStart(2,'0')); rg.addColorStop(1,'#02040c00'); g.fillStyle=rg; g.fillRect(0,0,w,h);
+  if(hat.phase==='burst'||hat.phase==='reveal'){                                   // rotating rays
+    hat.rays+=dt*.6; g.save(); g.translate(cx,cy); g.rotate(hat.rays); const a=Math.max(0,1-hat.t*.12)*.55;
+    for(let i=0;i<14;i++){ g.rotate(Math.PI*2/14); g.fillStyle=`rgba(255,240,170,${a*(i%2?.5:1)})`; g.beginPath(); g.moveTo(0,0); g.lineTo(-30,-Math.max(w,h)); g.lineTo(30,-Math.max(w,h)); g.closePath(); g.fill(); } g.restore();
+  }
+  if(hat.phase==='hold'){
+    g.save(); g.translate(cx+ox,cy+oy);
+    const eg=g.createLinearGradient(-R,-R,R,R); eg.addColorStop(0,c0); eg.addColorStop(.55,c1); eg.addColorStop(1,'#10223a');
+    g.beginPath(); g.ellipse(0,0,R*.78,R,0,0,Math.PI*2); g.fillStyle=eg; g.shadowColor=c0; g.shadowBlur=18+hat.p*50; g.fill(); g.shadowBlur=0;
+    g.save(); g.beginPath(); g.ellipse(0,0,R*.78,R,0,0,Math.PI*2); g.clip();
+    g.fillStyle='rgba(255,255,255,.18)'; for(let i=0;i<7;i++){ g.beginPath(); g.arc(Math.sin(i*2.1)*R*.5,Math.cos(i*1.7)*R*.6,R*.07+((i*7)%5)*R*.012,0,6.283); g.fill(); }       // speckles
+    g.fillStyle=`rgba(255,250,200,${hat.p*.55})`; g.fillRect(-R,-R,R*2,R*2); g.restore();                                                                       // light shining through
+    g.lineCap='round'; g.lineJoin='round';
+    for(const c of hat.cracks){ const f=clamp((hat.p-c.th*.9)/.12,0,1); if(f<=0) continue; const n=Math.max(1,Math.ceil((c.pts.length-1)*f));
+      g.beginPath(); g.moveTo(c.pts[0][0]*R,c.pts[0][1]*R); for(let i=1;i<=n;i++) g.lineTo(c.pts[i][0]*R,c.pts[i][1]*R); g.strokeStyle='#fffbd0'; g.shadowColor='#fff3a0'; g.shadowBlur=10+hat.p*14; g.lineWidth=1.5+hat.p*3.5; g.stroke();
+      if(Math.random()<dt*12*hat.p){ const q=c.pts[Math.min(n,c.pts.length-1)]; hat.sparks.push({x:cx+q[0]*R,y:cy+q[1]*R,vx:(Math.random()-.5)*160,vy:-60-Math.random()*120,l:1}); } }
+    g.restore();
+  }
+  for(const f of hat.frags){ f.x+=f.vx*dt; f.y+=f.vy*dt; f.vy+=700*dt; f.r+=f.vr*dt; f.l-=dt*.45; g.save(); g.translate(f.x,f.y); g.rotate(f.r); g.globalAlpha=clamp(f.l,0,1); g.fillStyle=f.c; g.beginPath(); g.moveTo(0,-f.s); g.lineTo(f.s*.8,f.s*.6); g.lineTo(-f.s*.7,f.s*.5); g.closePath(); g.fill(); g.restore(); }
+  for(const q of hat.conf){ q.x+=q.vx*dt; q.y+=q.vy*dt; q.vy+=260*dt; q.vx*=.995; q.r+=q.vr*dt; q.l-=dt*.25; if(q.y>h+20||q.l<=0){ q.l=0; continue; } g.save(); g.translate(q.x,q.y); g.rotate(q.r); g.fillStyle=q.c; g.globalAlpha=clamp(q.l*2,0,1); g.fillRect(-q.s,-q.s*.5,q.s*2,q.s); g.restore(); }
+  g.globalCompositeOperation='lighter'; for(const q of hat.sparks){ q.x+=q.vx*dt; q.y+=q.vy*dt; q.vy+=300*dt; q.l-=dt*1.4; g.globalAlpha=clamp(q.l,0,1); g.fillStyle='#ffe9a0'; g.beginPath(); g.arc(q.x,q.y,2.4,0,6.283); g.fill(); } g.globalAlpha=1; g.globalCompositeOperation='source-over';
+  hat.sparks=hat.sparks.filter(q=>q.l>0); hat.frags=hat.frags.filter(f=>f.l>0); hat.conf=hat.conf.filter(q=>q.l>0);
+  if(hat.flash>0){ g.fillStyle=`rgba(255,255,255,${Math.min(1,hat.flash)})`; g.fillRect(0,0,w,h); hat.flash-=dt*1.6; }
+  if(hat.phase!=='off') hat.raf=requestAnimationFrame(hatchLoop);
+}
+function hatchBurst(){
+  hat.phase='burst'; hat.t=0; hat.flash=1.4; sfx.up(); vib([40,30,60,30,100]);
+  const cv=$('hatchCv'), w=cv.clientWidth, h=cv.clientHeight, cx=w/2, cy=h*.38, R=Math.min(w*.34,h*.24), cols=[hat.ev.egg[0],hat.ev.egg[1],'#ffe27a','#ffffff','#ff7ad9'];
+  for(let i=0;i<16;i++){ const a=Math.random()*6.283; hat.frags.push({x:cx+Math.cos(a)*R*.3,y:cy+Math.sin(a)*R*.3,vx:Math.cos(a)*(200+Math.random()*340),vy:Math.sin(a)*(200+Math.random()*340)-220,r:0,vr:(Math.random()-.5)*10,s:R*(.12+Math.random()*.2),c:cols[i%2],l:1.4}); }
+  for(let i=0;i<220;i++){ const a=-Math.PI/2+(Math.random()-.5)*2.6, v=300+Math.random()*700; hat.conf.push({x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:0,vr:(Math.random()-.5)*14,s:3+Math.random()*4,c:cols[i%cols.length],l:1+Math.random()}); }
+  $('hatchBtn').classList.add('hidden'); $('hatchMsg').textContent=tr('EGG HATCHED!');
+  const before=Object.assign({},S.ach), ev=hat.ev, st=evState(ev), r=ev.reward, list=[];
+  st.hatched=1; if(!S.eggs.includes(ev.id)) S.eggs.push(ev.id); S.coins+=r.coins; list.push({ic:'coin',n:`+${nf(r.coins)}`,t:tr('COINS')});
+  if(r.theme){ if(!S.owned.includes(r.theme)) S.owned.push(r.theme); list.push({ic:'palette',n:tr(THEMES[r.theme].name),t:tr('NEW THEME')}); }
+  if(r.item){ grantItem(r.item); list.push({ic:'sparkles',n:evItemName(r.item),t:tr('NEW TOPPER · SUPER RARE')}); }
+  checkAch(); setCoins(); save();
+  for(const a of ACH) if(S.ach[a.id] && !before[a.id]) list.push({ic:a.icon,n:tr(a.name),t:a.rare===2?tr('SUPER RARE AWARD'):tr('AWARD')});
+  setTimeout(()=>{ hat.phase='reveal'; hat.shown=0; const box=$('hatchRw'); box.innerHTML='';
+    list.forEach((x,i)=>setTimeout(()=>{ const d=document.createElement('div'); d.className='rw'; d.innerHTML=`<i>${I(x.ic)}</i><div><b>${x.n}</b><small>${x.t}</small></div>`; box.appendChild(d); sfx.perfect(Math.min(8,i+3)); vib(18); box.scrollTop=box.scrollHeight;
+      if(i===list.length-1) setTimeout(()=>{ $('hatchOk').classList.remove('hidden'); },500); },i*900));
+  },2200);
+}
+const holdOn=e=>{ if(hat.phase==='hold'){ hat.hold=true; try{ e.target.setPointerCapture&&e.target.setPointerCapture(e.pointerId); }catch(_){} } }, holdOff=()=>{ hat.hold=false; };
+for(const el of [$('hatchBtn'),$('hatchCv')]){ el.addEventListener('pointerdown',holdOn); el.addEventListener('pointerup',holdOff); el.addEventListener('pointercancel',holdOff); el.addEventListener('pointerleave',holdOff); el.style.touchAction='none'; }
+$('hatchOk').onclick=()=>{ sfx.tap(); hat.phase='off'; cancelAnimationFrame(hat.raf); $('hatch').classList.add('hidden'); showMenu(); openEvent(); };
+
 function renderMenu(){
   const lvl=levelOf(S.blocks), a=levelStart(lvl), b=levelStart(lvl+1);
   $('mCoins').textContent=S.coins; $('lvlN').textContent=lvl; $('xpFill').style.width=(clamp((S.blocks-a)/(b-a),0,1)*100)+'%';
@@ -3001,7 +3232,7 @@ function renderMenu(){
   $('modeName').innerHTML=`${I(M0.icon)} ${tr(M0.name)}${hzKey(lm)?' · '+tr(HZ_LEVELS[S.hzLevel].name):''}`;
   $('playSub').textContent = best>0 ? (lm==='daily'?tr("Today's best {n}",{n:best}):tr('Best {n}',{n:best})) : tr("Let's go!");
   const armedN=S.shop.pick.filter(id=>(S.shop.boosts[id]||0)>0).length; $('boostN').textContent=armedN; $('openBoosts').classList.toggle('has',armedN>0);
-  $('openAwards').classList.toggle('dot',weeklyReady());
+  $('openAwards').classList.toggle('dot',weeklyReady()); renderEventCard();
   const nu=nextUnlock(); $('nextCard').classList.toggle('hidden',!nu); $('nextCard').innerHTML=nu?`${I('target')} ${tr('Next unlock: <b>{x}</b>',{x:nu})}`:'';
   const claimed=S.lastClaim===today();
   const reward=20+10*Math.min(claimed?S.streak-1:(S.lastClaim===yesterday()?S.streak:0),6);
@@ -3078,6 +3309,7 @@ function themeAct(id){
   const th=THEMES[id], own=S.owned.includes(id), eq=S.theme===id, un=th.unlock;
   if(own) return eq?{act:'none',label:I('check')+' '+tr('Equipped'),cls:'',sub:tr('Currently equipped'),dis:true}:{act:'equip',label:tr('Equip'),cls:'primary',sub:tr('Owned')};
   if(un.t==='level') return {act:'lock',label:`${I('lock')} ${tr('Level {n}',{n:un.n})}`,cls:'off',sub:tr("Unlocks at level {n} (you're level {m})",{n:un.n,m:levelOf(S.blocks)})};
+  if(un.t==='event'){ const ev=EVENTS.find(x=>x.id===un.id); return {act:'lock2',label:`${I('lock')} ${tr('Event')}`,cls:'off',sub:tr('Hatch the {name} egg',{name:tr(ev?ev.name:'')})}; }
   if(un.t==='ach'){ const a=ACH.find(x=>x.id===un.id); return {act:'lock2',label:`${I('lock')} ${tr('Award')}`,cls:'off',sub:tr('Earn the award "{name}"',{name:tr(a?a.name:'')})}; }
   if(un.t==='coins') return {act:'coin',label:`${I('coin')} ${un.n}`,cls:S.coins>=un.n?'gold':'off',sub:tr('Costs {n} coins (you have {m})',{n:un.n,m:S.coins})};
   return {act:'iap',label:priceOf(id,un.price),cls:'gold',sub:tr('Premium cosmetic theme')};
@@ -3086,6 +3318,7 @@ const itemName=(slot,id)=> (slot==='scene' && THEMES[id]) ? THEMES[id].name : ((
 function itemAct(slot,id){
   const it=SHOP[slot][id]||{}, eq=S.shop.equip[slot]===id;
   if(ownsItem(slot,id)) return eq?{act:'none',label:I('check')+' '+tr('Equipped'),cls:'',sub:tr('Currently equipped'),dis:true}:{act:'equip',label:tr('Equip'),cls:'primary',sub:(it.free||slot==='scene')?tr('Included'):tr('Owned')};
+  if(it.evt){ const ev=EVENTS.find(x=>x.id===it.evt); return {act:'lock2',label:`${I('lock')} ${tr('Event')}`,cls:'off',sub:tr('Hatch the {name} egg',{name:tr(ev?ev.name:'')})}; }
   if(it.coins) return {act:'buy',label:`${I('coin')} ${it.coins}`,cls:S.coins>=it.coins?'gold':'off',sub:tr('Costs {n} coins (you have {m})',{n:it.coins,m:S.coins})};
   return {act:'iap',label:priceOf(slot+':'+id,it.iap),cls:'gold',sub:tr('Premium cosmetic')};
 }
@@ -3217,6 +3450,7 @@ function themeAction(act,id){
 }
 function itemAction(act,slot,id){
   const it=(SHOP[slot]||{})[id]; if(!itemOk(slot,id)) return false;
+  if(act==='lock2'){ toast(itemAct(slot,id).sub); return false; }
   if(act==='equip'){ if(!ownsItem(slot,id)) return false; S.shop.equip[slot]=id; save(); if(slot==='scene') initAmb(); if(slot==='accent') applyAccent(); sfx.tap(); renderThemes(); return true; }
   if(act==='buy'){
     if(!it || !it.coins || ownsItem(slot,id)) return false;
@@ -3376,7 +3610,7 @@ function showAwards(){
   $('aStats').innerHTML=[[tr('GAMES'),S.played],[tr('BLOCKS'),S.blocks],[tr('PERFECTS'),S.perfects],[tr('BEST COMBO'),'x'+(S.bestCombo||0)],[tr('MAX HEIGHT'),S.maxHeight||0],[tr('STARS'),starsTotal()]]
     .map(([k,v])=>`<div><b>${v}</b>${k}</div>`).join('');
   $('aCount').innerHTML=tr('<b>{n}</b> / {m} awards unlocked',{n,m:ACH.length});
-  $('aList').innerHTML=ACH.map(a=>`<div class="aw${S.ach[a.id]?' on':''}${a.rare?' rare':''}"><i aria-hidden="true">${I(a.icon)}</i><div><b>${tr(a.name)}${a.rare?` <u>${tr('RARE')}</u>`:''}</b><span>${tr(a.desc)}</span>${a.grant?`<small>${tr('Unlocks: {name}',{name:tr(a.grant.theme?THEMES[a.grant.theme].name:itemName(a.grant.item[0],a.grant.item[1]))})}</small>`:''}</div>${a.coins?`<em>+${a.coins} ${I('coin')}</em>`:''}</div>`).join(''); stagger('#aList .aw');
+  $('aList').innerHTML=ACH.map(a=>`<div class="aw${S.ach[a.id]?' on':''}${a.rare===2?' rare2':a.rare?' rare':''}"><i aria-hidden="true">${I(a.icon)}</i><div><b>${tr(a.name)}${a.rare===2?` <u>${tr('SUPER RARE')}</u>`:a.rare?` <u>${tr('RARE')}</u>`:''}</b><span>${tr(a.desc)}</span>${a.grant?`<small>${tr('Unlocks: {name}',{name:tr(a.grant.theme?THEMES[a.grant.theme].name:itemName(a.grant.item[0],a.grant.item[1]))})}</small>`:''}</div>${a.coins?`<em>+${a.coins} ${I('coin')}</em>`:''}</div>`).join(''); stagger('#aList .aw');
 }
 function showSettings(){
   hideAll(); $('settings').classList.remove('hidden');
@@ -3452,7 +3686,7 @@ $('csBuy').addEventListener('click',e=>{ const b=e.target.closest('[data-pack]')
    the browser's own and the app can close. */
 function soon(f){ if(typeof queueMicrotask==='function') queueMicrotask(f); else setTimeout(f,0); }       // right after the current handler finishes, before anything else can happen
 let backState='off', backWant=false, backAfter=null;          // off: no sentinel · armed: one is in the history · popping: we are removing it ourselves
-const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('hzsheet').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
+const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('hzsheet').classList.contains('hidden') && $('evsheet').classList.contains('hidden') && $('hatch').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
 function armBack(){
   if(backState==='off'){ try{ history.pushState({sr:1},''); backState='armed'; }catch(e){} }
   else if(backState==='popping') backWant=true;                // (arm again as soon as our own removal is done)
@@ -3467,6 +3701,8 @@ function handleBack(){
   if(open('power')){ closePower(); return; }
   if(open('udlg')){ closeUnlockDlg(); return; }
   if(open('fsheet')){ closeFriend(); return; }
+  if(open('hatch')){ if(hat.phase==='hold') closeHatch(); return; }
+  if(open('evsheet')){ closeEvent(); return; }
   if(open('hzsheet')){ closeHz(); return; }
   if(open('coinsSheet')){ closeCoins(); return; }
   if(state==='playing'){ if(paused) tap('resume'); else pause(); return; }
@@ -3663,7 +3899,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

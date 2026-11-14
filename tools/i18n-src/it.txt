@@ -664,3 +664,63 @@
 664|Lava, ghiaccio, colla, vento, scosse, schermo capovolto e i blocchi più veloci. Monete x1,5.
 665|Lava! Sopra la torre scioglie i 2 blocchi sotto. Toccala lontano dalla torre per farla cadere.
 666|Rivivi + Regrow · {n} {coin}
+667|Ancora {d}g {h}h
+668|Ancora {h}h {m}m
+669|Ancora {m}m {s}s
+670|{n} tentativi rimasti
+671|Ancora 30g 3h
+672|Campione dell'aurora
+673|Vetta dell'aurora
+674|Spirito dell'aurora
+675|PREMIO
+676|Migliore {n} / {g}
+677|Migliore <b>{n}</b> / {g}
+678|Forziere a {n}
+679|Forziere aperto! +{n} {coin}
+680|Forziere sbloccato! Aprilo nell'evento.
+681|Continua
+682|Collezionista di uova
+683|Uovo schiuso!
+684|UOVO SCHIUSO!
+685|Gatto brace
+686|Monarca della brace
+687|Trono di brace
+688|Partecipa · {n} {coin}
+689|Partecipa a un evento speciale
+690|Evento
+691|Partecipante all'evento
+692|Primo uovo
+693|SALA DELLE UOVA
+694|Schiudi un uovo evento
+695|Schiudi l'uovo di {name}
+696|Schiudi l'uovo della Vetta dell'aurora
+697|Schiudi l'uovo
+698|SCHIUDI L'UOVO
+699|Schiudi l'uovo a {n} per una ricompensa unica.
+700|Schiudi l'uovo del Trono di brace
+701|Schiudi tre uova evento
+702|TIENI PREMUTO PER SCHIUDERE
+703|NELL'UOVO
+704|Continua a tenere… {n}%
+705|FORZIERI TRAGUARDO
+706|Forzieri traguardo a 250, 500 e 750 lungo la strada.
+707|NUOVO TEMA
+708|NUOVO TOPPER · SUPER RARO
+709|Nessun tentativo rimasto
+710|Un ingresso per evento. Nessun rimborso.
+711|Apri
+712|Aperto
+713|Gioca un tentativo
+714|Tieni premuto per schiudere l'uovo
+715|Raggiungi {n} punti su una mappa difficilissima.
+716|Evento speciale
+717|Evento speciale · {n} monete
+718|Evento speciale · 20.000 monete
+719|SUPER RARO
+720|Premio super raro
+721|PREMIO SUPER RARO
+722|L'uovo è pronto per schiudersi!
+723|La mappa dell'evento speciale.
+724|Hai {n} tentativi.
+725|Scala sotto l'aurora boreale.
+726|Domina il fuoco.

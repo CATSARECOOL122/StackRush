@@ -664,3 +664,63 @@
 664|Lava, es, lem, angin, gempa, layar terbalik, dan blok tercepat. Koin x1,5.
 665|Lava! Di atas menaramu ia melelehkan 2 blok di bawahnya. Ketuk jauh dari menara untuk menjatuhkannya.
 666|Hidupkan + Regrow · {n} {coin}
+667|Sisa {d}h {h}j
+668|Sisa {h}j {m}m
+669|Sisa {m}m {s}d
+670|Sisa {n} percobaan
+671|Sisa 30h 3j
+672|Juara Aurora
+673|Puncak Aurora
+674|Roh Aurora
+675|PENGHARGAAN
+676|Terbaik {n} / {g}
+677|Terbaik <b>{n}</b> / {g}
+678|Peti di {n}
+679|Peti terbuka! +{n} {coin}
+680|Peti terbuka! Buka di event.
+681|Lanjut
+682|Kolektor Telur
+683|Telur menetas!
+684|TELUR MENETAS!
+685|Kucing Bara
+686|Penguasa Bara
+687|Takhta Bara
+688|Ikut · {n} {coin}
+689|Ikuti event spesial
+690|Event
+691|Peserta Event
+692|Telur Pertama
+693|BALAI TELUR
+694|Tetaskan telur event
+695|Tetaskan telur {name}
+696|Tetaskan telur Puncak Aurora
+697|Tetaskan telur
+698|TETASKAN TELUR
+699|Tetaskan telur di {n} untuk hadiah unik.
+700|Tetaskan telur Takhta Bara
+701|Tetaskan tiga telur event
+702|TAHAN UNTUK MENETASKAN
+703|DI DALAM TELUR
+704|Terus tahan… {n}%
+705|PETI MILESTONE
+706|Peti milestone di 250, 500, dan 750 sepanjang jalan.
+707|TEMA BARU
+708|TOPPER BARU · SANGAT LANGKA
+709|Percobaan habis
+710|Satu kali masuk per event. Tanpa pengembalian.
+711|Buka
+712|Terbuka
+713|Mainkan satu percobaan
+714|Tekan dan tahan untuk menetaskan telur
+715|Capai skor {n} di satu peta yang sangat sulit.
+716|Event spesial
+717|Event spesial · {n} koin
+718|Event spesial · 20.000 koin
+719|SANGAT LANGKA
+720|Penghargaan sangat langka
+721|PENGHARGAAN SANGAT LANGKA
+722|Telur siap menetas!
+723|Peta event spesial.
+724|Kamu punya {n} percobaan.
+725|Panjat di bawah cahaya utara.
+726|Kuasai api.

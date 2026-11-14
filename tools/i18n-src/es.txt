@@ -664,3 +664,63 @@
 664|Lava, hielo, pegamento, viento, temblores, pantalla al revés y los bloques más rápidos. Monedas x1,5.
 665|¡Lava! Sobre tu torre derrite los 2 bloques de debajo. Tócala lejos de la torre para tirarla.
 666|Revivir + Regenerar · {n} {coin}
+667|Quedan {d}d {h}h
+668|Quedan {h}h {m}m
+669|Quedan {m}m {s}s
+670|Quedan {n} intentos
+671|Quedan 30d 3h
+672|Campeón de Aurora
+673|Cima Aurora
+674|Espíritu de aurora
+675|PREMIO
+676|Mejor {n} / {g}
+677|Mejor <b>{n}</b> / {g}
+678|Cofre en {n}
+679|¡Cofre abierto! +{n} {coin}
+680|¡Cofre desbloqueado! Ábrelo en el evento.
+681|Continuar
+682|Coleccionista de huevos
+683|¡Huevo eclosionado!
+684|¡HUEVO ECLOSIONADO!
+685|Gato brasa
+686|Monarca de las brasas
+687|Trono de brasas
+688|Entrar · {n} {coin}
+689|Entra en un evento especial
+690|Evento
+691|Participante del evento
+692|Primer huevo
+693|SALÓN DE HUEVOS
+694|Eclosiona un huevo de evento
+695|Eclosiona el huevo de {name}
+696|Eclosiona el huevo de Cima Aurora
+697|Eclosiona el huevo
+698|ECLOSIONA EL HUEVO
+699|Eclosiona el huevo con {n} para una recompensa única.
+700|Eclosiona el huevo de Trono de brasas
+701|Eclosiona tres huevos de evento
+702|MANTÉN PARA ECLOSIONAR
+703|EN EL HUEVO
+704|Sigue manteniendo… {n}%
+705|COFRES DE HITOS
+706|Cofres de hitos en 250, 500 y 750 por el camino.
+707|NUEVO TEMA
+708|NUEVO ADORNO · SUPERRARO
+709|No quedan intentos
+710|Una entrada por evento. Sin reembolsos.
+711|Abrir
+712|Abierto
+713|Jugar un intento
+714|Mantén pulsado para eclosionar el huevo
+715|Consigue {n} puntos en un mapa muy difícil.
+716|Evento especial
+717|Evento especial · {n} monedas
+718|Evento especial · 20 000 monedas
+719|SUPERRARO
+720|Premio superraro
+721|PREMIO SUPERRARO
+722|¡El huevo está listo para eclosionar!
+723|El mapa del evento especial.
+724|Tienes {n} intentos.
+725|Sube bajo la aurora boreal.
+726|Domina el fuego.

@@ -664,3 +664,63 @@
 664|Lava, gelo, cola, vento, tremores, tela de cabeça para baixo e os blocos mais rápidos. Moedas x1,5.
 665|Lava! Sobre a torre, derrete os 2 blocos abaixo. Toque nela longe da torre para derrubá-la.
 666|Reviver + Regrow · {n} {coin}
+667|Restam {d}d {h}h
+668|Restam {h}h {m}m
+669|Restam {m}m {s}s
+670|Restam {n} tentativas
+671|Restam 30d 3h
+672|Campeão da Aurora
+673|Pico da Aurora
+674|Espírito da Aurora
+675|PRÊMIO
+676|Melhor {n} / {g}
+677|Melhor <b>{n}</b> / {g}
+678|Baú em {n}
+679|Baú aberto! +{n} {coin}
+680|Baú desbloqueado! Abra-o no evento.
+681|Continuar
+682|Colecionador de ovos
+683|Ovo chocado!
+684|OVO CHOCADO!
+685|Gato brasa
+686|Monarca das brasas
+687|Trono das brasas
+688|Entrar · {n} {coin}
+689|Entre em um evento especial
+690|Evento
+691|Participante do evento
+692|Primeiro ovo
+693|SALÃO DOS OVOS
+694|Choque um ovo de evento
+695|Choque o ovo de {name}
+696|Choque o ovo do Pico da Aurora
+697|Choque o ovo
+698|CHOCAR O OVO
+699|Choque o ovo com {n} para uma recompensa única.
+700|Choque o ovo do Trono das brasas
+701|Choque três ovos de evento
+702|SEGURE PARA CHOCAR
+703|NO OVO
+704|Continue segurando… {n}%
+705|BAÚS DE MARCOS
+706|Baús de marcos em 250, 500 e 750 pelo caminho.
+707|NOVO TEMA
+708|NOVO ENFEITE · SUPER RARO
+709|Sem tentativas
+710|Uma entrada por evento. Sem reembolso.
+711|Abrir
+712|Aberto
+713|Jogar uma tentativa
+714|Segure para chocar o ovo
+715|Alcance {n} pontos em um mapa muito difícil.
+716|Evento especial
+717|Evento especial · {n} moedas
+718|Evento especial · 20.000 moedas
+719|SUPER RARO
+720|Prêmio super raro
+721|PRÊMIO SUPER RARO
+722|O ovo está pronto para chocar!
+723|O mapa do evento especial.
+724|Você tem {n} tentativas.
+725|Suba sob a aurora boreal.
+726|Domine o fogo.

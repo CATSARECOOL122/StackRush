@@ -91,7 +91,7 @@ module.exports=[
   const p=await L.open(e);
   await p.evaluate(()=>{ __sr.S.coins=500; });
   await p.click('#openThemes'); await p.waitForTimeout(250);
-  assert.equal(await p.locator('.th').count(),21,'21 themes');
+  assert.equal(await p.locator('.th').count(),23,'23 themes');
   await p.click('.sw[data-id=neon]'); await p.waitForTimeout(250);
   assert.equal(await p.evaluate(()=>__sr.previewId),'neon'); assert.ok(await p.isVisible('#peek'));
   assert.equal(await p.evaluate(()=>__sr.S.theme),'sunset','preview does not change the saved theme');
@@ -195,7 +195,7 @@ module.exports=[
 
 ['music: generative loop starts on the first tap, follows the setting, and stops when muted', async(e,L)=>{
   const p=await L.open(e);
-  await p.mouse.click(195,420); await p.waitForTimeout(600);
+  await p.mouse.click(195,190); await p.waitForTimeout(600);
   assert.equal(await p.evaluate(()=>__sr.musicOn),true,'music is on after the first user gesture');
   await p.click('#mute2'); await p.waitForTimeout(200);
   assert.equal(await p.evaluate(()=>__sr.musicOn),false,'mute silences the music');

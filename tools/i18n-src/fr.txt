@@ -664,3 +664,63 @@
 664|Lave, glace, colle, vent, secousses, écran à l'envers et les blocs les plus rapides. Pièces x1,5.
 665|Lave ! Au-dessus de ta tour, elle fait fondre les 2 blocs en dessous. Touche-la loin de la tour pour la faire tomber.
 666|Relancer + Regrow · {n} {coin}
+667|Plus que {d}j {h}h
+668|Plus que {h}h {m}min
+669|Plus que {m}min {s}s
+670|{n} essais restants
+671|Plus que 30j 3h
+672|Champion de l'aurore
+673|Pic de l'aurore
+674|Esprit de l'aurore
+675|SUCCÈS
+676|Meilleur {n} / {g}
+677|Meilleur <b>{n}</b> / {g}
+678|Coffre à {n}
+679|Coffre ouvert ! +{n} {coin}
+680|Coffre débloqué ! Ouvre-le dans l'événement.
+681|Continuer
+682|Collectionneur d'œufs
+683|Œuf éclos !
+684|ŒUF ÉCLOS !
+685|Chat braise
+686|Monarque des braises
+687|Trône de braise
+688|Participer · {n} {coin}
+689|Participe à un événement spécial
+690|Événement
+691|Participant à l'événement
+692|Premier œuf
+693|SALLE DES ŒUFS
+694|Fais éclore un œuf d'événement
+695|Fais éclore l'œuf de {name}
+696|Fais éclore l'œuf du Pic de l'aurore
+697|Fais éclore l'œuf
+698|FAIRE ÉCLORE L'ŒUF
+699|Fais éclore l'œuf à {n} pour une récompense unique.
+700|Fais éclore l'œuf du Trône de braise
+701|Fais éclore trois œufs d'événement
+702|MAINTENIR POUR ÉCLORE
+703|DANS L'ŒUF
+704|Continue à maintenir… {n} %
+705|COFFRES D'ÉTAPE
+706|Des coffres d'étape à 250, 500 et 750 en chemin.
+707|NOUVEAU THÈME
+708|NOUVEAU TOPPER · SUPER RARE
+709|Plus d'essais
+710|Une entrée par événement. Aucun remboursement.
+711|Ouvrir
+712|Ouvert
+713|Jouer un essai
+714|Maintiens appuyé pour faire éclore l'œuf
+715|Atteins un score de {n} sur une carte très difficile.
+716|Événement spécial
+717|Événement spécial · {n} pièces
+718|Événement spécial · 20 000 pièces
+719|SUPER RARE
+720|Succès super rare
+721|SUCCÈS SUPER RARE
+722|L'œuf est prêt à éclore !
+723|La carte de l'événement spécial.
+724|Tu as {n} essais.
+725|Grimpe sous les aurores boréales.
+726|Maîtrise le feu.
