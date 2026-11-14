@@ -247,4 +247,12 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['now playing: a car stereo or Bluetooth speaker is told the game is called "Stack Rush" (title, artist, album) with the app icon, never the web address; the stereo\'s pause button pauses the round', async(e,L)=>{
+  const p=await L.open(e); await p.evaluate(()=>{ const S=__sr.S; S.tutSeen=true; S.seenTip=true; });
+  const m=await p.evaluate(()=>{ const md=navigator.mediaSession&&navigator.mediaSession.metadata; return md?{t:md.title,a:md.artist,al:md.album,art:md.artwork.map(x=>x.src.split('/').slice(-2).join('/')),ps:navigator.mediaSession.playbackState}:null; });
+  assert.ok(m,'the page sets its media metadata'); assert.deepEqual([m.t,m.a,m.al],['Stack Rush','Stack Rush','Stack Rush']); assert.deepEqual(m.art,['icons/icon-192.png','icons/icon-512.png']);
+  assert.ok(!/github|http|\.io/i.test([m.t,m.a,m.al].join(' ')),'no web address anywhere in it');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

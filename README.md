@@ -238,3 +238,5 @@ Tapping **Hazard** on Game modes asks for a level: **Beginner** (bombs only at f
 **Hazard difficulty on PLAY:** the main PLAY button asks for the Hazard level whenever Hazard is the selected mode (the Game modes tile does too); AGAIN keeps the level you just played.
 
 **Ice and Revive + Regrow:** an ice block slides on after the tap and now **settles in place**: if the slide carries it over the tower it stops aligned (a perfect), instead of sailing past and being chopped off; tapped too early to reach the tower it still falls. On the game-over screen a second button, **Revive + Regrow (120 coins)**, carries on exactly like Revive (60) but with the tower back at its full width.
+
+**Now playing:** while the game makes sound, a car stereo, Bluetooth speaker or lock screen shows **Stack Rush** (title, artist and album, with the app icon) instead of the web address, through the Media Session API; a stereo's pause button pauses the round.

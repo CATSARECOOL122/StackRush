@@ -1304,12 +1304,23 @@ const mus={gain:null,next:0,step:0,timer:null};
 const HAS_AUDIO_SESSION=(()=>{ try{ return !!navigator.audioSession && 'type' in navigator.audioSession; }catch(e){ return false; } })();
 function applyAudioSession(){ if(!HAS_AUDIO_SESSION) return; try{ navigator.audioSession.type = S.silentSound!==false ? 'playback' : 'auto'; }catch(e){} }
 function kickAudio(){ if(!ac) return; try{ const p=ac.resume(); if(p && p.catch) p.catch(()=>{}); }catch(e){} }
+/* What a car stereo, a Bluetooth speaker or the lock screen shows while the game makes sound: "Stack Rush", not the web address. */
+function setNowPlaying(){
+  try{
+    if(!('mediaSession' in navigator) || typeof MediaMetadata!=='function') return;
+    const base=location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,'');
+    navigator.mediaSession.metadata=new MediaMetadata({title:'Stack Rush',artist:'Stack Rush',album:'Stack Rush',artwork:[{src:base+'icons/icon-192.png',sizes:'192x192',type:'image/png'},{src:base+'icons/icon-512.png',sizes:'512x512',type:'image/png'}]});
+    navigator.mediaSession.playbackState='playing';
+    for(const a of ['play','pause','stop','previoustrack','nexttrack','seekbackward','seekforward']){ try{ navigator.mediaSession.setActionHandler(a,()=>{ if(a==='pause'||a==='stop'){ try{ if(state==='playing') pause(); }catch(e){} } }); }catch(e){} }      // the stereo's buttons never open a web address; pause pauses the round
+  }catch(e){}
+}
+setNowPlaying();
 function audio(){
   if(S.mute) return null;
   if(ac && ac.state==='closed'){ clearInterval(mus.timer); ac=null; master=null; mus.gain=null; mus.next=0; }
   if(!ac){
     try{
-      applyAudioSession();
+      applyAudioSession(); setNowPlaying();
       const C=window.AudioContext||window.webkitAudioContext; ac=new C(); master=ac.createGain(); master.gain.value=.55; master.connect(ac.destination);
       ac.onstatechange=()=>{ if(ac && ac.state!=='running') mus.next=0; };
       musicInit();
