@@ -137,4 +137,25 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['ice slides in place: tapping early lets the ice block slide onto the tower and stop aligned instead of sailing past and being chopped; Revive + Regrow costs 120 and brings the tower back to full width', async(e,L)=>{
+  const p=await L.open(e); await quiet(p);
+  await p.evaluate(()=>{ for(let n=1;n<=11;n++) __sr.S.camp[n]=3; __sr.startStage(12); }); await p.waitForTimeout(200);
+  await L.perfects(p,3);
+  const r=await p.evaluate(()=>{ const s=__sr, c=s.cur, top=s.top, w0=top.w, x0=top.x; c.mat='ice'; const sh=s.dir*s.sp*s.CFG.iceSlide; c.x=s.topX-sh*.6; return {w0,x0,sh:Math.round(sh)}; });
+  assert.ok(Math.abs(r.sh)>20,'the slide is a real distance ('+r.sh+')');
+  await p.evaluate(()=>{ document.getElementById('c').dispatchEvent(new PointerEvent('pointerdown',{bubbles:true})); }); await p.waitForTimeout(100);
+  const a=await p.evaluate(()=>({x:__sr.top.x,w:__sr.top.w,pieces:__sr.pieces.length}));
+  assert.ok(Math.abs(a.x-r.x0)<2 && Math.abs(a.w-r.w0)<2,'the block settled aligned on the tower, nothing chopped ('+JSON.stringify(a)+' vs '+JSON.stringify(r)+')');
+  /* Revive + Regrow */
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.hzLevel='medium'; __sr.S.coins=500; __sr.startMode('hazard'); }); await p.waitForTimeout(200); await L.perfects(p,4);
+  for(let i=0;i<6 && await p.evaluate(()=>__sr.state)==='playing';i++){ await L.miss(p); await p.waitForTimeout(200); } await p.waitForTimeout(1500);
+  { assert.equal(await p.evaluate(()=>__sr.state),'over');
+    assert.ok(await p.isVisible('#revive2'),'the second revive button is there'); const c0=await p.evaluate(()=>__sr.S.coins);
+    await p.click('#revive2'); await p.waitForTimeout(250);
+    const b=await p.evaluate(()=>({st:__sr.state,w:__sr.top.w,base:__sr.baseW,c:__sr.S.coins}));
+    assert.deepEqual([b.st,Math.round(b.w)===Math.round(b.base)],['playing',true],'carrying on, tower back to full width'); assert.ok(b.c<=410 && b.c>=370,'coins now '+b.c+'; '+'it cost 120 coins (the round\'s payout is taken back, as with any revive)');
+  }
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

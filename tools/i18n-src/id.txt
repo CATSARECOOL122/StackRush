@@ -663,3 +663,4 @@
 663|ULTRA
 664|Lava, es, lem, angin, gempa, layar terbalik, dan blok tercepat. Koin x1,5.
 665|Lava! Di atas menaramu ia melelehkan 2 blok di bawahnya. Ketuk jauh dari menara untuk menjatuhkannya.
+666|Hidupkan + Regrow · {n} {coin}

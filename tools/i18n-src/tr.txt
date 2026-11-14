@@ -663,3 +663,4 @@
 663|ULTRA
 664|Lav, buz, yapışkan, rüzgâr, sarsıntı, ters ekran ve en hızlı bloklar. Jeton x1,5.
 665|Lav! Kulenin üzerindeyse altındaki 2 bloğu eritir. Düşürmek için kuleden uzakken dokun.
+666|Canlan + Regrow · {n} {coin}

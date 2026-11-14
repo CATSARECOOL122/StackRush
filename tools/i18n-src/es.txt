@@ -663,3 +663,4 @@
 663|ULTRA
 664|Lava, hielo, pegamento, viento, temblores, pantalla al revés y los bloques más rápidos. Monedas x1,5.
 665|¡Lava! Sobre tu torre derrite los 2 bloques de debajo. Tócala lejos de la torre para tirarla.
+666|Revivir + Regenerar · {n} {coin}

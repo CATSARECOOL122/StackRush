@@ -60,7 +60,7 @@ module.exports=[
   await p.waitForTimeout(80); assert.equal((await aim('',0)).perfect,true,'a plain block is perfect when aimed straight');
   await p.waitForTimeout(80); const glue=await aim('glue',-1);
   assert.equal(glue.perfect,true,'aimed late by the drag: the glue block lands dead on the tower'); assert.equal(glue.mat,'glue'); assert.ok(Math.abs(glue.sh+glue.slide)<1e-6,'it is pulled back by the same 0.12 s, the other way'); assert.ok(Math.abs(glue.fx+glue.sh)<1e-6);
-  await p.waitForTimeout(80); assert.equal((await aim('ice',0)).perfect,false,'an ice block tapped straight misses the perfect window');
+  await p.waitForTimeout(80); assert.equal((await aim('ice',0)).perfect,true,'ice tapped straight settles in place on the tower: perfect (the slide stops where the tower is)');
   await p.waitForTimeout(80); assert.equal((await aim('glue',0)).perfect,false,'so does a glue block');
   await p.waitForTimeout(80); assert.equal((await aim('glue',1)).perfect,false,'and a glue block aimed the ice way is twice as far off');
   assert.deepEqual(p.errs,[]); await L.close(p);

@@ -660,6 +660,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     <div class="sub" id="oLevel"></div>
     <div class="sub" id="oNext"></div>
     <button id="revive" class="btn gold hidden"></button>
+    <button id="revive2" class="btn gold hidden"></button>
     <button id="next" class="btn primary big hidden">NEXT</button>
     <button id="again" class="btn primary big">AGAIN</button>
     <div class="ibtns">
@@ -2068,7 +2069,11 @@ function drop(){
   if(mode==='timed') timerOn=true;
   if(cur.bomb){ explode(); return; }
   const top=stack[stack.length-1], topX=top.x+windOff;                                      // (a gust sways the tower: the target is where the top block is now)
-  if(cur.mat && cur.mat!=='lava'){ const k=cur.mat==='ice'?1:-1, sh=k*dir*speed()*(cur.mat==='ice'?CFG.iceSlide:CFG.glueDrag), nx=clamp(cur.x+sh,0,W-cur.w); cur.fx=cur.x-nx; cur.x=nx; }   // ice slides on, glue is pulled back
+  if(cur.mat==='ice'){                                                                  // ice slides on after the tap and settles in place: if the slide carries it over the tower it stops right there (aligned) instead of sailing past and being chopped off
+    const sh=dir*speed()*CFG.iceSlide; let nx=clamp(cur.x+sh,0,W-cur.w); const lo=Math.min(cur.x,nx), hi=Math.max(cur.x,nx);
+    if(topX>=lo && topX<=hi && topX>=0 && topX<=W-cur.w) nx=topX;
+    cur.fx=cur.x-nx; cur.x=nx;
+  } else if(cur.mat && cur.mat!=='lava'){ const sh=-dir*speed()*CFG.glueDrag, nx=clamp(cur.x+sh,0,W-cur.w); cur.fx=cur.x-nx; cur.x=nx; }          // glue is pulled back
   let left=Math.max(cur.x,topX), right=Math.min(cur.x+cur.w,topX+top.w);
   let ov=right-left;
   if(ov<=3){
@@ -2386,6 +2391,7 @@ function showOver(r){
   if(friendRun && !challenge && challengeOk()) $('oNext').innerHTML=`${I('share')} ${tr('Tap Share to challenge a friend.')}`;
   rv.innerHTML=tr('Revive · {n} {coin}',{n:CFG.reviveCost,coin:I('coin')});
   rv.classList.toggle('off', S.coins<CFG.reviveCost);
+  const rv2=$('revive2'); rv2.classList.toggle('hidden',!showRv); rv2.innerHTML=tr('Revive + Regrow · {n} {coin}',{n:CFG.reviveCost*2,coin:I('coin')}); rv2.classList.toggle('off',S.coins<CFG.reviveCost*2);
   $('next').classList.toggle('hidden', !(r.win && stage<STAGES.length));
   $('again').textContent = r.win ? tr('REPLAY') : tr('AGAIN');
   $('over').classList.remove('hidden');
@@ -2394,14 +2400,16 @@ function showOver(r){
   else if(lv) sfx.up();
   showUpdateIfIdle(); checkForUpdate();                                         // a round just ended: the right moment to offer a new version
 }
-function revive(){
+function revive(regrow){
   if(state!=='over' || revived || !snap) return;
-  if(S.coins<CFG.reviveCost){ toast(tr('Need {n} {coin} to revive',{n:CFG.reviveCost,coin:I('coin')})); return; }
+  const cost=CFG.reviveCost*(regrow===true?2:1);
+  if(S.coins<cost){ toast(tr('Need {n} {coin} to revive',{n:cost,coin:I('coin')})); return; }
   const o=snap;
   S.coins=Math.max(0,S.coins-o.gain);                                           // take back the run's coins (also any award coins)...
   Object.assign(S,{perfects:o.perfects,played:o.played,blocks:o.blocks,bestCombo:o.bestCombo,maxHeight:o.maxHeight,best:o.best,bests:o.bests,boostBests:o.boostBests,ghosts:o.ghosts,ach:o.ach,weekly:o.weekly});
   if(S.twist && o.twistBest!==undefined) S.twist.best=o.twistBest;               // ...but keep anything the player did since (a theme bought or equipped, settings)
-  S.coins-=CFG.reviveCost; S.revives=(S.revives||0)+1; revived=true;
+  S.coins-=cost; S.revives=(S.revives||0)+1; revived=true;
+  if(regrow===true){ const t=stack[stack.length-1], cx=t.x+t.w/2; t.w=baseW; t.x=clamp(cx-baseW/2,0,W-baseW); t.sq=.6; if(runRec.blocks[stack.length-1]) runRec.blocks[stack.length-1]={x:+(t.x/W).toFixed(3),w:+(t.w/W).toFixed(3)}; }       // Revive + Regrow: carry on with the tower back to its full width
   lives=1; state='playing'; combo=0; setCombo(0); showUpdateIfIdle(); syncPower();
   save(); setCoins(); setAux(true);
   spawnCur(true);
@@ -3521,7 +3529,8 @@ $('chNo').onclick=()=>{ sfx.tap(); offered=null; showMenu(); };
 $('next').onclick=()=>{ sfx.tap(); startStage(stage+1); };
 $('toMenu').onclick=()=>{ sfx.tap(); showMenu(); };
 $('overModes').onclick=()=>{ sfx.tap(); showModes(); };
-$('revive').onclick=revive;
+$('revive').onclick=()=>revive();
+$('revive2').onclick=()=>revive(true);
 $('share').onclick=shareScore;
 /* a friend who already has the app does not need a link: they copy the code and paste it under Friend race > Paste a friend's challenge (the link and the plain Share are unchanged) */
 async function copyRaceCode(code){
