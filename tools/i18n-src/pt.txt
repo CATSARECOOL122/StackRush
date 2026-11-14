@@ -724,3 +724,16 @@
 724|Você tem {n} tentativas.
 725|Suba sob a aurora boreal.
 726|Domine o fogo.
+727|FALTAM {n} DIAS
+728|{name} termina em breve. Entre antes que acabe.
+729|+{n} tentativas
+730|Ativo: tudo está 50% mais suave.
+731|Melhor {n} / {g}. Choque o ovo antes que acabe.
+732|Compre quantas vezes quiser.
+733|Mapa mais fácil
+734|Mapa mais fácil (50%)
+735|CONTINUE
+736|ÚLTIMO DIA!!
+737|Poderes funcionam aqui (não os Impulsos).
+738|Blocos mais lentos, metade dos perigos, começo mais largo, sem tremores nem tela de cabeça para baixo.
+739|Você chocou o ovo. Muito bem!

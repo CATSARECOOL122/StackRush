@@ -183,6 +183,32 @@
   .evcard i{font-style:normal;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#ffffff22;color:#9ffbe0;flex:none}
   .evcard div{flex:1;min-width:0} .evcard b{display:block;font-size:16px} .evcard span{display:block;font-size:12px;font-weight:700;color:#cfeee6}
   .evcard em{font-style:normal;font-weight:900;font-size:13px;color:#ffe27a;flex:none}
+  .evhero{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0 2px}
+  .evegg2{position:relative;width:86px;height:108px;border-radius:50% 50% 46% 46%/58% 58% 42% 42%;background:radial-gradient(ellipse 22% 14% at 32% 24%,#ffffffb0,transparent 70%),radial-gradient(circle at 70% 70%,#ffffff12 0 6%,transparent 7%),radial-gradient(circle at 40% 64%,#ffffff14 0 5%,transparent 6%),linear-gradient(160deg,var(--e0),var(--e1) 70%,#0c1a30);box-shadow:0 0 calc(24px + 46px*var(--crk)) var(--e0),inset -10px -14px 22px #0006;animation:egfloat 3.2s ease-in-out infinite}
+  .evegg2 svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible} .evegg2 path{fill:none;stroke:#fffbd0;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 3px #fff3a0)}
+  .evegg2.open{filter:saturate(1.3);box-shadow:0 0 70px var(--e0)}
+  @keyframes egfloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+  @media (prefers-reduced-motion:reduce){.evegg2,.evcard{animation:none}}
+  .evrules{background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:10px 12px 10px 30px!important}
+  .evcta{width:100%;white-space:nowrap;font-size:21px;letter-spacing:1px;padding-left:12px;padding-right:12px}
+  .evcta .ic{width:22px;height:22px;vertical-align:-4px}
+  .evcta.glow{animation:ctaglow 1.4s ease-in-out infinite}
+  @keyframes ctaglow{0%,100%{box-shadow:0 6px 0 #9a6a00,0 0 18px #ffc83d88}50%{box-shadow:0 6px 0 #9a6a00,0 0 38px #ffe27aee}}
+  .evfine{max-width:none!important;font-size:12px;margin:0}
+  .evbarw{position:relative;padding-top:22px}
+  .evmk{position:absolute;top:0;transform:translateX(-50%);width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#1d1245;border:1.5px solid var(--line);color:var(--mute)}
+  .evmk .ic{width:13px;height:13px} .evmk.on{border-color:#ffe27a;color:#ffe27a;box-shadow:0 0 10px #ffc83d88}
+  .evmk.egg{transform:translateX(-100%)}
+  .evbuy{display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#ffffff10,#ffffff04);border:1px solid #ffc83d55;border-radius:14px;padding:8px 12px}
+  .evbuy i{font-style:normal;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#ffc83d22;color:#ffe27a;flex:none}
+  .evbuy div{flex:1;min-width:0} .evbuy b{display:block;font-size:14px} .evbuy small{display:block;font-size:12px;color:var(--mute);font-weight:700;line-height:1.3}
+  .evbuy .btn{min-height:44px;padding:6px 12px;font-size:14px;flex:none} .evbuy.done{border-color:#4be08a88}
+  .evok{font-size:12px;font-weight:800;color:#7dff9b} .evlock{color:var(--mute)} .evnope{opacity:.55}
+  .evtoast{position:absolute;left:50%;top:calc(env(safe-area-inset-top) + 64px);z-index:35;width:min(400px,calc(100% - 28px));display:flex;align-items:center;gap:12px;text-align:left;color:#fff;font:inherit;padding:12px 16px;border-radius:20px;border:2px solid var(--e0,#7ff0d0);background:linear-gradient(120deg,#0a1630,#2a1050,#0a1630);background-size:220% 100%;box-shadow:0 0 34px var(--e0,#7ff0d0),0 18px 40px #000a;transform:translate(-50%,-160%);transition:transform .45s var(--spring,cubic-bezier(.2,1.4,.4,1));animation:evshine 3s linear infinite;pointer-events:auto;cursor:pointer}
+  .evtoast.in{transform:translate(-50%,0)} .evtoast.out{transform:translate(-50%,-160%)}
+  .evtoast i{font-style:normal;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--e1,#2fd6a1);color:#fff;flex:none;box-shadow:0 0 16px var(--e0,#7ff0d0)}
+  .evtoast b{display:block;font-size:20px;letter-spacing:2px} .evtoast span{display:block;font-size:13px;font-weight:700;color:#d8e8ff}
+  .evtoast.last{border-color:#ff5a5a;box-shadow:0 0 40px #ff5a5acc,0 18px 40px #000a} .evtoast.last b{color:#ffd0d0}
   #evBody{display:flex;flex-direction:column;gap:10px;width:100%}
   #evBody .evtag{margin:0;text-align:center;color:var(--mute);font-weight:700}
   #evBody .evleft{text-align:center;font-weight:900;color:#ffe27a;font-size:17px}
@@ -209,13 +235,13 @@
   #hatchRw .rw b{display:block;font-size:16px} #hatchRw .rw small{display:block;font-size:12px;color:#ffe27a;font-weight:800;letter-spacing:1px}
   @keyframes rwin{from{opacity:0;transform:translateY(16px) scale(.9)}to{opacity:1;transform:none}}
   .aw.rare2{border-color:#ffe27a;background:linear-gradient(120deg,#ffc83d26,#9a6bff26,#ffc83d26);background-size:220% 100%;animation:evshine 3.2s linear infinite;box-shadow:0 0 16px #ffc83d66}
-  .stickyfoot{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom));z-index:2;padding:12px 0 2px;margin-bottom:-2px;background:linear-gradient(#1a1040f0 72%,#1a104000);width:100%;display:flex;gap:10px;justify-content:center;flex:none}
+  .stickyfoot{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom));z-index:2;padding:12px 0 2px;margin-bottom:-2px;background:linear-gradient(#160e3600,#160e36 16px,#160e36);padding-top:18px;width:100%;display:flex;gap:10px;justify-content:center;flex:none}
   .stickyfoot .btn{flex:1;max-width:260px}
   body.tablet .stickyfoot{bottom:-22px}
   .shbg{flex:1;min-height:24px;cursor:pointer}
   .shcard{background:linear-gradient(180deg,#1d1245,#150d33);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;padding:16px 16px calc(env(safe-area-inset-bottom) + 16px);width:min(520px,100%);align-self:center;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 -20px 50px #0009}
   .shcard h2{margin:0;letter-spacing:3px;font-size:16px}
-  .shcard>h2{position:sticky;top:-16px;z-index:2;margin-top:-16px;padding-top:16px;padding-bottom:10px;background:#1d1245;box-shadow:0 8px 8px -4px #1d1245;align-self:stretch;text-align:center}      /* the title stays put and crisp while the sheet scrolls under it */
+  .shcard>h2{position:sticky;top:-16px;z-index:2;margin-top:-16px;padding-top:16px;padding-bottom:10px;background:#1d1245;box-shadow:0 8px 8px -4px #1d1245;align-self:stretch;text-align:center;margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px;border-radius:24px 24px 0 0}      /* the title stays put and crisp while the sheet scrolls under it */
   .fsteps{margin:0;padding:0 0 0 22px;text-align:left;font-size:14px;line-height:1.45;color:#ddd;width:100%}
   .fsteps li{margin:4px 0}
   .fsm{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
@@ -538,7 +564,7 @@ button{position:relative;overflow:hidden;touch-action:manipulation}
 
 /* ===== tablets (iPad, Android tablets, foldables): a centred portrait column no wider than 3:4, with the whole UI scaled up by --z ===== */
 body.tablet #stage{width:min(100vw,75vh);width:min(100vw,75dvh);top:0;bottom:0;border-radius:0;box-shadow:0 0 0 1px #ffffff1a,0 0 90px #000c}
-body.tablet .shcard>h2{top:-20px;margin-top:-20px;padding-top:20px}
+body.tablet .shcard>h2{top:-20px;margin-top:-20px;padding-top:20px;margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px;border-radius:28px 28px 0 0}
 body.tablet .shcard{width:min(580px,calc(100% - 32px));border-radius:28px;border-bottom:1px solid var(--line);margin-bottom:calc(env(safe-area-inset-bottom) + 18px);padding:20px 20px 22px;gap:12px;box-shadow:0 24px 60px #000c}
 body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(100% / var(--z));transform:scale(var(--z));transform-origin:0 0}
 
@@ -819,6 +845,8 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     </div>
   </section>
 
+  <button id="evToast" class="evtoast hidden" aria-live="polite"></button>
+
   <section id="evsheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Special event">
     <div class="shbg" id="evBg"></div>
     <div class="shcard cs">
@@ -886,7 +914,7 @@ const CFG = {
   dailyBonus: 50,
   milestone: 25,
   weeklyCoins: 400,
-  evCost: 20000, evAttempts: 100, evGoal: 1000,      // the special event map: entry price, attempts allowed, score that hatches the egg
+  evCost: 20000, evAttempts: 100, evGoal: 1000, evMoreCost: 5000, evMore: 100, evEasyCost: 9000,      // (+100 attempts for 5,000; the map 50% easier for 9,000)      // the special event map: entry price, attempts allowed, score that hatches the egg
   duelBonus: 60,         // coins for beating a friend with a score of at least duelMin, without boosts (once per challenge)
   duelMin: 100,
   bossBonus: 60,         // extra coins the first time a boss stage is cleared
@@ -1095,7 +1123,7 @@ const ACH = [
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',evWarn:[],hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -1113,8 +1141,9 @@ function cleanSave(raw){
   for(const k of ['best','coins','blocks','perfects','played','revives','dodged','shields','bestCombo','maxHeight','streak','twistDone','friendWins','friendBig','relics','untouch']) if(own(raw,k)) out[k]=num(raw[k]);
   if(own(raw,'fsHint')) out.fsHint=num(raw.fsHint,99);
   if(own(raw,'hintPow')) out.hintPow=num(raw.hintPow,9);
-  if(raw.ev && typeof raw.ev==='object' && typeof raw.ev.id==='string' && /^[a-z0-9]{3,20}$/.test(raw.ev.id)) out.ev={id:raw.ev.id,attempts:num(raw.ev.attempts,1000),best:num(raw.ev.best,1e6),hatched:raw.ev.hatched?1:0,chestOk:Array.isArray(raw.ev.chestOk)?[...new Set(raw.ev.chestOk.map(Number).filter(n=>n>=0&&n<8))]:[]};
+  if(raw.ev && typeof raw.ev==='object' && typeof raw.ev.id==='string' && /^[a-z0-9]{3,20}$/.test(raw.ev.id)) out.ev={id:raw.ev.id,attempts:num(raw.ev.attempts,100000),more:num(raw.ev.more,999),easy:raw.ev.easy?1:0,best:num(raw.ev.best,1e6),hatched:raw.ev.hatched?1:0,chestOk:Array.isArray(raw.ev.chestOk)?[...new Set(raw.ev.chestOk.map(Number).filter(n=>n>=0&&n<8))]:[]};
   if(Array.isArray(raw.eggs)) out.eggs=[...new Set(raw.eggs.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}$/.test(v)))].slice(0,60);
+  if(Array.isArray(raw.evWarn)) out.evWarn=raw.evWarn.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}:(10|5|3|last)$/.test(v)).slice(-40);
   if(typeof raw.evSeen==='string' && /^[a-z0-9]{0,20}$/.test(raw.evSeen)) out.evSeen=raw.evSeen;
   if(['beginner','medium','advanced','ultra'].includes(raw.hzLevel)) out.hzLevel=raw.hzLevel;
   if(raw.hzBests && typeof raw.hzBests==='object') for(const k of ['beginner','advanced','ultra']) if(own(raw.hzBests,k)) out.hzBests[k]=num(raw.hzBests[k]);
@@ -1634,7 +1663,7 @@ const placedN=()=>stack.length-freeBlocks;
 let friendStart=false, friendRun=false, friendMode='classic';      // friendRun: a round of a friend race (yours from the Friend race sheet, or a friend's): only Speed-ups work
 let lift=null, catchUp={}, cuLeft={};      // a Speed-up in progress ({left,acc,per}), and in a friend race: how many of each Speed-up were equipped / are still left
 let held=[], powerPhase='off', tsc=1;       // the boosts in hand this round (you choose when), the boost menu's state (off | slowing | open | resuming) and the game-time scale (1, easing to 0 while the menu is open)
-const BOOST_MODES=['classic','timed','lives','hazard','campaign'];
+const BOOST_MODES=['classic','timed','lives','hazard','campaign','event'];
 const boostsAllowed=m=>BOOST_MODES.includes(m);
 const prunePicks=()=>{ S.shop.pick=S.shop.pick.filter((k,i,a)=>(S.shop.boosts[k]||0)>0 && a.indexOf(k)===i).slice(0,2); };   // only boosts you still have can stay picked, at most two
 function useBoost(id){
@@ -1837,6 +1866,7 @@ function modeTip(id){
 }
 function restart(){ if(mode==='event'){ startEvent(); return; } if(passPlay){ challenge=null; passPlay=1; friendStart=true; } else if(friendRun && !challenge && mode!=='campaign') friendStart=true; if(mode==='campaign') startStage(stage); else startMode(mode==='practice'?S.lastMode:mode); }
 function newRun(){
+  try{ hideEvToast(); }catch(e){}
   const M=MODES[mode];
   baseW=Math.min(W*(mod.startFrac||CFG.startFrac), CFG.maxW*u);
   stack=[{x:(W-baseW)/2,w:baseW,y:0,i:0,sq:0}];
@@ -1849,9 +1879,9 @@ function newRun(){
   prunePicks(); held=[]; powerPhase='off'; tsc=1; $('power').classList.add('hidden');
   cuLeft={}; friendRun=friendStart||!!challenge; friendStart=false;
   if(boostsAllowed(mode) && !friendRun){
-    const mine=S.shop.pick.filter(id=>(S.shop.boosts[id]||0)>0 && (id!=='time' || mode==='timed') && (!BOOSTS[id].lift || mode!=='campaign'));
+    const mine=S.shop.pick.filter(id=>(S.shop.boosts[id]||0)>0 && (id!=='time' || mode==='timed') && (!BOOSTS[id].lift || (mode!=='campaign' && mode!=='event')));
     if(manualOn()) held=mine; else { held=mine.filter(id=>BOOSTS[id].lift); for(const id of mine) if(!BOOSTS[id].lift) armed[id]=true; }          // you choose when (the bolt), or they fire by themselves when they help (Settings; a Speed-up is always your call)
-    if(mode==='campaign') for(const id of CAMP_POW) if((S.shop.boosts[id]||0)>0) held.push(id);       // campaign power-ups are always in hand
+    if(mode==='campaign' || mode==='event') for(const id of CAMP_POW) if((S.shop.boosts[id]||0)>0 && !held.includes(id)) held.push(id);       // campaign power-ups are always in hand
   } else if(friendRun && !passPlay){                                                 // a friend race: only the Speed-ups you equipped on the challenge card
     for(const id of LIFTS){ const k=Math.min(catchUp[id]||0,S.shop.boosts[id]||0); if(k>0){ cuLeft[id]=k; held.push(id); } }
   }
@@ -3048,7 +3078,7 @@ async function shareScore(){
 
 /* ================= Menu / UI ================= */
 const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet','evsheet','hatch'];
-function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); }
+function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); try{ hideEvToast(); }catch(e){} }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
   for(const [id,th] of Object.entries(THEMES)){
@@ -3077,6 +3107,14 @@ const evNow=()=>fakeNow||Date.now();
 const evStart=e=>new Date(e.from[0],e.from[1],e.from[2]).getTime(), evEnd=e=>new Date(e.to[0],e.to[1],e.to[2],23,59,59).getTime();
 const activeEvent=()=>{ const n=evNow(); return EVENTS.find(e=>n>=evStart(e)&&n<=evEnd(e))||null; };
 const evState=ev=>(ev && S.ev && S.ev.id===ev.id)?S.ev:null;
+const evMax=st=>CFG.evAttempts+CFG.evMore*((st&&st.more)||0);
+/* the event map, or with "Easier map" bought: everything 50% gentler (speed and hazard chances halfway back, a wider start, no tremors or upside-down screen) */
+function evMod(ev,st){
+  const m=JSON.parse(JSON.stringify(ev.mod)); if(!(st&&st.easy)) return m;
+  if(m.speed) m.speed=1+(m.speed-1)*.5; if(m.bombMul) m.bombMul=1+(m.bombMul-1)*.5; if(m.startFrac) m.startFrac=m.startFrac+(CFG.startFrac-m.startFrac)*.5;
+  if(m.chance) for(const k of Object.keys(m.chance)) m.chance[k]*=.5; if(m.hz) for(const k of Object.keys(m.hz)) m.hz[k]+=3;
+  delete m.tremor; delete m.upside; m.gap=(m.gap||4)+3; return m;
+}
 function fmtLeft(ms){
   const t=Math.max(0,Math.floor(ms/1000)), d=Math.floor(t/86400), h=Math.floor(t%86400/3600), m=Math.floor(t%3600/60), sec=t%60;
   return d>0?tr('{d}d {h}h left',{d,h}):h>0?tr('{h}h {m}m left',{h,m}):tr('{m}m {s}s left',{m,s:sec});
@@ -3086,37 +3124,72 @@ function renderEventCard(){
   $('menu').classList.toggle('evon',!!ev);
   if(!ev){ el.classList.add('hidden'); return; }
   el.classList.remove('hidden'); const st=evState(ev);
-  el.innerHTML=`<i>${I('gem')}</i><div><b>${tr(ev.name)}</b><span>${st?(st.hatched?tr('Egg hatched!'):tr('Best {n} / {g}',{n:st.best,g:CFG.evGoal})):tr('Special event · {n} coins',{n:nf(CFG.evCost)})}</span></div><em>${fmtLeft(evEnd(ev)-evNow())}</em>`;
+  el.innerHTML=`<i>${I('gem')}</i><div><b>${tr(ev.name)}</b><span>${st?(st.hatched?tr('Egg hatched!'):tr('Best {n} / {g}',{n:nf(st.best),g:nf(CFG.evGoal)})):tr('Special event · {n} coins',{n:nf(CFG.evCost)})}</span></div><em>${fmtLeft(evEnd(ev)-evNow())}</em>`;
 }
 setInterval(()=>{ try{ if(state==='menu' && !$('menu').classList.contains('hidden')) renderEventCard(); if(!$('evsheet').classList.contains('hidden')) renderEvent(true); }catch(e){} },1000);
 const evItemName=it=>tr(itemName(it[0],it[1]));
 function evRewardNames(ev){
   const r=ev.reward, out=[`${I('coin')} ${nf(r.coins)}`]; if(r.theme) out.push(`${I('palette')} ${tr(THEMES[r.theme].name)}`); if(r.item) out.push(`${I('sparkles')} ${evItemName(r.item)}`); out.push(`${I('award')} ${tr('Super rare award')}`); return out;
 }
-function openEvent(){ const ev=activeEvent(); if(!ev) return; $('evsheet').classList.remove('hidden'); renderEvent(); soon(syncBack); }
+function openEvent(){ const ev=activeEvent(); if(!ev) return; hideEvToast(); $('evsheet').classList.remove('hidden'); renderEvent(); soon(syncBack); }
 function closeEvent(){ $('evsheet').classList.add('hidden'); soon(syncBack); }
+/* the little egg on the event sheet cracks a bit more for every 1/5 of the way to 1,000 */
+const EGG_CRACKS=['M43 40 l-6 9 l7 5 l-8 10 l5 8','M45 46 l8 6 l-3 8 l9 7','M40 58 l-10 4 l3 9 l-9 6','M47 62 l6 10 l-6 6 l8 9','M42 34 l3 -9 l-6 -5'];
+const eggCracks=p=>{ const n=Math.min(EGG_CRACKS.length,Math.floor(p*EGG_CRACKS.length+.0001)); return n?`<svg viewBox="0 0 86 108" aria-hidden="true">${EGG_CRACKS.slice(0,n).map(d=>`<path d="${d}"/>`).join('')}</svg>`:''; };
 function renderEvent(tick){
   const ev=activeEvent(); if(!ev){ closeEvent(); return; }
   const st=evState(ev), left=fmtLeft(evEnd(ev)-evNow());
   if(tick && $('evBody').querySelector('.evleft')){ $('evBody').querySelector('.evleft').textContent=left; return; }       // once a second: only the clock
   $('evTitle').textContent=tr(ev.name);
-  let h=`<p class="evtag">${tr(ev.tag)}</p><div class="evleft">${left}</div>`;
+  const pct=st?clamp(st.best/CFG.evGoal,0,1):0;
+  let h=`<div class="evhero" style="--e0:${ev.egg[0]};--e1:${ev.egg[1]}"><div class="evegg2${st&&st.hatched?' open':''}" style="--crk:${pct.toFixed(3)}">${eggCracks(pct)}</div><p class="evtag">${tr(ev.tag)}</p><div class="evleft">${left}</div></div>`;
   if(!st){
-    h+=`<ul><li>${tr('Reach a score of {n} on one very hard map.',{n:nf(CFG.evGoal)})}</li><li>${tr('You get {n} attempts.',{n:CFG.evAttempts})}</li><li>${tr('Milestone chests at 250, 500 and 750 along the way.',{})}</li><li>${tr('Hatch the egg at {n} for a one-of-a-kind reward.',{n:nf(CFG.evGoal)})}</li></ul>`
+    h+=`<ul class="evrules"><li>${tr('Reach a score of {n} on one very hard map.',{n:nf(CFG.evGoal)})}</li><li>${tr('You get {n} attempts.',{n:CFG.evAttempts})}</li><li>${tr('Milestone chests at 250, 500 and 750 along the way.',{})}</li><li>${tr('Hatch the egg at {n} for a one-of-a-kind reward.',{n:nf(CFG.evGoal)})}</li><li>${tr('Power-ups work here (not Speed-ups).')}</li></ul>`
       +`<h4>${tr('IN THE EGG')}</h4><div class="evegg">${evRewardNames(ev).map(x=>`<span>${x}</span>`).join('')}</div>`
-      +`<button class="btn gold big" data-ev="enter">${tr('Enter · {n} {coin}',{n:nf(CFG.evCost),coin:I('coin')})}</button><p class="lead" style="max-width:none">${tr('One entry per event. No refunds.')}</p>`;
+      +`<button class="btn gold big evcta" data-ev="enter">${tr('Enter · {n} {coin}',{n:nf(CFG.evCost),coin:I('coin')})}</button><p class="lead evfine">${tr('One entry per event. No refunds.')}</p>`;
   } else {
-    const pct=clamp(st.best/CFG.evGoal,0,1)*100, left2=CFG.evAttempts-st.attempts;
-    h+=`<div class="evbar"><div class="evfill" style="width:${pct}%"></div><div class="evseg"></div></div><div class="evbarL"><span>${tr('Best {n} / {g}',{n:st.best,g:nf(CFG.evGoal)})}</span><span>${tr('{n} attempts left',{n:left2})}</span></div>`;
-    h+=`<h4>${tr('MILESTONE CHESTS')}</h4>`+ev.chests.map((c,i)=>{ const got=st.chestOk.includes(i), can=st.best>=c.at && !got;
-      return `<div class="evch${can?' ok':''}${got?' done':''}"><i>${I(got?'check':'gem')}</i><div><b>${tr('Chest at {n}',{n:c.at})}</b><small>${nf(c.coins)} ${I('coin')}${c.item?' · '+evItemName(c.item):''}</small></div>${can?`<button class="btn gold" data-ev="chest" data-i="${i}">${tr('Open')}</button>`:got?`<span>${tr('Opened')}</span>`:''}</div>`; }).join('');
+    const max=evMax(st), left2=Math.max(0,max-st.attempts), marks=ev.chests.map((c,i)=>`<b class="evmk${st.best>=c.at?' on':''}" style="left:${c.at/CFG.evGoal*100}%">${I(st.chestOk.includes(i)?'check':'gem')}</b>`).join('')+`<b class="evmk egg${st.best>=CFG.evGoal?' on':''}" style="left:100%">${I('crown')}</b>`;
+    h+=`<div class="evbarw"><div class="evbar"><div class="evfill" style="width:${pct*100}%"></div><div class="evseg"></div></div>${marks}</div><div class="evbarL"><span>${tr('Best {n} / {g}',{n:nf(st.best),g:nf(CFG.evGoal)})}</span><span>${tr('{n} attempts left',{n:left2})}</span></div>`;
     if(st.hatched) h+=`<div class="evch done"><i>${I('trophy')}</i><div><b>${tr('Egg hatched!')}</b><small>${evRewardNames(ev).join(' · ')}</small></div></div>`;
-    else if(st.best>=CFG.evGoal) h+=`<button class="btn gold big" data-ev="hatch">${tr('HATCH THE EGG')}</button>`;
-    h+=`<button class="btn primary${left2<=0?' off':''}" data-ev="play">${left2>0?tr('Play an attempt'):tr('No attempts left')}</button>`;
+    else if(st.best>=CFG.evGoal) h+=`<button class="btn gold big evcta glow" data-ev="hatch">${tr('HATCH THE EGG')}</button>`;
+    if(!st.hatched) h+=`<button class="btn primary big evcta${left2<=0?' off':''}" data-ev="play">${left2>0?tr('Play an attempt'):tr('No attempts left')}</button>`;
+    h+=`<h4>${tr('MILESTONE CHESTS')}</h4>`+ev.chests.map((c,i)=>{ const got=st.chestOk.includes(i), can=st.best>=c.at && !got;
+      return `<div class="evch${can?' ok':''}${got?' done':''}"><i>${I(got?'check':'gem')}</i><div><b>${tr('Chest at {n}',{n:c.at})}</b><small>${nf(c.coins)} ${I('coin')}${c.item?' · '+evItemName(c.item):''}</small></div>${can?`<button class="btn gold" data-ev="chest" data-i="${i}">${tr('Open')}</button>`:got?`<span class="evok">${tr('Opened')}</span>`:`<span class="evlock">${I('lock')}</span>`}</div>`; }).join('');
+    if(!st.hatched){
+      h+=`<h4>${tr('KEEP GOING')}</h4>`
+        +`<div class="evbuy"><i>${I('heart')}</i><div><b>${tr('+{n} attempts',{n:CFG.evMore})}</b><small>${tr('Buy as many times as you like.')}</small></div><button class="btn ${S.coins>=CFG.evMoreCost?'gold':'off'}" data-ev="more">${I('coin')} ${nf(CFG.evMoreCost)}</button></div>`
+        +(st.easy?`<div class="evbuy done"><i>${I('check')}</i><div><b>${tr('Easier map')}</b><small>${tr('Active: everything is 50% gentler.')}</small></div></div>`
+          :`<div class="evbuy"><i>${I('leaf')}</i><div><b>${tr('Easier map (50%)')}</b><small>${tr('Slower blocks, half the hazards, a wider start, no tremors or upside-down screen.')}</small></div><button class="btn ${S.coins>=CFG.evEasyCost?'gold':'off'}" data-ev="easy">${I('coin')} ${nf(CFG.evEasyCost)}</button></div>`);
+    }
   }
-  h+=`<h4>${tr('HALL OF EGGS')}</h4><div class="evegg">`+EVENTS.filter(e=>evStart(e)<=evNow()||S.eggs.includes(e.id)).map(e=>S.eggs.includes(e.id)?`<span>${I('trophy')} ${tr(e.name)}</span>`:`<span style="opacity:.55">${I('lock')} ???</span>`).join('')+`</div>`;
+  h+=`<h4>${tr('HALL OF EGGS')}</h4><div class="evegg">`+EVENTS.filter(e=>evStart(e)<=evNow()||S.eggs.includes(e.id)).map(e=>S.eggs.includes(e.id)?`<span>${I('trophy')} ${tr(e.name)}</span>`:`<span class="evnope">${I('lock')} ???</span>`).join('')+`</div>`;
   $('evBody').innerHTML=h;
 }
+function buyMore(){
+  const ev=activeEvent(), st=evState(ev); if(!st || st.hatched) return;
+  if(S.coins<CFG.evMoreCost){ toast(tr('Need {n} {coin} — you have {m}',{n:nf(CFG.evMoreCost),coin:I('coin'),m:nf(S.coins)})); return; }
+  S.coins-=CFG.evMoreCost; st.more=(st.more||0)+1; save(); setCoins(); sfx.up(); toast(`${I('heart','ic-red')} ${tr('+{n} attempts',{n:CFG.evMore})}`); renderEvent(); renderEventCard();
+}
+function buyEasy(){
+  const ev=activeEvent(), st=evState(ev); if(!st || st.easy || st.hatched) return;
+  if(S.coins<CFG.evEasyCost){ toast(tr('Need {n} {coin} — you have {m}',{n:nf(CFG.evEasyCost),coin:I('coin'),m:nf(S.coins)})); return; }
+  S.coins-=CFG.evEasyCost; st.easy=1; save(); setCoins(); sfx.up(); toast(`${I('leaf','ic-green')} ${tr('Easier map')}`); renderEvent();
+}
+/* reminders: a big banner the first time the app is opened with 10, 5 or 3 days left, and on the last day */
+function evWarnCheck(){
+  const ev=activeEvent(); if(!ev || state!=='menu' || $('menu').classList.contains('hidden')) return;
+  for(const id of ['evsheet','hzsheet','fsheet','boosts','coinsSheet','udlg','hatch']) if(!$(id).classList.contains('hidden')) return;       // never over an open sheet
+  const ms=evEnd(ev)-evNow(), d=ms/864e5, key=ms<864e5?'last':d<=3?'3':d<=5?'5':d<=10?'10':null; if(!key) return;
+  const tag=ev.id+':'+key; if(S.evWarn.includes(tag)) return;
+  for(const k of ['10','5','3','last']){ const t=ev.id+':'+k; if(!S.evWarn.includes(t)) S.evWarn.push(t); if(k===key) break; }       // the earlier ones are not shown late
+  S.evWarn=S.evWarn.slice(-40); save();
+  const st=evState(ev), big=key==='last'?tr('LAST DAY!!'):tr('{n} DAYS LEFT',{n:key});
+  const sub=st?(st.hatched?tr('You hatched the egg. Well done!'):tr('Best {n} / {g}. Hatch the egg before it is gone.',{n:nf(st.best),g:nf(CFG.evGoal)})):tr('{name} ends soon. Enter before it is gone.',{name:tr(ev.name)});
+  const el=$('evToast'); el.style.setProperty('--e0',ev.egg[0]); el.style.setProperty('--e1',ev.egg[1]); el.classList.toggle('last',key==='last');
+  el.innerHTML=`<i>${I('gem')}</i><div><b>${big}</b><span>${sub}</span></div>`; el.classList.remove('hidden','out'); void el.offsetWidth; el.classList.add('in'); sfx.up(); vib([20,30,20]);
+  clearTimeout(evWarnCheck.t); evWarnCheck.t=setTimeout(hideEvToast,7000);
+}
+function hideEvToast(){ const el=$('evToast'); if(el.classList.contains('hidden')) return; el.classList.remove('in'); el.classList.add('out'); setTimeout(()=>el.classList.add('hidden'),400); }
 function enterEvent(){
   const ev=activeEvent(); if(!ev || evState(ev)) return;
   if(S.coins<CFG.evCost){ toast(tr('Need {n} {coin} — you have {m}',{n:nf(CFG.evCost),coin:I('coin'),m:nf(S.coins)})); return; }
@@ -3131,8 +3204,8 @@ function claimChest(i){
 }
 function startEvent(){
   const ev=activeEvent(), st=evState(ev); if(!ev || !st){ showMenu(); return; }
-  if(st.attempts>=CFG.evAttempts){ toast(tr('No attempts left')); return; }
-  rollDay(); st.attempts++; save(); mode='event'; mod=Object.assign({lives:3,bombs:true},ev.mod); newRun();
+  if(st.attempts>=evMax(st)){ toast(tr('No attempts left')); return; }
+  rollDay(); st.attempts++; save(); mode='event'; mod=Object.assign({lives:3,bombs:true},evMod(ev,st)); newRun();
 }
 function evAfterRound(){
   const ev=activeEvent(), st=evState(ev); if(!st) return;
@@ -3144,13 +3217,14 @@ function evAfterRound(){
 }
 function evOverText(){
   const ev=activeEvent(), st=evState(ev); if(!ev||!st) return;
-  $('oLabel').textContent=ucase(tr(ev.name)); $('oBest').innerHTML=tr('Best <b>{n}</b> / {g}',{n:st.best,g:nf(CFG.evGoal)}); $('oCoins').innerHTML=tr('{n} attempts left',{n:Math.max(0,CFG.evAttempts-st.attempts)});
+  $('oLabel').textContent=ucase(tr(ev.name)); $('oBest').innerHTML=tr('Best <b>{n}</b> / {g}',{n:st.best,g:nf(CFG.evGoal)}); $('oCoins').innerHTML=tr('{n} attempts left',{n:Math.max(0,evMax(st)-st.attempts)});
   $('oNext').innerHTML=st.best>=CFG.evGoal&&!st.hatched?`${I('gem','ic-gold')} ${tr('The egg is ready to hatch!')}`:'';
 }
 $('evCard').onclick=()=>{ sfx.tap(); openEvent(); };
+$('evToast').onclick=()=>{ sfx.tap(); hideEvToast(); if(state==='menu') openEvent(); };
 $('evBg').onclick=$('evClose').onclick=()=>{ sfx.tap(); closeEvent(); };
 $('evBody').addEventListener('click',e=>{ const b=e.target.closest('[data-ev]'); if(!b) return; const k=b.dataset.ev; sfx.tap();
-  if(k==='enter') enterEvent(); else if(k==='chest') claimChest(+b.dataset.i); else if(k==='play'){ closeEvent(); startEvent(); } else if(k==='hatch'){ closeEvent(); openHatch(); } });
+  if(k==='enter') enterEvent(); else if(k==='more') buyMore(); else if(k==='easy') buyEasy(); else if(k==='chest') claimChest(+b.dataset.i); else if(k==='play'){ closeEvent(); startEvent(); } else if(k==='hatch'){ closeEvent(); openHatch(); } });
 
 /* ----- hatching the egg: press and hold for about 15 seconds while it cracks and glows, then it bursts and the rewards are revealed one by one ----- */
 const hat={phase:'off',p:0,hold:false,t:0,raf:0,last:0,cracks:[],sparks:[],frags:[],conf:[],rays:0,flash:0,seenK:0,ev:null,shown:0};
@@ -3190,12 +3264,12 @@ function hatchLoop(now){
     g.beginPath(); g.ellipse(0,0,R*.78,R,0,0,Math.PI*2); g.fillStyle=eg; g.shadowColor=c0; g.shadowBlur=18+hat.p*50; g.fill(); g.shadowBlur=0;
     g.save(); g.beginPath(); g.ellipse(0,0,R*.78,R,0,0,Math.PI*2); g.clip();
     g.fillStyle='rgba(255,255,255,.18)'; for(let i=0;i<7;i++){ g.beginPath(); g.arc(Math.sin(i*2.1)*R*.5,Math.cos(i*1.7)*R*.6,R*.07+((i*7)%5)*R*.012,0,6.283); g.fill(); }       // speckles
-    g.fillStyle=`rgba(255,250,200,${hat.p*.55})`; g.fillRect(-R,-R,R*2,R*2); g.restore();                                                                       // light shining through
+    g.fillStyle=`rgba(255,250,200,${hat.p*.55})`; g.fillRect(-R,-R,R*2,R*2);          // (still clipped to the egg: the cracks stay on the shell)                                                                       // light shining through
     g.lineCap='round'; g.lineJoin='round';
     for(const c of hat.cracks){ const f=clamp((hat.p-c.th*.9)/.12,0,1); if(f<=0) continue; const n=Math.max(1,Math.ceil((c.pts.length-1)*f));
       g.beginPath(); g.moveTo(c.pts[0][0]*R,c.pts[0][1]*R); for(let i=1;i<=n;i++) g.lineTo(c.pts[i][0]*R,c.pts[i][1]*R); g.strokeStyle='#fffbd0'; g.shadowColor='#fff3a0'; g.shadowBlur=10+hat.p*14; g.lineWidth=1.5+hat.p*3.5; g.stroke();
       if(Math.random()<dt*12*hat.p){ const q=c.pts[Math.min(n,c.pts.length-1)]; hat.sparks.push({x:cx+q[0]*R,y:cy+q[1]*R,vx:(Math.random()-.5)*160,vy:-60-Math.random()*120,l:1}); } }
-    g.restore();
+    g.restore(); g.restore();
   }
   for(const f of hat.frags){ f.x+=f.vx*dt; f.y+=f.vy*dt; f.vy+=700*dt; f.r+=f.vr*dt; f.l-=dt*.45; g.save(); g.translate(f.x,f.y); g.rotate(f.r); g.globalAlpha=clamp(f.l,0,1); g.fillStyle=f.c; g.beginPath(); g.moveTo(0,-f.s); g.lineTo(f.s*.8,f.s*.6); g.lineTo(-f.s*.7,f.s*.5); g.closePath(); g.fill(); g.restore(); }
   for(const q of hat.conf){ q.x+=q.vx*dt; q.y+=q.vy*dt; q.vy+=260*dt; q.vx*=.995; q.r+=q.vr*dt; q.l-=dt*.25; if(q.y>h+20||q.l<=0){ q.l=0; continue; } g.save(); g.translate(q.x,q.y); g.rotate(q.r); g.fillStyle=q.c; g.globalAlpha=clamp(q.l*2,0,1); g.fillRect(-q.s,-q.s*.5,q.s*2,q.s); g.restore(); }
@@ -3266,6 +3340,7 @@ function showMenu(){
   setCoins(); renderMenu(); setGhostD(); showUpdateIfIdle(); checkForUpdate();
   if(incoming){ const ch=incoming; incoming=null; openChallenge(ch); }
   else if(unlockedNow){ unlockedNow=false; openUnlockDlg('done',unlockedKey); }
+  setTimeout(()=>{ try{ if(!offered && $('udlg').classList.contains('hidden')) evWarnCheck(); }catch(e){} },900);        // event reminders (10, 5, 3 days, last day)
 }
 function showModes(){
   hideAll(); $('modes').classList.remove('hidden');
@@ -3899,7 +3974,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

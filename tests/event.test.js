@@ -68,4 +68,38 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['event: +100 attempts for 5,000 coins (any number of times), the map 50% easier for 9,000 (once), power-ups allowed but not Speed-ups', async(e,L)=>{
+  const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=20000+5000*2+9000+100; __sr.enterEvent(); __sr.S.ev.attempts=100; __sr.openEvent(); });
+  assert.match(await p.textContent('#evBody'),/0 attempts left/); assert.match(await p.textContent('#evBody'),/No attempts left/);
+  await p.click('#evBody [data-ev=more]'); assert.deepEqual(await p.evaluate(()=>[__sr.S.ev.more,__sr.evMax(__sr.S.ev)]),[1,200]); assert.match(await p.textContent('#evBody'),/100 attempts left/);
+  await p.click('#evBody [data-ev=more]'); assert.equal(await p.evaluate(()=>__sr.evMax(__sr.S.ev)),300,'and again');
+  const hard=await p.evaluate(()=>__sr.evMod(__sr.activeEvent(),__sr.S.ev));
+  await p.click('#evBody [data-ev=easy]'); assert.equal(await p.evaluate(()=>__sr.S.ev.easy),1); const c1=await p.evaluate(()=>__sr.S.coins);
+  assert.equal(await p.locator('#evBody [data-ev=easy]').count(),0,'bought once'); await p.evaluate(()=>__sr.buyEasy()); assert.equal(await p.evaluate(()=>__sr.S.coins),c1,'never charged twice');
+  const easy=await p.evaluate(()=>__sr.evMod(__sr.activeEvent(),__sr.S.ev));
+  assert.ok(Math.abs((easy.speed-1)-(hard.speed-1)/2)<1e-9,'speed-up halved'); assert.ok(Math.abs(easy.chance.lava-hard.chance.lava/2)<1e-9,'hazards halved'); assert.equal(easy.upside,undefined); assert.equal(easy.tremor,undefined); assert.ok(easy.startFrac>hard.startFrac,'a wider start');
+  await p.evaluate(()=>{ __sr.S.coins=0; __sr.openEvent(); }); await p.click('#evBody [data-ev=more]'); assert.equal(await p.evaluate(()=>__sr.S.ev.more),2,'no coins: nothing bought');
+  await p.evaluate(()=>{ const S=__sr.S; Object.assign(S.shop.boosts,{shield:1,up10:1,titan:1,water:1}); S.shop.pick=['shield','up10']; S.boostAuto=false; __sr.startEvent(); }); await p.waitForTimeout(200);
+  const held=await p.evaluate(()=>__sr.held.slice().sort()); assert.deepEqual(held,['shield','titan','water'],'Shield and the campaign power-ups, never the Speed-up');
+  assert.equal(await p.evaluate(()=>__sr.mod.speed),easy.speed,'the attempt uses the easier map');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['event: reminders: a big banner the first time the app opens with 10, 5 or 3 days left and on the last day; once each; a skipped one is not shown late; tapping it opens the event; it never stays over a round', async(e,L)=>{
+  const p=await L.open(e); await base(p);
+  const show=async t=>{ await p.evaluate(t=>{ __sr.setNow(t); __sr.showMenu(); },t); await p.waitForTimeout(1200); return (await p.isVisible('#evToast'))?await p.textContent('#evToast'):''; };
+  assert.equal(await show(D(2026,11,1)),'','13 days left: nothing');
+  await p.evaluate(t=>{ __sr.setNow(t); __sr.showMenu(); __sr.openEvent(); __sr.evWarnCheck(); },D(2026,11,5)); await p.waitForTimeout(300); assert.equal(await p.isVisible('#evToast'),false,'never shown over an open sheet'); await p.evaluate(()=>{ __sr.S.evWarn=[]; });
+  assert.match(await show(D(2026,11,5)),/10 DAYS LEFT/); await p.evaluate(()=>__sr.S&&0);
+  await p.waitForTimeout(7800); assert.equal(await p.isVisible('#evToast'),false,'it slides away by itself');
+  assert.equal(await show(D(2026,11,6)),'','not twice');
+  assert.match(await show(D(2026,11,12)),/3 DAYS LEFT/,'5 days was skipped, the 3-day one shows');
+  await p.evaluate(()=>__sr.startMode('classic')); await p.waitForTimeout(500); assert.equal(await p.isVisible('#evToast'),false,'a round hides it');
+  const last=await show(D(2026,11,14,15)); assert.match(last,/LAST DAY!!/); assert.ok(await p.evaluate(()=>document.getElementById('evToast').classList.contains('last')));
+  await p.click('#evToast'); await p.waitForTimeout(400); assert.ok(await p.isVisible('#evsheet'),'tapping it opens the event');
+  await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
+  assert.equal(await show(D(2026,11,14,16)),'','remembered after a reload');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

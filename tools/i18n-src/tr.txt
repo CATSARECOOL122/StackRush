@@ -724,3 +724,16 @@
 724|{n} denemen var.
 725|Kuzey ışıklarının altında tırman.
 726|Ateşe hükmet.
+727|{n} GÜN KALDI
+728|{name} yakında bitiyor. Bitmeden katıl.
+729|+{n} deneme
+730|Etkin: her şey %50 daha yumuşak.
+731|En iyi {n} / {g}. Bitmeden yumurtayı çatlat.
+732|İstediğin kadar satın al.
+733|Daha kolay harita
+734|Daha kolay harita (%50)
+735|DEVAM ET
+736|SON GÜN!!
+737|Güçler burada çalışır (Hızlandırmalar hariç).
+738|Daha yavaş bloklar, yarı yarıya tehlike, daha geniş başlangıç, sarsıntı ve ters ekran yok.
+739|Yumurtayı çatlattın. Aferin!

@@ -724,3 +724,16 @@
 724|Tu as {n} essais.
 725|Grimpe sous les aurores boréales.
 726|Maîtrise le feu.
+727|PLUS QUE {n} JOURS
+728|{name} se termine bientôt. Participe avant la fin.
+729|+{n} essais
+730|Actif : tout est 50 % plus doux.
+731|Meilleur {n} / {g}. Fais éclore l'œuf avant la fin.
+732|À acheter autant de fois que tu veux.
+733|Carte plus facile
+734|Carte plus facile (50 %)
+735|CONTINUE
+736|DERNIER JOUR !!
+737|Les power-ups marchent ici (pas les Élans).
+738|Blocs plus lents, moitié moins de dangers, départ plus large, sans secousses ni écran à l'envers.
+739|Tu as fait éclore l'œuf. Bravo !

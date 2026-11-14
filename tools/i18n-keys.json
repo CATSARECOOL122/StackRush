@@ -724,5 +724,18 @@
  "The special event map.",
  "You get {n} attempts.",
  "Climb under the northern lights.",
- "Rule the fire."
+ "Rule the fire.",
+ "{n} DAYS LEFT",
+ "{name} ends soon. Enter before it is gone.",
+ "+{n} attempts",
+ "Active: everything is 50% gentler.",
+ "Best {n} / {g}. Hatch the egg before it is gone.",
+ "Buy as many times as you like.",
+ "Easier map",
+ "Easier map (50%)",
+ "KEEP GOING",
+ "LAST DAY!!",
+ "Power-ups work here (not Speed-ups).",
+ "Slower blocks, half the hazards, a wider start, no tremors or upside-down screen.",
+ "You hatched the egg. Well done!"
 ]

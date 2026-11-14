@@ -724,3 +724,16 @@
 724|Tienes {n} intentos.
 725|Sube bajo la aurora boreal.
 726|Domina el fuego.
+727|QUEDAN {n} DÍAS
+728|{name} termina pronto. Entra antes de que desaparezca.
+729|+{n} intentos
+730|Activo: todo es un 50% más suave.
+731|Mejor {n} / {g}. Eclosiona el huevo antes de que desaparezca.
+732|Cómpralo tantas veces como quieras.
+733|Mapa más fácil
+734|Mapa más fácil (50%)
+735|SIGUE ADELANTE
+736|¡¡ÚLTIMO DÍA!!
+737|Aquí funcionan los potenciadores (no los Impulsos).
+738|Bloques más lentos, la mitad de peligros, un inicio más ancho, sin temblores ni pantalla al revés.
+739|Has eclosionado el huevo. ¡Bien hecho!

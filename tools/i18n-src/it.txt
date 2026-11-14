@@ -724,3 +724,16 @@
 724|Hai {n} tentativi.
 725|Scala sotto l'aurora boreale.
 726|Domina il fuoco.
+727|ANCORA {n} GIORNI
+728|{name} finisce presto. Partecipa prima che sparisca.
+729|+{n} tentativi
+730|Attivo: tutto è più gentile del 50%.
+731|Migliore {n} / {g}. Schiudi l'uovo prima che sparisca.
+732|Acquistabile tutte le volte che vuoi.
+733|Mappa più facile
+734|Mappa più facile (50%)
+735|CONTINUA
+736|ULTIMO GIORNO!!
+737|Qui funzionano i potenziamenti (non gli Scatti).
+738|Blocchi più lenti, metà dei pericoli, partenza più larga, niente scosse né schermo capovolto.
+739|Hai schiuso l'uovo. Bravo!

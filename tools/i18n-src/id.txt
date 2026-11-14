@@ -724,3 +724,16 @@
 724|Kamu punya {n} percobaan.
 725|Panjat di bawah cahaya utara.
 726|Kuasai api.
+727|SISA {n} HARI
+728|{name} segera berakhir. Ikut sebelum hilang.
+729|+{n} percobaan
+730|Aktif: semuanya 50% lebih ringan.
+731|Terbaik {n} / {g}. Tetaskan telur sebelum hilang.
+732|Beli sebanyak yang kamu mau.
+733|Peta lebih mudah
+734|Peta lebih mudah (50%)
+735|TERUS MAJU
+736|HARI TERAKHIR!!
+737|Power-up berfungsi di sini (kecuali Lompatan).
+738|Blok lebih lambat, separuh bahaya, awal lebih lebar, tanpa gempa dan layar terbalik.
+739|Kamu menetaskan telurnya. Hebat!

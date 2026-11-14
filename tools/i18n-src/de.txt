@@ -724,3 +724,16 @@
 724|Du hast {n} Versuche.
 725|Klettere unter den Polarlichtern.
 726|Beherrsche das Feuer.
+727|NOCH {n} TAGE
+728|{name} endet bald. Mach mit, bevor es vorbei ist.
+729|+{n} Versuche
+730|Aktiv: alles ist 50 % sanfter.
+731|Bestwert {n} / {g}. Brüte das Ei aus, bevor es weg ist.
+732|Beliebig oft kaufbar.
+733|Leichtere Karte
+734|Leichtere Karte (50 %)
+735|WEITERMACHEN
+736|LETZTER TAG!!
+737|Power-ups funktionieren hier (keine Aufstiege).
+738|Langsamere Blöcke, halb so viele Gefahren, ein breiterer Start, keine Beben und kein Bildschirm auf dem Kopf.
+739|Du hast das Ei ausgebrütet. Gut gemacht!
