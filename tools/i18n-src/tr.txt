@@ -747,3 +747,16 @@
 747|Jeton al
 748|Henüz yeterli jeton yok
 749|{n} jetonun {m} tanesi sende. {k} kaldı.
+750|3D Bloklar
+751|Sonbahar
+752|Baloncuk
+753|Mercan Resifi
+754|Rüya Diyarı
+755|Caz Kafe
+756|Kalimba
+757|Marimba
+758|Matcha
+759|Gece Yarısı Sürüşü
+760|Müzik Kutusu
+761|Piyano
+762|Synthwave

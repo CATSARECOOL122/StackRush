@@ -747,3 +747,16 @@
 747|Obter moedas
 748|Moedas insuficientes por enquanto
 749|Você tem {m} de {n} moedas. Faltam {k}.
+750|Blocos 3D
+751|Outono
+752|Bolhas
+753|Recife de coral
+754|Paisagem de sonho
+755|Café jazz
+756|Kalimba
+757|Marimba
+758|Matcha
+759|Passeio da meia-noite
+760|Caixinha de música
+761|Piano
+762|Synthwave

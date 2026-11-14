@@ -747,3 +747,16 @@
 747|Ottieni monete
 748|Non hai ancora abbastanza monete
 749|Hai {m} di {n} monete. Ne mancano {k}.
+750|Blocchi 3D
+751|Autunno
+752|Bolle
+753|Barriera corallina
+754|Paesaggio di sogno
+755|Caffè jazz
+756|Kalimba
+757|Marimba
+758|Matcha
+759|Corsa di mezzanotte
+760|Carillon
+761|Pianoforte
+762|Synthwave

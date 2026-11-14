@@ -170,13 +170,13 @@ module.exports=[
   const p=await L.open(e,{init:SOUNDS}); await ownAll(p);
   const n=()=>p.evaluate(()=>window.__n);
   await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('sounds'));
-  for(const id of ['classic','retro','soft']){
+  for(const id of ['classic','retro','soft','marimba','kalimba','musicbox','piano','bubble']){
     const a=await n(); await p.click(`#tGrid .sw[data-slot=sfx][data-id=${id}]`); await p.waitForTimeout(750);
     assert.ok((await n())-a>=3,`sound pack ${id}: previewing it plays the land + perfect sounds (${a} -> ${await n()})`); await p.click('#peekClose');
   }
   await p.click('#closeThemes'); await p.waitForTimeout(200);
   assert.ok(await p.evaluate(()=>__sr.musicOn),'music is on');
-  for(const id of ['classic','chill','chiptune','lofi','lofirain','cave']){
+  for(const id of ['classic','chill','chiptune','lofi','lofirain','cave','jazzcafe','dream','synthwave']){
     await p.evaluate(id=>__sr.itemAction('equip','music',id),id); await p.waitForTimeout(150);
     const a=await n(); await p.waitForTimeout(4200);
     assert.ok((await n())-a>=3,`music style ${id} plays notes (${a} -> ${await n()})`);
@@ -519,8 +519,8 @@ module.exports=[
     await p.evaluate(t=>__sr.setTab(t),tab); const g=await equipped(); assert.equal(g.n,1,`${tab}: exactly one equipped card (got ${g.n})`); assert.match(g.lab[0],/Equipped/);
   }
   await p.evaluate(()=>__sr.setTab('sounds')); let g=await equipped(); assert.deepEqual(g.head,['SOUND EFFECTS'],'the Sounds tab only has sound effects');
-  assert.equal(await p.locator('#tGrid .sw[data-slot=music]').count(),0); assert.equal(await p.locator('#tGrid .sw[data-slot=sfx]').count(),3);
-  await p.evaluate(()=>__sr.setTab('music')); g=await equipped(); assert.deepEqual(g.head,['MUSIC'],'the Music tab only has music'); assert.equal(await p.locator('#tGrid .sw[data-slot=sfx]').count(),0); assert.equal(await p.locator('#tGrid .sw[data-slot=music]').count(),6);
+  assert.equal(await p.locator('#tGrid .sw[data-slot=music]').count(),0); assert.equal(await p.locator('#tGrid .sw[data-slot=sfx]').count(),8);
+  await p.evaluate(()=>__sr.setTab('music')); g=await equipped(); assert.deepEqual(g.head,['MUSIC'],'the Music tab only has music'); assert.equal(await p.locator('#tGrid .sw[data-slot=sfx]').count(),0); assert.equal(await p.locator('#tGrid .sw[data-slot=music]').count(),9);
   for(const [slot,id] of [['sfx','retro'],['music','chiptune'],['sfx','soft'],['music','chill'],['sfx','classic'],['music','classic']]){
     await p.evaluate(([s,i])=>{ __sr.setTab(s==='sfx'?'sounds':'music'); __sr.itemAction('equip',s,i); },[slot,id]);
     g=await equipped(); assert.equal(g.n,1,`after equipping ${slot} ${id}: still exactly one equipped card in that tab`);

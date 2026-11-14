@@ -747,3 +747,16 @@
 747|Münzen holen
 748|Noch nicht genug Münzen
 749|Du hast {m} von {n} Münzen. Noch {k}.
+750|3D-Blöcke
+751|Herbst
+752|Blubberblasen
+753|Korallenriff
+754|Traumlandschaft
+755|Jazz-Café
+756|Kalimba
+757|Marimba
+758|Matcha
+759|Mitternachtsfahrt
+760|Spieluhr
+761|Klavier
+762|Synthwave

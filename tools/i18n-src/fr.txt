@@ -747,3 +747,16 @@
 747|Obtenir des pièces
 748|Pas encore assez de pièces
 749|Tu as {m} sur {n} pièces. Encore {k}.
+750|Blocs 3D
+751|Automne
+752|Bulles
+753|Récif de corail
+754|Paysage de rêve
+755|Café jazz
+756|Kalimba
+757|Marimba
+758|Matcha
+759|Virée de minuit
+760|Boîte à musique
+761|Piano
+762|Synthwave

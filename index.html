@@ -960,7 +960,7 @@ const LANGS = {en:'English',es:'Español',pt:'Português',fr:'Français',de:'Deu
 const SHOP = {
   style:{
     auto:{name:'Theme style',free:1}, classic:{name:'Classic',free:1}, flat:{name:'Flat',coins:300}, glass:{name:'Glass',coins:800},
-    neon:{name:'Neon',coins:1000}, pixel:{name:'Pixel',coins:600}, foil:{name:'Foil',iap:'$0.99'} },
+    neon:{name:'Neon',coins:1000}, pixel:{name:'Pixel',coins:600}, foil:{name:'Foil',iap:'$0.99'}, cube3d:{name:'3D Blocks',coins:25000} },
   palette:{
     auto:{name:'Theme colors',free:1},
     rainbow:{name:'Rainbow',coins:400,h0:0,hr:360,hs:.45,s:88,l:58},
@@ -969,8 +969,8 @@ const SHOP = {
     ember:{name:'Ember',coins:500,h0:2,hr:48,hs:.3,s:96,l:55},
     frost:{name:'Frost',coins:500,h0:178,hr:60,hs:.3,s:88,l:64} },
   scene:{ auto:{name:'Theme scene',free:1} },
-  sfx:{ classic:{name:'Classic',free:1}, retro:{name:'Retro',coins:300}, soft:{name:'Soft',coins:300} },
-  music:{ classic:{name:'Classic',free:1}, chill:{name:'Chill',coins:400}, chiptune:{name:'Chiptune',coins:400}, lofi:{name:'Lofi Chill',coins:600}, lofirain:{name:'Lofi Rain',coins:600}, cave:{name:'Cave Echo',coins:600} },
+  sfx:{ classic:{name:'Classic',free:1}, retro:{name:'Retro',coins:300}, soft:{name:'Soft',coins:300}, marimba:{name:'Marimba',coins:700}, kalimba:{name:'Kalimba',coins:700}, musicbox:{name:'Music Box',coins:800}, piano:{name:'Piano',coins:800}, bubble:{name:'Bubble Pop',coins:600} },
+  music:{ classic:{name:'Classic',free:1}, chill:{name:'Chill',coins:400}, chiptune:{name:'Chiptune',coins:400}, lofi:{name:'Lofi Chill',coins:600}, lofirain:{name:'Lofi Rain',coins:600}, cave:{name:'Cave Echo',coins:600}, jazzcafe:{name:'Jazz Café',coins:700}, dream:{name:'Dreamscape',coins:700}, synthwave:{name:'Synthwave',coins:900} },
   fx:{ sparkle:{name:'Sparkle',free:1}, confetti:{name:'Confetti',coins:400}, stars:{name:'Stars',coins:500} },
   topper:{ none:{name:'No topper',free:1}, black:{name:'Black cat',coins:600,fur:'#2b2b36',eye:'#e9ff7a'}, orange:{name:'Orange cat',coins:600,fur:'#f2994a',belly:'#ffe5c4',tab:'#d8742a'},
            siamese:{name:'Siamese cat',coins:700,fur:'#f3e4cc',pts:'#5b4636',mask:1,belly:'#fff7ea',eye:'#62b4ff'}, tuxedo:{name:'Tuxedo cat',coins:700,fur:'#2b2b36',belly:'#ffffff',paws:'#ffffff',eye:'#e9ff7a'},
@@ -1049,6 +1049,10 @@ const THEMES = {
   amethyst:{name:'Amethyst',unlock:{t:'ach',id:'r_crystal'},bg:['#150a2e','#4b1f86','#c08bff'],sun:'rgba(230,200,255,.5)',hill:['#2c1258','#1d0b3c'],ground:'#12062a',h0:280,hr:60,hs:.3,s:80,l:66,glow:true,amb:{type:'fireflies',hue:285,n:30}},
   obsidian:{name:'Obsidian',unlock:{t:'ach',id:'r_core'},bg:['#050505','#1a0f0f','#3a1208'],sun:'rgba(255,120,40,.4)',hill:['#0e0a0a','#070505'],ground:'#030202',h0:12,hr:40,hs:.3,s:95,l:55,glow:true,amb:{type:'embers',hue:15,n:34}},
   voidcrown:{name:'Void Crown',unlock:{t:'ach',id:'stars72'},bg:['#000000','#0a0420','#1d0a45'],sun:'rgba(255,215,120,.45)',hill:['#06021a','#030110'],ground:'#010008',h0:45,hr:30,hs:.3,s:95,l:58,glow:true,stars:2},
+  midnight:{name:'Midnight Drive',unlock:{t:'coins',n:1500},bg:['#0a0320','#3a0a5a','#ff4d9a'],sun:'rgba(255,120,200,.55)',hill:['#1a0636','#0e0322'],ground:'#08021a',h0:300,hr:80,hs:.3,s:95,l:60,glow:true,amb:{type:'fireflies',hue:320,n:30}},
+  autumn:{name:'Autumn',unlock:{t:'coins',n:1100},bg:['#3a1a0a','#a8501a','#ffc070'],sun:'rgba(255,220,150,.7)',hill:['#6a2c10','#4a1e0a'],ground:'#2a1206',h0:18,hr:40,hs:.3,s:80,l:58,amb:{type:'petals',n:28}},
+  coral:{name:'Coral Reef',unlock:{t:'coins',n:1300},bg:['#04304a','#0a7a8a','#ff9a8a'],sun:'rgba(255,220,200,.55)',hill:['#06485a','#043444'],ground:'#022633',h0:10,hr:180,hs:.35,s:80,l:64,amb:{type:'bubbles',n:30}},
+  matcha:{name:'Matcha',unlock:{t:'coins',n:900},bg:['#1e2a14','#5a7a3a','#d8e8b0'],sun:'rgba(240,255,210,.6)',hill:['#3a5224','#2a3c18'],ground:'#18240e',h0:85,hr:40,hs:.3,s:45,l:62,amb:{type:'blossom',n:20}},
   aurora:{name:'Aurora Peak',unlock:{t:'event',id:'aurora26'},bg:['#020816','#0a3a4a','#2fd6a1'],sun:'rgba(150,255,210,.45)',hill:['#0a2638','#061827'],ground:'#04101c',h0:160,hr:90,hs:.28,s:90,l:62,glow:true,amb:{type:'fireflies',hue:150,n:44}},
   emberthrone:{name:'Ember Throne',unlock:{t:'event',id:'ember27'},bg:['#0a0204','#3a0a14','#ff6a2a'],sun:'rgba(255,170,70,.5)',hill:['#1c060a','#10030a'],ground:'#080204',h0:10,hr:40,hs:.3,s:95,l:56,glow:true,amb:{type:'embers',hue:12,n:44}},
   gold:{name:'Gold Rush',unlock:{t:'iap',price:'$1.00'},bg:['#0b0b0b','#1e1709','#3d2c0b'],sun:'rgba(255,205,90,.4)',hill:['#251b08','#170f04'],ground:'#0d0902',h0:38,hr:16,hs:.3,s:92,l:56,glow:true,amb:{type:'fireflies',hue:45,n:26}},
@@ -1438,10 +1442,24 @@ for(const type of ['pointerup','touchend','click','keydown'])               // r
 document.addEventListener('visibilitychange',()=>{ if(!document.hidden && ac && ac.state!=='running') kickAudio(); });
 addEventListener('pageshow',()=>{ if(ac && ac.state!=='running') kickAudio(); });
 /* sound effect packs (Shop > Sounds): the same effects with different waveforms, loudness and length */
-const SFXP={ classic:null, retro:{wave:()=>'square',v:.55,d:.8}, soft:{wave:t=>(t==='sawtooth'||t==='square')?'triangle':t,v:.8,d:1.12} };
+const SFXP={ classic:null, retro:{wave:()=>'square',v:.55,d:.8}, soft:{wave:t=>(t==='sawtooth'||t==='square')?'triangle':t,v:.8,d:1.12},
+  marimba:{inst:'marimba',oct:-1,cap:7,v:1}, kalimba:{inst:'kalimba',oct:-1,cap:7,v:1}, musicbox:{inst:'musicbox',oct:0,cap:6,v:.8}, piano:{inst:'piano',oct:-1,cap:8,v:.9}, bubble:{inst:'bubble',oct:-1,cap:7,v:1} };
+/* the instrument packs play the game's musical sounds (perfects, rewards, taps) on a real-sounding voice; harsh sounds (a miss, a bomb) stay but are softened */
+function instVoice(a,inst,f,d,v,t0){
+  const part=(mul,gain,dec,type='sine',att=.004,det=0,fr=null)=>{ const o=a.createOscillator(), g=a.createGain(); o.type=type; o.frequency.setValueAtTime(f*mul,t0); if(fr) o.frequency.exponentialRampToValueAtTime(f*fr,t0+.12); o.detune.value=det;
+    g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(v*gain,t0+att); g.gain.exponentialRampToValueAtTime(.0001,t0+dec); o.connect(g); g.connect(master); o.start(t0); o.stop(t0+dec+.05); };
+  if(inst==='marimba'){ part(1,1,Math.max(.35,d*1.2)); part(4,.32,.09); part(10,.06,.025); }
+  else if(inst==='kalimba'){ part(1,1,Math.max(.6,d*2),'sine',.003,4); part(5.9,.18,.12); part(2,.12,.3); }
+  else if(inst==='musicbox'){ part(2,.8,Math.max(.8,d*2.4)); part(5.52,.22,.25); part(4,.12,.4); }
+  else if(inst==='piano'){ part(1,.8,Math.max(.7,d*2),'triangle',.006); part(2,.3,.5); part(3,.12,.3); part(1,.2,.06,'square',.002); }
+  else { part(.6,.9,.2,'sine',.004,0,1.5); part(1.2,.25,.12,'sine',.004,0,2.2); }
+}
+
 function tone(f,d=.15,type='sine',v=.25,slide=0,delay=0){
   const a=audio(); if(!a || a.state!=='running') return;
-  const pk=SFXP[eqv('sfx')]; if(pk){ type=pk.wave(type); v*=pk.v; d*=pk.d; }
+  const pk=SFXP[eqv('sfx')];
+  if(pk && pk.inst){ if(type!=='sawtooth' && slide>=0){ instVoice(a,pk.inst,f,d,v*pk.v,a.currentTime+delay); return; } type='triangle'; v*=.55; }
+  else if(pk){ type=pk.wave(type); v*=pk.v; d*=pk.d; }
   const t0=a.currentTime+delay, o=a.createOscillator(), g=a.createGain();
   o.type=type; o.frequency.setValueAtTime(f,t0);
   if(slide) o.frequency.exponentialRampToValueAtTime(Math.max(30,f+slide),t0+d);
@@ -1451,7 +1469,7 @@ function tone(f,d=.15,type='sine',v=.25,slide=0,delay=0){
 /* a rush of wind: filtered noise that swells and fades */
 function whoosh(d=.8,v=.1,f0=400,f1=1400){
   const a=audio(); if(!a || a.state!=='running') return;
-  const pk=SFXP[eqv('sfx')]; if(pk){ v*=pk.v; d*=pk.d; }
+  const pk=SFXP[eqv('sfx')]; if(pk){ v*=pk.v; d*=pk.d||1; }
   const n=Math.max(1,Math.floor(a.sampleRate*d)), buf=a.createBuffer(1,n,a.sampleRate), ch=buf.getChannelData(0); for(let i=0;i<n;i++) ch[i]=Math.random()*2-1;
   const src=a.createBufferSource(), fl=a.createBiquadFilter(), g=a.createGain(), t0=a.currentTime;
   src.buffer=buf; fl.type='bandpass'; fl.Q.value=.9; fl.frequency.setValueAtTime(f0,t0); fl.frequency.exponentialRampToValueAtTime(f1,t0+d*.5); fl.frequency.exponentialRampToValueAtTime(f0,t0+d);
@@ -1461,7 +1479,7 @@ function whoosh(d=.8,v=.1,f0=400,f1=1400){
 const SCALE=[0,2,4,7,9,12,14,16,19,21,24];
 const sfx = {
   land(){ tone(170,.13,'sine',.4,-100); tone(1100,.04,'triangle',.07); },
-  perfect(c){ const f=523.25*Math.pow(2,SCALE[Math.min(c-1,SCALE.length-1)]/12); tone(f,.4,'triangle',.28); tone(f*2,.3,'sine',.1,0,.03); },
+  perfect(c){ const pk=SFXP[eqv('sfx')], f=523.25*Math.pow(2,(pk&&pk.oct)||0)*Math.pow(2,SCALE[Math.min(c-1,(pk&&pk.cap)||SCALE.length-1)]/12); tone(f,.4,'triangle',.28); tone(f*2,.3,'sine',.1,0,.03); },
   fail(){ tone(280,.55,'sawtooth',.16,-220); tone(120,.5,'sine',.32,-70,.05); },
   boom(){ tone(90,.5,'sawtooth',.3,-60); tone(200,.25,'square',.12,-150); tone(60,.6,'sine',.4,-30,.03); },
   dodge(){ tone(660,.08,'triangle',.18); tone(880,.14,'triangle',.18,0,.07); },
@@ -1497,7 +1515,10 @@ const MUSIC={
   /* lofi: its own little band (see lofiStep): a drum loop with swing, warm electric-piano chords, a bass line, a soft melody and vinyl noise. No random notes. */
   lofi:{lofi:1,bpm:76,roots:[0,5,-2,3],q:['m9','m9','d9','M9'],swing:.22,hat:1,snare:1,vinyl:.5,mel:1},
   lofirain:{lofi:1,bpm:66,roots:[0,-3,2,-5],q:['M9','m9','m9','d9'],swing:.18,hat:.6,snare:0,vinyl:.4,rain:1,mel:1},
-  magma:{lofi:1,band:'magma',bpm:104},      /* the Magma Core campaign track (World 7), not in the shop: see magmaStep */
+  magma:{lofi:1,band:'magma',bpm:104},
+  jazzcafe:{lofi:1,bpm:88,roots:[0,5,-2,3],q:['M9','d9','m9','d9'],swing:.3,hat:1,snare:1,vinyl:.3,mel:1},
+  dream:{lofi:1,bpm:62,roots:[0,-3,5,-5],q:['M9','m9','M9','d9'],swing:0,hat:0,snare:0,vinyl:.1,echo:.45,mel:1,sparse:1},
+  synthwave:{lofi:1,band:'synth',bpm:100},      /* the Magma Core campaign track (World 7), not in the shop: see magmaStep */
   cave:{lofi:1,bpm:58,roots:[0,-5,-7,-2],q:['o','o','o','o'],swing:0,hat:0,snare:0,vinyl:.15,echo:.52,mel:1,sparse:1}
 };
 /* ---------- lofi band ---------- */
@@ -1543,6 +1564,14 @@ function magmaStep(M,s,t0,dur16,key){
   if(bar%2===1){ for(const [st,iv] of MG_RIFF) if(st===p){ lsaw(f(root+iv+12),T,dur16*2.2,.035*lv,1900,500); if(boss||musLvl>.6) lsaw(f(root+iv+24),T,dur16*1.8,.016*lv,2400,700); } }
   if(p%4===0 && Math.random()<.35) nburst(T+Math.random()*dur16,.05,'lowpass',900,.5,.03,.002);                // embers crackling
 }
+/* Synthwave: four-on-the-floor kick, snare on 2 and 4, an eighth-note saw bass, a sparkling arpeggio and a soft pad over a minor loop */
+function synthStep(M,s,t0,dur16,key){
+  const bar=Math.floor(s/16), p=s%16, ch=bar%4, root=[0,-4,3,-2][ch]+key, q=ch===0?[0,3,7]:[0,4,7], f=semi=>220*Math.pow(2,semi/12), beat=dur16*4, lv=1.1*(.75+.5*musLvl);
+  if(p%4===0) lkick(t0,.3*lv); if(p===4||p===12) lsnare(t0,.2*lv); if(p%4===2) nburst(t0,.04,'highpass',8000,.7,.018*lv);
+  if(p%2===0) lsaw(f(root-12),t0,dur16*1.6,(p%4===0?.07:.05)*lv,800,180);
+  const arp=[q[0],q[1],q[2],12][p%4]; lsaw(f(root+arp+12),t0,dur16*.9,.016*lv,2600,700);
+  if(p===0) for(const iv of q) lsaw(f(root+iv),t0,beat*3.9,.011*lv,700,1600);
+}
 function lofiStep(M,s,t0,dur16,key){
   const bar=Math.floor(s/16), p=s%16, ch=bar%4, root=M.roots[ch]+key, f=semi=>220*Math.pow(2,semi/12), q=LCH[M.q[ch]], lv=1.35*(.7+.5*musLvl), beat=dur16*4;
   const sw=(p%2)?dur16*M.swing:0, T=t0+sw;                    // swung 16ths
@@ -1569,7 +1598,7 @@ function musicTick(){
   const M=MUSIC[(mode==='campaign' && state==='playing' && stage>=37)?'magma':eqv('music')]||MUSIC.classic, eighth=M.lofi?60/M.bpm/4:60/M.bpm/2, key=KEYS[Object.keys(THEMES).indexOf(S.theme)%KEYS.length];
   const f=semi=>220*Math.pow(2,semi/12);
   while(mus.next<now+.35){
-    if(M.lofi){ (M.band==='magma'?magmaStep:lofiStep)(M,mus.step++,mus.next,eighth,key%12>6?key-12:key); mus.next+=eighth; continue; }
+    if(M.lofi){ (M.band==='magma'?magmaStep:M.band==='synth'?synthStep:lofiStep)(M,mus.step++,mus.next,eighth,key%12>6?key-12:key); mus.next+=eighth; continue; }
     const s=mus.step++, bar=Math.floor(s/8)%4, p=s%8, root=M.prog[bar]+key, t0=mus.next+((s%2)?eighth*(M.swing||0):0);
     if(M.crackle && Math.random()<M.crackle) mnote(2400+Math.random()*4200,.018,'sawtooth',.0035+.003*Math.random(),t0+Math.random()*eighth);       // vinyl crackle (or rain)
     if(p===0){ for(const iv of (M.ch||[0,3,7,12])) mnote(f(root+iv),eighth*8,M.pad,M.padV,t0); mnote(f(root-12),eighth*3,'sine',.11,t0); }
@@ -2793,6 +2822,14 @@ function paintBlock(g,x,sy,w,bh,i,sq,th,uu,alpha){
     g.fillStyle='rgba(8,8,24,.84)'; rr(x,sy,w,bb,7*uu,g); g.fill();
     if(!lowFx){ g.shadowColor=hsl(h,100,60,.95); g.shadowBlur=14*uu; }
     g.strokeStyle=hsl(h,100,64); g.lineWidth=2.5*uu; g.stroke(); g.shadowBlur=0;
+  } else if(st==='cube3d'){                                                          // 3D Blocks: each block is a box (front, a lit top and a shaded side), so the tower reads as a stack of solid bricks
+    const dx=bh*.42, dy=bh*.34;
+    g.fillStyle=hsl(h,th.s,L0+20); g.beginPath(); g.moveTo(x,sy); g.lineTo(x+dx,sy-dy); g.lineTo(x+w+dx,sy-dy); g.lineTo(x+w,sy); g.closePath(); g.fill();
+    g.fillStyle=hsl(h,th.s,L0-18); g.beginPath(); g.moveTo(x+w,sy); g.lineTo(x+w+dx,sy-dy); g.lineTo(x+w+dx,sy+bb-dy); g.lineTo(x+w,sy+bb); g.closePath(); g.fill();
+    const gr=g.createLinearGradient(0,sy,0,sy+bb); gr.addColorStop(0,hsl(h,th.s,L0+6)); gr.addColorStop(1,hsl(h,th.s,L0-8)); g.fillStyle=gr; g.fillRect(x,sy,w,bb);
+    if(th.glow && !lowFx){ g.shadowColor=hsl(h,100,60,.8); g.shadowBlur=10*uu; }
+    g.strokeStyle='rgba(255,255,255,.28)'; g.lineWidth=1*uu; g.beginPath(); g.moveTo(x,sy); g.lineTo(x+w,sy); g.lineTo(x+w+dx,sy-dy); g.stroke(); g.shadowBlur=0;
+    g.strokeStyle='rgba(0,0,0,.25)'; g.beginPath(); g.moveTo(x+w,sy); g.lineTo(x+w,sy+bb); g.stroke();
   } else if(st==='foil'){
     const gr=g.createLinearGradient(0,sy,0,sy+bh);
     gr.addColorStop(0,hsl(h,th.s,L0+26)); gr.addColorStop(.38,hsl(h,th.s,L0-6)); gr.addColorStop(.62,hsl(h,th.s,L0+16)); gr.addColorStop(1,hsl(h,th.s,L0-18));
@@ -4000,7 +4037,7 @@ if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.ho
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;
-      while(t<sec-.5){ if(M.lofi) (M.band==='magma'?magmaStep:lofiStep)(M,st,t,eighth,key); st++; t+=eighth; }
+      while(t<sec-.5){ if(M.lofi) (M.band==='magma'?magmaStep:M.band==='synth'?synthStep:lofiStep)(M,st,t,eighth,key); st++; t+=eighth; }
       const buf=await ac.startRendering(); return {sr,l:Array.from(buf.getChannelData(0))};
     } finally { ac=oldAc; mus.gain=oldG; mus.step=oldStep; mus.next=oldNext; musLvl=oldLvl; S.shop.equip.music=oldEq; noiseBuf=null; }
   }, startPass, get passPlay(){ return passPlay; }, themeActOf:themeAct, closeThemesNow(){ showMenu(); }, get titanLeft(){ return titanLeft; }, get magnetLeft(){ return magnetLeft; }, get freezeT(){ return freezeT; }, get lives(){ return lives; }, get upAng(){ return upAng; }, get banner(){ return banner; }, forceUpside(){ upNext=0; upMin=0; }, get mod(){ return mod; }, get pieces(){ return pieces; }, get friendRun(){ return friendRun; }, startFriend, speed, placedN, checkAch, friendNow, get lift(){ return lift; }, catchUp, get cuLeft(){ return cuLeft; }, stepCatch, renderCatch, LIFTS, paintTopper, unlockCode, redeemCode, openUnlockDlg, get held(){ return held; }, get powerPhase(){ return powerPhase; }, get tsc(){ return tsc; }, openPower, closePower, usePower, powerWhy, manualOn, get backState(){ return backState; }, reloadApp, setScore, setCombo, get windOff(){ return windOff; }, get dir(){ return dir; }, get gust(){ return gust; }, get topX(){ const t=stack[stack.length-1]; return t.x+windOff; }, specialAt, hzFrom, gustDue, startGust, get lastGustH(){ return lastGustH; }, get state(){return state;}, get mode(){return mode;}, get cur(){return cur;}, get top(){return stack[stack.length-1];},

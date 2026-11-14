@@ -747,3 +747,16 @@
 747|Dapatkan koin
 748|Koin belum cukup
 749|Kamu punya {m} dari {n} koin. Kurang {k} lagi.
+750|Blok 3D
+751|Musim Gugur
+752|Gelembung
+753|Terumbu Karang
+754|Alam Mimpi
+755|Kafe Jazz
+756|Kalimba
+757|Marimba
+758|Matcha
+759|Jalan Tengah Malam
+760|Kotak Musik
+761|Piano
+762|Synthwave
