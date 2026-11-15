@@ -781,3 +781,10 @@
 781|Colores para daltónicos
 782|Hace los menús y el texto más grandes.
 783|Modo a una mano
+784|Los siete jefes seguidos. Las vidas se mantienen.
+785|Jefe {n} de {m}
+786|¡Jefe derrotado! +1 vida
+787|CARRERA DE JEFES
+788|Jefes derrotados <b>{n}</b> / {m} · {t}
+789|Supera el primer jefe de la campaña para desbloquearlo.
+790|¡CARRERA COMPLETA!

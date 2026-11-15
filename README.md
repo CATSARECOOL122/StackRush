@@ -258,3 +258,5 @@ An ultra-rare, one-off map. While an event is on, a glowing card with a live cou
 **Pets:** the animal on top of your tower now reacts: it hops and wiggles at a perfect (higher the longer the combo, off with Reduce motion) and flinches, shuts its eyes and squashes at a miss or a bomb. New toppers in the Shop (900 to 1,100 coins): **Bunny, Puppy, Panda, Teddy bear and Fox**.
 
 **Accessibility** (Settings): **Colour-blind colours** (blocks run blue to violet in clear light and dark bands, no red and green; ice, glue and lava are also told apart by their patterns), **Bigger text** (menus and screens zoomed up) and **One-handed mode** (a Back button at the bottom-left of every sub-screen, within thumb reach). All remembered.
+
+**Boss Rush** (Game modes, unlocked once you clear the first campaign boss): the seven campaign bosses back to back with your lives carried over (+1 after each boss, up to 5). Beating all seven pays 500 coins on top of 60 per boss; losing pays 60 per boss beaten. It never changes your campaign stars or progress. Your best count is shown on the tile.

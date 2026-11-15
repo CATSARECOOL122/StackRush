@@ -781,3 +781,10 @@
 781|Cores para daltônicos
 782|Deixa os menus e o texto maiores.
 783|Modo de uma mão
+784|Os sete chefes em sequência. As vidas são mantidas.
+785|Chefe {n} de {m}
+786|Chefe derrotado! +1 vida
+787|CORRIDA DE CHEFES
+788|Chefes derrotados <b>{n}</b> / {m} · {t}
+789|Derrote o primeiro chefe da campanha para desbloquear.
+790|CORRIDA COMPLETA!

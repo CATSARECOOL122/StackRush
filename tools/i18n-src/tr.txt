@@ -781,3 +781,10 @@
 781|Renk körlüğü dostu renkler
 782|Menüleri ve yazıyı büyütür.
 783|Tek el modu
+784|Yedi patron arka arkaya. Canlar devam eder.
+785|Patron {n} / {m}
+786|Patron yenildi! +1 can
+787|PATRON KOŞUSU
+788|Yenilen patron <b>{n}</b> / {m} · {t}
+789|Açmak için kampanyadaki ilk patronu yen.
+790|KOŞU TAMAMLANDI!

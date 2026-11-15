@@ -781,3 +781,10 @@
 781|Warna ramah buta warna
 782|Membuat menu dan teks lebih besar.
 783|Mode satu tangan
+784|Ketujuh bos berturut-turut. Nyawa terbawa.
+785|Bos {n} dari {m}
+786|Bos kalah! +1 nyawa
+787|BOS RUSH
+788|Bos dikalahkan <b>{n}</b> / {m} · {t}
+789|Kalahkan bos pertama di kampanye untuk membuka.
+790|RUSH SELESAI!

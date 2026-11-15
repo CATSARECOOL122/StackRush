@@ -781,3 +781,10 @@
 781|Colori per daltonici
 782|Ingrandisce i menu e il testo.
 783|Modalità a una mano
+784|Tutti e sette i boss di fila. Le vite si mantengono.
+785|Boss {n} di {m}
+786|Boss sconfitto! +1 vita
+787|ASSALTO AI BOSS
+788|Boss sconfitti <b>{n}</b> / {m} · {t}
+789|Sconfiggi il primo boss della campagna per sbloccarlo.
+790|ASSALTO COMPLETATO!

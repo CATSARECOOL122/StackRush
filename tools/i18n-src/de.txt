@@ -781,3 +781,10 @@
 781|Farbenblind-freundliche Farben
 782|Macht die Menüs und den Text größer.
 783|Einhandmodus
+784|Alle sieben Bosse hintereinander. Leben werden mitgenommen.
+785|Boss {n} von {m}
+786|Boss besiegt! +1 Leben
+787|BOSS-RUSH
+788|Bosse besiegt <b>{n}</b> / {m} · {t}
+789|Besiege den ersten Boss der Kampagne, um es freizuschalten.
+790|RUSH GESCHAFFT!

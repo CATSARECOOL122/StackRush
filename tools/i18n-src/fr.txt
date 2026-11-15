@@ -781,3 +781,10 @@
 781|Couleurs pour daltoniens
 782|Agrandit les menus et le texte.
 783|Mode une main
+784|Les sept boss à la suite. Les vies sont conservées.
+785|Boss {n} sur {m}
+786|Boss vaincu ! +1 vie
+787|COURSE DES BOSS
+788|Boss vaincus <b>{n}</b> / {m} · {t}
+789|Bats le premier boss de la campagne pour le débloquer.
+790|COURSE TERMINÉE !

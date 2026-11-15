@@ -781,5 +781,12 @@
  "Blue and violet blocks in clear light and dark bands (no red and green).",
  "Colour-blind colours",
  "Makes the menus and text larger.",
- "One-handed mode"
+ "One-handed mode",
+ "All seven bosses back to back. Lives carry over.",
+ "Boss {n} of {m}",
+ "Boss down! +1 life",
+ "BOSS RUSH",
+ "Bosses beaten <b>{n}</b> / {m} · {t}",
+ "Clear the first boss in the campaign to unlock.",
+ "RUSH COMPLETE!"
 ]

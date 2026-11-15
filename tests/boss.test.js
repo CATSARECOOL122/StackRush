@@ -158,4 +158,22 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['boss rush: locked until the first campaign boss is cleared; seven bosses back to back carrying lives (+1 each); finishing pays 920 coins; losing pays per boss; campaign progress is untouched', async(e,L)=>{
+  const p=await L.open(e); await quiet(p);
+  await p.evaluate(()=>{ __sr.showModes(); }); assert.ok(await p.locator('#mGrid [data-mode=bossrush].lockd').count()===1,'locked at first'); await p.click('#mGrid [data-mode=bossrush]'); assert.equal(await p.evaluate(()=>__sr.rush),null);
+  await p.evaluate(()=>{ __sr.S.camp[6]=3; __sr.S.coins=0; __sr.startRush(); }); await p.waitForTimeout(250);
+  assert.deepEqual(await p.evaluate(()=>[__sr.rush.i,__sr.stage,__sr.lives]),[0,6,3]);
+  await p.evaluate(()=>__sr.rushBossDown()); await p.waitForTimeout(1900);
+  assert.deepEqual(await p.evaluate(()=>[__sr.rush.i,__sr.stage,__sr.lives,__sr.state]),[1,12,4,'playing'],'boss 2, one life more');
+  for(let k=0;k<5;k++){ await p.evaluate(()=>__sr.rushBossDown()); await p.waitForTimeout(1700); }
+  assert.deepEqual(await p.evaluate(()=>[__sr.rush.i,__sr.stage]),[6,42],'the last boss');
+  await p.evaluate(()=>__sr.rushBossDown()); await p.waitForTimeout(1500);
+  assert.match(await p.textContent('#oLabel'),/RUSH COMPLETE/); assert.ok(await p.evaluate(()=>__sr.S.coins)>=920 && await p.evaluate(()=>__sr.S.coins)<1500,'7 x 60 + 500 (plus any award that unlocks)'); assert.equal(await p.evaluate(()=>__sr.S.rushBest),7);
+  assert.equal(await p.evaluate(()=>Object.keys(__sr.S.camp).filter(k=>+k!==6).length),0,'the campaign is untouched');
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.coins=0; __sr.startRush(); }); await p.waitForTimeout(200);
+  await p.evaluate(()=>__sr.rushBossDown()); await p.waitForTimeout(1800); await p.evaluate(()=>{ __sr.forceScore(5); __sr.endNow(); }); await p.waitForTimeout(1600);
+  assert.match(await p.textContent('#oLabel'),/BOSS RUSH/); assert.match(await p.textContent('#oBest'),/Bosses beaten 1 \/ 7/); assert.ok(await p.evaluate(()=>__sr.S.coins)>=60,'60 per boss beaten');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];
