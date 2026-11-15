@@ -808,3 +808,15 @@
 808|Lac de montagne
 809|Les scènes s'affichent en mode 3D.
 810|Débloque d'abord le mode 3D
+811|Les sept boss sont vaincus ! Le Défi de 30 boss commence.
+812|Bats les 37 boss de la Ruée des boss
+813|Bats les sept boss en une seule Ruée des boss
+814|Chat champion
+815|Point de contrôle enregistré ! Tu peux reprendre au boss {n}.
+816|DÉFI
+817|Coureur du défi
+818|Atteins le boss 20 dans la Ruée des boss
+819|REPRENDRE · BOSS {n}
+820|Légende de la Ruée
+821|Survivant de la Ruée
+822|Sept boss, puis un Défi de 30 boss. Les vies sont conservées.

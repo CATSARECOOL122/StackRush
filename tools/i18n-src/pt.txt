@@ -808,3 +808,15 @@
 808|Lago de montanha
 809|Os cenários aparecem no modo 3D.
 810|Desbloqueie o modo 3D primeiro
+811|Os sete chefes caíram! O Desafio de 30 chefes começa.
+812|Derrote os 37 chefes na Corrida de chefes
+813|Derrote os sete chefes em uma Corrida de chefes
+814|Gato campeão
+815|Ponto de controle salvo! Você pode continuar do chefe {n}.
+816|DESAFIO
+817|Corredor do desafio
+818|Chegue ao chefe 20 na Corrida de chefes
+819|CONTINUAR · CHEFE {n}
+820|Lenda da Corrida
+821|Sobrevivente da Corrida
+822|Sete chefes, depois um Desafio de 30 chefes. As vidas continuam.

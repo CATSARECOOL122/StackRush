@@ -808,3 +808,15 @@
 808|Lago de montaña
 809|Las escenas se ven en el modo 3D.
 810|Primero desbloquea el modo 3D
+811|¡Los siete jefes caen! Empieza el Desafío de 30 jefes.
+812|Vence a los 37 jefes en la Carrera de jefes
+813|Vence a los siete jefes en una Carrera de jefes
+814|Gato campeón
+815|¡Punto de control guardado! Puedes continuar desde el jefe {n}.
+816|DESAFÍO
+817|Corredor del desafío
+818|Llega al jefe 20 en la Carrera de jefes
+819|CONTINUAR · JEFE {n}
+820|Leyenda de la Carrera
+821|Superviviente de la Carrera
+822|Siete jefes y luego un Desafío de 30 jefes. Las vidas se mantienen.

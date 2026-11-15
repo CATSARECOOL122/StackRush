@@ -808,3 +808,15 @@
 808|Bergsee
 809|Szenen erscheinen im 3D-Modus.
 810|Schalte zuerst den 3D-Modus frei
+811|Alle sieben Bosse besiegt! Die 30-Boss-Gauntlet beginnt.
+812|Besiege alle 37 Bosse im Boss-Rush
+813|Besiege alle sieben Bosse in einem Boss-Rush
+814|Champion-Katze
+815|Checkpoint gespeichert! Du kannst bei Boss {n} weitermachen.
+816|GAUNTLET
+817|Gauntlet-Läufer
+818|Erreiche Boss 20 im Boss-Rush
+819|WEITER · BOSS {n}
+820|Rush-Legende
+821|Rush-Überlebender
+822|Sieben Bosse, dann ein Gauntlet mit 30 Bossen. Leben bleiben erhalten.

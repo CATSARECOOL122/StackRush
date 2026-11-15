@@ -276,3 +276,9 @@ With 3D Mode unlocked, Blocks tab → **3D Scene** swaps the grid floor for a wh
 - **Mountain Lake** – layered snow-capped peaks, mist, pines and a still lake that reflects them. As you climb you rise through the clouds to a starry sky with an aurora.
 
 Scenes are drawn in code (no image files), calm down with Reduce motion, and use fewer effects in performance mode.
+
+## Boss Rush: the Gauntlet
+
+Boss Rush now has **37 bosses**: the seven campaign bosses, then a **Gauntlet of 30 more bosses that exist only here** (rising speed from 1.75× to 2.35×, rotating mixes of lava, ice, glue, wind, bombs, tremors, darkness and the upside-down screen). Lives carry over (+1 after each boss, up to 5). Every 10th boss is a **checkpoint**: after a loss the end screen offers *Resume · Boss N*.
+
+Pay (all coins are paid when the run ends): 60 per campaign boss, 100 per Gauntlet boss, 250 at each checkpoint, +500 for the first seven, **+5,000 for all 37**. Awards: *Rush Survivor* (all seven, 150 coins), *Gauntlet Runner* (reach boss 20, 400 coins, Rare) and *Rush Legend* (all 37, 2,500 coins, Super Rare, unlocks the exclusive **Champion Cat** topper). Nothing here changes your campaign progress.

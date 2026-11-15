@@ -808,3 +808,15 @@
 808|Dağ Gölü
 809|Sahneler 3D Modunda görünür.
 810|Önce 3D Modunu aç
+811|Yedi patron da yenildi! 30 patronluk Meydan Okuma başlıyor.
+812|Patron Koşusunda 37 patronu da yen
+813|Tek Patron Koşusunda yedi patronu yen
+814|Şampiyon Kedi
+815|Kontrol noktası kaydedildi! {n}. patrondan devam edebilirsin.
+816|MEYDAN OKUMA
+817|Meydan Okuma Koşucusu
+818|Patron Koşusunda 20. patrona ulaş
+819|DEVAM ET · PATRON {n}
+820|Koşu Efsanesi
+821|Koşu Hayatta Kalanı
+822|Yedi patron, sonra 30 patronluk bir Meydan Okuma. Canlar taşınır.

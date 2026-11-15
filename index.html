@@ -1017,7 +1017,7 @@ const SHOP = {
            siamese:{name:'Siamese cat',coins:700,fur:'#f3e4cc',pts:'#5b4636',mask:1,belly:'#fff7ea',eye:'#62b4ff'}, tuxedo:{name:'Tuxedo cat',coins:700,fur:'#2b2b36',belly:'#ffffff',paws:'#ffffff',eye:'#e9ff7a'},
            calico:{name:'Calico cat',coins:800,fur:'#fbf3e6',patches:['#f2994a','#2f2f3a'],belly:'#ffffff',eye:'#7be08a'}, grey:{name:'Grey cat',coins:700,fur:'#9ba4b4',tab:'#6d7788',belly:'#e6eaf1',eye:'#ffd36b'}, white:{name:'White cat',coins:700,fur:'#fbfbff',belly:'#ffffff',eye:'#62b4ff'},
            aurora:{name:'Aurora Spirit',evt:'aurora26',rare:2,fur:'#7ff0d0',belly:'#e8fff8',tab:'#2fd6a1',eye:'#ffffff',glow:'#7ff0d0'}, embercat:{name:'Ember Cat',evt:'ember27',rare:2,fur:'#ff7a3a',belly:'#ffe0b0',tab:'#c4401a',eye:'#fff2a0',glow:'#ff8a3a'},
-           flag:{name:'Flag',coins:800,kind:'flag',c1:'#ff4d6d',c2:'#ffffff'}, star:{name:'Star',coins:1000,kind:'star',c1:'#ffd54a',c2:'#fff6c2'}, gold:{name:'Golden cat',iap:'$0.99',fur:'#ffc83d',belly:'#fff0b8',tab:'#e29a14',eye:'#62d6ff',glow:'#ffd54a'} },
+           champion:{name:'Champion Cat',ach:'rush37',rare:2,fur:'#fff1c8',belly:'#ffffff',tab:'#ffb82e',eye:'#ff5a3a',glow:'#ffd54a'}, flag:{name:'Flag',coins:800,kind:'flag',c1:'#ff4d6d',c2:'#ffffff'}, star:{name:'Star',coins:1000,kind:'star',c1:'#ffd54a',c2:'#fff6c2'}, gold:{name:'Golden cat',iap:'$0.99',fur:'#ffc83d',belly:'#fff0b8',tab:'#e29a14',eye:'#62d6ff',glow:'#ffd54a'} },
   accent:{
     sunset:{name:'Sunset',free:1,c1:'#ffb23d',c2:'#ff6a3d',sh:'#a63d14',ink:'#2a0d00'},
     ocean:{name:'Ocean',coins:300,c1:'#7ad8ff',c2:'#2f7bff',sh:'#1b4aa6',ink:'#021a3d'},
@@ -1136,6 +1136,9 @@ const ACH = [
   {id:'p2000',icon:'crosshair',name:'Laser Focus',desc:'2000 perfect drops total',coins:150,test:()=>S.perfects>=2000},
   {id:'t150',icon:'building2',name:'Space Tower',desc:'Stack 150 blocks in one run',coins:100,test:x=>x.height>=150},
   {id:'boss1',icon:'crown',name:'Boss Slayer',desc:'Defeat a boss stage',coins:40,test:()=>[6,12,18,24,30,36,42].some(n=>S.camp&&S.camp[n]>=1)},
+  {id:'rush7',icon:'crown',name:'Rush Survivor',desc:'Beat all seven bosses in one Boss Rush',coins:150,test:()=>(S.rushBest||0)>=7},
+  {id:'rush20',icon:'crown',name:'Gauntlet Runner',desc:'Reach boss 20 in Boss Rush',coins:400,rare:1,test:()=>(S.rushBest||0)>=20},
+  {id:'rush37',icon:'crown',name:'Rush Legend',desc:'Beat all 37 bosses in Boss Rush',coins:2500,rare:2,grant:{item:['topper','champion']},test:()=>(S.rushBest||0)>=37},
   {id:'boss4',icon:'crown',name:'Boss Rush',desc:'Defeat all four bosses',coins:120,test:()=>[6,12,18,24].every(n=>S.camp&&S.camp[n]>=1)},
   {id:'w2',icon:'map',name:'Ice Breaker',desc:'Clear all of World 2',coins:50,test:()=>cleared(7,12)},
   {id:'w3',icon:'map',name:'Glue Gunner',desc:'Clear all of World 3',coins:60,test:()=>cleared(13,18)},
@@ -1178,7 +1181,7 @@ const ACH = [
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',top:[],rushBest:0,rushTime:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',top:[],rushBest:0,rushTime:0,rushCp:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,cb:false,bigText:false,oneHand:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -1200,7 +1203,7 @@ function cleanSave(raw){
   if(Array.isArray(raw.eggs)) out.eggs=[...new Set(raw.eggs.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}$/.test(v)))].slice(0,60);
   if(raw.dm && typeof raw.dm==='object'){ const a=v=>Array.isArray(v)?[0,1,2].map(i=>num(v[i],1e6)):[0,0,0]; out.dm={day:num(raw.dm.day,1e6),p:a(raw.dm.p),paid:a(raw.dm.paid).map(x=>x?1:0),all:raw.dm.all?1:0}; }
   if(Array.isArray(raw.top)) out.top=raw.top.filter(r=>r&&typeof r==='object'&&['classic','timed','lives','hazard','daily'].includes(r.m)).slice(0,10).map(r=>({m:r.m,s:num(r.s,1e7),h:num(r.h,1e5),t:num(r.t,9e12)}));
-  if(own(raw,'rushBest')) out.rushBest=num(raw.rushBest,7); if(own(raw,'rushTime')) out.rushTime=num(raw.rushTime,1e7);
+  if(own(raw,'rushBest')) out.rushBest=num(raw.rushBest,37); if(own(raw,'rushCp')) out.rushCp=num(raw.rushCp,30); if(own(raw,'rushTime')) out.rushTime=num(raw.rushTime,1e7);
   if(Array.isArray(raw.evWarn)) out.evWarn=raw.evWarn.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}:(10|5|3|last)$/.test(v)).slice(-40);
   if(typeof raw.evSeen==='string' && /^[a-z0-9]{0,20}$/.test(raw.evSeen)) out.evSeen=raw.evSeen;
   if(['beginner','medium','advanced','ultra'].includes(raw.hzLevel)) out.hzLevel=raw.hzLevel;
@@ -1936,26 +1939,42 @@ function startMode(id){
   if(id==='daily') toast(`${I('calendar')} ${tr(todaysTwist().name)}: ${tr(todaysTwist().desc)}`,3000);
   else modeTip(id);
 }
-/* Boss Rush: the seven campaign bosses back to back, your lives carried over (+1 after each boss, up to 5). Nothing here touches your campaign progress. */
+/* Boss Rush: the seven campaign bosses back to back, then the Gauntlet: 30 more bosses made only for the Rush. Lives carry over (+1 after each boss, up to 5).
+   Every 10th boss is a checkpoint you can resume from. Nothing here touches your campaign progress. */
 const RUSH_BOSSES=[6,12,18,24,30,36,42];
+const RUSH_X=Array.from({length:30},(_,k)=>{
+  const sets=[{hz:{lava:3,wind:4},chance:{lava:.15,gust:.25}},{hz:{ice:3,glue:4},chance:{ice:.3,glue:.3}},{bombs:true,hz:{lava:3,ice:4},chance:{lava:.15,ice:.25}},
+              {hz:{lava:3,ice:3,glue:3,wind:4},chance:{lava:.18,ice:.28,glue:.28,gust:.3}},{bombs:true,hz:{glue:3,wind:4},chance:{glue:.3,gust:.3}}][k%5];
+  const goal=[['height',24+(k*.5|0)],['combo',10+(k/4|0)],['height',26+(k*.5|0)],['perfects',14+(k*.4|0)],['score',110+k*6],['height',28+(k*.5|0)]][k%6];
+  return [goal[0],goal[1],Object.assign({boss:1,startFrac:Math.max(.3,.4-k*.003),speed:Math.min(2.35,1.75+k*.02),gap:5,dark:k%3===1?1:0,tremor:k>=5?1:0,upside:(k%5===4||k>=22)?1:0},sets)];
+});
+const RUSH_TOTAL=RUSH_BOSSES.length+RUSH_X.length;
 let rush=null;
+const rushDef=i=>i<RUSH_BOSSES.length?STAGES[RUSH_BOSSES[i]-1]:RUSH_X[i-RUSH_BOSSES.length];
+const stageDef=()=>rush&&rush.def?rush.def:STAGES[stage-1];
 const rushUnlocked=()=>(S.camp&&S.camp[6]>=1);
-function startRush(){ if(!rushUnlocked()){ toast(tr('Clear the first boss in the campaign to unlock.')); return; } rush={i:0,lives:3,t0:Date.now(),paid:0}; startRushStage(); }
+const rushResume=()=>{ const c=S.rushCp||0; return c>0&&c<RUSH_TOTAL?c:0; };
+function startRush(from){ if(!rushUnlocked()){ toast(tr('Clear the first boss in the campaign to unlock.')); return; } rush={i:from||0,lives:3,t0:Date.now(),paid:0}; startRushStage(); }
 function startRushStage(){
-  rollDay(); const n=RUSH_BOSSES[rush.i]; stage=n; mode='campaign'; mod=Object.assign({},STAGES[n-1][2],{lives:rush.lives}); newRun();
-  toast(tr('Boss {n} of {m}',{n:rush.i+1,m:RUSH_BOSSES.length}),2200); banner={text:tr('BOSS STAGE'),life:1}; sfx.speed(); vib([30,40,30]);
+  rollDay(); const d=rushDef(rush.i); rush.def=d; stage=rush.i<RUSH_BOSSES.length?RUSH_BOSSES[rush.i]:31+((rush.i-RUSH_BOSSES.length)%12); mode='campaign'; mod=Object.assign({},d[2],{lives:rush.lives}); newRun();
+  toast(tr('Boss {n} of {m}',{n:rush.i+1,m:RUSH_TOTAL}),2200); banner={text:rush.i<RUSH_BOSSES.length?tr('BOSS STAGE'):tr('GAUNTLET'),life:1}; sfx.speed(); vib([30,40,30]);
 }
 function rushBossDown(){
   if(cur) cur=null; state='over'; $('tip').classList.add('hidden'); syncPower(); sfx.up(); flash=.25; burst(W/2,stack.length*BH,60,60,520*u,600); vib([30,40,30]);
-  rush.i++; rush.lives=Math.min(5,clamp(lives,1,5)+1);
-  if(rush.i>=RUSH_BOSSES.length){ setTimeout(()=>showOver({reason:'win',win:true,boss:true,stars:3,earned:0,newBest:false,lvl:levelOf(S.blocks),prevLvl:levelOf(S.blocks)}),900); return; }
-  setTimeout(()=>toast(`${I('heart','ic-red')} ${tr('Boss down! +1 life')}`,1400),200); setTimeout(()=>{ if(rush && state==='over') startRushStage(); },1500);
+  rush.i++; rush.lives=Math.min(5,clamp(lives,1,5)+1); S.rushBest=Math.max(S.rushBest||0,rush.i);
+  if(rush.i>=RUSH_TOTAL){ save(); checkAch(); setTimeout(()=>showOver({reason:'win',win:true,boss:true,stars:3,earned:0,newBest:false,lvl:levelOf(S.blocks),prevLvl:levelOf(S.blocks)}),900); return; }
+  if(rush.i%10===0){ S.rushCp=Math.max(S.rushCp||0,rush.i); setTimeout(()=>toast(`${I('check','ic-green')} ${tr('Checkpoint saved! You can resume from boss {n}.',{n:rush.i+1})}`,2600),1500); }
+  else if(rush.i===RUSH_BOSSES.length) setTimeout(()=>toast(`${I('crown','ic-gold')} ${tr('All seven bosses down! The 30-boss Gauntlet begins.')}`,2800),1500);
+  else setTimeout(()=>toast(`${I('heart','ic-red')} ${tr('Boss down! +1 life')}`,1400),200);
+  save(); checkAch(); setTimeout(()=>{ if(rush && state==='over') startRushStage(); },rush.i%10===0||rush.i===RUSH_BOSSES.length?3300:1500);
 }
+/* what a Rush pays: 60 per campaign boss, 100 per Gauntlet boss, 250 at each checkpoint, 500 for the first seven, 5,000 for all 37 */
+const rushPay=n=>60*Math.min(n,7)+100*Math.max(0,n-7)+250*Math.floor(n/10)+(n>=7?500:0)+(n>=RUSH_TOTAL?5000:0);
 function rushOverText(r){
   const n=rush.i, secs=Math.round((Date.now()-rush.t0)/1000), tm=`${Math.floor(secs/60)}:${String(secs%60).padStart(2,'0')}`;
-  if(!rush.paid){ rush.paid=1; const coins=60*n+(n===RUSH_BOSSES.length?500:0); rush.coins=coins; S.coins+=coins; S.rushBest=Math.max(S.rushBest||0,n); if(n===RUSH_BOSSES.length) S.rushTime=S.rushTime?Math.min(S.rushTime,secs):secs; save(); setCoins(); checkAch(); }
-  $('oLabel').textContent=n===RUSH_BOSSES.length?tr('RUSH COMPLETE!'):tr('BOSS RUSH'); $('oScore').classList.remove('stars'); $('oScore').textContent=`${n} / ${RUSH_BOSSES.length}`;
-  $('oBest').innerHTML=tr('Bosses beaten <b>{n}</b> / {m} · {t}',{n,m:RUSH_BOSSES.length,t:tm})+' · '+tr('Best {n}',{n:S.rushBest}); $('oCoins').innerHTML=tr('+<b>{n}</b> {coin}',{n:rush.coins,coin:I('coin')}); $('next').classList.add('hidden'); $('again').textContent=tr('AGAIN');
+  if(!rush.paid){ rush.paid=1; const coins=rushPay(n); rush.coins=coins; S.coins+=coins; S.rushBest=Math.max(S.rushBest||0,n); if(n>=RUSH_TOTAL) S.rushTime=S.rushTime?Math.min(S.rushTime,secs):secs; save(); setCoins(); checkAch(); }
+  $('oLabel').textContent=n>=RUSH_TOTAL?tr('RUSH COMPLETE!'):tr('BOSS RUSH'); $('oScore').classList.remove('stars'); $('oScore').textContent=`${n} / ${RUSH_TOTAL}`;
+  $('oBest').innerHTML=tr('Bosses beaten <b>{n}</b> / {m} · {t}',{n,m:RUSH_TOTAL,t:tm})+' · '+tr('Best {n}',{n:S.rushBest}); $('oCoins').innerHTML=tr('+<b>{n}</b> {coin}',{n:rush.coins,coin:I('coin')}); $('again').textContent=tr('AGAIN');
 }
 function startStage(n){
   rollDay();
@@ -2311,7 +2330,7 @@ function addPiece(b,dirn){
 function goalVal(g){ return ({height:stack.length-1,perfects:perfectsRun,score,dodge:dodgedRun,combo:bestCombo})[g[0]]; }
 function checkGoal(){
   if(state!=='playing') return;
-  if(mode==='campaign'){ const g=STAGES[stage-1]; if(goalVal(g)>=g[1]){ winStage(); return; } }
+  if(mode==='campaign'){ const g=stageDef(); if(goalVal(g)>=g[1]){ winStage(); return; } }
   else if(mode==='daily' && !S.twist.done && score>=CFG.twistGoal){
     S.twist.done=true; S.twistDone=(S.twistDone||0)+1; S.coins+=CFG.twistReward; save(); setCoins(); sfx.up();
     toast(tr('Daily Twist complete! +{n} {coin}',{n:CFG.twistReward,coin:I('coin')}),2600); checkAch();
@@ -2624,7 +2643,7 @@ function showOver(r){
   const M=MODES[mode], camp=mode==='campaign';
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden'); $('speedB').classList.add('hidden');
   if(passPlay===1){ if(challengeOk()){ const ch=parseChallenge(challengeCode()); if(ch){ passPlay=2; openChallenge(ch); return; } } passPlay=0; }          // Player 1 is done: hand the phone over
-  const g=camp?STAGES[stage-1]:null;
+  const g=camp?stageDef():null;
   $('oLabel').textContent = r.win ? (r.boss ? tr('BOSS DEFEATED!') : tr('STAGE {n} CLEAR',{n:stage})) : camp ? tr('STAGE {n} FAILED',{n:stage}) : r.reason==='time' ? tr("TIME'S UP") : (mode==='zen' ? tr('ZEN SESSION') : ucase(tr(M.name)));
   if(r.win) $('oScore').innerHTML=I('star','fill').repeat(r.stars)+I('star').repeat(3-r.stars); else countUp($('oScore'),score);
   $('oScore').classList.toggle('stars',!!r.win);
@@ -2652,7 +2671,7 @@ function showOver(r){
   rv.innerHTML=tr('Revive · {n} {coin}',{n:CFG.reviveCost,coin:I('coin')});
   rv.classList.toggle('off', S.coins<CFG.reviveCost);
   const rv2=$('revive2'); rv2.classList.toggle('hidden',!showRv); rv2.innerHTML=tr('Revive + Regrow · {n} {coin}',{n:CFG.reviveCost*2,coin:I('coin')}); rv2.classList.toggle('off',S.coins<CFG.reviveCost*2);
-  $('next').classList.toggle('hidden', !(r.win && stage<STAGES.length));
+  if(rush){ const rs=rushResume(); $('next').classList.toggle('hidden',!(rs>0 && rush.i<RUSH_TOTAL)); $('next').textContent=tr('RESUME · BOSS {n}',{n:rs+1}); } else $('next').classList.toggle('hidden', !(r.win && stage<STAGES.length));
   $('again').textContent = r.win ? tr('REPLAY') : tr('AGAIN');
   $('over').classList.remove('hidden');
   say(r.win?tr('Stage {n} cleared with {s} stars',{n:stage,s:r.stars}):tr('Game over. Score {n}',{n:score}));
@@ -2755,7 +2774,7 @@ function setSpeedBadge(cue){
 function setGhostD(){
   const el=$('ghostD');
   if(state==='menu' || mode==='practice'){ el.textContent=''; el.className=''; return; }
-  if(mode==='campaign'){ const g=STAGES[stage-1]; el.textContent=`${goalLabel(g)} · ${Math.min(goalVal(g),g[1])}/${g[1]}`; el.className=''; return; }
+  if(mode==='campaign'){ const g=stageDef(); el.textContent=`${goalLabel(g)} · ${Math.min(goalVal(g),g[1])}/${g[1]}`; el.className=''; return; }
   if(mode==='daily'){ el.innerHTML=S.twist.done?tr('Twist complete')+' '+I('check-circle','ic-green'):tr('Goal: score {n}',{n:CFG.twistGoal}); el.className=S.twist.done?'up':''; return; }
   if(challenge && challenge.mode===mode && ghost && ghost.live){ const fs=ghost.live.sc[friendNow()]; lastFs=fs; el.textContent=tr('Friend {n}',{n:fs}); el.className=score>fs?'up':score<fs?'down':''; return; }
   if(challenge && challenge.mode===mode){ el.innerHTML=score>challenge.score?tr('You beat your friend!'):tr('Beat {n}',{n:challenge.score}); el.className=score>challenge.score?'up':''; return; }
@@ -2907,7 +2926,7 @@ function drawGhost(){
 }
 function drawGoalLine(){
   if(mode!=='campaign' || state==='menu') return;
-  const g=STAGES[stage-1]; if(g[0]!=='height') return;
+  const g=stageDef(); if(g[0]!=='height') return;
   const ly=yv(g[1]*BH+BH);
   if(ly>-20 && ly<H+20){
     ctx.save(); ctx.setLineDash([8*u,6*u]); ctx.strokeStyle='rgba(125,255,155,.85)'; ctx.lineWidth=2*u;
@@ -3859,7 +3878,7 @@ function showModes(){
       ? `<button class="mode tile" data-mode="${id}"><i>${I(m.icon)}</i><b>${tr(m.name)}</b><span>${desc}</span><em>${em.replace('<br>',' ')}</em></button>`
       : `<button class="mode${extra}" data-mode="${id}"><i>${I(m.icon)}</i><div><b>${tr(m.name)}</b><span>${desc}</span></div><em>${em}</em></button>`;
   };
-  const br=`<button class="mode tile${rushUnlocked()?'':' lockd'}" data-mode="bossrush"><i>${I('crown')}</i><b>${tr('Boss Rush')}</b><span>${rushUnlocked()?tr('All seven bosses back to back. Lives carry over.'):tr('Clear the first boss in the campaign to unlock.')}</span><em>${rushUnlocked()?tr('BEST')+' '+(S.rushBest||0)+'/7':I('lock')}</em></button>`;
+  const br=`<button class="mode tile${rushUnlocked()?'':' lockd'}" data-mode="bossrush"><i>${I('crown')}</i><b>${tr('Boss Rush')}</b><span>${rushUnlocked()?tr('Seven bosses, then a 30-boss Gauntlet. Lives carry over.'):tr('Clear the first boss in the campaign to unlock.')}</span><em>${rushUnlocked()?tr('BEST')+' '+(S.rushBest||0)+'/'+RUSH_TOTAL:I('lock')}</em></button>`;
   const fr=`<button class="mode tile" data-mode="friend"><i>${I('share')}</i><b>${tr('Friend race')}</b><span>${tr('Send a round to a friend, or play one they sent you.')}</span><em>${tr('LINK')}</em></button>`;
   $('mGrid').innerHTML = feat.map(id=>card(id,'feat')).join('') + `<div class="tiles">${tiles.map(id=>card(id,'tile')).join('')}${fr}${br}</div>`; stagger('#mGrid .mode');
 }
@@ -3899,6 +3918,7 @@ function itemAct(slot,id){
   const it=SHOP[slot][id]||{}, eq=S.shop.equip[slot]===id;
   if(ownsItem(slot,id)) return eq?{act:'none',label:I('check')+' '+tr('Equipped'),cls:'',sub:tr('Currently equipped'),dis:true}:{act:'equip',label:tr('Equip'),cls:'primary',sub:(it.free||slot==='scene')?tr('Included'):tr('Owned')};
   if(slot==='vscene' && !ownsItem(slot,id) && !ownsItem('view','deep')) return {act:'lock2',label:`${I('lock')} ${tr('3D Mode')}`,cls:'off',sub:tr('Unlock 3D Mode first')};
+  if(it.ach){ const a=ACH.find(x=>x.id===it.ach); return {act:'lock2',label:`${I('lock')} ${tr('Award')}`,cls:'off',sub:tr('Earn the award "{name}"',{name:tr(a?a.name:'')})}; }
   if(it.evt){ const ev=EVENTS.find(x=>x.id===it.evt); return {act:'lock2',label:`${I('lock')} ${tr('Event')}`,cls:'off',sub:tr('Hatch the {name} egg',{name:tr(ev?ev.name:'')})}; }
   if(it.coins) return {act:'buy',label:`${I('coin')} ${it.coins}`,cls:S.coins>=it.coins?'gold':'off',sub:tr('Costs {n} coins (you have {m})',{n:it.coins,m:S.coins})};
   return {act:'iap',label:priceOf(slot+':'+id,it.iap),cls:'gold',sub:tr('Premium cosmetic')};
@@ -4376,7 +4396,7 @@ $('again').onclick=()=>{ sfx.tap(); restart(); };
 $('chCatch').addEventListener('click',e=>{ const b=e.target.closest('[data-cu]'); if(b) stepCatch(b.dataset.cu,+b.dataset.d); });
 $('chGo').onclick=()=>{ sfx.tap(); if(offered) startChallenge(offered); };
 $('chNo').onclick=()=>{ sfx.tap(); offered=null; showMenu(); };
-$('next').onclick=()=>{ sfx.tap(); startStage(stage+1); };
+$('next').onclick=()=>{ sfx.tap(); if(rush){ startRush(rushResume()); return; } startStage(stage+1); };
 $('toMenu').onclick=()=>{ sfx.tap(); showMenu(); };
 $('overModes').onclick=()=>{ sfx.tap(); showModes(); };
 $('revive').onclick=()=>revive();
@@ -4505,7 +4525,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

@@ -158,7 +158,7 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
-['boss rush: locked until the first campaign boss is cleared; seven bosses back to back carrying lives (+1 each); finishing pays 920 coins; losing pays per boss; campaign progress is untouched', async(e,L)=>{
+['boss rush: locked until the first campaign boss is cleared; seven bosses back to back carrying lives (+1 each), then the Gauntlet begins; leaving after the seven pays 920 coins and an award; campaign progress is untouched', async(e,L)=>{
   const p=await L.open(e); await quiet(p);
   await p.evaluate(()=>{ __sr.showModes(); }); assert.ok(await p.locator('#mGrid [data-mode=bossrush].lockd').count()===1,'locked at first'); await p.click('#mGrid [data-mode=bossrush]'); assert.equal(await p.evaluate(()=>__sr.rush),null);
   await p.evaluate(()=>{ __sr.S.camp[6]=3; __sr.S.coins=0; __sr.startRush(); }); await p.waitForTimeout(250);
@@ -166,13 +166,34 @@ module.exports=[
   await p.evaluate(()=>__sr.rushBossDown()); await p.waitForTimeout(1900);
   assert.deepEqual(await p.evaluate(()=>[__sr.rush.i,__sr.stage,__sr.lives,__sr.state]),[1,12,4,'playing'],'boss 2, one life more');
   for(let k=0;k<5;k++){ await p.evaluate(()=>__sr.rushBossDown()); await p.waitForTimeout(1700); }
-  assert.deepEqual(await p.evaluate(()=>[__sr.rush.i,__sr.stage]),[6,42],'the last boss');
-  await p.evaluate(()=>__sr.rushBossDown()); await p.waitForTimeout(1500);
-  assert.match(await p.textContent('#oLabel'),/RUSH COMPLETE/); assert.ok(await p.evaluate(()=>__sr.S.coins)>=920 && await p.evaluate(()=>__sr.S.coins)<1500,'7 x 60 + 500 (plus any award that unlocks)'); assert.equal(await p.evaluate(()=>__sr.S.rushBest),7);
-  assert.equal(await p.evaluate(()=>Object.keys(__sr.S.camp).filter(k=>+k!==6).length),0,'the campaign is untouched');
+  assert.deepEqual(await p.evaluate(()=>[__sr.rush.i,__sr.stage]),[6,42],'the last campaign boss');
+  await p.evaluate(()=>__sr.rushBossDown()); await p.waitForTimeout(3600);
+  assert.deepEqual(await p.evaluate(()=>[__sr.rush.i,__sr.state,__sr.rush.def===__sr.RUSH_X[0]]),[7,'playing',true],'the Gauntlet starts with its own boss, after the seven');
+  await p.evaluate(()=>{ __sr.forceScore(5); __sr.endNow(); }); await p.waitForTimeout(1600);
+  assert.match(await p.textContent('#oBest'),/Bosses beaten 7 \/ 37/); const c=await p.evaluate(()=>__sr.S.coins); assert.ok(c>=920 && c<1600,'7 x 60 + 500 (plus the Rush Survivor award): '+c);
+  assert.equal(await p.evaluate(()=>!!__sr.S.ach.rush7),true,'the Rush Survivor award'); assert.equal(await p.evaluate(()=>Object.keys(__sr.S.camp).filter(k=>+k!==6).length),0,'the campaign is untouched');
   await p.evaluate(()=>{ __sr.showMenu(); __sr.S.coins=0; __sr.startRush(); }); await p.waitForTimeout(200);
   await p.evaluate(()=>__sr.rushBossDown()); await p.waitForTimeout(1800); await p.evaluate(()=>{ __sr.forceScore(5); __sr.endNow(); }); await p.waitForTimeout(1600);
-  assert.match(await p.textContent('#oLabel'),/BOSS RUSH/); assert.match(await p.textContent('#oBest'),/Bosses beaten 1 \/ 7/); assert.ok(await p.evaluate(()=>__sr.S.coins)>=60,'60 per boss beaten');
+  assert.match(await p.textContent('#oLabel'),/BOSS RUSH/); assert.ok(await p.evaluate(()=>__sr.S.coins)>=60,'60 per boss beaten');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['boss rush gauntlet: 30 extra bosses (37 in all) each with a valid goal and rising speed; checkpoints every 10, resume from the end screen; pay table; finishing all 37 pays 5,000 + Rush Legend + the Champion Cat', async(e,L)=>{
+  const p=await L.open(e); await quiet(p);
+  const info=await p.evaluate(()=>({n:__sr.RUSH_X.length,tot:__sr.RUSH_TOTAL,ok:__sr.RUSH_X.every(d=>['height','combo','perfects','score'].includes(d[0])&&d[1]>0&&d[2].speed>=1.75&&d[2].speed<=2.35&&d[2].boss===1),sp:[__sr.RUSH_X[0][2].speed,__sr.RUSH_X[29][2].speed],pay:[7,10,20,37].map(__sr.rushPay)}));
+  assert.equal(info.n,30); assert.equal(info.tot,37); assert.ok(info.ok,'every gauntlet boss is valid'); assert.ok(info.sp[1]>info.sp[0],'they get faster');
+  assert.deepEqual(info.pay,[920,420+300+250+500,420+1300+500+500,420+3000+750+500+5000],'pay table');
+  await p.evaluate(()=>{ __sr.S.camp[6]=3; __sr.S.coins=0; __sr.startRush(); __sr.rush.i=9; }); await p.waitForTimeout(150);
+  await p.evaluate(()=>__sr.rushBossDown()); await p.waitForTimeout(300);
+  assert.equal(await p.evaluate(()=>__sr.S.rushCp),10,'a checkpoint after boss 10'); await p.waitForTimeout(3600);
+  assert.equal(await p.evaluate(()=>__sr.rush.i),10);
+  await p.evaluate(()=>{ __sr.forceScore(5); __sr.endNow(); }); await p.waitForTimeout(1600);
+  assert.equal(await p.isVisible('#next'),true,'a resume button'); assert.match(await p.textContent('#next'),/RESUME · BOSS 11/);
+  await p.click('#next'); await p.waitForTimeout(300); assert.equal(await p.evaluate(()=>[__sr.rush.i,__sr.state].join()),'10,playing','resumes at boss 11');
+  await p.evaluate(()=>{ __sr.rush.i=36; }); await p.evaluate(()=>__sr.rushBossDown()); await p.waitForTimeout(1500);
+  assert.match(await p.textContent('#oLabel'),/RUSH COMPLETE/); assert.match(await p.textContent('#oScore'),/37 \/ 37/);
+  assert.deepEqual(await p.evaluate(()=>[__sr.S.rushBest,!!__sr.S.ach.rush20,!!__sr.S.ach.rush37,__sr.S.shop.owned.includes('topper:champion')]),[37,true,true,true],'awards and the Champion Cat');
+  assert.ok(await p.evaluate(()=>__sr.S.coins)>=8000,'5,000 for finishing plus the rest');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 

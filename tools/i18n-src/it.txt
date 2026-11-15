@@ -808,3 +808,15 @@
 808|Lago di montagna
 809|Le scene si vedono in modalità 3D.
 810|Sblocca prima la modalità 3D
+811|Tutti e sette i boss sconfitti! Inizia la Sfida da 30 boss.
+812|Sconfiggi tutti i 37 boss nella Corsa ai boss
+813|Sconfiggi i sette boss in una sola Corsa ai boss
+814|Gatto campione
+815|Checkpoint salvato! Puoi riprendere dal boss {n}.
+816|SFIDA
+817|Corridore della sfida
+818|Raggiungi il boss 20 nella Corsa ai boss
+819|RIPRENDI · BOSS {n}
+820|Leggenda della Corsa
+821|Sopravvissuto alla Corsa
+822|Sette boss, poi una Sfida da 30 boss. Le vite restano.

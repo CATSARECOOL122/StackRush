@@ -808,3 +808,15 @@
 808|Danau Pegunungan
 809|Adegan tampil di Mode 3D.
 810|Buka Mode 3D dulu
+811|Ketujuh bos kalah! Tantangan 30 bos dimulai.
+812|Kalahkan semua 37 bos di Boss Rush
+813|Kalahkan ketujuh bos dalam satu Boss Rush
+814|Kucing Juara
+815|Titik simpan tersimpan! Kamu bisa lanjut dari bos {n}.
+816|TANTANGAN
+817|Pelari Tantangan
+818|Capai bos 20 di Boss Rush
+819|LANJUT · BOS {n}
+820|Legenda Rush
+821|Penyintas Rush
+822|Tujuh bos, lalu Tantangan 30 bos. Nyawa terbawa.
