@@ -35,7 +35,7 @@
 35|Dışarı taşan kısım kesilir, kule daralır.
 36|Oto
 37|Otomatik
-38|Başarımlar
+38|Ödüller
 39|BAŞARIMLAR
 40|Geri
 41|Kılpayı kurtuluş

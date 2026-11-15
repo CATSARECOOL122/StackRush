@@ -35,7 +35,7 @@
 35|Bagian yang menjorok akan terpotong, jadi menara makin sempit.
 36|Auto
 37|Otomatis
-38|Pencapaian
+38|Prestasi
 39|PENCAPAIAN
 40|Kembali
 41|Nyaris celaka
@@ -219,7 +219,7 @@
 219|Capai skor {goal} untuk +{reward} {coin}
 220|Capai skor {n}
 221|Capai 60 di Balapan Waktu
-222|Pengaturan
+222|Setelan
 223|PENGATURAN
 224|Bagikan
 225|Mata tajam

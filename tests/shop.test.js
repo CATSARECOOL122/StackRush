@@ -215,7 +215,7 @@ module.exports=[
 }],
 
 ['boosts: Slow-Mo waits until the speed has picked up, then slows 6 drops to ×0.6 and uses exactly one', async(e,L)=>{
-  const p=await L.open(e); await stock(p,{slow:2},['slow']);
+  const p=await L.open(e); await p.evaluate(()=>{ __sr.S.assist='on'; }); await stock(p,{slow:2},['slow']);
   const first=await p.evaluate(()=>{ __sr.startMode('classic'); for(let n=1;n<200;n++) if(__sr.rampOf(n)>=1.5) return n; return -1; });
   assert.ok(first>=10 && first<=20,`with the real settings Slow-Mo starts at block ${first}, about where the speed passes x1.5`);
   await p.evaluate(()=>{ __sr.CFG.rampStart=0; __sr.CFG.rampTau=3; __sr.startMode('classic'); }); await p.waitForTimeout(150);   // (make the ramp quick so the test is fast)
