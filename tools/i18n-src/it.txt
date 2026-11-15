@@ -899,3 +899,17 @@
 899|Spazio profondo
 900|Codice regalo accettato! +{n} {coin}
 901|Quel codice è già stato usato
+902|PREMIO IN MONETE!
+903|Oppure un premio di {a}–{b} monete ({p}% dei {t})
+904|{n} XP al livello {t}
+905|Missioni giornaliere
+906|Ogni partita
+907|Prima partita del giorno: +{n}
+908|Prima partita del giorno: +{n} XP stagionali!
+909|Passa a Premium
+910|COME GUADAGNARE XP
+911|TRAGUARDO
+912|PROSSIMO · LIVELLO {n}
+913|LIVELLO
+914|Sblocca un secondo premio a ogni livello: {c} monete, {b} Scatole misteriose, {k} potenziamenti e il gatto esclusivo della stagione.
+915|Vai al livello {n}

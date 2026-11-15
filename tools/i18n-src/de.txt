@@ -899,3 +899,17 @@
 899|Weltraum
 900|Geschenkcode akzeptiert! +{n} {coin}
 901|Dieser Code wurde schon benutzt
+902|MÜNZPREIS!
+903|Oder ein Münzpreis von {a} bis {b} ({p}% der {t}-Boxen)
+904|{n} XP bis Stufe {t}
+905|Tagesmissionen
+906|Jede Runde
+907|Erste Runde des Tages: +{n}
+908|Erste Runde des Tages: +{n} Saison-XP!
+909|Premium holen
+910|SO VERDIENST DU XP
+911|MEILENSTEIN
+912|ALS NÄCHSTES · STUFE {n}
+913|STUFE
+914|Schalte auf jeder Stufe eine zweite Belohnung frei: {c} Münzen, {b} Mystery-Boxen, {k} Booster und die Saison-Katze.
+915|Zu Stufe {n}

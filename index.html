@@ -112,9 +112,22 @@
   .mc:active{transform:scale(.9)}
   #modeName{min-width:170px;text-align:center;font-weight:900;font-size:16px}
   #seasonBody,#boxStage{display:flex;flex-direction:column;gap:8px}
-  .snhero{border-radius:18px;padding:14px;text-align:center;background:linear-gradient(135deg,color-mix(in srgb,var(--sc) 28%,#1d1245),#1d1245);border:1px solid color-mix(in srgb,var(--sc) 45%,transparent)}
-  .snhero>b{display:block;font-size:20px;letter-spacing:3px;color:var(--sc)} .snhero>span{display:block;font-size:12px;color:var(--mute);font-weight:700;margin-top:2px}
-  .snhero .snt{color:#fff;display:inline;font-size:13px} .snbar{height:12px;border-radius:8px;background:#0007;overflow:hidden;margin:10px 0 6px} .snbar u{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--sc),#fff);transition:width .5s}
+  .snhero{display:flex;align-items:center;gap:14px;text-align:left;position:relative;overflow:hidden;border-radius:20px;padding:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--sc) 34%,#1d1245),#1d1245 75%);border:1px solid color-mix(in srgb,var(--sc) 55%,transparent);box-shadow:0 0 26px color-mix(in srgb,var(--sc) 25%,transparent)}
+  .snshine{position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#ffffff26 50%,transparent 65%);transform:translateX(-120%);animation:snshine 4.5s ease-in-out infinite;pointer-events:none} @keyframes snshine{60%,100%{transform:translateX(120%)}}
+  .snring{flex:none;width:84px;height:84px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sc) calc(var(--p)*1%),#0008 0);box-shadow:0 0 22px color-mix(in srgb,var(--sc) 55%,transparent)}
+  .snin{width:68px;height:68px;border-radius:50%;background:#150d33;display:grid;place-items:center;align-content:center} .snin b{font-size:30px;line-height:1;color:#fff} .snin small{font-size:9px;letter-spacing:2px;color:var(--sc);font-weight:900}
+  .snmeta{min-width:0;flex:1} .snmeta>b{display:block;font-size:18px;letter-spacing:2px;color:var(--sc)} .snmeta>span{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--mute);font-weight:700;margin-top:2px} .snmeta .ic{width:13px;height:13px} .snxp{color:#fff!important}
+  .snbar{height:12px;border-radius:8px;background:#0007;overflow:hidden;margin:8px 0 4px} .snbar u{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--sc),#fff);transition:width .6s;position:relative} .snbar u::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,#fff9,transparent);animation:snbar 2s linear infinite} @keyframes snbar{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+  .snnext{padding:10px 12px;border-radius:14px;background:#ffffff0c;border:1px dashed var(--line)} .snnext small{display:block;letter-spacing:2px;font-size:10px;font-weight:900;color:var(--mute);margin-bottom:6px} .snnext>div{display:flex;gap:8px;flex-wrap:wrap}
+  .snp{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800;background:#ffffff14} .snp .ic{width:14px;height:14px} .snp.prem{background:#ffc83d1f;color:#ffe08a}
+  .snup{display:flex;flex-direction:column;gap:6px;padding:12px;border-radius:16px;text-align:center;background:linear-gradient(135deg,#ffc83d2a,#7a4dff22);border:1px solid #ffc83d66} .snup>b{font-size:15px;letter-spacing:2px;color:#ffd54a} .snup>b .ic{width:16px;height:16px;vertical-align:-2px} .snup>span{font-size:12px;color:#e8e0ff;font-weight:700;line-height:1.35}
+  .snhow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:11px;color:var(--mute);font-weight:700} .snhow>b{letter-spacing:2px;font-size:10px;width:100%} .snhow span{display:inline-flex;align-items:center;gap:5px} .snhow .ic{width:13px;height:13px}
+  .srow.mile{position:relative;padding-top:14px;margin-top:4px} .srow.mile .scell{min-height:62px;font-size:13px;border-width:2px} .snflag{position:absolute;left:50%;top:-1px;transform:translateX(-50%);font-size:9px;letter-spacing:2px;font-weight:900;padding:2px 10px;border-radius:0 0 8px 8px;background:linear-gradient(90deg,#ff9a3d,#ffd54a);color:#2a0d00;z-index:1}
+  .srow.cur .stier{color:#fff;text-shadow:0 0 10px var(--sc,#fff)} .srow.got .stier{color:#7dffaa}
+  .scell.k-box i{background:linear-gradient(135deg,#7a4dff,#c06aff);color:#fff} .scell.k-boost i{background:linear-gradient(135deg,#2fc8ff,#2f7bff);color:#fff} .scell.k-coin i{background:linear-gradient(135deg,#ffd54a,#ff9a3d);color:#3a1a00} .scell.k-item i{background:linear-gradient(135deg,#ff6ad0,#7a4dff,#2fd6ff);color:#fff}
+  .scell i.art{width:76px;height:40px;border-radius:9px;overflow:hidden;background:#0006} .scell i.art img{width:100%;height:100%;object-fit:cover;display:block} .scell i.art .pal{display:flex;width:100%;height:100%} .scell i.art .pal span{flex:1}
+  .snjump{align-self:center;font-size:12px;padding:8px 14px} .rot180{transform:rotate(180deg)}
+  .snsp{position:absolute;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:5;animation:snsp .75s ease-out forwards} @keyframes snsp{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
   .snprem{text-align:center;font-weight:900;font-size:13px;letter-spacing:1px;padding:8px;border-radius:12px;background:#ffc83d1c;border:1px solid #ffc83d55} .snbuy{width:100%}
   .srow{display:grid;grid-template-columns:30px 1fr 1fr;gap:6px;align-items:stretch} .srow.hd{font-size:11px;letter-spacing:2px;color:var(--mute);text-align:center;margin-top:4px} .srow.hd b{font-weight:900}
   .stier{display:grid;place-items:center;font-weight:900;font-size:13px;color:var(--mute)} .srow.cur .stier{color:#fff}
@@ -133,6 +146,7 @@
   @keyframes bxshake{0%,100%{transform:rotate(0) scale(1)}15%{transform:rotate(-9deg) scale(1.04)}30%{transform:rotate(8deg) scale(1.08)}45%{transform:rotate(-10deg) scale(1.1)}60%{transform:rotate(9deg) scale(1.12)}80%{transform:rotate(0) scale(1.2)}}
   .boxcard{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 20px;border-radius:22px;width:min(300px,100%);background:linear-gradient(180deg,color-mix(in srgb,var(--tc) 24%,#1d1245),#150d33);border:2px solid var(--tc);box-shadow:0 0 40px color-mix(in srgb,var(--tc) 55%,transparent);animation:bxpop .5s cubic-bezier(.2,1.4,.4,1)}
   @keyframes bxpop{from{transform:scale(.4) rotate(-6deg);opacity:0}}
+  .coinprize{height:84px!important;font-size:44px} .coinprize .ic{width:52px;height:52px}
   .boxcard small{letter-spacing:3px;font-weight:900;color:var(--tc)} .boxcard b{font-size:18px} .boxcard>span{font-weight:800;font-size:13px;color:var(--mute)} .bart{width:100%} .bart img{width:100%;border-radius:12px;display:block} .bart .pal{display:flex;height:64px;border-radius:12px;overflow:hidden} .bart .pal span{flex:1} .bart .ico.big{height:64px;display:grid;place-items:center;border-radius:12px;background:#ffffff12}
   .navbar{position:sticky;bottom:0;z-index:3;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:8px 10px calc(env(safe-area-inset-bottom) + 8px);background:linear-gradient(#0a0620d9,#0a0620f5);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
   .nb{pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;color:#fff;font-weight:800;font-size:11px;letter-spacing:.5px;padding:6px 2px;border-radius:12px;cursor:pointer;touch-action:manipulation}
@@ -295,6 +309,8 @@
   .stickyfoot{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom));z-index:2;padding:12px 0 2px;margin-bottom:-2px;background:linear-gradient(#160e3600,#160e36 16px,#160e36);padding-top:18px;width:100%;display:flex;gap:10px;justify-content:center;flex:none}
   .stickyfoot .btn{flex:1;max-width:260px}
   body.tablet .stickyfoot{bottom:-22px}
+  body.tablet .tabs{flex-wrap:wrap;justify-content:center;overflow:visible;gap:6px;scroll-snap-type:none}        /* iPad: every shop tab is on screen, no sideways scrolling */
+  body.tablet #tGrid{grid-template-columns:repeat(3,1fr);width:100%}
   .shbg{flex:1;min-height:24px;cursor:pointer}
   .shcard{background:linear-gradient(180deg,#1d1245,#150d33);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;padding:16px 16px calc(env(safe-area-inset-bottom) + 16px);width:min(520px,100%);align-self:center;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:0 -20px 50px #0009}
   .shcard h2{margin:0;letter-spacing:3px;font-size:16px}
@@ -1143,7 +1159,9 @@ function seasonAddXp(n){
   save(); if(after>before) setTimeout(()=>toast(`${I('crown','ic-gold')} ${tr('Season tier {n} reached!',{n:after})}`,2400),1900);
   try{ syncSeasonDot(); }catch(e){}
 }
-const seasonRunXp=r=>8+Math.floor(Math.min(r.score||0,200)/2)+Math.min(r.perfects||0,30);
+const SEASON_DAILY_XP=50;
+const seasonRunXp=r=>{ ensureSeason(); let x=8+Math.floor(Math.min(r.score||0,200)/2)+Math.min(r.perfects||0,30); const d=dayNum();
+  if(S.season.d!==d){ S.season.d=d; x+=SEASON_DAILY_XP; setTimeout(()=>toast(`${I('zap','ic-gold')} ${tr('First round of the day: +{n} season XP!',{n:SEASON_DAILY_XP})}`,2200),1200); } return x; };
 function claimTier(t,track){
   ensureSeason(); const s=S.season, list=track==='p'?s.p:s.f;
   if(t<1 || t>seasonTier() || list.includes(t) || (track==='p' && !s.prem)) return false;
@@ -1156,25 +1174,37 @@ function buyPremium(){
   S.coins-=PREMIUM_COST; S.season.prem=true; save(); setCoins(); sfx.up(); return true;
 }
 function syncSeasonDot(){ const b=$('openSeason'); if(b) b.classList.toggle('dot',seasonReady()>0); }
+const SEASON_MILES=[5,10,15,20,25,30];
+function rewardKind(r){ return r.item?'item':r.box?'box':r.boost?'boost':'coin'; }
+function sparkleAt(el,col){ if(!el||reduceOn()) return; const b=el.getBoundingClientRect(), host=$('seasonSheet'), hb=host.getBoundingClientRect();
+  for(let i=0;i<14;i++){ const sp=document.createElement('span'); sp.className='snsp'; const a=Math.random()*6.283, d=30+Math.random()*50; sp.style.cssText=`left:${b.left-hb.left+b.width/2}px;top:${b.top-hb.top+b.height/2}px;--dx:${Math.cos(a)*d}px;--dy:${Math.sin(a)*d}px;background:${col||'#ffd54a'}`; host.appendChild(sp); setTimeout(()=>sp.remove(),800); } }
+function seasonMissing(idx){ let coins=0,boxes=0,boosts=0,cat=false; for(let t=1;t<=SEASON_TIERS;t++){ const r=seasonReward(t,'p',idx); coins+=r.coins||0; boxes+=r.box||0; boosts+=r.boost?r.boost[1]:0; if(r.item&&r.item[0]==='topper') cat=true; } return {coins,boxes,boosts,cat}; }
 function renderSeason(){
   ensureSeason(); const si=seasonInfo(), s=S.season, t=seasonTier(), left=fmtLeft(si.end-evNow()), into=t>=SEASON_TIERS?SEASON_XP:s.xp%SEASON_XP;
   const cell=(k,track)=>{
-    const r=seasonReward(k,track,si.idx), done=(track==='p'?s.p:s.f).includes(k), can=k<=t && !done && (track==='f'||s.prem), locked=!can&&!done, parts=rewardParts(r);
-    const ico=parts.map(p=>I(p[0])).join(''), txt=parts.map(p=>p[1]).join(' · ');
-    return `<button class="scell ${track==='p'?'prem':''} ${done?'done':can?'ready':'lock'}" data-sc="${track}${k}" ${can?'':'disabled'} aria-label="${tr('Tier {n}',{n:k})}: ${txt.replace(/"/g,'')}"><i>${I(parts[0]?parts[0][0]:'coin')}</i><span>${txt}${done?' ✓':''}</span>${track==='p'&&!s.prem?`<em>${I('lock')}</em>`:''}</button>`;
+    const r=seasonReward(k,track,si.idx), done=(track==='p'?s.p:s.f).includes(k), can=k<=t && !done && (track==='f'||s.prem), parts=rewardParts(r), kind=rewardKind(r), mile=SEASON_MILES.includes(k);
+    const txt=parts.map(p=>p[1]).join(' · '), chip=r.item&&mile?`<i class="art">${itemArt(r.item[0],r.item[1])}</i>`:`<i>${I(parts[0]?parts[0][0]:'coin')}</i>`;
+    return `<button class="scell k-${kind} ${track==='p'?'prem':''} ${done?'done':can?'ready':'lock'}" data-sc="${track}${k}" ${can?'':'disabled'} aria-label="${tr('Tier {n}',{n:k})}: ${txt.replace(/"/g,'')}">${chip}<span>${txt}${done?' ✓':''}</span>${track==='p'&&!s.prem?`<em>${I('lock')}</em>`:''}</button>`;
   };
-  let h=`<div class="snhero" style="--sc:${si.def.c}"><b>${tr(si.def.name).toUpperCase()}</b><span>${tr('Ends in {t}',{t:left})}</span><div class="snbar"><u style="width:${Math.round(into/SEASON_XP*100)}%"></u></div><span><b class="snt">${tr('Tier {n}',{n:t})}</b> · ${nf(into)} / ${nf(SEASON_XP)} XP${t>=SEASON_TIERS?' · '+tr('MAX'):''}</span></div>`;
-  h+=s.prem?`<div class="snprem on">${I('crown','ic-gold')} ${tr('Premium pass active')}</div>`:`<button class="btn gold snbuy" data-sc="buy">${I('crown')} ${tr('Get the Premium pass')} · ${I('coin')} ${nf(PREMIUM_COST)}</button><div class="sub" style="text-align:center">${tr('Premium adds a second reward on every tier: boxes, boosts, coins and a season-only cat.')}</div>`;
-  h+=`<div class="srow hd"><span></span><b>${tr('FREE')}</b><b>${tr('PREMIUM')}</b></div>`;
-  for(let k=1;k<=SEASON_TIERS;k++) h+=`<div class="srow${k===t+1?' cur':''}"><div class="stier">${k}</div>${cell(k,'f')}${cell(k,'p')}</div>`;
+  const nxt=Math.min(SEASON_TIERS,t+1), nf_=seasonReward(nxt,'f',si.idx), np_=seasonReward(nxt,'p',si.idx), need=t>=SEASON_TIERS?0:SEASON_XP-into;
+  const pct=Math.round(into/SEASON_XP*100), ms=seasonMissing(si.idx);
+  let h=`<div class="snhero" style="--sc:${si.def.c};--p:${pct}"><div class="snshine"></div><div class="snring"><div class="snin"><b>${t}</b><small>${tr('TIER')}</small></div></div><div class="snmeta"><b>${tr(si.def.name).toUpperCase()}</b><span>${I('hourglass')} ${tr('Ends in {t}',{t:left})}</span><div class="snbar"><u style="width:${pct}%"></u></div><span class="snxp">${nf(into)} / ${nf(SEASON_XP)} XP${t>=SEASON_TIERS?' · '+tr('MAX'):' · '+tr('{n} XP to tier {t}',{n:nf(need),t:nxt})}</span></div></div>`;
+  if(t<SEASON_TIERS) h+=`<div class="snnext"><small>${tr('NEXT UP · TIER {n}',{n:nxt})}</small><div><span class="snp k-${rewardKind(nf_)}">${I(rewardParts(nf_)[0][0])} ${rewardParts(nf_).map(p=>p[1]).join(' · ')}</span><span class="snp prem k-${rewardKind(np_)}">${I('crown')} ${rewardParts(np_).map(p=>p[1]).join(' · ')}</span></div></div>`;
+  h+=s.prem?`<div class="snprem on">${I('crown','ic-gold')} ${tr('Premium pass active')}</div>`:`<div class="snup"><b>${I('crown')} ${tr('Go Premium')}</b><span>${tr('Unlock a second reward on every tier: {c} coins, {b} Mystery Boxes, {k} boosts and the season-only cat.',{c:nf(ms.coins),b:ms.boxes,k:ms.boosts})}</span><button class="btn gold snbuy" data-sc="buy">${I('crown')} ${tr('Get the Premium pass')} · ${I('coin')} ${nf(PREMIUM_COST)}</button></div>`;
+  h+=`<div class="snhow"><b>${tr('HOW TO EARN XP')}</b><span>${I('layers')} ${tr('Every round')}</span><span>${I('target')} ${tr('Daily missions')}</span><span>${I('zap')} ${tr('First round of the day: +{n}',{n:SEASON_DAILY_XP})}</span></div>`;
+  h+=`<button class="btn snjump" data-sc="jump">${I('arrowup','rot180')} ${tr('Jump to tier {n}',{n:Math.min(SEASON_TIERS,t+1)})}</button>`;
+  h+=`<div class="srow hd"><span></span><b>${tr('FREE')}</b><b>${I('crown')} ${tr('PREMIUM')}</b></div>`;
+  for(let k=1;k<=SEASON_TIERS;k++){ const mile=SEASON_MILES.includes(k); h+=`<div class="srow${k===t+1?' cur':''}${mile?' mile':''}${k<=t?' got':''}">${mile?`<div class="snflag">${tr('MILESTONE')}</div>`:''}<div class="stier">${k}</div>${cell(k,'f')}${cell(k,'p')}</div>`; }
   h+=`<div class="sub" style="text-align:center">${tr('Earn XP from every round and daily mission. Rewards you have earned are collected for you when the season ends.')}</div>`;
   $('seasonBody').innerHTML=h; const n=seasonReady(); $('seasonClaim').textContent=n?tr('Claim all ({n})',{n}):tr('Claim all'); $('seasonClaim').classList.toggle('off',!n);
 }
-function openSeason(){ renderSeason(); $('seasonSheet').classList.remove('hidden'); soon(syncBack); const c=$('seasonBody').querySelector('.srow.cur'); if(c) setTimeout(()=>{ try{ c.scrollIntoView({block:'center'}); }catch(e){} },30); }
+function openSeason(){ renderSeason(); $('seasonSheet').classList.remove('hidden'); soon(syncBack); const c=document.querySelector('#seasonSheet .shcard'); if(c) c.scrollTop=0; }
 function closeSeason(){ $('seasonSheet').classList.add('hidden'); soon(syncBack); renderMenu(); }
 
 /* --- mystery boxes: cosmetics only, one item per box, odds shown, a rare-or-better at least every 10th box, duplicates pay coins back --- */
 const BOX_TIERS=[['common',55,'Common'],['uncommon',28,'Uncommon'],['rare',11,'Rare'],['epic',5,'Epic'],['legend',1,'Legendary']];
+/* Epic and Legendary boxes can also hold a coin prize instead of an item: p = the share of that rarity, lo..hi in steps (shown in the odds) */
+const BOX_COINS={epic:{p:.35,lo:2000,hi:5000,step:100},legend:{p:.25,lo:10000,hi:20000,step:500}};
 const BOX_REFUND={common:150,uncommon:400,rare:900,epic:2000,legend:4000};
 function boxPools(){
   const P={common:[],uncommon:[],rare:[],epic:[],legend:[]};
@@ -1188,8 +1218,10 @@ function boxPools(){
 function rollBox(rnd){
   rnd=rnd||Math.random; const P=boxPools(), pity=(S.boxPity||0)>=BOX_PITY-1, list=pity?BOX_TIERS.filter(t=>t[0]==='rare'||t[0]==='epic'||t[0]==='legend'):BOX_TIERS, tot=list.reduce((a,t)=>a+t[1],0);
   let x=rnd()*tot, tier=list[list.length-1][0]; for(const t of list){ if(x<t[1]){ tier=t[0]; break; } x-=t[1]; }
-  const pool=P[tier], [slot,id]=pool[Math.min(pool.length-1,Math.floor(rnd()*pool.length))];
   S.boxPity=(tier==='rare'||tier==='epic'||tier==='legend')?0:(S.boxPity||0)+1; S.boxN=(S.boxN||0)+1;
+  const bc=BOX_COINS[tier];
+  if(bc && rnd()<bc.p){ const n=bc.lo+Math.min(Math.floor(rnd()*((bc.hi-bc.lo)/bc.step+1)),(bc.hi-bc.lo)/bc.step)*bc.step; S.coins+=n; save(); setCoins(); return {tier,coins:n,slot:null,id:null,dupe:false,refund:0}; }
+  const pool=P[tier], [slot,id]=pool[Math.min(pool.length-1,Math.floor(rnd()*pool.length))];
   const dupe=ownsItem(slot,id); let refund=0; if(dupe){ refund=BOX_REFUND[tier]; S.coins+=refund; } else S.shop.owned.push(slot+':'+id);
   save(); setCoins(); return {tier,slot,id,dupe,refund};
 }
@@ -1209,8 +1241,8 @@ function itemArt(slot,id){
 let boxLast=null, boxTimer=0;
 function showBoxResult(){
   const r=boxLast; if(!r) return; const t=BOX_TIERS.find(x=>x[0]===r.tier);
-  $('boxStage').innerHTML=`<div class="boxcard tier-${r.tier}"><small>${tr(t[2]).toUpperCase()}</small><div class="bart">${itemArt(r.slot,r.id)}</div><b>${tr(itemName(r.slot,r.id))}</b><span>${r.dupe?tr('Already owned: +{n} {coin}',{n:nf(r.refund),coin:I('coin')}):tr('NEW!')}</span></div>`;
-  $('boxEquip').classList.toggle('hidden',r.dupe||!['topper','palette','style','fx','sfx','music','accent'].includes(r.slot)); $('boxAgain').classList.toggle('hidden',(S.boxes||0)<=0);
+  $('boxStage').innerHTML=r.coins?`<div class="boxcard tier-${r.tier}"><small>${tr(t[2]).toUpperCase()}</small><div class="bart"><div class="ico big coinprize">${I('coin','ic-gold')}</div></div><b>+${nf(r.coins)} ${I('coin')}</b><span>${tr('COIN PRIZE!')}</span></div>`:`<div class="boxcard tier-${r.tier}"><small>${tr(t[2]).toUpperCase()}</small><div class="bart">${itemArt(r.slot,r.id)}</div><b>${tr(itemName(r.slot,r.id))}</b><span>${r.dupe?tr('Already owned: +{n} {coin}',{n:nf(r.refund),coin:I('coin')}):tr('NEW!')}</span></div>`;
+  $('boxEquip').classList.toggle('hidden',!!r.coins||r.dupe||!['topper','palette','style','fx','sfx','music','accent'].includes(r.slot)); $('boxAgain').classList.toggle('hidden',(S.boxes||0)<=0);
   $('boxAgain').textContent=tr('Open another ({n} left)',{n:S.boxes||0}); $('boxDone').disabled=false; sfx[(r.tier==='common'||r.tier==='uncommon')?'up':'perfect'](r.tier==='legend'?9:r.tier==='epic'?6:3); vib([20,30,20]);
 }
 function openBoxFlow(){
@@ -1226,7 +1258,7 @@ function boxTab(){
   h+=`<div class="boxrow" style="grid-column:1/-1"><button class="btn ${n?'primary':'off'}" data-act="boxopen" ${n?'':'disabled'}>${tr('Open a box ({n})',{n})}</button></div>`;
   h+=`<div class="boxrow" style="grid-column:1/-1"><button class="btn ${S.coins>=BOX_COST?'gold':'off'}" data-act="boxbuy" data-n="1">${tr('Buy 1')} · ${I('coin')} ${nf(BOX_COST)}</button><button class="btn ${S.coins>=BOX_COST5?'gold':'off'}" data-act="boxbuy" data-n="5">${tr('Buy 5')} · ${I('coin')} ${nf(BOX_COST5)}</button></div>`;
   const P=boxPools();
-  h+=`<div class="tabh">${tr('THE ODDS')}</div><div class="boxodds" style="grid-column:1/-1">`+BOX_TIERS.map(t=>`<div class="tier-${t[0]}"><i></i><b>${tr(t[2])}</b><span>${t[1]}%</span><small>${P[t[0]].length===1?tr('1 item'):tr('{n} items',{n:P[t[0]].length})} · ${tr('duplicate: +{n} coins',{n:nf(BOX_REFUND[t[0]])})}</small></div>`).join('')+`</div>`;
+  h+=`<div class="tabh">${tr('THE ODDS')}</div><div class="boxodds" style="grid-column:1/-1">`+BOX_TIERS.map(t=>`<div class="tier-${t[0]}"><i></i><b>${tr(t[2])}</b><span>${t[1]}%</span><small>${P[t[0]].length===1?tr('1 item'):tr('{n} items',{n:P[t[0]].length})} · ${tr('duplicate: +{n} coins',{n:nf(BOX_REFUND[t[0]])})}${BOX_COINS[t[0]]?`<br>${tr('Or a coin prize of {a} to {b} ({p}% of {t})',{a:nf(BOX_COINS[t[0]].lo),b:nf(BOX_COINS[t[0]].hi),p:Math.round(BOX_COINS[t[0]].p*100),t:tr(t[2])})}`:''}</small></div>`).join('')+`</div>`;
   h+=`<div class="sub" style="grid-column:1/-1">${tr('Every item in a rarity is equally likely. A Rare or better is guaranteed within {n} boxes.',{n:BOX_PITY-(S.boxPity||0)})}</div>`;
   return h;
 }
@@ -1405,7 +1437,7 @@ function cleanSave(raw){
   if(Array.isArray(raw.eggs)) out.eggs=[...new Set(raw.eggs.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}$/.test(v)))].slice(0,60);
   if(raw.dm && typeof raw.dm==='object'){ const a=v=>Array.isArray(v)?[0,1,2].map(i=>num(v[i],1e6)):[0,0,0]; out.dm={day:num(raw.dm.day,1e6),p:a(raw.dm.p),paid:a(raw.dm.paid).map(x=>x?1:0),all:raw.dm.all?1:0}; }
   if(Array.isArray(raw.top)) out.top=raw.top.filter(r=>r&&typeof r==='object'&&['classic','timed','lives','hazard','daily'].includes(r.m)).slice(0,10).map(r=>({m:r.m,s:num(r.s,1e7),h:num(r.h,1e5),t:num(r.t,9e12)}));
-  if(raw.season && typeof raw.season==='object' && typeof raw.season.id==='string' && /^\d{4}-[0-5]$/.test(raw.season.id)){ const tl=a=>Array.isArray(a)?[...new Set(a.map(v=>Math.floor(Number(v))).filter(v=>v>=1&&v<=30))]:[]; out.season={id:raw.season.id,xp:num(raw.season.xp,6000),f:tl(raw.season.f),p:tl(raw.season.p),prem:raw.season.prem?true:false}; }
+  if(raw.season && typeof raw.season==='object' && typeof raw.season.id==='string' && /^\d{4}-[0-5]$/.test(raw.season.id)){ const tl=a=>Array.isArray(a)?[...new Set(a.map(v=>Math.floor(Number(v))).filter(v=>v>=1&&v<=30))]:[]; out.season={id:raw.season.id,d:num(raw.season.d,1e6),xp:num(raw.season.xp,6000),f:tl(raw.season.f),p:tl(raw.season.p),prem:raw.season.prem?true:false}; }
   if(Array.isArray(raw.gifts)) out.gifts=[...new Set(raw.gifts.filter(v=>typeof v==='string'&&/^[0-9a-f]{64}$/.test(v)))].slice(0,20);
   for(const k of ['boxes','boxN']) if(own(raw,k)) out[k]=num(raw[k],k==='boxes'?9999:1e6); if(own(raw,'boxPity')) out.boxPity=num(raw.boxPity,9);
   if(own(raw,'rushBest')) out.rushBest=num(raw.rushBest,37); if(own(raw,'rushCp')) out.rushCp=num(raw.rushCp,30); if(own(raw,'rushTime')) out.rushTime=num(raw.rushTime,1e7);
@@ -4733,10 +4765,11 @@ $('closeThemes').onclick=()=>{ sfx.tap(); closeThemes(); };
 $('openAwards').onclick=()=>{ sfx.tap(); showAwards(); };
 $('openSeason').onclick=()=>{ sfx.tap(); openSeason(); };
 $('seasonClose').onclick=()=>{ sfx.tap(); closeSeason(); }; $('seasonBg').onclick=()=>closeSeason();
-$('seasonClaim').onclick=()=>{ const n=claimAllTiers(); if(n){ toast(`${I('crown','ic-gold')} ${tr('Rewards claimed!')}`,1800); renderSeason(); } };
+$('seasonClaim').onclick=()=>{ const n=claimAllTiers(); if(n){ sparkleAt($('seasonClaim'),'#7dffaa'); sparkleAt($('seasonClaim'),'#ffd54a'); toast(`${I('crown','ic-gold')} ${tr('Rewards claimed!')}`,1800); renderSeason(); } };
 $('seasonBody').addEventListener('click',e=>{ const b=e.target.closest('[data-sc]'); if(!b) return; const k=b.dataset.sc;
-  if(k==='buy'){ if(buyPremium()) renderSeason(); return; }
-  const r=claimTier(+k.slice(1),k[0]); if(r){ toast(`${I('crown','ic-gold')} ${rewardParts(r).map(x=>x[1]).join(' · ')}`,1800); renderSeason(); } });
+  if(k==='buy'){ if(buyPremium()){ sparkleAt(b,'#ffd54a'); renderSeason(); } return; }
+  if(k==='jump'){ const c=$('seasonBody').querySelector('.srow.cur'); if(c) c.scrollIntoView({block:'center',behavior:reduceOn()?'auto':'smooth'}); return; }
+  const r=claimTier(+k.slice(1),k[0]); if(r){ const mile=SEASON_MILES.includes(+k.slice(1)); sparkleAt(b,mile?'#ffffff':'#ffd54a'); if(mile) sfx.perfect(6); toast(`${I('crown','ic-gold')} ${rewardParts(r).map(x=>x[1]).join(' · ')}`,1800); renderSeason(); } });
 $('boxDone').onclick=()=>{ sfx.tap(); closeBox(); }; $('boxBg').onclick=()=>{ if(!$('boxDone').disabled) closeBox(); };
 $('boxAgain').onclick=()=>{ openBoxFlow(); };
 $('boxEquip').onclick=()=>{ if(boxLast && !boxLast.dupe){ S.shop.equip[boxLast.slot]=boxLast.id; save(); sfx.tap(); toast(tr('Equipped!')); $('boxEquip').classList.add('hidden'); } };

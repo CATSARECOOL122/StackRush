@@ -899,3 +899,17 @@
 899|Espacio exterior
 900|¡Código de regalo aceptado! +{n} {coin}
 901|Ese código ya se usó
+902|¡PREMIO EN MONEDAS!
+903|O un premio de {a} a {b} monedas ({p}% de {t})
+904|{n} XP para el nivel {t}
+905|Misiones diarias
+906|Cada partida
+907|Primera partida del día: +{n}
+908|¡Primera partida del día: +{n} XP de temporada!
+909|Hazte Premium
+910|CÓMO GANAR XP
+911|HITO
+912|LO SIGUIENTE · NIVEL {n}
+913|NIVEL
+914|Desbloquea una segunda recompensa en cada nivel: {c} monedas, {b} Cajas misteriosas, {k} potenciadores y el gato exclusivo de la temporada.
+915|Ir al nivel {n}

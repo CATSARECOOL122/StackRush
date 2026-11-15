@@ -899,5 +899,19 @@
  "Neon City",
  "Outer Space",
  "Gift code accepted! +{n} {coin}",
- "That code was already used"
+ "That code was already used",
+ "COIN PRIZE!",
+ "Or a coin prize of {a} to {b} ({p}% of {t})",
+ "{n} XP to tier {t}",
+ "Daily missions",
+ "Every round",
+ "First round of the day: +{n}",
+ "First round of the day: +{n} season XP!",
+ "Go Premium",
+ "HOW TO EARN XP",
+ "MILESTONE",
+ "NEXT UP · TIER {n}",
+ "TIER",
+ "Unlock a second reward on every tier: {c} coins, {b} Mystery Boxes, {k} boosts and the season-only cat.",
+ "Jump to tier {n}"
 ]

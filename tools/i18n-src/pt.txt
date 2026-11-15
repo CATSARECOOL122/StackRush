@@ -899,3 +899,17 @@
 899|Espaço sideral
 900|Código de presente aceito! +{n} {coin}
 901|Esse código já foi usado
+902|PRÊMIO EM MOEDAS!
+903|Ou um prêmio de {a} a {b} moedas ({p}% dos {t})
+904|{n} XP para o nível {t}
+905|Missões diárias
+906|Cada partida
+907|Primeira partida do dia: +{n}
+908|Primeira partida do dia: +{n} XP da temporada!
+909|Seja Premium
+910|COMO GANHAR XP
+911|MARCO
+912|A SEGUIR · NÍVEL {n}
+913|NÍVEL
+914|Desbloqueie uma segunda recompensa em cada nível: {c} moedas, {b} Caixas misteriosas, {k} reforços e o gato exclusivo da temporada.
+915|Ir para o nível {n}

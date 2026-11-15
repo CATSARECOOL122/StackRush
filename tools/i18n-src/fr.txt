@@ -899,3 +899,17 @@
 899|Espace
 900|Code cadeau accepté ! +{n} {coin}
 901|Ce code a déjà été utilisé
+902|LOT DE PIÈCES !
+903|Ou un lot de {a} à {b} pièces ({p}% des {t})
+904|{n} XP pour le palier {t}
+905|Missions du jour
+906|Chaque partie
+907|Première partie du jour : +{n}
+908|Première partie du jour : +{n} XP de saison !
+909|Passer Premium
+910|COMMENT GAGNER DE L'XP
+911|ÉTAPE CLÉ
+912|PROCHAIN · PALIER {n}
+913|PALIER
+914|Débloque une seconde récompense à chaque palier : {c} pièces, {b} Coffres mystère, {k} boosts et le chat exclusif de la saison.
+915|Aller au palier {n}

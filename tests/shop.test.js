@@ -597,7 +597,7 @@ module.exports=[
   assert.equal(await p.evaluate(()=>__sr.S.shop.owned.includes('palette:ssn4')&&__sr.S.shop.owned.includes('topper:ssn4')),true,'the season palette and cat'); assert.equal(await p.evaluate(()=>__sr.S.boxes),9,'boxes on premium tiers 3, 9, 17, 23 (1 each), 27 (2) and 30 (3)');
   /* a round earns XP; Zen does not */
   await p.evaluate(()=>{ __sr.S.season={id:'2026-4',xp:0,f:[],p:[],prem:false}; }); await p.evaluate(()=>document.getElementById('play').click()); await p.waitForTimeout(300); await L.perfects(p,3); await p.evaluate(()=>{ __sr.endNow(); }); await p.waitForTimeout(900);
-  assert.ok(await p.evaluate(()=>__sr.S.season.xp)>=11,'a round earns season XP');
+  assert.ok(await p.evaluate(()=>__sr.S.season.xp)>=61,'a round earns season XP, with +50 for the first round of the day');
   /* the season ends: everything earned is collected */
   await p.evaluate(()=>{ __sr.S.season={id:'2026-3',xp:600,f:[],p:[],prem:true}; __sr.S.coins=0; __sr.S.boxes=0; __sr.ensureSeason(); });
   assert.equal(await p.evaluate(()=>[__sr.S.season.id,__sr.S.season.xp,__sr.S.season.prem].join()),'2026-4,0,false'); assert.equal(await p.evaluate(()=>__sr.S.coins),374,'3 tiers x 2 tracks collected: 150 free + 224 premium'); assert.equal(await p.evaluate(()=>__sr.S.boxes),1,'the tier 3 premium box');
@@ -619,6 +619,11 @@ module.exports=[
   const r1=await p.evaluate(()=>{ __sr.S.boxPity=0; return __sr.rollBox(()=>0); }); assert.equal(r1.tier,'common'); assert.equal(r1.dupe,false);
   const r2=await p.evaluate(()=>{ __sr.S.boxPity=0; return __sr.rollBox(()=>0.995); }); assert.equal(r2.tier,'legend'); assert.equal(await p.evaluate(()=>__sr.S.shop.owned.includes('topper:cosmic')),true);
   await p.evaluate(()=>{ __sr.S.coins=0; __sr.S.boxPity=0; }); const r3=await p.evaluate(()=>__sr.rollBox(()=>0.995)); assert.equal(r3.dupe,true,'the same Legendary again is a duplicate'); assert.equal(r3.refund,4000); assert.equal(await p.evaluate(()=>__sr.S.coins),4000);
+  /* Epic and Legendary can hold a coin prize: 35% of Epic (2,000-5,000), 25% of Legendary (10,000-20,000) */
+  await p.evaluate(()=>{ __sr.S.coins=0; __sr.S.boxPity=0; }); const c1=await p.evaluate(()=>{ const q=[0.96,0.0,0.5]; return __sr.rollBox(()=>q.shift()); }); assert.equal(c1.tier,'epic'); assert.equal(c1.coins,3500,'epic coin prize'); assert.equal(await p.evaluate(()=>__sr.S.coins),3500);
+  await p.evaluate(()=>{ __sr.S.coins=0; __sr.S.boxPity=0; }); const c2=await p.evaluate(()=>{ const q=[0.995,0.1,0.999]; return __sr.rollBox(()=>q.shift()); }); assert.equal(c2.tier,'legend'); assert.equal(c2.coins,20000,'legendary jackpot tops out at 20,000');
+  const c3=await p.evaluate(()=>{ const q=[0.96,0.9,0.0]; __sr.S.boxPity=0; return __sr.rollBox(()=>q.shift()); }); assert.ok(!c3.coins && c3.slot,'otherwise an epic item');
+  const cs=await p.evaluate(()=>{ let lo=1e9,hi=0,n=0; for(let i=0;i<3000;i++){ __sr.S.boxPity=0; const r=__sr.rollBox(); if(r.coins){ n++; lo=Math.min(lo,r.coins); hi=Math.max(hi,r.coins); } } return {lo,hi,n}; }); assert.ok(cs.n>0 && cs.lo>=2000 && cs.hi<=20000,'coin prizes stay in range: '+JSON.stringify(cs));
   /* pity: nine misses force a Rare or better, whatever the dice say */
   await p.evaluate(()=>{ __sr.S.boxPity=9; }); const r4=await p.evaluate(()=>__sr.rollBox(()=>0)); assert.ok(['rare','epic','legend'].includes(r4.tier),'the 10th box: '+r4.tier); assert.equal(await p.evaluate(()=>__sr.S.boxPity),0);
   /* statistics over many rolls land near the listed odds */
@@ -649,6 +654,21 @@ module.exports=[
   await p.evaluate(()=>__sr.openUnlockDlg('redeem')); await p.fill('#udInput','DIALOGCODE99'); await p.click('#udOk'); await p.waitForTimeout(300); assert.equal(await p.isVisible('#udlg'),true,'the dialog stays open'); assert.match(await p.textContent('#udMsg'),/already used/); assert.equal(await p.evaluate(()=>__sr.S.coins),50);
   assert.ok(/const GIFTS=\[(\{h:'[0-9a-f]{64}',coins:\d+\},?)*\];/.test(html),'only 64-character hashes are ever stored in the page');
   assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+
+['iPad: every shop tab is on screen with no sideways scrolling, the items use three columns, and the Season sheet and nav bar fit without scrolling the page', async(e,L)=>{
+  const UA='Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1';
+  for(const [vw,vh] of [[820,1000],[1180,720],[744,950]]){
+    const p=await L.open(e,{ctx:{viewport:{width:vw,height:vh},hasTouch:true,userAgent:UA}});
+    const nav=await p.evaluate(()=>{ const b=document.querySelector('#menu .navbar').getBoundingClientRect(); return [Math.round(b.bottom),innerHeight,document.querySelectorAll('#menu .navbar .nb').length]; }); assert.equal(nav[0],nav[1],vw+'x'+vh+': the nav bar sits at the bottom of the screen'); assert.equal(nav[2],5);
+    await p.click('#openThemes'); await p.waitForTimeout(300);
+    const t=await p.evaluate(()=>{ const x=document.getElementById('tTabs'); return {over:x.scrollWidth-x.clientWidth,n:x.children.length,cols:getComputedStyle(document.getElementById('tGrid')).gridTemplateColumns.split(' ').length}; });
+    assert.ok(t.over<=1,vw+'x'+vh+': no sideways scrolling in the tab strip ('+t.over+')'); assert.equal(t.n,10); assert.equal(t.cols,3);
+    await p.evaluate(()=>{ __sr.showMenu(); }); await p.click('#openSeason'); await p.waitForTimeout(300);
+    const s=await p.evaluate(()=>{ const c=document.querySelector('#seasonSheet .shcard').getBoundingClientRect(), f=document.querySelector('#seasonSheet .stickyfoot').getBoundingClientRect(); return [c.top>=0,c.bottom<=innerHeight+1,f.bottom<=innerHeight+1]; }); assert.deepEqual(s,[true,true,true],vw+'x'+vh+': the Season sheet and its buttons are on screen');
+    assert.deepEqual(p.errs,[]); await L.close(p);
+  }
 }],
 
 ];

@@ -899,3 +899,17 @@
 899|Luar Angkasa
 900|Kode hadiah diterima! +{n} {coin}
 901|Kode itu sudah dipakai
+902|HADIAH KOIN!
+903|Atau hadiah koin {a} sampai {b} ({p}% dari {t})
+904|{n} XP ke tingkat {t}
+905|Misi harian
+906|Setiap ronde
+907|Ronde pertama hari ini: +{n}
+908|Ronde pertama hari ini: +{n} XP musim!
+909|Jadi Premium
+910|CARA DAPAT XP
+911|TONGGAK
+912|BERIKUTNYA · TINGKAT {n}
+913|TINGKAT
+914|Buka hadiah kedua di setiap tingkat: {c} koin, {b} Kotak Misteri, {k} booster, dan kucing khusus musim.
+915|Ke tingkat {n}

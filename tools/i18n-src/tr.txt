@@ -899,3 +899,17 @@
 899|Uzay
 900|Hediye kodu kabul edildi! +{n} {coin}
 901|Bu kod zaten kullanıldı
+902|JETON ÖDÜLÜ!
+903|Veya {a} ile {b} arası jeton ödülü ({t} kutuların %{p}'i)
+904|{t}. kademeye {n} XP
+905|Günlük görevler
+906|Her tur
+907|Günün ilk turu: +{n}
+908|Günün ilk turu: +{n} sezon XP!
+909|Premium ol
+910|XP NASIL KAZANILIR
+911|DÖNÜM NOKTASI
+912|SIRADAKİ · KADEME {n}
+913|KADEME
+914|Her kademede ikinci bir ödülün kilidini aç: {c} jeton, {b} Gizemli Kutu, {k} güçlendirici ve sezona özel kedi.
+915|{n}. kademeye git
