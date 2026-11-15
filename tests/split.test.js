@@ -134,4 +134,26 @@ module.exports=[
   assert.deepEqual(await k2.evaluate(()=>({reach:!document.getElementById('reachBack').classList.contains('hidden'),over:!document.getElementById('over').classList.contains('hidden'),menu:!document.getElementById('menu').classList.contains('hidden')})),{reach:false,over:false,menu:false},'no game-over screen, menu or Back button inside a half');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
+['split screen: two fingers at the same moment, one in each half, both register (real multi-touch); a finger only drops its own half; pause button and overlays do not drop; the halves play their sounds through the page around them', async(e,L)=>{
+  for(const [name,vw,vh,ua,lay] of [['iPhone',390,844,undefined,'tb'],['iPad face to face',820,1180,UA,'tb'],['iPad side by side',1180,820,UA,'lr']]){
+    const p=await L.open(e,{ctx:{viewport:{width:vw,height:vh},hasTouch:true,userAgent:ua}}); await p.evaluate(l=>{ __sr.S.splitCfg={layout:l,rounds:3}; __sr.startSplit(); },lay);
+    await p.waitForFunction(()=>__sr.SPL&&__sr.SPL.phase==='play',null,{timeout:12000}); await p.waitForTimeout(250);
+    const cdp=await p.context().newCDPSession(p);
+    const pt=await p.evaluate(()=>{ const c=n=>{ const r=document.querySelector('#split .sph[data-p="'+n+'"]').getBoundingClientRect(); return {x:Math.round(r.left+r.width/2),y:Math.round(r.top+r.height*0.55)}; }; const f=document.elementFromPoint(c(1).x,c(1).y); return {p1:c(1),p2:c(2),tag:f&&f.tagName}; });
+    assert.notEqual(pt.tag,'IFRAME',name+': the halves never take the touch themselves');
+    const state=async()=>Promise.all([1,2].map(n=>kid(p,n).evaluate(()=>({n:__sr.stackLen,over:__sr.state!=='playing'}))));
+    const before=await state(); const sfx0=await p.evaluate(()=>__sr.SPL.sfxN||0);
+    /* both fingers down in the very same instant */
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:pt.p1.x,y:pt.p1.y,id:1},{x:pt.p2.x,y:pt.p2.y,id:2}]});
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]}); await p.waitForTimeout(400);
+    const after=await state(); const dropped=after.map((a,i)=>a.n>before[i].n||a.over);
+    assert.deepEqual(dropped,[true,true],name+': both players dropped from one two-finger tap: '+JSON.stringify([before,after]));
+    assert.ok(await p.evaluate(()=>__sr.SPL.sfxN||0)>sfx0,name+': the drop sounds were played by the page around the halves');
+    /* a finger in one half drops only that half */
+    await p.waitForFunction(()=>__sr.SPL.phase==='play'||__sr.SPL.phase==='result'||__sr.SPL.phase==='match',null,{timeout:4000});
+    if(await ph(p)==='play'){ const b2=await state(); await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:pt.p2.x,y:pt.p2.y,id:5}]}); await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]}); await p.waitForTimeout(300); const a2=await state();
+      assert.ok(a2[0].n===b2[0].n && a2[0].over===b2[0].over,name+': P1 did not drop from a tap in P2\'s half'); assert.ok(a2[1].n>b2[1].n||a2[1].over,name+': P2 dropped'); }
+    assert.deepEqual(p.errs,[]); await L.close(p);
+  }
+}],
 ];

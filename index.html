@@ -60,7 +60,7 @@
   html.splitchild #stage{width:100vw}
   body.splitting #rotate{display:none!important}
   #split{position:fixed;inset:0;z-index:70;background:#07041a;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none} #split.hidden{display:none}
-  .split .sph{position:absolute;overflow:hidden;background:#14102b} .split .spin{position:absolute;inset:0} .split iframe{display:block;width:100%;height:100%;border:0;background:#14102b}
+  .split .sph{position:absolute;overflow:hidden;background:#14102b} .split .spin{position:absolute;inset:0} .split iframe{pointer-events:none;display:block;width:100%;height:100%;border:0;background:#14102b}
   .lay-tb .sph{left:0;right:0;height:50%} .lay-tb .sph[data-p="2"]{top:0;transform:rotate(180deg)} .lay-tb .sph[data-p="1"]{bottom:0}
   .lay-tb .sph[data-p="2"] .spin{padding-bottom:env(safe-area-inset-top)} .lay-tb .sph[data-p="1"] .spin{padding-bottom:env(safe-area-inset-bottom)}
   .lay-lr .sph{top:0;bottom:0;width:50%} .lay-lr .sph[data-p="1"]{left:0} .lay-lr .sph[data-p="2"]{right:0}
@@ -1867,6 +1867,9 @@ const sfx = {
   glue(){ tone(210,.2,'sawtooth',.12,-110); tone(130,.22,'sine',.2,70,.07); },
   gust(){ whoosh(.9,.1,380,1500); }
 };
+/* Split screen: a half is not touched directly (a phone only sends the fingers to one embedded page at a time), so its sounds are played by the page around it */
+const SPLIT_SFX=['land','perfect','fail','boom','dodge','shield','speed','up','coin','ice','glue','gust'];
+if(SPLIT) for(const k of Object.keys(sfx)){ if(SPLIT_SFX.includes(k)) sfx[k]=(...a)=>spPost({t:'sfx',k,a:a.filter(x=>typeof x==='number').slice(0,3)}); else sfx[k]=()=>{}; }
 const vib = ms => { try{ if(S.haptics && navigator.vibrate) navigator.vibrate(ms); }catch(e){} };
 
 /* generative background music: soft pad + pentatonic plucks, key follows the theme */
@@ -4408,6 +4411,7 @@ function splitBack(){                                               // the Back 
 addEventListener('message',e=>{
   const d=e.data; if(!SPL || e.origin!==location.origin || !d || d.sr!=='split') return;
   const i=SPL.frames.findIndex(f=>f.contentWindow===e.source); if(i<0) return; const p=i+1;
+  if(d.t==='sfx'){ if(SPLIT_SFX.includes(d.k) && typeof sfx[d.k]==='function' && SPL.phase!=='load'){ SPL.sfxN=(SPL.sfxN||0)+1; try{ sfx[d.k](...(Array.isArray(d.a)?d.a.filter(x=>typeof x==='number'):[])); }catch(err){} } return; }
   if(d.t==='ready'){ SPL.ready[i]=true; if(SPL.ready[0]&&SPL.ready[1]&&SPL.phase==='load') splitRound(); return; }
   if(SPL.phase!=='play') return;
   if(d.t==='score'){ SPL.sc[i]=d.score|0; SPL.act[i]=performance.now(); spSend(spOther(p),{t:'opp',score:SPL.sc[i],out:SPL.out[i]}); spDecide(); }
@@ -4419,6 +4423,13 @@ setInterval(()=>{                                                   // nobody ca
   spDecide();
   const [oa,ob]=SPL.out; if(oa!==ob){ const alive=oa?1:0; if(n-SPL.act[alive]>SPLIT_T.idle) spEnd(oa?1:2); }   // (the one still playing went quiet: they lose)
 },400);
+/* Every finger lands on the page around the halves (one page can follow many fingers at once), which works out which half it is in and tells that half to drop */
+document.addEventListener('pointerdown',e=>{
+  if(!SPL || SPL.phase!=='play' || SPL.paused || !(e.target.closest && e.target.closest('#split'))) return;
+  if(e.target.closest && e.target.closest('button,.spres,.spmb')) return;
+  const h=e.target.closest && e.target.closest('.sph'); if(!h) return;
+  e.preventDefault(); spSend(+h.dataset.p,{t:'tap'});
+},{passive:false});
 document.addEventListener('visibilitychange',()=>{ if(document.hidden) splitPause(); });
 document.addEventListener('click',e=>{
   const b=e.target.closest&&e.target.closest('#split [data-sp],#spPause'); if(!b||!SPL) return; sfx.tap();
@@ -5168,6 +5179,7 @@ function splitChildBoot(){
   addEventListener('message',e=>{
     const d=e.data; if(e.origin!==location.origin || e.source!==parent || !d || d.sr!=='split') return;
     if(d.t==='prepare'){ mode='classic'; mod={}; newRun(); paused=true; $('tip').classList.add('hidden'); opp.textContent=''; opp.className=''; document.body.classList.remove('spdone'); }
+    else if(d.t==='tap'){ if(state==='playing') drop(); }
     else if(d.t==='go'){ if(state==='playing') paused=false; $('tip').classList.remove('hidden'); }
     else if(d.t==='pause'){ if(state==='playing') paused=true; }
     else if(d.t==='resume'){ if(state==='playing') paused=false; }
