@@ -53,7 +53,7 @@ module.exports=[
   await p.evaluate(()=>{ __sr.S.coins=500; });
   await p.click('#openThemes');
   const want=await p.evaluate(()=>{ const n=o=>Object.keys(o).length, sr=__sr; return {
-    themes:[n(sr.THEMES),0], blocks:[n(sr.SHOP.style),0], colors:[n(sr.SHOP.palette),0], scenes:[sr.S.owned.length+1,0],
+    themes:[n(sr.THEMES),0], blocks:[n(sr.SHOP.style)+n(sr.SHOP.view),0], colors:[n(sr.SHOP.palette),0], scenes:[sr.S.owned.length+1,0],
     sounds:[n(sr.SHOP.sfx),0], music:[n(sr.SHOP.music),0], extras:[n(sr.SHOP.fx)+n(sr.SHOP.topper)+n(sr.SHOP.accent),0], boosts:[0,Object.values(sr.BOOSTS).filter(b=>!b.camp).length+1], coins:[4,2] }; });
   const tabs=await p.evaluate(()=>__sr.TABS.map(t=>t[0]));
   assert.deepEqual(tabs,Object.keys(want),'the test knows every tab');
@@ -133,7 +133,7 @@ module.exports=[
   const got=await p.evaluate(()=>{ const S=__sr.S; return {coins:S.coins,owned:S.shop.owned,equip:S.shop.equip,boosts:S.shop.boosts,pick:S.shop.pick,gift:S.shop.gift,tokens:S.shop.tokens,bb:S.boostBests}; });
   assert.equal(got.coins,0,'garbage coins become 0');
   assert.deepEqual(got.owned,['style:foil','style:flat','product:starter'],'only real item keys survive ("product:starter" is the Starter pack marker)');
-  assert.deepEqual(got.equip,{style:'foil',palette:'auto',scene:'auto',sfx:'classic',music:'classic',fx:'sparkle',topper:'none',accent:'sunset'},'unowned or invalid choices fall back to the defaults');
+  assert.deepEqual(got.equip,{view:'flat',style:'foil',palette:'auto',scene:'auto',sfx:'classic',music:'classic',fx:'sparkle',topper:'none',accent:'sunset'},'unowned or invalid choices fall back to the defaults');
   assert.deepEqual(got.boosts,{shield:999,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},'counts are clamped to 0..999');
   assert.deepEqual(got.pick,['shield','slow'],'at most two real boosts, no repeats'); assert.equal(got.gift,true);
   assert.deepEqual(got.tokens,['ok','two'],'only reasonable purchase tokens are kept'); assert.deepEqual(got.bb,{classic:12,zen:0});
@@ -516,7 +516,7 @@ module.exports=[
   const equipped=async()=>p.evaluate(()=>({n:document.querySelectorAll('#tGrid .th.eq').length,lab:[...document.querySelectorAll('#tGrid .th.eq .btn')].map(b=>b.textContent.trim()),head:[...document.querySelectorAll('#tGrid .tabh')].map(h=>h.textContent.trim())}));
   assert.ok(await p.evaluate(()=>__sr.TABS.some(t=>t[0]==='sounds')&&__sr.TABS.some(t=>t[0]==='music')),'a Sounds tab and a Music tab');
   for(const tab of ['themes','blocks','colors','scenes','sounds','music']){
-    await p.evaluate(t=>__sr.setTab(t),tab); const g=await equipped(); assert.equal(g.n,1,`${tab}: exactly one equipped card (got ${g.n})`); assert.match(g.lab[0],/Equipped/);
+    await p.evaluate(t=>__sr.setTab(t),tab); const g=await equipped(); assert.equal(g.n,tab==='blocks'?2:1,`${tab}: exactly one equipped card per section (got ${g.n})`); assert.match(g.lab[0],/Equipped/);
   }
   await p.evaluate(()=>__sr.setTab('sounds')); let g=await equipped(); assert.deepEqual(g.head,['SOUND EFFECTS'],'the Sounds tab only has sound effects');
   assert.equal(await p.locator('#tGrid .sw[data-slot=music]').count(),0); assert.equal(await p.locator('#tGrid .sw[data-slot=sfx]').count(),8);
@@ -539,6 +539,25 @@ module.exports=[
   assert.equal(await p.evaluate(()=>[...document.querySelectorAll('#peekDemo .btn')].length),3);
   await p.evaluate(()=>__sr.endPreview()); assert.equal(await p.isVisible('#peekDemo'),false); assert.equal(await cta(),c0,'the colour is put back');
   await p.evaluate(()=>__sr.startPreview('neon','style')); await p.waitForTimeout(100); assert.equal(await p.isVisible('#peekDemo'),false,'a block style still shows the tower'); await p.evaluate(()=>__sr.endPreview());
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+
+['3D Mode: costs 50,000 coins, is a real perspective view (the pixels differ a lot from flat), and every mode and material draws it without errors', async(e,L)=>{
+  const p=await L.open(e);
+  assert.equal(await p.evaluate(()=>__sr.S.shop.equip.view),'flat','flat is the default view');
+  await p.evaluate(()=>{ __sr.S.coins=49999; });
+  assert.equal(await p.evaluate(()=>__sr.itemAction('buy','view','deep')),false,'49,999 coins is not enough');
+  await p.evaluate(()=>{ __sr.S.coins=50000; });
+  assert.equal(await p.evaluate(()=>__sr.itemAction('buy','view','deep')),true); assert.equal(await p.evaluate(()=>[__sr.S.coins,__sr.S.shop.equip.view]).then(x=>x.join()),'0,deep');
+  await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready'));
+  assert.equal(await p.evaluate(()=>__sr.S.shop.equip.view),'deep','the 3D view is still equipped after a reload');
+  await p.evaluate(()=>document.getElementById('play').click()); await p.waitForTimeout(400); await L.perfects(p,5);
+  const shot3=await p.screenshot(); await p.evaluate(()=>{ __sr.S.shop.equip.view='flat'; }); await p.waitForTimeout(200); const shot2=await p.screenshot();
+  assert.notDeepEqual(shot3,shot2,'the 3D view looks different from the flat view');
+  await p.evaluate(()=>{ __sr.S.shop.equip.view='deep'; });
+  for(const m of ['hazard','event','zen','timed']){ await p.evaluate(m=>{ __sr.startMode(m); },m).catch(()=>{}); await p.waitForTimeout(250); for(const mat of ['ice','glue','lava']) await p.evaluate(mat=>{ if(__sr.cur) __sr.cur.mat=mat; },mat), await p.waitForTimeout(80); }
+  await p.evaluate(()=>{ __sr.S.reduceMotion='on'; }); await p.waitForTimeout(150);
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 

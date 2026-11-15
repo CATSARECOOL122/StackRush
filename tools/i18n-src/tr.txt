@@ -797,3 +797,7 @@
 797|EN İYİ TURLARIN
 798|Sade
 799|Altın
+800|3D Modu
+801|BLOK STİLİ
+802|Düz görünüm
+803|GÖRÜNÜM

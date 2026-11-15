@@ -262,3 +262,7 @@ An ultra-rare, one-off map. While an event is on, a glowing card with a live cou
 **Boss Rush** (Game modes, unlocked once you clear the first campaign boss): the seven campaign bosses back to back with your lives carried over (+1 after each boss, up to 5). Beating all seven pays 500 coins on top of 60 per boss; losing pays 60 per boss beaten. It never changes your campaign stars or progress. Your best count is shown on the tile.
 
 **Photo mode** (pause screen): a framed picture of your tower right now (gold, neon or clean frame) with the title and your score at the top, to save or share. **Your best runs** (Awards): your ten best rounds across Classic, Timed Rush, Lives, Hazard and the Daily Twist, best first, with mode, height and date.
+
+## 3D Mode
+
+Blocks tab → **View** → **3D Mode** (50,000 coins). It is a real perspective camera, not a drawing trick: every block is a solid box with a lit top and shaded sides, the camera looks down at the tower from an angle and drifts slowly around it (faster with a big combo), blocks shrink with distance, and the tower stands on a grid floor with a shadow. Ice, glue, lava, bombs, relics, falling pieces, rings, the friend's race tower and your tower topper all work in 3D, and two thin guide lines show where the moving block would land. The rules, taps and scoring are identical to the flat view; Reduce motion stops the camera drifting. Flat view stays free and is the default.
