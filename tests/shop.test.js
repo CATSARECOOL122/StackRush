@@ -647,7 +647,7 @@ module.exports=[
   await p.evaluate(async()=>{ __sr.GIFTS.push({h:await __sr.giftSha('DIALOGCODE99'),coins:50}); __sr.S.coins=0; }); await p.click('#openThemes'); await p.evaluate(()=>__sr.openUnlockDlg('redeem'));
   await p.fill('#udInput','DIALOGCODE99'); await p.click('#udOk'); await p.waitForTimeout(400); assert.equal(await p.evaluate(()=>__sr.S.coins),50,'the dialog redeems it'); assert.equal(await p.isVisible('#udlg'),false);
   await p.evaluate(()=>__sr.openUnlockDlg('redeem')); await p.fill('#udInput','DIALOGCODE99'); await p.click('#udOk'); await p.waitForTimeout(300); assert.equal(await p.isVisible('#udlg'),true,'the dialog stays open'); assert.match(await p.textContent('#udMsg'),/already used/); assert.equal(await p.evaluate(()=>__sr.S.coins),50);
-  assert.ok(/const GIFTS=\[\{h:'[0-9a-f]{64}',coins:\d+\}/.test(html),'only a 64-character hash is stored in the page');
+  assert.ok(/const GIFTS=\[(\{h:'[0-9a-f]{64}',coins:\d+\},?)*\];/.test(html),'only 64-character hashes are ever stored in the page');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 

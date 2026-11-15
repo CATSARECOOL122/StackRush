@@ -1503,7 +1503,7 @@ const WEB_KEYS=Object.keys(SQUARE_LINKS);
 const ownsWeb=k=>{ const [sl,id]=k.split(':'); return id ? S.shop.owned.includes(k) : S.owned.includes(k); };
 function unlockCode(){ let n=0; WEB_KEYS.forEach((k,i)=>{ if(ownsWeb(k)) n|=1<<i; }); const c=(n*31+7)%97; return 'SR-'+n.toString(36).toUpperCase().padStart(2,'0')+c.toString(36).toUpperCase().padStart(2,'0'); }
 /* One-time gift codes: only a salted SHA-256 of the code is stored here, so the code cannot be read from the page. A code works once per device (S.gifts remembers it). */
-const GIFTS=[{h:'fb1c607f968af89bac6bef38b322b8df50ac5c5f12027d75bd0505bff489653e',coins:19000}];
+const GIFTS=[];
 async function giftSha(code){ const d=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('stackrush-gift:'+String(code||'').trim().toUpperCase())); return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
 async function redeemGift(code){                                   // coins given, -1 already used on this device, 0 not a gift code
   try{ const h=await giftSha(code), g=GIFTS.find(x=>x.h===h); if(!g) return 0; if(S.gifts.includes(h)) return -1; S.gifts.push(h); S.coins+=g.coins; save(); setCoins(); return g.coins; }catch(e){ return 0; }
