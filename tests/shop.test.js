@@ -633,4 +633,22 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+
+['gift codes: a code that is not stored in the page works once per device and gives its coins; a wrong code does nothing; the page holds only a hash', async(e,L)=>{
+  const p=await L.open(e);
+  const html=require('fs').readFileSync(require('path').join(__dirname,'..','index.html'),'utf8');
+  await p.evaluate(async()=>{ __sr.GIFTS.push({h:await __sr.giftSha('TESTGIFT2345'),coins:777}); __sr.S.coins=0; });
+  assert.equal(await p.evaluate(()=>__sr.redeemGift('WRONGCODE123')),0,'a wrong code gives nothing');
+  assert.equal(await p.evaluate(()=>__sr.redeemGift('testgift2345')),777,'the right code (any letter case) gives its coins'); assert.equal(await p.evaluate(()=>__sr.S.coins),777);
+  assert.equal(await p.evaluate(()=>__sr.redeemGift('TESTGIFT2345')),-1,'a second time does nothing'); assert.equal(await p.evaluate(()=>__sr.S.coins),777);
+  await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.evaluate(async()=>{ __sr.GIFTS.push({h:await __sr.giftSha('TESTGIFT2345'),coins:777}); });
+  assert.equal(await p.evaluate(()=>__sr.redeemGift('TESTGIFT2345')),-1,'still used after a reload');
+  /* through the real dialog */
+  await p.evaluate(async()=>{ __sr.GIFTS.push({h:await __sr.giftSha('DIALOGCODE99'),coins:50}); __sr.S.coins=0; }); await p.click('#openThemes'); await p.evaluate(()=>__sr.openUnlockDlg('redeem'));
+  await p.fill('#udInput','DIALOGCODE99'); await p.click('#udOk'); await p.waitForTimeout(400); assert.equal(await p.evaluate(()=>__sr.S.coins),50,'the dialog redeems it'); assert.equal(await p.isVisible('#udlg'),false);
+  await p.evaluate(()=>__sr.openUnlockDlg('redeem')); await p.fill('#udInput','DIALOGCODE99'); await p.click('#udOk'); await p.waitForTimeout(300); assert.equal(await p.isVisible('#udlg'),true,'the dialog stays open'); assert.match(await p.textContent('#udMsg'),/already used/); assert.equal(await p.evaluate(()=>__sr.S.coins),50);
+  assert.ok(/const GIFTS=\[\{h:'[0-9a-f]{64}',coins:\d+\}/.test(html),'only a 64-character hash is stored in the page');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

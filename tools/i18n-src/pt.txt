@@ -897,3 +897,5 @@
 897|Dunas do deserto
 898|Cidade neon
 899|Espaço sideral
+900|Código de presente aceito! +{n} {coin}
+901|Esse código já foi usado

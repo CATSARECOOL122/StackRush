@@ -897,3 +897,5 @@
 897|Dune del deserto
 898|Città al neon
 899|Spazio profondo
+900|Codice regalo accettato! +{n} {coin}
+901|Quel codice è già stato usato

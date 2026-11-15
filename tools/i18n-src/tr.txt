@@ -897,3 +897,5 @@
 897|Çöl Kumulları
 898|Neon Şehir
 899|Uzay
+900|Hediye kodu kabul edildi! +{n} {coin}
+901|Bu kod zaten kullanıldı

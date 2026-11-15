@@ -897,3 +897,5 @@
 897|Bukit Pasir Gurun
 898|Kota Neon
 899|Luar Angkasa
+900|Kode hadiah diterima! +{n} {coin}
+901|Kode itu sudah dipakai

@@ -685,6 +685,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 <symbol id="i-crown" viewBox="0 0 24 24"><path d="m2 8 5 4 5-8 5 8 5-4-2 12H4z"/></symbol>
 <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
 <symbol id="i-fast" viewBox="0 0 24 24"><path d="m6 13 6-6 6 6M6 19l6-6 6 6"/></symbol>
+<symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v8h14v-8M12 8v12"/><path d="M12 8C10.5 8 8 7.5 8 5.8A2.3 2.3 0 0 1 10.3 3.5C11.6 3.5 12 5.5 12 8zM12 8c1.5 0 4-.5 4-2.2a2.3 2.3 0 0 0-2.3-2.3C12.4 3.5 12 5.5 12 8z"/></symbol>
 <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l1 12H5L6 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
   <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M7 3h10M7 21h10"/><path d="M8 3c0 5 4 5 4 9s-4 4-4 9M16 3c0 5-4 5-4 9s4 4 4 9"/></symbol>
   <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 12h16M7 8l-3 4 3 4M17 8l3 4-3 4"/></symbol>
@@ -1215,13 +1216,13 @@ function showBoxResult(){
 function openBoxFlow(){
   if((S.boxes||0)<=0) return false;
   S.boxes--; boxLast=rollBox(); save();
-  $('boxStage').innerHTML=`<div class="boxcube">${I('gem')}</div><span class="sub">${tr('Opening…')}</span>`; $('boxEquip').classList.add('hidden'); $('boxAgain').classList.add('hidden'); $('boxDone').disabled=true;
+  $('boxStage').innerHTML=`<div class="boxcube">${I('gift')}</div><span class="sub">${tr('Opening…')}</span>`; $('boxEquip').classList.add('hidden'); $('boxAgain').classList.add('hidden'); $('boxDone').disabled=true;
   $('boxSheet').classList.remove('hidden'); soon(syncBack); clearTimeout(boxTimer); boxTimer=setTimeout(showBoxResult,reduceOn()?150:1300); sfx.tap(); return true;
 }
 function closeBox(){ clearTimeout(boxTimer); if($('boxDone').disabled && boxLast) showBoxResult(); $('boxSheet').classList.add('hidden'); soon(syncBack); if(!$('themes').classList.contains('hidden')) renderThemes(); setCoins(); }
 function boxTab(){
   const n=S.boxes||0;
-  let h=`<div class="boxhero" style="grid-column:1/-1"><i>${I('gem')}</i><div><b>${tr('MYSTERY BOX')}</b><span>${tr('Cosmetics only: one item in every box, never anything that helps you win.')}</span></div></div>`;
+  let h=`<div class="boxhero" style="grid-column:1/-1"><i>${I('gift')}</i><div><b>${tr('MYSTERY BOX')}</b><span>${tr('Cosmetics only: one item in every box, never anything that helps you win.')}</span></div></div>`;
   h+=`<div class="boxrow" style="grid-column:1/-1"><button class="btn ${n?'primary':'off'}" data-act="boxopen" ${n?'':'disabled'}>${tr('Open a box ({n})',{n})}</button></div>`;
   h+=`<div class="boxrow" style="grid-column:1/-1"><button class="btn ${S.coins>=BOX_COST?'gold':'off'}" data-act="boxbuy" data-n="1">${tr('Buy 1')} · ${I('coin')} ${nf(BOX_COST)}</button><button class="btn ${S.coins>=BOX_COST5?'gold':'off'}" data-act="boxbuy" data-n="5">${tr('Buy 5')} · ${I('coin')} ${nf(BOX_COST5)}</button></div>`;
   const P=boxPools();
@@ -1382,7 +1383,7 @@ const ACH = [
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',top:[],rushBest:0,rushTime:0,rushCp:0,season:null,boxes:0,boxPity:0,boxN:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',top:[],rushBest:0,rushTime:0,rushCp:0,gifts:[],season:null,boxes:0,boxPity:0,boxN:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,cb:false,bigText:false,oneHand:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -1405,6 +1406,7 @@ function cleanSave(raw){
   if(raw.dm && typeof raw.dm==='object'){ const a=v=>Array.isArray(v)?[0,1,2].map(i=>num(v[i],1e6)):[0,0,0]; out.dm={day:num(raw.dm.day,1e6),p:a(raw.dm.p),paid:a(raw.dm.paid).map(x=>x?1:0),all:raw.dm.all?1:0}; }
   if(Array.isArray(raw.top)) out.top=raw.top.filter(r=>r&&typeof r==='object'&&['classic','timed','lives','hazard','daily'].includes(r.m)).slice(0,10).map(r=>({m:r.m,s:num(r.s,1e7),h:num(r.h,1e5),t:num(r.t,9e12)}));
   if(raw.season && typeof raw.season==='object' && typeof raw.season.id==='string' && /^\d{4}-[0-5]$/.test(raw.season.id)){ const tl=a=>Array.isArray(a)?[...new Set(a.map(v=>Math.floor(Number(v))).filter(v=>v>=1&&v<=30))]:[]; out.season={id:raw.season.id,xp:num(raw.season.xp,6000),f:tl(raw.season.f),p:tl(raw.season.p),prem:raw.season.prem?true:false}; }
+  if(Array.isArray(raw.gifts)) out.gifts=[...new Set(raw.gifts.filter(v=>typeof v==='string'&&/^[0-9a-f]{64}$/.test(v)))].slice(0,20);
   for(const k of ['boxes','boxN']) if(own(raw,k)) out[k]=num(raw[k],k==='boxes'?9999:1e6); if(own(raw,'boxPity')) out.boxPity=num(raw.boxPity,9);
   if(own(raw,'rushBest')) out.rushBest=num(raw.rushBest,37); if(own(raw,'rushCp')) out.rushCp=num(raw.rushCp,30); if(own(raw,'rushTime')) out.rushTime=num(raw.rushTime,1e7);
   if(Array.isArray(raw.evWarn)) out.evWarn=raw.evWarn.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}:(10|5|3|last)$/.test(v)).slice(-40);
@@ -1500,6 +1502,12 @@ try{
 const WEB_KEYS=Object.keys(SQUARE_LINKS);
 const ownsWeb=k=>{ const [sl,id]=k.split(':'); return id ? S.shop.owned.includes(k) : S.owned.includes(k); };
 function unlockCode(){ let n=0; WEB_KEYS.forEach((k,i)=>{ if(ownsWeb(k)) n|=1<<i; }); const c=(n*31+7)%97; return 'SR-'+n.toString(36).toUpperCase().padStart(2,'0')+c.toString(36).toUpperCase().padStart(2,'0'); }
+/* One-time gift codes: only a salted SHA-256 of the code is stored here, so the code cannot be read from the page. A code works once per device (S.gifts remembers it). */
+const GIFTS=[{h:'fb1c607f968af89bac6bef38b322b8df50ac5c5f12027d75bd0505bff489653e',coins:19000}];
+async function giftSha(code){ const d=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('stackrush-gift:'+String(code||'').trim().toUpperCase())); return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+async function redeemGift(code){                                   // coins given, -1 already used on this device, 0 not a gift code
+  try{ const h=await giftSha(code), g=GIFTS.find(x=>x.h===h); if(!g) return 0; if(S.gifts.includes(h)) return -1; S.gifts.push(h); S.coins+=g.coins; save(); setCoins(); return g.coins; }catch(e){ return 0; }
+}
 function redeemCode(code){
   const m=/^SR-([0-9A-Z]{2})([0-9A-Z]{2})$/.exec(String(code||'').trim().toUpperCase()); if(!m) return -1;
   const n=parseInt(m[1],36), c=parseInt(m[2],36); if(n<1 || n>=1<<WEB_KEYS.length || c!==(n*31+7)%97) return -1;
@@ -1541,6 +1549,7 @@ function submitUnlockDlg(){
     closeUnlockDlg(); openChallenge(ch); return;
   }
   const g=redeemCode($('udInput').value);
+  if(g<0){ const raw=$('udInput').value; redeemGift(raw).then(n=>{ if(n>0){ closeUnlockDlg(); renderMenu(); if(!$('themes').classList.contains('hidden')) renderThemes(); toast(`${I('coin','ic-gold')} ${tr('Gift code accepted! +{n} {coin}',{n:nf(n),coin:I('coin')})}`,3200); sfx.up(); } else { $('udMsg').textContent=n===-1?tr('That code was already used'):tr("That code didn't work"); $('udMsg').classList.remove('hidden'); } }); return; }
   if(g>0){ closeUnlockDlg(); renderMenu(); if(!$('themes').classList.contains('hidden')) renderThemes(); if(!$('settings').classList.contains('hidden')) showSettings(); toast(tr('Unlocked!')); sfx.up(); return; }
   $('udMsg').textContent=g===0?tr('Nothing new in that code'):tr("That code didn't work"); $('udMsg').classList.remove('hidden');
 }
@@ -4199,7 +4208,7 @@ function showStages(){
 
 /* ----- the shop (it grew out of the Themes screen): tabs, live preview, buying ----- */
 let themesFrom='menu', shopTab='themes';
-const TAB_ICON={themes:'palette',blocks:'layers',colors:'sparkles',scenes:'cloud',sounds:'sound',music:'music',extras:'gem',boosts:'zap',coins:'coin'};
+const TAB_ICON={themes:'palette',blocks:'layers',colors:'sparkles',scenes:'cloud',sounds:'sound',music:'music',extras:'gem',boxes:'gift',boosts:'zap',coins:'coin'};
 const TABS=[['themes','Themes'],['blocks','Blocks'],['colors','Colors'],['scenes','Scenes'],['sounds','Sounds'],['music','Music'],['extras','Extras'],['boxes','Boxes'],['boosts','Boosts'],['coins','Coins']];
 function openThemes(from){ themesFrom=from; hideAll(); $('themes').classList.remove('hidden'); renderThemes(); }
 function closeThemes(){ endPreview(true); if(themesFrom==='over' && state==='over'){ hideAll(); $('over').classList.remove('hidden'); } else showMenu(); }
@@ -4840,7 +4849,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ seasonInfo, seasonTier, seasonReward, seasonAddXp, claimTier, claimAllTiers, buyPremium, ensureSeason, openSeason, rollBox, boxPools, buyBoxes, openBoxFlow, BOX_TIERS, SEASONS, RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ GIFTS, giftSha, redeemGift, seasonInfo, seasonTier, seasonReward, seasonAddXp, claimTier, claimAllTiers, buyPremium, ensureSeason, openSeason, rollBox, boxPools, buyBoxes, openBoxFlow, BOX_TIERS, SEASONS, RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

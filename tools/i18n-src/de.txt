@@ -897,3 +897,5 @@
 897|Wüstendünen
 898|Neon-Stadt
 899|Weltraum
+900|Geschenkcode akzeptiert! +{n} {coin}
+901|Dieser Code wurde schon benutzt

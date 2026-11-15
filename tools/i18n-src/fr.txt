@@ -897,3 +897,5 @@
 897|Dunes du désert
 898|Ville néon
 899|Espace
+900|Code cadeau accepté ! +{n} {coin}
+901|Ce code a déjà été utilisé

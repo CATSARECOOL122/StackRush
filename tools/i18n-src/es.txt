@@ -897,3 +897,5 @@
 897|Dunas del desierto
 898|Ciudad neón
 899|Espacio exterior
+900|¡Código de regalo aceptado! +{n} {coin}
+901|Ese código ya se usó
