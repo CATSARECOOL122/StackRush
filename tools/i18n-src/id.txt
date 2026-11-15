@@ -820,3 +820,76 @@
 820|Legenda Rush
 821|Penyintas Rush
 822|Tujuh bos, lalu Tantangan 30 bos. Nyawa terbawa.
+823|{n} item
+824|1 item
+825|Hadiah Pass Musim
+826|Sudah punya: +{n} {coin}
+827|Kotak
+828|Kotak
+829|Beli 1
+830|Beli 5
+831|Bunga Sakura
+832|Klaim semua
+833|Klaim semua ({n})
+834|Hanya kosmetik: satu item di setiap kotak, tidak ada yang membantu menang.
+835|Hanya kosmetik. Peluangnya ada di bawah.
+836|Kucing Kosmik
+837|Kucing Kristal
+838|duplikat: +{n} koin
+839|Dapatkan XP dari setiap ronde dan misi harian. Hadiah yang kamu raih dikumpulkan otomatis saat musim berakhir.
+840|Berakhir dalam {t}
+841|Terpasang!
+842|Setiap item dalam satu kelangkaan punya peluang sama. Langka atau lebih baik dijamin dalam {n} kotak.
+843|Ditemukan di Kotak Misteri
+844|GRATIS
+845|Dapatkan pass Premium
+846|Panen
+847|Kucing Panen
+848|Kucing Inferno
+849|MAKS
+850|Tengah malam
+851|Kucing Mint
+852|Kucing Mochi
+853|Kucing Bulan
+854|Kotak Misteri
+855|KOTAK MISTERI
+856|Kucing Nebula
+857|Musim baru: {name}!
+858|BARU!
+859|Buka satu kotak ({n})
+860|Buka lagi
+861|Buka lagi ({n} tersisa)
+862|Membuka…
+863|Kucing Kelopak
+864|PREMIUM
+865|Premium menambah hadiah kedua di setiap tingkat: kotak, booster, koin, dan kucing khusus musim.
+866|Pass Premium aktif
+867|Prisma
+868|Hadiah diklaim!
+869|Musim
+870|Pass Musim
+871|PASS MUSIM
+872|Tingkat musim {n} tercapai!
+873|Kucing Bayangan
+874|Salju turun
+875|Kucing Kepingan Salju
+876|Sorbet
+877|Kucing Badai
+878|Fajar Cerah
+879|Kucing Ceria
+880|PELUANG
+881|Pasang surut
+882|Kucing Pasang
+883|Tingkat {n}
+884|Hadiah yang belum diklaim sudah dikumpulkan.
+885|Musim Bunga
+886|Biasa
+887|Epik
+888|Musim Embun Beku
+889|Musim Panen
+890|Legendaris
+891|Musim Tengah Malam
+892|Musim Samudra
+893|Langka
+894|Musim Fajar Cerah
+895|Tidak biasa

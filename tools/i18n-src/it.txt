@@ -820,3 +820,76 @@
 820|Leggenda della Corsa
 821|Sopravvissuto alla Corsa
 822|Sette boss, poi una Sfida da 30 boss. Le vite restano.
+823|{n} oggetti
+824|1 oggetto
+825|Un premio del Pass stagionale
+826|Già posseduto: +{n} {coin}
+827|Scatola
+828|Scatole
+829|Compra 1
+830|Compra 5
+831|Fiore di ciliegio
+832|Riscatta tutto
+833|Riscatta tutto ({n})
+834|Solo cosmetici: un oggetto per scatola, niente che aiuti a vincere.
+835|Solo cosmetici. Le probabilità sono qui sotto.
+836|Gatto cosmico
+837|Gatto di cristallo
+838|doppione: +{n} monete
+839|Guadagna XP a ogni partita e missione giornaliera. I premi guadagnati vengono riscattati da soli a fine stagione.
+840|Finisce tra {t}
+841|Equipaggiato!
+842|Ogni oggetto di una rarità è ugualmente probabile. Un Raro o migliore è garantito entro {n} scatole.
+843|Si trova nelle Scatole misteriose
+844|GRATIS
+845|Ottieni il pass Premium
+846|Raccolto
+847|Gatto del raccolto
+848|Gatto infernale
+849|MAX
+850|Mezzanotte
+851|Gatto menta
+852|Gatto mochi
+853|Gatto lunare
+854|Scatola misteriosa
+855|SCATOLA MISTERIOSA
+856|Gatto nebulosa
+857|Nuova stagione: {name}!
+858|NUOVO!
+859|Apri una scatola ({n})
+860|Aprine un'altra
+861|Aprine un'altra ({n} rimaste)
+862|Apertura…
+863|Gatto petalo
+864|PREMIUM
+865|Premium aggiunge un secondo premio a ogni livello: scatole, potenziamenti, monete e un gatto di stagione.
+866|Pass Premium attivo
+867|Prisma
+868|Premi riscattati!
+869|Stagione
+870|Pass stagionale
+871|PASS STAGIONALE
+872|Livello {n} di stagione raggiunto!
+873|Gatto ombra
+874|Nevicata
+875|Gatto fiocco di neve
+876|Sorbetto
+877|Gatto tempesta
+878|Alba solare
+879|Gatto solare
+880|LE PROBABILITÀ
+881|Marea
+882|Gatto marea
+883|Livello {n}
+884|I tuoi premi non riscattati sono stati raccolti.
+885|Stagione Fiori
+886|Comune
+887|Epico
+888|Stagione Gelo
+889|Stagione Raccolto
+890|Leggendario
+891|Stagione Mezzanotte
+892|Stagione Oceano
+893|Raro
+894|Stagione Alba solare
+895|Non comune

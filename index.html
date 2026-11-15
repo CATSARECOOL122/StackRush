@@ -111,7 +111,30 @@
   .mc{pointer-events:auto;width:42px;height:42px;border-radius:50%;border:0;background:#ffffff1a;color:#fff;font-size:22px;line-height:1;cursor:pointer;padding:0;display:grid;place-items:center}
   .mc:active{transform:scale(.9)}
   #modeName{min-width:170px;text-align:center;font-weight:900;font-size:16px}
-  .navbar{position:sticky;bottom:0;z-index:3;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px 10px calc(env(safe-area-inset-bottom) + 8px);background:linear-gradient(#0a0620d9,#0a0620f5);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  #seasonBody,#boxStage{display:flex;flex-direction:column;gap:8px}
+  .snhero{border-radius:18px;padding:14px;text-align:center;background:linear-gradient(135deg,color-mix(in srgb,var(--sc) 28%,#1d1245),#1d1245);border:1px solid color-mix(in srgb,var(--sc) 45%,transparent)}
+  .snhero>b{display:block;font-size:20px;letter-spacing:3px;color:var(--sc)} .snhero>span{display:block;font-size:12px;color:var(--mute);font-weight:700;margin-top:2px}
+  .snhero .snt{color:#fff;display:inline;font-size:13px} .snbar{height:12px;border-radius:8px;background:#0007;overflow:hidden;margin:10px 0 6px} .snbar u{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--sc),#fff);transition:width .5s}
+  .snprem{text-align:center;font-weight:900;font-size:13px;letter-spacing:1px;padding:8px;border-radius:12px;background:#ffc83d1c;border:1px solid #ffc83d55} .snbuy{width:100%}
+  .srow{display:grid;grid-template-columns:30px 1fr 1fr;gap:6px;align-items:stretch} .srow.hd{font-size:11px;letter-spacing:2px;color:var(--mute);text-align:center;margin-top:4px} .srow.hd b{font-weight:900}
+  .stier{display:grid;place-items:center;font-weight:900;font-size:13px;color:var(--mute)} .srow.cur .stier{color:#fff}
+  .scell{position:relative;display:flex;align-items:center;gap:8px;min-height:50px;padding:8px;border-radius:12px;background:#ffffff0f;border:1px solid var(--line);color:#fff;font-weight:800;font-size:12px;text-align:left;cursor:pointer;font-family:inherit;touch-action:manipulation}
+  .scell i{display:grid;place-items:center;width:30px;height:30px;flex:none;border-radius:9px;background:#ffffff14;font-style:normal} .scell i .ic{width:18px;height:18px} .scell span{min-width:0;overflow-wrap:anywhere;line-height:1.2}
+  .scell.prem{border-color:#ffc83d55;background:linear-gradient(135deg,#ffc83d1c,#ffffff08)} .scell.lock{opacity:.5;cursor:default} .scell.done{opacity:.55;cursor:default}
+  .scell.ready{border-color:#7dffaa;box-shadow:0 0 14px #7dffaa66;animation:scpulse 1.6s ease-in-out infinite} @keyframes scpulse{50%{box-shadow:0 0 22px #7dffaacc}}
+  .scell em{position:absolute;top:4px;right:6px;font-style:normal;color:#ffc83d} .scell em .ic{width:12px;height:12px}
+  .nb.dot::after{content:"";position:absolute;top:6px;left:calc(50% + 10px);width:10px;height:10px;border-radius:50%;background:#ff4d6d;border:2px solid #150d33}
+  .boxhero{display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;background:linear-gradient(135deg,#7a4dff33,#1d1245);border:1px solid #7a4dff66} .boxhero i{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#7a4dff,#c06aff);flex:none} .boxhero i .ic{width:28px;height:28px} .boxhero b{display:block;letter-spacing:2px} .boxhero span{font-size:12px;color:var(--mute);font-weight:700}
+  .boxrow{display:flex;gap:8px} .boxrow .btn{flex:1}
+  .boxodds{display:flex;flex-direction:column;gap:6px} .boxodds>div{display:grid;grid-template-columns:14px auto 1fr;gap:2px 10px;align-items:center;padding:8px 10px;border-radius:12px;background:#ffffff0c;border:1px solid var(--line)} .boxodds i{width:12px;height:12px;border-radius:50%;background:var(--tc);box-shadow:0 0 8px var(--tc)} .boxodds b{font-size:14px;color:var(--tc)} .boxodds span{text-align:right;font-weight:900;font-size:15px} .boxodds small{grid-column:2/4;color:var(--mute);font-size:11px;font-weight:700}
+  .tier-common{--tc:#9fb0c8}.tier-uncommon{--tc:#5cdc8a}.tier-rare{--tc:#4aa8ff}.tier-epic{--tc:#c06aff}.tier-legend{--tc:#ffc83d}
+  .boxstage{min-height:300px;align-items:center;justify-content:center;text-align:center}
+  .boxcube{width:120px;height:120px;border-radius:28px;display:grid;place-items:center;background:linear-gradient(135deg,#7a4dff,#c06aff);box-shadow:0 14px 44px #7a4dff99;animation:bxshake 1.3s ease-in-out} .boxcube .ic{width:60px;height:60px}
+  @keyframes bxshake{0%,100%{transform:rotate(0) scale(1)}15%{transform:rotate(-9deg) scale(1.04)}30%{transform:rotate(8deg) scale(1.08)}45%{transform:rotate(-10deg) scale(1.1)}60%{transform:rotate(9deg) scale(1.12)}80%{transform:rotate(0) scale(1.2)}}
+  .boxcard{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 20px;border-radius:22px;width:min(300px,100%);background:linear-gradient(180deg,color-mix(in srgb,var(--tc) 24%,#1d1245),#150d33);border:2px solid var(--tc);box-shadow:0 0 40px color-mix(in srgb,var(--tc) 55%,transparent);animation:bxpop .5s cubic-bezier(.2,1.4,.4,1)}
+  @keyframes bxpop{from{transform:scale(.4) rotate(-6deg);opacity:0}}
+  .boxcard small{letter-spacing:3px;font-weight:900;color:var(--tc)} .boxcard b{font-size:18px} .boxcard>span{font-weight:800;font-size:13px;color:var(--mute)} .bart{width:100%} .bart img{width:100%;border-radius:12px;display:block} .bart .pal{display:flex;height:64px;border-radius:12px;overflow:hidden} .bart .pal span{flex:1} .bart .ico.big{height:64px;display:grid;place-items:center;border-radius:12px;background:#ffffff12}
+  .navbar{position:sticky;bottom:0;z-index:3;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:8px 10px calc(env(safe-area-inset-bottom) + 8px);background:linear-gradient(#0a0620d9,#0a0620f5);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
   .nb{pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;color:#fff;font-weight:800;font-size:11px;letter-spacing:.5px;padding:6px 2px;border-radius:12px;cursor:pointer;touch-action:manipulation}
   .nb i{font-style:normal;font-size:22px}
   .nb:active{background:#ffffff1a}
@@ -712,6 +735,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <button id="openCampaign" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg></i>Campaign</button>
       <button id="openThemes" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-bag"/></svg></i>Shop</button>
       <button id="openAwards" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg></i>Awards</button>
+      <button id="openSeason" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-crown"/></svg></i>Season</button>
       <button id="openSettings" class="nb"><i><svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg></i>Settings</button>
     </nav>
   </section>
@@ -882,6 +906,24 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     </div>
   </section>
 
+  <section id="seasonSheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Season pass">
+    <div class="shbg" id="seasonBg"></div>
+    <div class="shcard cs">
+      <h2>SEASON PASS</h2>
+      <div id="seasonBody"></div>
+      <div class="row stickyfoot"><button id="seasonClaim" class="btn primary">Claim all</button><button id="seasonClose" class="btn">Close</button></div>
+    </div>
+  </section>
+
+  <section id="boxSheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Mystery Box">
+    <div class="shbg" id="boxBg"></div>
+    <div class="shcard cs">
+      <h2>MYSTERY BOX</h2>
+      <div id="boxStage" class="boxstage"></div>
+      <div class="row stickyfoot"><button id="boxEquip" class="btn hidden">Equip</button><button id="boxAgain" class="btn primary hidden">Open another</button><button id="boxDone" class="btn">Done</button></div>
+    </div>
+  </section>
+
   <button id="reachBack" class="reachback hidden" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button>
   <button id="evToast" class="evtoast hidden" aria-live="polite"></button>
 
@@ -1028,6 +1070,165 @@ const SHOP = {
 const SHOP_DEFAULT = {view:'flat',vscene:'grid',style:'auto',palette:'auto',scene:'auto',sfx:'classic',music:'classic',fx:'sparkle',topper:'none',accent:'sunset'};
 const has = (o,k) => Object.prototype.hasOwnProperty.call(o,k);
 const itemOk = (slot,id) => has(SHOP,slot) && (has(SHOP[slot],id) || (slot==='scene' && has(THEMES,id)));
+/* ================= Season pass and Mystery Boxes =================
+   A season lasts two months. You earn season XP from every round (and daily missions); every 200 XP is a tier, 30 tiers. The free track pays everyone, the Premium track
+   (8,000 coins) pays more, with boxes and a season-only cat. At the end of a season everything you earned is collected for you. Mystery Boxes give cosmetics only, with the odds shown. */
+const SEASON_TIERS=30, SEASON_XP=200, PREMIUM_COST=8000, BOX_COST=1500, BOX_COST5=6750, BOX_PITY=10;
+const SEASONS=[
+  {name:'Frost Season',c:'#7fd8ff',pal:{name:'Snowfall',h0:195,hr:40,hs:.3,s:80,l:72},cat:{name:'Snowflake Cat',fur:'#eef8ff',belly:'#ffffff',tab:'#9fd8ff',eye:'#4aa8ff',glow:'#aee6ff'}},
+  {name:'Blossom Season',c:'#ff9ad0',pal:{name:'Cherry Blossom',h0:330,hr:30,hs:.35,s:72,l:78},cat:{name:'Petal Cat',fur:'#ffe4ee',belly:'#ffffff',tab:'#ff9ac0',eye:'#e0388f',glow:'#ffb0d0'}},
+  {name:'Sunburst Season',c:'#ffd23a',pal:{name:'Sunburst',h0:38,hr:30,hs:.3,s:96,l:60},cat:{name:'Sunny Cat',fur:'#ffe27a',belly:'#fff6c8',tab:'#ffa31a',eye:'#ff5a1a',glow:'#ffd54a'}},
+  {name:'Ocean Season',c:'#3ad0e0',pal:{name:'Tide',h0:190,hr:50,hs:.35,s:85,l:58},cat:{name:'Tide Cat',fur:'#7fe0e8',belly:'#e8ffff',tab:'#2a9ac8',eye:'#0a4a8a',glow:'#7fe8ff'}},
+  {name:'Harvest Season',c:'#ff9a3a',pal:{name:'Harvest',h0:20,hr:40,hs:.3,s:85,l:52},cat:{name:'Harvest Cat',fur:'#e8a050',belly:'#fff0d0',tab:'#a85a1a',eye:'#3a7a2a',glow:'#ffb050'}},
+  {name:'Midnight Season',c:'#8a6aff',pal:{name:'Midnight',h0:255,hr:50,hs:.3,s:70,l:56},cat:{name:'Moon Cat',fur:'#3a3a6a',belly:'#c8c8ff',tab:'#6a6aff',eye:'#ffe66a',glow:'#9a9aff'}}
+];
+SEASONS.forEach((s,i)=>{ SHOP.palette['ssn'+i]=Object.assign({season:i,hs:.3,s:80,l:60},s.pal); SHOP.topper['ssn'+i]=Object.assign({season:i,rare:1},s.cat); });
+[['topper','mochi',{name:'Mochi Cat',box:'rare',fur:'#ffd6e6',belly:'#ffffff',tab:'#ff9ac0',eye:'#a04a7a',paws:'#ffffff'}],
+ ['topper','storm',{name:'Storm Cat',box:'rare',fur:'#7d8aa0',tab:'#4a566e',belly:'#d8e0ee',eye:'#7fe8ff'}],
+ ['topper','mintcat',{name:'Mint Cat',box:'rare',fur:'#bff5d8',belly:'#ffffff',tab:'#4ad69a',eye:'#1a7a52'}],
+ ['topper','shadow',{name:'Shadow Cat',box:'rare',fur:'#1c1c26',belly:'#3a3a4a',eye:'#ff4a4a',mask:1}],
+ ['topper','nebula',{name:'Nebula Cat',box:'epic',rare:1,fur:'#3a2a6a',patches:['#c06aff','#ff6ad0'],belly:'#e8d8ff',eye:'#7fe8ff',glow:'#c06aff'}],
+ ['topper','crystal',{name:'Crystal Cat',box:'epic',rare:1,fur:'#bfefff',belly:'#ffffff',tab:'#6ad0ff',eye:'#2a6aff',glow:'#7fe8ff'}],
+ ['topper','inferno',{name:'Inferno Cat',box:'epic',rare:1,fur:'#ff6a2a',belly:'#ffd08a',tab:'#a81a0a',eye:'#fff2a0',glow:'#ff7a3a'}],
+ ['topper','cosmic',{name:'Cosmic Cat',box:'legend',rare:2,fur:'#0e1030',patches:['#7fe8ff','#ffd54a'],belly:'#bfc8ff',eye:'#ffffff',glow:'#ffffff'}],
+ ['palette','sorbet',{name:'Sorbet',box:'rare',h0:330,hr:140,hs:.5,s:80,l:74}],
+ ['palette','prism',{name:'Prism',box:'epic',h0:0,hr:360,hs:.9,s:100,l:62}]].forEach(([sl,id,d])=>{ SHOP[sl][id]=d; });
+
+/* --- season --- */
+function seasonInfo(ms){ const d=new Date(ms==null?evNow():ms), y=d.getFullYear(), idx=Math.floor(d.getMonth()/2); return {idx,id:y+'-'+idx,def:SEASONS[idx],start:new Date(y,idx*2,1).getTime(),end:new Date(y,idx*2+2,1).getTime()}; }
+const seasonTier=()=>Math.min(SEASON_TIERS,Math.floor(((S.season&&S.season.xp)||0)/SEASON_XP));
+function seasonReward(t,track,idx){
+  if(track==='f'){
+    if(t===10) return {item:['palette','ssn'+idx]};
+    if(t===30) return {coins:1500,boost:['up10',1]};
+    if(t%5===0) return {coins:300+t*10,boost:[['shield','slow','regrow'][(t/5)%3],2]};
+    return {coins:40+t*5};
+  }
+  if(t===15) return {item:['topper','ssn'+idx]};
+  if(t===30) return {coins:3000,box:3};
+  if(t===27) return {box:2};
+  if([3,9,17,23].includes(t)) return {box:1};
+  if(t%5===0) return {coins:300,boost:[['time','regrow','shield','slow'][(t/5)%4],3]};
+  return {coins:100+t*8};
+}
+function rewardParts(r){                                          // [icon, text] pieces for showing a reward
+  const out=[]; if(r.coins) out.push(['coin','+'+nf(r.coins)]);
+  if(r.boost) out.push(['zap',tr(BOOSTS[r.boost[0]].name)+' ×'+r.boost[1]]);
+  if(r.box) out.push(['gem',tr('Mystery Box')+' ×'+r.box]);
+  if(r.item) out.push(['crown',tr(itemName(r.item[0],r.item[1]))]);
+  return out;
+}
+function giveReward(r){
+  let coins=r.coins||0;
+  if(r.boost) S.shop.boosts[r.boost[0]]=Math.min(999,(S.shop.boosts[r.boost[0]]||0)+r.boost[1]);
+  if(r.box) S.boxes=Math.min(9999,(S.boxes||0)+r.box);
+  if(r.item){ const k=r.item[0]+':'+r.item[1]; if(S.shop.owned.includes(k)) coins+=400; else S.shop.owned.push(k); }   // (already owned: coins instead)
+  S.coins+=coins;
+}
+function ensureSeason(){
+  const si=seasonInfo(), s=S.season;
+  if(s && s.id===si.id) return;
+  let got=0;
+  if(s && s.id){                                                  // a new season: everything the last one earned is collected now
+    const old=/^\d{4}-\d$/.test(s.id)?+s.id.slice(-1):0, tier=Math.min(SEASON_TIERS,Math.floor((s.xp||0)/SEASON_XP));
+    for(let t=1;t<=tier;t++){ if(!(s.f||[]).includes(t)){ giveReward(seasonReward(t,'f',old)); got++; } if(s.prem && !(s.p||[]).includes(t)){ giveReward(seasonReward(t,'p',old)); got++; } }
+  }
+  S.season={id:si.id,xp:0,f:[],p:[],prem:false}; save(); setCoins();
+  if(s && s.id) setTimeout(()=>toast(`${I('crown','ic-gold')} ${tr('New season: {name}!',{name:tr(si.def.name)})}${got?' '+tr('Your unclaimed rewards were collected.'):''}`,3600),900);
+}
+const seasonReady=()=>{ ensureSeason(); const s=S.season, t=seasonTier(); let n=0; for(let k=1;k<=t;k++){ if(!s.f.includes(k)) n++; if(s.prem && !s.p.includes(k)) n++; } return n; };
+function seasonAddXp(n){
+  if(!(n>0)) return; ensureSeason(); const s=S.season, before=seasonTier(); s.xp=Math.min(SEASON_TIERS*SEASON_XP,s.xp+Math.floor(n)); const after=seasonTier();
+  save(); if(after>before) setTimeout(()=>toast(`${I('crown','ic-gold')} ${tr('Season tier {n} reached!',{n:after})}`,2400),1900);
+  try{ syncSeasonDot(); }catch(e){}
+}
+const seasonRunXp=r=>8+Math.floor(Math.min(r.score||0,200)/2)+Math.min(r.perfects||0,30);
+function claimTier(t,track){
+  ensureSeason(); const s=S.season, list=track==='p'?s.p:s.f;
+  if(t<1 || t>seasonTier() || list.includes(t) || (track==='p' && !s.prem)) return false;
+  const r=seasonReward(t,track,seasonInfo().idx); list.push(t); giveReward(r); save(); setCoins(); sfx.up(); try{ syncSeasonDot(); }catch(e){} return r;
+}
+function claimAllTiers(){ ensureSeason(); let n=0; for(let t=1;t<=seasonTier();t++) for(const tr_ of ['f','p']) if(claimTier(t,tr_)) n++; return n; }
+function buyPremium(){
+  ensureSeason(); if(S.season.prem) return false;
+  if(S.coins<PREMIUM_COST){ toast(tr('Need {n} {coin} — you have {m}',{n:nf(PREMIUM_COST),coin:I('coin'),m:nf(S.coins)})); return false; }
+  S.coins-=PREMIUM_COST; S.season.prem=true; save(); setCoins(); sfx.up(); return true;
+}
+function syncSeasonDot(){ const b=$('openSeason'); if(b) b.classList.toggle('dot',seasonReady()>0); }
+function renderSeason(){
+  ensureSeason(); const si=seasonInfo(), s=S.season, t=seasonTier(), left=fmtLeft(si.end-evNow()), into=t>=SEASON_TIERS?SEASON_XP:s.xp%SEASON_XP;
+  const cell=(k,track)=>{
+    const r=seasonReward(k,track,si.idx), done=(track==='p'?s.p:s.f).includes(k), can=k<=t && !done && (track==='f'||s.prem), locked=!can&&!done, parts=rewardParts(r);
+    const ico=parts.map(p=>I(p[0])).join(''), txt=parts.map(p=>p[1]).join(' · ');
+    return `<button class="scell ${track==='p'?'prem':''} ${done?'done':can?'ready':'lock'}" data-sc="${track}${k}" ${can?'':'disabled'} aria-label="${tr('Tier {n}',{n:k})}: ${txt.replace(/"/g,'')}"><i>${I(parts[0]?parts[0][0]:'coin')}</i><span>${txt}${done?' ✓':''}</span>${track==='p'&&!s.prem?`<em>${I('lock')}</em>`:''}</button>`;
+  };
+  let h=`<div class="snhero" style="--sc:${si.def.c}"><b>${tr(si.def.name).toUpperCase()}</b><span>${tr('Ends in {t}',{t:left})}</span><div class="snbar"><u style="width:${Math.round(into/SEASON_XP*100)}%"></u></div><span><b class="snt">${tr('Tier {n}',{n:t})}</b> · ${nf(into)} / ${nf(SEASON_XP)} XP${t>=SEASON_TIERS?' · '+tr('MAX'):''}</span></div>`;
+  h+=s.prem?`<div class="snprem on">${I('crown','ic-gold')} ${tr('Premium pass active')}</div>`:`<button class="btn gold snbuy" data-sc="buy">${I('crown')} ${tr('Get the Premium pass')} · ${I('coin')} ${nf(PREMIUM_COST)}</button><div class="sub" style="text-align:center">${tr('Premium adds a second reward on every tier: boxes, boosts, coins and a season-only cat.')}</div>`;
+  h+=`<div class="srow hd"><span></span><b>${tr('FREE')}</b><b>${tr('PREMIUM')}</b></div>`;
+  for(let k=1;k<=SEASON_TIERS;k++) h+=`<div class="srow${k===t+1?' cur':''}"><div class="stier">${k}</div>${cell(k,'f')}${cell(k,'p')}</div>`;
+  h+=`<div class="sub" style="text-align:center">${tr('Earn XP from every round and daily mission. Rewards you have earned are collected for you when the season ends.')}</div>`;
+  $('seasonBody').innerHTML=h; const n=seasonReady(); $('seasonClaim').textContent=n?tr('Claim all ({n})',{n}):tr('Claim all'); $('seasonClaim').classList.toggle('off',!n);
+}
+function openSeason(){ renderSeason(); $('seasonSheet').classList.remove('hidden'); soon(syncBack); const c=$('seasonBody').querySelector('.srow.cur'); if(c) setTimeout(()=>{ try{ c.scrollIntoView({block:'center'}); }catch(e){} },30); }
+function closeSeason(){ $('seasonSheet').classList.add('hidden'); soon(syncBack); renderMenu(); }
+
+/* --- mystery boxes: cosmetics only, one item per box, odds shown, a rare-or-better at least every 10th box, duplicates pay coins back --- */
+const BOX_TIERS=[['common',55,'Common'],['uncommon',28,'Uncommon'],['rare',11,'Rare'],['epic',5,'Epic'],['legend',1,'Legendary']];
+const BOX_REFUND={common:150,uncommon:400,rare:900,epic:2000,legend:4000};
+function boxPools(){
+  const P={common:[],uncommon:[],rare:[],epic:[],legend:[]};
+  for(const [sl,items] of Object.entries(SHOP)){ if(sl==='view'||sl==='vscene') continue;
+    for(const [id,it] of Object.entries(items)){
+      if(it.box){ P[it.box].push([sl,id]); continue; }
+      if(it.free||it.iap||it.evt||it.ach||it.season!=null||!it.coins) continue;
+      if(it.coins<=600) P.common.push([sl,id]); else if(it.coins<=1200) P.uncommon.push([sl,id]); } }
+  return P;
+}
+function rollBox(rnd){
+  rnd=rnd||Math.random; const P=boxPools(), pity=(S.boxPity||0)>=BOX_PITY-1, list=pity?BOX_TIERS.filter(t=>t[0]==='rare'||t[0]==='epic'||t[0]==='legend'):BOX_TIERS, tot=list.reduce((a,t)=>a+t[1],0);
+  let x=rnd()*tot, tier=list[list.length-1][0]; for(const t of list){ if(x<t[1]){ tier=t[0]; break; } x-=t[1]; }
+  const pool=P[tier], [slot,id]=pool[Math.min(pool.length-1,Math.floor(rnd()*pool.length))];
+  S.boxPity=(tier==='rare'||tier==='epic'||tier==='legend')?0:(S.boxPity||0)+1; S.boxN=(S.boxN||0)+1;
+  const dupe=ownsItem(slot,id); let refund=0; if(dupe){ refund=BOX_REFUND[tier]; S.coins+=refund; } else S.shop.owned.push(slot+':'+id);
+  save(); setCoins(); return {tier,slot,id,dupe,refund};
+}
+function buyBoxes(n){
+  const cost=n===5?BOX_COST5:BOX_COST; if(n!==1&&n!==5) return false;
+  if(S.coins<cost){ toast(tr('Need {n} {coin} — you have {m}',{n:nf(cost),coin:I('coin'),m:nf(S.coins)})); return false; }
+  S.coins-=cost; S.boxes=Math.min(9999,(S.boxes||0)+n); save(); setCoins(); sfx.up(); return true;
+}
+function itemArt(slot,id){
+  if(slot==='topper') return `<img alt="" src="${topperPic(id)}">`;
+  if(slot==='style') return `<img alt="" src="${stylePic(id)}">`;
+  if(slot==='fx') return `<img alt="" src="${fxPic(id)}">`;
+  if(slot==='accent') return `<img alt="" src="${accentPic(id)}">`;
+  if(slot==='palette'){ const T=THEMES[S.theme], th=Object.assign({},T,SHOP.palette[id]); return `<div class="pal">${[0,1,2,3,4].map(k=>`<span style="background:${hsl(hue(th,k*3),th.s,th.l+(th.ls?th.ls*Math.sin(k*2.1):0))}"></span>`).join('')}</div>`; }
+  return `<div class="ico big">${I(slot==='sfx'?'sound':'music')}</div>`;
+}
+let boxLast=null, boxTimer=0;
+function showBoxResult(){
+  const r=boxLast; if(!r) return; const t=BOX_TIERS.find(x=>x[0]===r.tier);
+  $('boxStage').innerHTML=`<div class="boxcard tier-${r.tier}"><small>${tr(t[2]).toUpperCase()}</small><div class="bart">${itemArt(r.slot,r.id)}</div><b>${tr(itemName(r.slot,r.id))}</b><span>${r.dupe?tr('Already owned: +{n} {coin}',{n:nf(r.refund),coin:I('coin')}):tr('NEW!')}</span></div>`;
+  $('boxEquip').classList.toggle('hidden',r.dupe||!['topper','palette','style','fx','sfx','music','accent'].includes(r.slot)); $('boxAgain').classList.toggle('hidden',(S.boxes||0)<=0);
+  $('boxAgain').textContent=tr('Open another ({n} left)',{n:S.boxes||0}); $('boxDone').disabled=false; sfx[(r.tier==='common'||r.tier==='uncommon')?'up':'perfect'](r.tier==='legend'?9:r.tier==='epic'?6:3); vib([20,30,20]);
+}
+function openBoxFlow(){
+  if((S.boxes||0)<=0) return false;
+  S.boxes--; boxLast=rollBox(); save();
+  $('boxStage').innerHTML=`<div class="boxcube">${I('gem')}</div><span class="sub">${tr('Opening…')}</span>`; $('boxEquip').classList.add('hidden'); $('boxAgain').classList.add('hidden'); $('boxDone').disabled=true;
+  $('boxSheet').classList.remove('hidden'); soon(syncBack); clearTimeout(boxTimer); boxTimer=setTimeout(showBoxResult,reduceOn()?150:1300); sfx.tap(); return true;
+}
+function closeBox(){ clearTimeout(boxTimer); if($('boxDone').disabled && boxLast) showBoxResult(); $('boxSheet').classList.add('hidden'); soon(syncBack); if(!$('themes').classList.contains('hidden')) renderThemes(); setCoins(); }
+function boxTab(){
+  const n=S.boxes||0;
+  let h=`<div class="boxhero" style="grid-column:1/-1"><i>${I('gem')}</i><div><b>${tr('MYSTERY BOX')}</b><span>${tr('Cosmetics only: one item in every box, never anything that helps you win.')}</span></div></div>`;
+  h+=`<div class="boxrow" style="grid-column:1/-1"><button class="btn ${n?'primary':'off'}" data-act="boxopen" ${n?'':'disabled'}>${tr('Open a box ({n})',{n})}</button></div>`;
+  h+=`<div class="boxrow" style="grid-column:1/-1"><button class="btn ${S.coins>=BOX_COST?'gold':'off'}" data-act="boxbuy" data-n="1">${tr('Buy 1')} · ${I('coin')} ${nf(BOX_COST)}</button><button class="btn ${S.coins>=BOX_COST5?'gold':'off'}" data-act="boxbuy" data-n="5">${tr('Buy 5')} · ${I('coin')} ${nf(BOX_COST5)}</button></div>`;
+  const P=boxPools();
+  h+=`<div class="tabh">${tr('THE ODDS')}</div><div class="boxodds" style="grid-column:1/-1">`+BOX_TIERS.map(t=>`<div class="tier-${t[0]}"><i></i><b>${tr(t[2])}</b><span>${t[1]}%</span><small>${P[t[0]].length===1?tr('1 item'):tr('{n} items',{n:P[t[0]].length})} · ${tr('duplicate: +{n} coins',{n:nf(BOX_REFUND[t[0]])})}</small></div>`).join('')+`</div>`;
+  h+=`<div class="sub" style="grid-column:1/-1">${tr('Every item in a rarity is equally likely. A Rare or better is guaranteed within {n} boxes.',{n:BOX_PITY-(S.boxPity||0)})}</div>`;
+  return h;
+}
 
 /* ================= Modes ================= */
 const MODES = {
@@ -1181,7 +1382,7 @@ const ACH = [
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',top:[],rushBest:0,rushTime:0,rushCp:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',top:[],rushBest:0,rushTime:0,rushCp:0,season:null,boxes:0,boxPity:0,boxN:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,cb:false,bigText:false,oneHand:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -1203,6 +1404,8 @@ function cleanSave(raw){
   if(Array.isArray(raw.eggs)) out.eggs=[...new Set(raw.eggs.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}$/.test(v)))].slice(0,60);
   if(raw.dm && typeof raw.dm==='object'){ const a=v=>Array.isArray(v)?[0,1,2].map(i=>num(v[i],1e6)):[0,0,0]; out.dm={day:num(raw.dm.day,1e6),p:a(raw.dm.p),paid:a(raw.dm.paid).map(x=>x?1:0),all:raw.dm.all?1:0}; }
   if(Array.isArray(raw.top)) out.top=raw.top.filter(r=>r&&typeof r==='object'&&['classic','timed','lives','hazard','daily'].includes(r.m)).slice(0,10).map(r=>({m:r.m,s:num(r.s,1e7),h:num(r.h,1e5),t:num(r.t,9e12)}));
+  if(raw.season && typeof raw.season==='object' && typeof raw.season.id==='string' && /^\d{4}-[0-5]$/.test(raw.season.id)){ const tl=a=>Array.isArray(a)?[...new Set(a.map(v=>Math.floor(Number(v))).filter(v=>v>=1&&v<=30))]:[]; out.season={id:raw.season.id,xp:num(raw.season.xp,6000),f:tl(raw.season.f),p:tl(raw.season.p),prem:raw.season.prem?true:false}; }
+  for(const k of ['boxes','boxN']) if(own(raw,k)) out[k]=num(raw[k],k==='boxes'?9999:1e6); if(own(raw,'boxPity')) out.boxPity=num(raw.boxPity,9);
   if(own(raw,'rushBest')) out.rushBest=num(raw.rushBest,37); if(own(raw,'rushCp')) out.rushCp=num(raw.rushCp,30); if(own(raw,'rushTime')) out.rushTime=num(raw.rushTime,1e7);
   if(Array.isArray(raw.evWarn)) out.evWarn=raw.evWarn.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}:(10|5|3|last)$/.test(v)).slice(-40);
   if(typeof raw.evSeen==='string' && /^[a-z0-9]{0,20}$/.test(raw.evSeen)) out.evSeen=raw.evSeen;
@@ -1415,7 +1618,7 @@ async function loadLang(code){
   }catch(e){ dict={}; return 'en'; }
 }
 /* containers whose content is generated by JS (already passed through tr()) */
-const I18N_SKIP='#evCard,#evBody,#evTitle,#hatchMsg,#hatchRw,#unlockRows small,#csEarn,#csBuy,#powerList,#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
+const I18N_SKIP='#seasonBody,#boxStage,#evCard,#evBody,#evTitle,#hatchMsg,#hatchRw,#unlockRows small,#csEarn,#csBuy,#powerList,#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
 const origText=new WeakMap(), origAttr=new WeakMap();
 function staticTextNodes(root){
   const out=[];
@@ -2246,6 +2449,7 @@ const weeklyReady=()=>weeklyDone() && !S.weekly.claimed;
 function weeklyRecord(r){                                          // r: what this round did: {blocks, perfects, height, combo, score}
   try{ dailyRecord(r); }catch(e){}
   if(soft()) return;                                              // Zen and Practice cannot be farmed for the chest
+  try{ seasonAddXp(seasonRunXp(r)); }catch(e){}
   ensureWeek(); const w=S.weekly, ms=weekMissions(), before=ms.map((m,i)=>w.p[i]>=m.n), wasAll=before.every(Boolean);
   ms.forEach((m,i)=>{ const v=m.stat==='runs'?1:(r[m.stat]||0); w.p[i]=m.kind==='sum'?Math.min(1e6,w.p[i]+v):Math.max(w.p[i],v); });
   save();
@@ -2275,8 +2479,8 @@ function ensureDaily(){ const d=dayNum(); if(!S.dm || S.dm.day!==d) S.dm={day:d,
 function dailyRecord(r){
   if(soft()) return; ensureDaily(); const dm=S.dm, ms=dailyPick();
   ms.forEach((m,i)=>{ if(dm.paid[i]) return; const v=m.stat==='runs'?1:(r[m.stat]||0); dm.p[i]=m.kind==='sum'?Math.min(1e6,dm.p[i]+v):Math.max(dm.p[i],v);
-    if(dm.p[i]>=m.n){ dm.paid[i]=1; S.coins+=m.coins; setTimeout(()=>toast(`${I('target','ic-gold')} ${tr('Daily mission complete! +{n} {coin}',{n:m.coins,coin:I('coin')})}`,2400),400+i*600); } });
-  if(!dm.all && dm.paid.every(Boolean)){ dm.all=1; S.coins+=DAILY_ALL; setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('All daily missions done! +{n} {coin}',{n:DAILY_ALL,coin:I('coin')})}`,3000),1700); }
+    if(dm.p[i]>=m.n){ dm.paid[i]=1; S.coins+=m.coins; try{ seasonAddXp(60); }catch(e){} setTimeout(()=>toast(`${I('target','ic-gold')} ${tr('Daily mission complete! +{n} {coin}',{n:m.coins,coin:I('coin')})}`,2400),400+i*600); } });
+  if(!dm.all && dm.paid.every(Boolean)){ dm.all=1; S.coins+=DAILY_ALL; try{ seasonAddXp(100); }catch(e){} setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('All daily missions done! +{n} {coin}',{n:DAILY_ALL,coin:I('coin')})}`,3000),1700); }
   save(); setCoins();
 }
 function renderTop(){
@@ -3587,7 +3791,7 @@ async function shareScore(){
 }
 
 /* ================= Menu / UI ================= */
-const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet','evsheet','hatch','photoSheet'];
+const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet','evsheet','hatch','photoSheet','seasonSheet','boxSheet'];
 function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); soon(syncReach); try{ hideEvToast(); }catch(e){} }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
@@ -3695,7 +3899,7 @@ function buyEasy(){
 /* reminders: a big banner the first time the app is opened with 10, 5 or 3 days left, and on the last day */
 function evWarnCheck(){
   const ev=activeEvent(); if(!ev || state!=='menu' || $('menu').classList.contains('hidden')) return;
-  for(const id of ['evsheet','hzsheet','fsheet','boosts','coinsSheet','udlg','hatch']) if(!$(id).classList.contains('hidden')) return;       // never over an open sheet
+  for(const id of ['evsheet','hzsheet','fsheet','boosts','coinsSheet','udlg','hatch','seasonSheet','boxSheet']) if(!$(id).classList.contains('hidden')) return;       // never over an open sheet
   const ms=evEnd(ev)-evNow(), d=ms/864e5, key=ms<864e5?'last':d<=3?'3':d<=5?'5':d<=10?'10':null; if(!key) return;
   const tag=ev.id+':'+key; if(S.evWarn.includes(tag)) return;
   for(const k of ['10','5','3','last']){ const t=ev.id+':'+k; if(!S.evWarn.includes(t)) S.evWarn.push(t); if(k===key) break; }       // the earlier ones are not shown late
@@ -3828,6 +4032,7 @@ function renderMenu(){
   const lm=S.lastMode, M0=MODES[lm], best=lm==='daily'?(S.twist.best||0):bestGet(lm);
   $('modeName').innerHTML=`${I(M0.icon)} ${tr(M0.name)}${hzKey(lm)?' · '+tr(HZ_LEVELS[S.hzLevel].name):''}`;
   $('playSub').textContent = best>0 ? (lm==='daily'?tr("Today's best {n}",{n:best}):tr('Best {n}',{n:best})) : tr("Let's go!");
+  try{ syncSeasonDot(); }catch(e){}
   const armedN=S.shop.pick.filter(id=>(S.shop.boosts[id]||0)>0).length; $('boostN').textContent=armedN; $('openBoosts').classList.toggle('has',armedN>0);
   $('openAwards').classList.toggle('dot',weeklyReady()); renderEventCard();
   const nu=nextUnlock(); $('nextCard').classList.toggle('hidden',!nu); $('nextCard').innerHTML=nu?`${I('target')} ${tr('Next unlock: <b>{x}</b>',{x:nu})}`:'';
@@ -3901,7 +4106,7 @@ function showStages(){
 /* ----- the shop (it grew out of the Themes screen): tabs, live preview, buying ----- */
 let themesFrom='menu', shopTab='themes';
 const TAB_ICON={themes:'palette',blocks:'layers',colors:'sparkles',scenes:'cloud',sounds:'sound',music:'music',extras:'gem',boosts:'zap',coins:'coin'};
-const TABS=[['themes','Themes'],['blocks','Blocks'],['colors','Colors'],['scenes','Scenes'],['sounds','Sounds'],['music','Music'],['extras','Extras'],['boosts','Boosts'],['coins','Coins']];
+const TABS=[['themes','Themes'],['blocks','Blocks'],['colors','Colors'],['scenes','Scenes'],['sounds','Sounds'],['music','Music'],['extras','Extras'],['boxes','Boxes'],['boosts','Boosts'],['coins','Coins']];
 function openThemes(from){ themesFrom=from; hideAll(); $('themes').classList.remove('hidden'); renderThemes(); }
 function closeThemes(){ endPreview(true); if(themesFrom==='over' && state==='over'){ hideAll(); $('over').classList.remove('hidden'); } else showMenu(); }
 function themeAct(id){
@@ -3918,6 +4123,8 @@ function itemAct(slot,id){
   const it=SHOP[slot][id]||{}, eq=S.shop.equip[slot]===id;
   if(ownsItem(slot,id)) return eq?{act:'none',label:I('check')+' '+tr('Equipped'),cls:'',sub:tr('Currently equipped'),dis:true}:{act:'equip',label:tr('Equip'),cls:'primary',sub:(it.free||slot==='scene')?tr('Included'):tr('Owned')};
   if(slot==='vscene' && !ownsItem(slot,id) && !ownsItem('view','deep')) return {act:'lock2',label:`${I('lock')} ${tr('3D Mode')}`,cls:'off',sub:tr('Unlock 3D Mode first')};
+  if(it.box) return {act:'lock2',label:`${I('lock')} ${tr('Box')}`,cls:'off',sub:tr('Found in Mystery Boxes')};
+  if(it.season!=null) return {act:'lock2',label:`${I('lock')} ${tr('Season')}`,cls:'off',sub:tr('A reward on the Season Pass')};
   if(it.ach){ const a=ACH.find(x=>x.id===it.ach); return {act:'lock2',label:`${I('lock')} ${tr('Award')}`,cls:'off',sub:tr('Earn the award "{name}"',{name:tr(a?a.name:'')})}; }
   if(it.evt){ const ev=EVENTS.find(x=>x.id===it.evt); return {act:'lock2',label:`${I('lock')} ${tr('Event')}`,cls:'off',sub:tr('Hatch the {name} egg',{name:tr(ev?ev.name:'')})}; }
   if(it.coins) return {act:'buy',label:`${I('coin')} ${it.coins}`,cls:S.coins>=it.coins?'gold':'off',sub:tr('Costs {n} coins (you have {m})',{n:it.coins,m:S.coins})};
@@ -4012,6 +4219,7 @@ const SHOP_TABS={
       + `<div class="tabh">${tr('TOWER TOPPER')}</div>`+Object.keys(SHOP.topper).map(id=>itemCard('topper',id,`<img alt="" src="${topperPic(id)}">`)).join('')
       + `<div class="tabh">${tr('APP COLOR')}</div>`+Object.keys(SHOP.accent).map(id=>itemCard('accent',id,`<img alt="" src="${accentPic(id)}">`)).join('');
   },
+  boxes(){ return boxTab(); },
   boosts(){
     return Object.entries(BOOSTS).filter(([id,bo])=>!bo.camp).map(([id,bo])=>{
       const n=S.shop.boosts[id]||0, [p1,p3]=bo.price;
@@ -4028,7 +4236,7 @@ const SHOP_TABS={
       + packs + `<div class="bst" style="flex-direction:column;align-items:stretch"><div><span>${tr('Coins can also be earned by playing, from the daily reward and from awards.')}</span></div><button class="btn" data-act="restore">${tr('Restore purchases')}</button></div>`;
   }
 };
-const TAB_HINT={themes:'tap a theme to preview it',blocks:'tap an item to try it',colors:'tap an item to try it',scenes:'tap an item to try it',sounds:'tap an item to hear it',music:'tap an item to hear it',extras:'tap an item to try it',boosts:'Boosts help you through a tough round',coins:'Coins buy themes, looks and boosts'};
+const TAB_HINT={themes:'tap a theme to preview it',blocks:'tap an item to try it',colors:'tap an item to try it',scenes:'tap an item to try it',sounds:'tap an item to hear it',music:'tap an item to hear it',extras:'tap an item to try it',boxes:'Cosmetics only. The odds are listed below.',boosts:'Boosts help you through a tough round',coins:'Coins buy themes, looks and boosts'};
 function renderThemes(){
   const lvl=levelOf(S.blocks);
   $('tInfo').innerHTML=`${tr('Level {n}',{n:lvl})} · ${I('coin')} <b>${S.coins}</b> · ${tr(TAB_HINT[shopTab])}`;
@@ -4307,7 +4515,7 @@ $('csBuy').addEventListener('click',e=>{ const b=e.target.closest('[data-pack]')
    the browser's own and the app can close. */
 function soon(f){ if(typeof queueMicrotask==='function') queueMicrotask(f); else setTimeout(f,0); }       // right after the current handler finishes, before anything else can happen
 let backState='off', backWant=false, backAfter=null;          // off: no sentinel · armed: one is in the history · popping: we are removing it ourselves
-const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('hzsheet').classList.contains('hidden') && $('evsheet').classList.contains('hidden') && $('photoSheet').classList.contains('hidden') && $('hatch').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
+const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('hzsheet').classList.contains('hidden') && $('evsheet').classList.contains('hidden') && $('photoSheet').classList.contains('hidden') && $('seasonSheet').classList.contains('hidden') && $('boxSheet').classList.contains('hidden') && $('hatch').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
 function armBack(){
   if(backState==='off'){ try{ history.pushState({sr:1},''); backState='armed'; }catch(e){} }
   else if(backState==='popping') backWant=true;                // (arm again as soon as our own removal is done)
@@ -4323,6 +4531,8 @@ function handleBack(){
   if(open('udlg')){ closeUnlockDlg(); return; }
   if(open('fsheet')){ closeFriend(); return; }
   if(open('hatch')){ if(hat.phase==='hold') closeHatch(); return; }
+  if(open('boxSheet')){ closeBox(); return; }
+  if(open('seasonSheet')){ closeSeason(); return; }
   if(open('photoSheet')){ closePhoto(); return; }
   if(open('evsheet')){ closeEvent(); return; }
   if(open('hzsheet')){ closeHz(); return; }
@@ -4418,6 +4628,15 @@ $('openThemes').onclick=()=>{ sfx.tap(); openThemes('menu'); };
 $('overThemes').onclick=()=>{ sfx.tap(); openThemes('over'); };
 $('closeThemes').onclick=()=>{ sfx.tap(); closeThemes(); };
 $('openAwards').onclick=()=>{ sfx.tap(); showAwards(); };
+$('openSeason').onclick=()=>{ sfx.tap(); openSeason(); };
+$('seasonClose').onclick=()=>{ sfx.tap(); closeSeason(); }; $('seasonBg').onclick=()=>closeSeason();
+$('seasonClaim').onclick=()=>{ const n=claimAllTiers(); if(n){ toast(`${I('crown','ic-gold')} ${tr('Rewards claimed!')}`,1800); renderSeason(); } };
+$('seasonBody').addEventListener('click',e=>{ const b=e.target.closest('[data-sc]'); if(!b) return; const k=b.dataset.sc;
+  if(k==='buy'){ if(buyPremium()) renderSeason(); return; }
+  const r=claimTier(+k.slice(1),k[0]); if(r){ toast(`${I('crown','ic-gold')} ${rewardParts(r).map(x=>x[1]).join(' · ')}`,1800); renderSeason(); } });
+$('boxDone').onclick=()=>{ sfx.tap(); closeBox(); }; $('boxBg').onclick=()=>{ if(!$('boxDone').disabled) closeBox(); };
+$('boxAgain').onclick=()=>{ openBoxFlow(); };
+$('boxEquip').onclick=()=>{ if(boxLast && !boxLast.dupe){ S.shop.equip[boxLast.slot]=boxLast.id; save(); sfx.tap(); toast(tr('Equipped!')); $('boxEquip').classList.add('hidden'); } };
 $('closeAwards').onclick=()=>{ sfx.tap(); showMenu(); };
 $('openMuseum').onclick=()=>{ sfx.tap(); showMuseum(); };
 $('closeMuseum').onclick=()=>{ sfx.tap(); showAwards(); };
@@ -4483,6 +4702,8 @@ $('tGrid').addEventListener('click',e=>{
   const act=b.dataset.act, id=b.dataset.id, slot=b.dataset.slot||null;
   if(act==='preview'){ sfx.tap(); startPreview(id,slot); return; }
   if(act==='none') return;
+  if(act==='boxbuy'){ if(buyBoxes(+b.dataset.n)) renderThemes(); return; }
+  if(act==='boxopen'){ openBoxFlow(); return; }
   if(act==='boost'){ boostAction(id,+b.dataset.n); return; }
   if(act==='pack'){ buyIap(id); return; }
   if(act==='restore'){ syncPurchases(true); return; }
@@ -4525,7 +4746,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ seasonInfo, seasonTier, seasonReward, seasonAddXp, claimTier, claimAllTiers, buyPremium, ensureSeason, openSeason, rollBox, boxPools, buyBoxes, openBoxFlow, BOX_TIERS, SEASONS, RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

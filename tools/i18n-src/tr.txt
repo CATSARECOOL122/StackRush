@@ -820,3 +820,76 @@
 820|Koşu Efsanesi
 821|Koşu Hayatta Kalanı
 822|Yedi patron, sonra 30 patronluk bir Meydan Okuma. Canlar taşınır.
+823|{n} eşya
+824|1 eşya
+825|Sezon Geçidi ödülü
+826|Zaten var: +{n} {coin}
+827|Kutu
+828|Kutular
+829|1 satın al
+830|5 satın al
+831|Kiraz çiçeği
+832|Hepsini al
+833|Hepsini al ({n})
+834|Sadece kozmetik: her kutuda bir eşya, kazanmana yardım eden hiçbir şey yok.
+835|Sadece kozmetik. Şanslar aşağıda.
+836|Kozmik Kedi
+837|Kristal Kedi
+838|kopya: +{n} jeton
+839|Her tur ve günlük görevden XP kazan. Kazandığın ödüller sezon bitince otomatik toplanır.
+840|{t} sonra biter
+841|Kuşanıldı!
+842|Bir nadirlikteki her eşya eşit olasılıktadır. Nadir veya daha iyisi {n} kutu içinde garantidir.
+843|Gizemli Kutularda bulunur
+844|ÜCRETSİZ
+845|Premium geçidi al
+846|Hasat
+847|Hasat Kedisi
+848|Cehennem Kedisi
+849|MAKS
+850|Gece yarısı
+851|Nane Kedisi
+852|Mochi Kedisi
+853|Ay Kedisi
+854|Gizemli Kutu
+855|GİZEMLİ KUTU
+856|Bulutsu Kedisi
+857|Yeni sezon: {name}!
+858|YENİ!
+859|Bir kutu aç ({n})
+860|Bir tane daha aç
+861|Bir tane daha aç ({n} kaldı)
+862|Açılıyor…
+863|Taçyaprağı Kedisi
+864|PREMIUM
+865|Premium her kademede ikinci bir ödül ekler: kutular, güçlendiriciler, jeton ve sadece sezona özel bir kedi.
+866|Premium geçit etkin
+867|Prizma
+868|Ödüller alındı!
+869|Sezon
+870|Sezon Geçidi
+871|SEZON GEÇİDİ
+872|Sezon kademesi {n} geldi!
+873|Gölge Kedisi
+874|Kar yağışı
+875|Kar Tanesi Kedisi
+876|Sorbe
+877|Fırtına Kedisi
+878|Gün Parlaması
+879|Güneşli Kedi
+880|ŞANSLAR
+881|Gelgit
+882|Gelgit Kedisi
+883|Kademe {n}
+884|Almadığın ödüller toplandı.
+885|Çiçek Sezonu
+886|Sıradan
+887|Destansı
+888|Kırağı Sezonu
+889|Hasat Sezonu
+890|Efsanevi
+891|Gece Yarısı Sezonu
+892|Okyanus Sezonu
+893|Nadir
+894|Gün Parlaması Sezonu
+895|Nadir değil

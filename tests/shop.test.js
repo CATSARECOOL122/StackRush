@@ -54,7 +54,7 @@ module.exports=[
   await p.click('#openThemes');
   const want=await p.evaluate(()=>{ const n=o=>Object.keys(o).length, sr=__sr; return {
     themes:[n(sr.THEMES),0], blocks:[n(sr.SHOP.style)+n(sr.SHOP.view)+n(sr.SHOP.vscene),0], colors:[n(sr.SHOP.palette),0], scenes:[sr.S.owned.length+1,0],
-    sounds:[n(sr.SHOP.sfx),0], music:[n(sr.SHOP.music),0], extras:[n(sr.SHOP.fx)+n(sr.SHOP.topper)+n(sr.SHOP.accent),0], boosts:[0,Object.values(sr.BOOSTS).filter(b=>!b.camp).length+1], coins:[4,2] }; });
+    sounds:[n(sr.SHOP.sfx),0], music:[n(sr.SHOP.music),0], extras:[n(sr.SHOP.fx)+n(sr.SHOP.topper)+n(sr.SHOP.accent),0], boxes:[0,0], boosts:[0,Object.values(sr.BOOSTS).filter(b=>!b.camp).length+1], coins:[4,2] }; });
   const tabs=await p.evaluate(()=>__sr.TABS.map(t=>t[0]));
   assert.deepEqual(tabs,Object.keys(want),'the test knows every tab');
   for(const id of tabs){
@@ -577,6 +577,59 @@ module.exports=[
   assert.equal(r,24,'every scene draws at every height, in normal and low-effort mode');
   await p.evaluate(()=>{ __sr.S.shop.equip.vscene='ocean'; __sr.S.reduceMotion='on'; }); await p.waitForTimeout(200);
   await p.evaluate(()=>__sr.startPreview('sunset','vscene')); await p.waitForTimeout(250); assert.equal(await p.evaluate(()=>__sr.view3On()),true,'previewing a scene shows it in 3D'); await p.evaluate(()=>__sr.endPreview());
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+
+['season pass: 30 tiers of 200 XP, free and premium tracks, premium costs 8,000 coins, XP from rounds and missions, rewards are claimed once, unclaimed rewards are collected when the season ends', async(e,L)=>{
+  const p=await L.open(e,{now:new Date(2026,9,5,12).getTime()}); await p.evaluate(()=>{ __sr.S.season=null; __sr.ensureSeason(); });
+  assert.deepEqual(await p.evaluate(()=>{ const a=__sr.seasonInfo(new Date(2026,0,15).getTime()), b=__sr.seasonInfo(new Date(2026,10,30).getTime()); return [a.id,a.def.name,b.id,b.def.name,__sr.seasonInfo().id]; }),['2026-0','Frost Season','2026-5','Midnight Season','2026-4']);
+  assert.equal(await p.evaluate(()=>[__sr.S.season.xp,__sr.seasonTier()].join()),'0,0');
+  await p.evaluate(()=>{ __sr.seasonAddXp(199); }); assert.equal(await p.evaluate(()=>__sr.seasonTier()),0); await p.evaluate(()=>{ __sr.seasonAddXp(1); }); assert.equal(await p.evaluate(()=>__sr.seasonTier()),1,'200 XP is a tier');
+  await p.evaluate(()=>{ __sr.S.coins=0; });
+  assert.equal(await p.evaluate(()=>!!__sr.claimTier(2,'f')),false,'tier 2 is not reached'); assert.equal(await p.evaluate(()=>!!__sr.claimTier(1,'p')),false,'premium is locked');
+  assert.equal(await p.evaluate(()=>!!__sr.claimTier(1,'f')),true); assert.equal(await p.evaluate(()=>__sr.S.coins),45,'tier 1 free pays 45'); assert.equal(await p.evaluate(()=>!!__sr.claimTier(1,'f')),false,'only once');
+  assert.equal(await p.evaluate(()=>__sr.buyPremium()),false,'not enough coins'); await p.evaluate(()=>{ __sr.S.coins=8000; }); assert.equal(await p.evaluate(()=>[__sr.buyPremium(),__sr.S.coins,__sr.S.season.prem].join()),'true,0,true');
+  assert.equal(await p.evaluate(()=>!!__sr.claimTier(1,'p')),true); assert.equal(await p.evaluate(()=>__sr.S.coins),108);
+  assert.deepEqual(await p.evaluate(()=>[__sr.seasonReward(10,'f',4),__sr.seasonReward(15,'p',4),__sr.seasonReward(30,'f',4),__sr.seasonReward(30,'p',4)]),[{item:['palette','ssn4']},{item:['topper','ssn4']},{coins:1500,boost:['up10',1]},{coins:3000,box:3}]);
+  await p.evaluate(()=>{ __sr.seasonAddXp(99999); }); assert.equal(await p.evaluate(()=>__sr.seasonTier()),30,'30 tiers at most'); assert.equal(await p.evaluate(()=>__sr.S.season.xp),6000);
+  assert.equal(await p.evaluate(()=>__sr.claimAllTiers()),58,'29 free + 29 premium left');
+  assert.equal(await p.evaluate(()=>__sr.S.shop.owned.includes('palette:ssn4')&&__sr.S.shop.owned.includes('topper:ssn4')),true,'the season palette and cat'); assert.equal(await p.evaluate(()=>__sr.S.boxes),9,'boxes on premium tiers 3, 9, 17, 23 (1 each), 27 (2) and 30 (3)');
+  /* a round earns XP; Zen does not */
+  await p.evaluate(()=>{ __sr.S.season={id:'2026-4',xp:0,f:[],p:[],prem:false}; }); await p.evaluate(()=>document.getElementById('play').click()); await p.waitForTimeout(300); await L.perfects(p,3); await p.evaluate(()=>{ __sr.endNow(); }); await p.waitForTimeout(900);
+  assert.ok(await p.evaluate(()=>__sr.S.season.xp)>=11,'a round earns season XP');
+  /* the season ends: everything earned is collected */
+  await p.evaluate(()=>{ __sr.S.season={id:'2026-3',xp:600,f:[],p:[],prem:true}; __sr.S.coins=0; __sr.S.boxes=0; __sr.ensureSeason(); });
+  assert.equal(await p.evaluate(()=>[__sr.S.season.id,__sr.S.season.xp,__sr.S.season.prem].join()),'2026-4,0,false'); assert.equal(await p.evaluate(()=>__sr.S.coins),374,'3 tiers x 2 tracks collected: 150 free + 224 premium'); assert.equal(await p.evaluate(()=>__sr.S.boxes),1,'the tier 3 premium box');
+  /* the sheet */
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.seasonAddXp(650); }); await p.waitForTimeout(300); assert.equal(await p.locator('#openSeason.dot').count(),1,'a dot on the Season button when rewards wait');
+  await p.click('#openSeason'); await p.waitForTimeout(300); assert.equal(await p.locator('#seasonBody .srow:not(.hd)').count(),30); assert.ok(await p.locator('#seasonBody .scell.ready').count()>=3);
+  await p.click('#seasonBody [data-sc=f1]'); assert.equal(await p.evaluate(()=>__sr.S.season.f.includes(1)),true); await p.click('#seasonClaim'); assert.equal(await p.evaluate(()=>__sr.S.season.f.length),3);
+  await p.evaluate(()=>history.back()).catch(()=>{}); await p.waitForTimeout(200); await p.evaluate(()=>{ const b=document.getElementById('seasonClose'); if(b) b.click(); });
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['mystery boxes: odds add up to 100, a Rare or better by the 10th box, duplicates pay coins back, 1 box 1,500 / 5 for 6,750, the odds and the opening show, cosmetics only', async(e,L)=>{
+  const p=await L.open(e);
+  const o=await p.evaluate(()=>({tot:__sr.BOX_TIERS.reduce((a,t)=>a+t[1],0),pools:Object.fromEntries(Object.entries(__sr.boxPools()).map(([k,v])=>[k,v.length])),slots:[...new Set(Object.values(__sr.boxPools()).flat().map(x=>x[0]))].sort()}));
+  assert.equal(o.tot,100); for(const k of Object.keys(o.pools)) assert.ok(o.pools[k]>0,'an item pool for '+k); assert.ok(o.slots.every(s=>['accent','fx','music','palette','sfx','style','topper'].includes(s)),'cosmetics only: '+o.slots);
+  await p.evaluate(()=>{ __sr.S.coins=1499; }); assert.equal(await p.evaluate(()=>__sr.buyBoxes(1)),false); await p.evaluate(()=>{ __sr.S.coins=1500; }); assert.equal(await p.evaluate(()=>[__sr.buyBoxes(1),__sr.S.coins,__sr.S.boxes].join()),'true,0,1');
+  await p.evaluate(()=>{ __sr.S.coins=6750; __sr.S.boxes=0; }); assert.equal(await p.evaluate(()=>[__sr.buyBoxes(5),__sr.S.coins,__sr.S.boxes].join()),'true,0,5'); assert.equal(await p.evaluate(()=>__sr.buyBoxes(3)),false,'only 1 or 5');
+  /* a seeded roll: the lowest number is a Common, the highest a Legendary */
+  const r1=await p.evaluate(()=>{ __sr.S.boxPity=0; return __sr.rollBox(()=>0); }); assert.equal(r1.tier,'common'); assert.equal(r1.dupe,false);
+  const r2=await p.evaluate(()=>{ __sr.S.boxPity=0; return __sr.rollBox(()=>0.995); }); assert.equal(r2.tier,'legend'); assert.equal(await p.evaluate(()=>__sr.S.shop.owned.includes('topper:cosmic')),true);
+  await p.evaluate(()=>{ __sr.S.coins=0; __sr.S.boxPity=0; }); const r3=await p.evaluate(()=>__sr.rollBox(()=>0.995)); assert.equal(r3.dupe,true,'the same Legendary again is a duplicate'); assert.equal(r3.refund,4000); assert.equal(await p.evaluate(()=>__sr.S.coins),4000);
+  /* pity: nine misses force a Rare or better, whatever the dice say */
+  await p.evaluate(()=>{ __sr.S.boxPity=9; }); const r4=await p.evaluate(()=>__sr.rollBox(()=>0)); assert.ok(['rare','epic','legend'].includes(r4.tier),'the 10th box: '+r4.tier); assert.equal(await p.evaluate(()=>__sr.S.boxPity),0);
+  /* statistics over many rolls land near the listed odds */
+  const st=await p.evaluate(()=>{ const c={common:0,uncommon:0,rare:0,epic:0,legend:0}; const bk=JSON.stringify(__sr.S.shop.owned); for(let i=0;i<4000;i++){ __sr.S.boxPity=0; c[__sr.rollBox().tier]++; } return c; });
+  assert.ok(st.common>2000&&st.common<2400,'common ~55%: '+st.common); assert.ok(st.uncommon>950&&st.uncommon<1300,'uncommon ~28%: '+st.uncommon); assert.ok(st.legend<90,'legendary ~1%: '+st.legend);
+  /* the shop tab and the opening */
+  await p.evaluate(()=>{ __sr.S.boxes=2; __sr.S.coins=5000; __sr.S.shop.owned=[]; __sr.S.boxPity=0; }); await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('boxes')); await p.waitForTimeout(200);
+  assert.equal(await p.locator('#tGrid .boxodds > div').count(),5,'five rarities listed'); assert.match(await p.textContent('#tGrid .boxodds'),/55%[\s\S]*28%[\s\S]*11%[\s\S]*5%[\s\S]*1%/);
+  await p.click('#tGrid [data-act=boxopen]'); await p.waitForTimeout(200); assert.equal(await p.isVisible('#boxSheet'),true); assert.equal(await p.evaluate(()=>__sr.S.boxes),1,'a box is used up when it is opened');
+  await p.waitForTimeout(1700); assert.equal(await p.locator('#boxStage .boxcard').count(),1,'the reveal card'); assert.equal(await p.isVisible('#boxAgain'),true);
+  await p.click('#boxAgain'); await p.waitForTimeout(1700); assert.equal(await p.evaluate(()=>__sr.S.boxes),0); assert.equal(await p.isVisible('#boxAgain'),false,'no boxes left'); await p.click('#boxDone'); assert.equal(await p.isVisible('#boxSheet'),false);
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 

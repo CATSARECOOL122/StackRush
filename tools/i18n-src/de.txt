@@ -820,3 +820,76 @@
 820|Rush-Legende
 821|Rush-Überlebender
 822|Sieben Bosse, dann ein Gauntlet mit 30 Bossen. Leben bleiben erhalten.
+823|{n} Items
+824|1 Item
+825|Eine Belohnung im Season-Pass
+826|Schon vorhanden: +{n} {coin}
+827|Box
+828|Boxen
+829|1 kaufen
+830|5 kaufen
+831|Kirschblüte
+832|Alle abholen
+833|Alle abholen ({n})
+834|Nur Kosmetik: ein Item pro Box, nie etwas, das beim Gewinnen hilft.
+835|Nur Kosmetik. Die Chancen stehen unten.
+836|Kosmos-Katze
+837|Kristall-Katze
+838|Duplikat: +{n} Münzen
+839|Sammle XP mit jeder Runde und Tagesmission. Verdiente Belohnungen werden am Saisonende automatisch abgeholt.
+840|Endet in {t}
+841|Ausgerüstet!
+842|Jedes Item einer Seltenheit ist gleich wahrscheinlich. Selten oder besser ist innerhalb von {n} Boxen garantiert.
+843|In Mystery-Boxen zu finden
+844|GRATIS
+845|Premium-Pass holen
+846|Ernte
+847|Ernte-Katze
+848|Inferno-Katze
+849|MAX
+850|Mitternacht
+851|Minz-Katze
+852|Mochi-Katze
+853|Mond-Katze
+854|Mystery-Box
+855|MYSTERY-BOX
+856|Nebel-Katze
+857|Neue Saison: {name}!
+858|NEU!
+859|Eine Box öffnen ({n})
+860|Noch eine öffnen
+861|Noch eine öffnen ({n} übrig)
+862|Öffnet sich…
+863|Blütenblatt-Katze
+864|PREMIUM
+865|Premium gibt auf jeder Stufe eine zweite Belohnung: Boxen, Booster, Münzen und eine Saison-Katze.
+866|Premium-Pass aktiv
+867|Prisma
+868|Belohnungen abgeholt!
+869|Saison
+870|Season-Pass
+871|SEASON-PASS
+872|Saison-Stufe {n} erreicht!
+873|Schatten-Katze
+874|Schneefall
+875|Schneeflocken-Katze
+876|Sorbet
+877|Sturm-Katze
+878|Sonnenaufgang
+879|Sonnen-Katze
+880|DIE CHANCEN
+881|Gezeiten
+882|Gezeiten-Katze
+883|Stufe {n}
+884|Deine nicht abgeholten Belohnungen wurden eingesammelt.
+885|Blüten-Saison
+886|Gewöhnlich
+887|Episch
+888|Frost-Saison
+889|Ernte-Saison
+890|Legendär
+891|Mitternachts-Saison
+892|Ozean-Saison
+893|Selten
+894|Sonnenaufgangs-Saison
+895|Ungewöhnlich

@@ -282,3 +282,11 @@ Scenes are drawn in code (no image files), calm down with Reduce motion, and use
 Boss Rush now has **37 bosses**: the seven campaign bosses, then a **Gauntlet of 30 more bosses that exist only here** (rising speed from 1.75× to 2.35×, rotating mixes of lava, ice, glue, wind, bombs, tremors, darkness and the upside-down screen). Lives carry over (+1 after each boss, up to 5). Every 10th boss is a **checkpoint**: after a loss the end screen offers *Resume · Boss N*.
 
 Pay (all coins are paid when the run ends): 60 per campaign boss, 100 per Gauntlet boss, 250 at each checkpoint, +500 for the first seven, **+5,000 for all 37**. Awards: *Rush Survivor* (all seven, 150 coins), *Gauntlet Runner* (reach boss 20, 400 coins, Rare) and *Rush Legend* (all 37, 2,500 coins, Super Rare, unlocks the exclusive **Champion Cat** topper). Nothing here changes your campaign progress.
+
+## Season Pass
+
+Tap **Season** on the menu. A season lasts two months (Frost, Blossom, Sunburst, Ocean, Harvest, Midnight; they return every year). Every round earns season XP (and finishing daily missions adds more); every 200 XP is a tier, 30 tiers in all. The **free track** pays coins and boosts on every tier plus the season's colour palette at tier 10. The **Premium track** (8,000 coins, one season) adds a second reward on every tier: coins, boosts, Mystery Boxes, and a season-only cat at tier 15. Tap a reward to claim it, or **Claim all**. Anything you earned but did not claim is collected for you when the season ends, so nothing is lost. Zen and Practice do not give season XP. (Premium is bought with coins for now; paying real money for it needs the store connection.)
+
+## Mystery Boxes
+
+Shop → **Boxes**. 1,500 coins for one, 6,750 for five (also found on Premium tiers). Every box holds **one cosmetic** (cat toppers, colour palettes, block styles, effects, sounds, songs, app colours; never anything that helps you win). The odds are listed in the shop: Common 55%, Uncommon 28%, Rare 11%, Epic 5%, Legendary 1%. Every item in a rarity is equally likely, a Rare or better is **guaranteed within 10 boxes**, and a duplicate pays coins back (150 / 400 / 900 / 2,000 / 4,000). Box-only items include Mochi, Storm, Mint and Shadow cats (Rare), Nebula, Crystal and Inferno cats and the Prism palette (Epic), and the Cosmic Cat (Legendary).

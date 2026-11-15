@@ -820,3 +820,76 @@
 820|Légende de la Ruée
 821|Survivant de la Ruée
 822|Sept boss, puis un Défi de 30 boss. Les vies sont conservées.
+823|{n} objets
+824|1 objet
+825|Une récompense du Pass de saison
+826|Déjà possédé : +{n} {coin}
+827|Coffre
+828|Coffres
+829|Acheter 1
+830|Acheter 5
+831|Fleur de cerisier
+832|Tout récupérer
+833|Tout récupérer ({n})
+834|Cosmétiques uniquement : un objet par coffre, rien qui aide à gagner.
+835|Cosmétiques uniquement. Les probabilités sont ci-dessous.
+836|Chat cosmique
+837|Chat de cristal
+838|doublon : +{n} pièces
+839|Gagne de l'XP à chaque partie et mission du jour. Les récompenses gagnées sont récupérées automatiquement à la fin de la saison.
+840|Se termine dans {t}
+841|Équipé !
+842|Chaque objet d'une rareté est aussi probable. Un Rare ou mieux est garanti en {n} coffres.
+843|À trouver dans les Coffres mystère
+844|GRATUIT
+845|Obtenir le pass Premium
+846|Récolte
+847|Chat de la récolte
+848|Chat infernal
+849|MAX
+850|Minuit
+851|Chat menthe
+852|Chat mochi
+853|Chat lunaire
+854|Coffre mystère
+855|COFFRE MYSTÈRE
+856|Chat nébuleuse
+857|Nouvelle saison : {name} !
+858|NOUVEAU !
+859|Ouvrir un coffre ({n})
+860|En ouvrir un autre
+861|En ouvrir un autre ({n} restants)
+862|Ouverture…
+863|Chat pétale
+864|PREMIUM
+865|Premium ajoute une seconde récompense à chaque palier : coffres, boosts, pièces et un chat de saison.
+866|Pass Premium actif
+867|Prisme
+868|Récompenses récupérées !
+869|Saison
+870|Pass de saison
+871|PASS DE SAISON
+872|Palier {n} de saison atteint !
+873|Chat de l'ombre
+874|Chute de neige
+875|Chat flocon
+876|Sorbet
+877|Chat tempête
+878|Éclat solaire
+879|Chat ensoleillé
+880|LES PROBABILITÉS
+881|Marée
+882|Chat marée
+883|Palier {n}
+884|Tes récompenses non récupérées ont été collectées.
+885|Saison Fleurs
+886|Commun
+887|Épique
+888|Saison Givre
+889|Saison Récolte
+890|Légendaire
+891|Saison Minuit
+892|Saison Océan
+893|Rare
+894|Saison Éclat solaire
+895|Peu commun

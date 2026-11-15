@@ -820,3 +820,76 @@
 820|Lenda da Corrida
 821|Sobrevivente da Corrida
 822|Sete chefes, depois um Desafio de 30 chefes. As vidas continuam.
+823|{n} itens
+824|1 item
+825|Uma recompensa do Passe de temporada
+826|Já tem: +{n} {coin}
+827|Caixa
+828|Caixas
+829|Comprar 1
+830|Comprar 5
+831|Flor de cerejeira
+832|Resgatar tudo
+833|Resgatar tudo ({n})
+834|Só cosméticos: um item em cada caixa, nada que ajude a ganhar.
+835|Só cosméticos. As chances estão abaixo.
+836|Gato cósmico
+837|Gato de cristal
+838|repetido: +{n} moedas
+839|Ganhe XP em cada partida e missão diária. As recompensas ganhas são resgatadas sozinhas no fim da temporada.
+840|Termina em {t}
+841|Equipado!
+842|Cada item de uma raridade é igualmente provável. Um Raro ou melhor é garantido em até {n} caixas.
+843|Encontrado nas Caixas misteriosas
+844|GRÁTIS
+845|Obter o passe Premium
+846|Colheita
+847|Gato da colheita
+848|Gato infernal
+849|MÁX
+850|Meia-noite
+851|Gato menta
+852|Gato mochi
+853|Gato lunar
+854|Caixa misteriosa
+855|CAIXA MISTERIOSA
+856|Gato nebulosa
+857|Nova temporada: {name}!
+858|NOVO!
+859|Abrir uma caixa ({n})
+860|Abrir outra
+861|Abrir outra ({n} restantes)
+862|Abrindo…
+863|Gato pétala
+864|PREMIUM
+865|O Premium dá uma segunda recompensa em cada nível: caixas, reforços, moedas e um gato de temporada.
+866|Passe Premium ativo
+867|Prisma
+868|Recompensas resgatadas!
+869|Temporada
+870|Passe de temporada
+871|PASSE DE TEMPORADA
+872|Nível {n} da temporada alcançado!
+873|Gato sombra
+874|Nevasca
+875|Gato floco de neve
+876|Sorvete
+877|Gato tempestade
+878|Sol nascente
+879|Gato ensolarado
+880|AS CHANCES
+881|Maré
+882|Gato maré
+883|Nível {n}
+884|Suas recompensas não resgatadas foram coletadas.
+885|Temporada Flor
+886|Comum
+887|Épico
+888|Temporada Gelo
+889|Temporada Colheita
+890|Lendário
+891|Temporada Meia-noite
+892|Temporada Oceano
+893|Raro
+894|Temporada Sol nascente
+895|Incomum

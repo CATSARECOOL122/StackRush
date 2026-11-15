@@ -820,3 +820,76 @@
 820|Leyenda de la Carrera
 821|Superviviente de la Carrera
 822|Siete jefes y luego un Desafío de 30 jefes. Las vidas se mantienen.
+823|{n} objetos
+824|1 objeto
+825|Una recompensa del Pase de temporada
+826|Ya lo tienes: +{n} {coin}
+827|Caja
+828|Cajas
+829|Comprar 1
+830|Comprar 5
+831|Flor de cerezo
+832|Reclamar todo
+833|Reclamar todo ({n})
+834|Solo cosméticos: un objeto en cada caja, nada que te ayude a ganar.
+835|Solo cosméticos. Las probabilidades están abajo.
+836|Gato cósmico
+837|Gato de cristal
+838|repetido: +{n} monedas
+839|Gana XP en cada partida y misión diaria. Las recompensas ganadas se recogen solas cuando acaba la temporada.
+840|Termina en {t}
+841|¡Equipado!
+842|Cada objeto de una rareza es igual de probable. Un Raro o mejor está garantizado en {n} cajas.
+843|Se consigue en Cajas misteriosas
+844|GRATIS
+845|Obtener el pase Premium
+846|Cosecha
+847|Gato de cosecha
+848|Gato infernal
+849|MÁX
+850|Medianoche
+851|Gato menta
+852|Gato mochi
+853|Gato lunar
+854|Caja misteriosa
+855|CAJA MISTERIOSA
+856|Gato nebulosa
+857|¡Nueva temporada: {name}!
+858|¡NUEVO!
+859|Abrir una caja ({n})
+860|Abrir otra
+861|Abrir otra (quedan {n})
+862|Abriendo…
+863|Gato pétalo
+864|PREMIUM
+865|Premium añade una segunda recompensa en cada nivel: cajas, potenciadores, monedas y un gato solo de temporada.
+866|Pase Premium activo
+867|Prisma
+868|¡Recompensas reclamadas!
+869|Temporada
+870|Pase de temporada
+871|PASE DE TEMPORADA
+872|¡Nivel {n} de temporada alcanzado!
+873|Gato sombra
+874|Nevada
+875|Gato copo de nieve
+876|Sorbete
+877|Gato tormenta
+878|Amanecer
+879|Gato soleado
+880|LAS PROBABILIDADES
+881|Marea
+882|Gato marea
+883|Nivel {n}
+884|Tus recompensas sin reclamar se recogieron.
+885|Temporada Flor
+886|Común
+887|Épico
+888|Temporada Escarcha
+889|Temporada Cosecha
+890|Legendario
+891|Temporada Medianoche
+892|Temporada Océano
+893|Raro
+894|Temporada Amanecer
+895|Poco común
