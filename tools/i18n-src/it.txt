@@ -893,3 +893,7 @@
 893|Raro
 894|Stagione Alba solare
 895|Non comune
+896|Tundra con aurora
+897|Dune del deserto
+898|Città al neon
+899|Spazio profondo

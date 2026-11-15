@@ -275,6 +275,11 @@ With 3D Mode unlocked, Blocks tab → **3D Scene** swaps the grid floor for a wh
 - **Golden Sunset** – a huge sun over a glittering sea with a gold path on the water, lit clouds and birds. The sun sinks as your tower grows, through magenta dusk into a starry night.
 - **Mountain Lake** – layered snow-capped peaks, mist, pines and a still lake that reflects them. As you climb you rise through the clouds to a starry sky with an aurora.
 
+- **Outer Space** – a ringed planet, nebulae, three layers of twinkling stars and shooting stars over a cratered moon; climb and the sky fills with stars.
+- **Neon City** – a rainy cyberpunk skyline with lit windows, neon signs and flying cars over a wet street.
+- **Desert Dunes** – noon sun, pyramids and layered dunes; the light turns gold and then a starry desert night as you climb.
+- **Aurora Tundra** – ribbons of northern lights over snowy pines and a frozen lake that reflects them; more ribbons as you climb.
+
 Scenes are drawn in code (no image files), calm down with Reduce motion, and use fewer effects in performance mode.
 
 ## Boss Rush: the Gauntlet

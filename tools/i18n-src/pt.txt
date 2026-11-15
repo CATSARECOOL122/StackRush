@@ -893,3 +893,7 @@
 893|Raro
 894|Temporada Sol nascente
 895|Incomum
+896|Tundra com aurora
+897|Dunas do deserto
+898|Cidade neon
+899|Espaço sideral

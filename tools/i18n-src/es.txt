@@ -893,3 +893,7 @@
 893|Raro
 894|Temporada Amanecer
 895|Poco común
+896|Tundra de auroras
+897|Dunas del desierto
+898|Ciudad neón
+899|Espacio exterior

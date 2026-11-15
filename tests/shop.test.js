@@ -562,7 +562,7 @@ module.exports=[
 }],
 
 
-['3D scenes: Deep Ocean, Golden Sunset and Mountain Lake cost 6,000 coins each, need 3D Mode first, preview in 3D, draw at every height without errors, and change the picture', async(e,L)=>{
+['3D scenes: the seven scenes (Deep Ocean, Golden Sunset, Mountain Lake, Outer Space, Neon City, Desert Dunes, Aurora Tundra) cost 6,000 coins each, need 3D Mode first, preview in 3D, draw at every height without errors, and change the picture', async(e,L)=>{
   const p=await L.open(e);
   await p.evaluate(()=>{ __sr.S.coins=20000; });
   assert.equal(await p.evaluate(()=>__sr.itemAction('buy','vscene','ocean')),false,'a scene cannot be bought before 3D Mode');
@@ -574,7 +574,7 @@ module.exports=[
   for(const sc of ['grid','ocean']){ await p.evaluate(sc=>{ __sr.S.shop.equip.vscene=sc; },sc); await p.waitForTimeout(250); shots[sc]=await p.screenshot(); }
   assert.notDeepEqual(shots.grid,shots.ocean,'the ocean looks different from the grid floor');
   const r=await p.evaluate(()=>{ const out=[]; for(const id of Object.keys(__sr.SCENES3)) for(const alt of [0,.3,.7,1]) for(const lite of [false,true]){ const c=document.createElement('canvas'); c.width=390; c.height=844; __sr.SCENES3[id](c.getContext('2d'),390,844,{hz:330,by:alt?1500:640,alt,tm:3.3,cam:alt*2500,lite}); out.push(id+alt+lite); } return out.length; });
-  assert.equal(r,24,'every scene draws at every height, in normal and low-effort mode');
+  assert.equal(r,56,'every scene draws at every height, in normal and low-effort mode');
   await p.evaluate(()=>{ __sr.S.shop.equip.vscene='ocean'; __sr.S.reduceMotion='on'; }); await p.waitForTimeout(200);
   await p.evaluate(()=>__sr.startPreview('sunset','vscene')); await p.waitForTimeout(250); assert.equal(await p.evaluate(()=>__sr.view3On()),true,'previewing a scene shows it in 3D'); await p.evaluate(()=>__sr.endPreview());
   assert.deepEqual(p.errs,[]); await L.close(p);

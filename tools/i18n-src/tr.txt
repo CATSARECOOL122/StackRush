@@ -893,3 +893,7 @@
 893|Nadir
 894|Gün Parlaması Sezonu
 895|Nadir değil
+896|Aurora Tundrası
+897|Çöl Kumulları
+898|Neon Şehir
+899|Uzay

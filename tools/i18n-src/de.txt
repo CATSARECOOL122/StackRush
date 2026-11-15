@@ -893,3 +893,7 @@
 893|Selten
 894|Sonnenaufgangs-Saison
 895|Ungewöhnlich
+896|Polarlicht-Tundra
+897|Wüstendünen
+898|Neon-Stadt
+899|Weltraum

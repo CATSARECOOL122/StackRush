@@ -893,3 +893,7 @@
 893|Langka
 894|Musim Fajar Cerah
 895|Tidak biasa
+896|Tundra Aurora
+897|Bukit Pasir Gurun
+898|Kota Neon
+899|Luar Angkasa
