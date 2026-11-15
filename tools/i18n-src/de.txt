@@ -917,7 +917,7 @@
 917|2 SPIELER
 918|Geteilter Bildschirm für 2 Spieler
 919|2 SPIELER
-920|Best of {n}
+920|Beste aus {n}
 921|Beide Hälften aufrecht
 922|UNENTSCHIEDEN
 923|Gegenüber
@@ -947,7 +947,7 @@
 947|Der geteilte Bildschirm konnte nicht starten. Versuche es erneut.
 948|START
 949|Die obere Hälfte steht auf dem Kopf
-950|JETZT AUSPROBIEREN
+950|AUSPROBIEREN
 951|Zwei Spieler gleichzeitig auf einem Bildschirm.
 952|Zwei Spieler gleichzeitig auf einem Bildschirm. Übertrumpfe den Turm des anderen oder halte länger durch.
 953|Zwei Spieler, ein Bildschirm. Beide stapeln gleichzeitig.

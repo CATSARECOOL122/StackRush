@@ -24,7 +24,7 @@ async function open(e,o={}){
   await p.goto(e.url(o.host)); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
   if(o.links!==true) await p.evaluate(()=>{ if(window.__sr) for(const k of Object.keys(__sr.SQUARE_LINKS)) __sr.SQUARE_LINKS[k]=''; });   // the real checkout links are in the game; most tests want a game with no web store
   if(o.seen!==false) await p.evaluate(()=>{ __sr.S.tutSeen=true; });
-  if(o.intro!==true) await p.evaluate(()=>{ __sr.S.splitIntro=1; });                 // (the one-time split-screen introduction would otherwise pop up over other tests)
+  if(o.intro!==true) await p.evaluate(()=>{ if(window.__sr) __sr.S.splitIntro=1; });                 // (the one-time split-screen introduction would otherwise pop up over other tests)
   await p.evaluate(t=>{ if(window.__sr && __sr.setNow){ __sr.setNow(t); if(__sr.ensureSeason){ __sr.S.season=null; __sr.ensureSeason(); } const c=document.getElementById('evCard'); if(c) c.classList.add('hidden'); } },o.now||new Date(2026,9,1,12).getTime());   // a fixed day with no special event, so tests do not depend on today's date
   return p;
 }
