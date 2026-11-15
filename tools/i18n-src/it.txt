@@ -770,3 +770,8 @@
 770|Finisci {n} partite oggi
 771|Fai {n} cadute perfette oggi
 772|Impila {n} blocchi oggi
+773|Coniglietto
+774|Volpe
+775|Panda
+776|Cucciolo
+777|Orsacchiotto

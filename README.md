@@ -254,3 +254,5 @@ An ultra-rare, one-off map. While an event is on, a glowing card with a live cou
 **Feel and polish:** the screen edges glow in the theme's colour as the combo grows (from x3, pulsing), a sweep of light runs up the tower at every 10th perfect in a row (both off with Reduce motion), the menu items rise in one by one, the logo shimmers, and levelling up gives confetti bursts and a pop on the game-over screen.
 
 **Daily missions and the login strip** (Awards screen): three small missions a day (picked by the date: perfects, blocks, rounds, height, combo, score), each paying coins the moment it is done, plus 40 coins when all three are done; they reset every day. Above them a **7-day login strip** shows today's reward in the streak (the daily bonus itself is still claimed on the menu).
+
+**Pets:** the animal on top of your tower now reacts: it hops and wiggles at a perfect (higher the longer the combo, off with Reduce motion) and flinches, shuts its eyes and squashes at a miss or a bomb. New toppers in the Shop (900 to 1,100 coins): **Bunny, Puppy, Panda, Teddy bear and Fox**.

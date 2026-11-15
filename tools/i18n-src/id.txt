@@ -770,3 +770,8 @@
 770|Selesaikan {n} ronde hari ini
 771|Raih {n} jatuhan sempurna hari ini
 772|Tumpuk {n} blok hari ini
+773|Kelinci
+774|Rubah
+775|Panda
+776|Anak anjing
+777|Boneka beruang

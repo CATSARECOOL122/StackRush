@@ -770,3 +770,8 @@
 770|Termina {n} partidas hoy
 771|Consigue {n} caídas perfectas hoy
 772|Apila {n} bloques hoy
+773|Conejito
+774|Zorro
+775|Panda
+776|Cachorro
+777|Osito de peluche

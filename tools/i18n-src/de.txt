@@ -770,3 +770,8 @@
 770|Beende heute {n} Runden
 771|Lande heute {n} perfekte Drops
 772|Staple heute {n} Blöcke
+773|Häschen
+774|Fuchs
+775|Panda
+776|Welpe
+777|Teddybär

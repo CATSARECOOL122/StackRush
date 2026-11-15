@@ -770,3 +770,8 @@
 770|Termine {n} parties aujourd'hui
 771|Réussis {n} chutes parfaites aujourd'hui
 772|Empile {n} blocs aujourd'hui
+773|Lapin
+774|Renard
+775|Panda
+776|Chiot
+777|Ours en peluche

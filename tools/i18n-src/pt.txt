@@ -770,3 +770,8 @@
 770|Termine {n} partidas hoje
 771|Faça {n} quedas perfeitas hoje
 772|Empilhe {n} blocos hoje
+773|Coelhinho
+774|Raposa
+775|Panda
+776|Cachorrinho
+777|Ursinho de pelúcia

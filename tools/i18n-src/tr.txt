@@ -770,3 +770,8 @@
 770|Bugün {n} tur bitir
 771|Bugün {n} kusursuz bırakış yap
 772|Bugün {n} blok yığ
+773|Tavşan
+774|Tilki
+775|Panda
+776|Köpek yavrusu
+777|Oyuncak ayı

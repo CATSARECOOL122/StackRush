@@ -987,7 +987,7 @@ const SHOP = {
   sfx:{ classic:{name:'Classic',free:1}, retro:{name:'Retro',coins:300}, soft:{name:'Soft',coins:300}, marimba:{name:'Marimba',coins:700}, kalimba:{name:'Kalimba',coins:700}, musicbox:{name:'Music Box',coins:800}, piano:{name:'Piano',coins:800}, bubble:{name:'Bubble Pop',coins:600} },
   music:{ classic:{name:'Classic',free:1}, chill:{name:'Chill',coins:400}, chiptune:{name:'Chiptune',coins:400}, lofi:{name:'Lofi Chill',coins:600}, lofirain:{name:'Lofi Rain',coins:600}, cave:{name:'Cave Echo',coins:600}, jazzcafe:{name:'Jazz Café',coins:700}, dream:{name:'Dreamscape',coins:700}, synthwave:{name:'Synthwave',coins:900} },
   fx:{ sparkle:{name:'Sparkle',free:1}, confetti:{name:'Confetti',coins:400}, stars:{name:'Stars',coins:500} },
-  topper:{ none:{name:'No topper',free:1}, black:{name:'Black cat',coins:600,fur:'#2b2b36',eye:'#e9ff7a'}, orange:{name:'Orange cat',coins:600,fur:'#f2994a',belly:'#ffe5c4',tab:'#d8742a'},
+  topper:{ none:{name:'No topper',free:1}, bunny:{name:'Bunny',coins:900,ears:'bunny',fur:'#f6f1ee',belly:'#ffffff',pts:'#f6f1ee',eye:'#ff7a9a'}, dog:{name:'Puppy',coins:900,ears:'dog',fur:'#d9a066',belly:'#fff0d8',pts:'#8a5a30',eye:'#5a3a20'}, panda:{name:'Panda',coins:1100,ears:'bear',fur:'#fafafa',belly:'#ffffff',pts:'#1c1c24',paws:'#1c1c24',eyepatch:'#1c1c24',eye:'#ffffff'}, teddy:{name:'Teddy bear',coins:1000,ears:'bear',fur:'#b07a42',belly:'#e8c898',pts:'#8a5a2a',eye:'#2a1a10'}, fox:{name:'Fox',coins:1000,fur:'#ff8a3a',belly:'#ffffff',pts:'#4a2a1e',eye:'#ffd36b'}, black:{name:'Black cat',coins:600,fur:'#2b2b36',eye:'#e9ff7a'}, orange:{name:'Orange cat',coins:600,fur:'#f2994a',belly:'#ffe5c4',tab:'#d8742a'},
            siamese:{name:'Siamese cat',coins:700,fur:'#f3e4cc',pts:'#5b4636',mask:1,belly:'#fff7ea',eye:'#62b4ff'}, tuxedo:{name:'Tuxedo cat',coins:700,fur:'#2b2b36',belly:'#ffffff',paws:'#ffffff',eye:'#e9ff7a'},
            calico:{name:'Calico cat',coins:800,fur:'#fbf3e6',patches:['#f2994a','#2f2f3a'],belly:'#ffffff',eye:'#7be08a'}, grey:{name:'Grey cat',coins:700,fur:'#9ba4b4',tab:'#6d7788',belly:'#e6eaf1',eye:'#ffd36b'}, white:{name:'White cat',coins:700,fur:'#fbfbff',belly:'#ffffff',eye:'#62b4ff'},
            aurora:{name:'Aurora Spirit',evt:'aurora26',rare:2,fur:'#7ff0d0',belly:'#e8fff8',tab:'#2fd6a1',eye:'#ffffff',glow:'#7ff0d0'}, embercat:{name:'Ember Cat',evt:'ember27',rare:2,fur:'#ff7a3a',belly:'#ffe0b0',tab:'#c4401a',eye:'#fff2a0',glow:'#ff8a3a'},
@@ -2283,7 +2283,7 @@ function drop(){
   const prac=mode==='practice';
   let nb;
   if(perfect){
-    combo++; perfectsRun++; bestCombo=Math.max(bestCombo,combo); if(combo%10===0 && !reduceOn()) sweep={t:0};
+    combo++; perfectsRun++; bestCombo=Math.max(bestCombo,combo); petMood={k:'cheer',t0:t,pw:combo}; if(combo%10===0 && !reduceOn()) sweep={t:0};
     let w=top.w, x=topX;
     if(!mod.noRegrow && combo>=CFG.regrowAfter && w<baseW){ const g=Math.min(baseW-w, baseW*CFG.regrowPct); w+=g; x-=g/2; x=clamp(x,0,W-w); }
     nb={x,w,y:cur.y,i:cur.i,sq:1};
@@ -2463,7 +2463,7 @@ function useShield(what){
   sfx.shield(); vib([15,25,15]); checkAch();
 }
 function miss(){
-  addPiece(cur,dir); cur=null; combo=0; setCombo(0);
+  addPiece(cur,dir); cur=null; combo=0; setCombo(0); petMood={k:'oops',t0:t};
   if(shield && !soft()){ useShield(tr('SHIELD SAVED YOU!')); spawnCur(true); return; }
   shake=Math.max(shake,10*u); sfx.fail(); vib(60);
   if(soft()){ tutAfterDrop(false); spawnCur(); return; }
@@ -2480,7 +2480,7 @@ function loseLife(){
   toast(lives===1?tr('1 life left'):tr('{n} lives left',{n:lives}),1200);
   spawnCur(true);
 }
-function explode(){
+function explode(){ petMood={k:'oops',t0:t};
   const bx=cur.x+cur.w/2, by=cur.y+BH/2;
   burst(bx,by,8,46,520*u,700); burst(bx,by,35,24,380*u,700);
   sfx.boom(); vib([80,40,80]);
@@ -2973,14 +2973,19 @@ function paintCat(g,cx,sy,s0,it,tt,blink){
   g.restore();
   g.strokeStyle=edge; g.globalAlpha=.3; g.lineWidth=S*.025; body(); g.stroke(); g.globalAlpha=1;
   g.fillStyle=paws; for(const k of [-1,1]){ g.beginPath(); g.ellipse(k*S*.14,-S*.045,S*.115,S*.07,0,0,6.283); g.fill(); g.strokeStyle=edge; g.globalAlpha=.3; g.lineWidth=S*.02; g.stroke(); g.globalAlpha=1; }   // front paws
-  for(const k of [-1,1]){                                                                                             // ears (inner ear pink)
-    g.fillStyle=pts; g.beginPath(); g.moveTo(k*S*.33,-S*1.0); g.lineTo(k*S*.23,-S*1.4); g.lineTo(k*S*.0,-S*1.15); g.closePath(); g.fill();
-    g.fillStyle='#ff9bb0'; g.beginPath(); g.moveTo(k*S*.26,-S*1.04); g.lineTo(k*S*.21,-S*1.28); g.lineTo(k*S*.08,-S*1.13); g.closePath(); g.fill();
+  const ek=it.ears||'cat';
+  for(const k of [-1,1]){                                                                                             // ears (inner ear pink): cat, bunny, dog or bear
+    if(ek==='bunny'){ g.save(); g.translate(k*S*.17,-S*1.42); g.rotate(k*.14); g.fillStyle=pts; g.beginPath(); g.ellipse(0,0,S*.1,S*.36,0,0,6.283); g.fill(); g.fillStyle='#ff9bb0'; g.beginPath(); g.ellipse(0,S*.02,S*.05,S*.26,0,0,6.283); g.fill(); g.restore(); }
+    else if(ek==='dog'){ g.save(); g.translate(k*S*.37,-S*.88); g.rotate(k*.3); g.fillStyle=pts; g.beginPath(); g.ellipse(0,0,S*.13,S*.27,0,0,6.283); g.fill(); g.restore(); }
+    else if(ek==='bear'){ g.fillStyle=pts; g.beginPath(); g.arc(k*S*.27,-S*1.17,S*.14,0,6.283); g.fill(); g.fillStyle='#ff9bb0'; g.beginPath(); g.arc(k*S*.27,-S*1.17,S*.07,0,6.283); g.fill(); }
+    else { g.fillStyle=pts; g.beginPath(); g.moveTo(k*S*.33,-S*1.0); g.lineTo(k*S*.23,-S*1.4); g.lineTo(k*S*.0,-S*1.15); g.closePath(); g.fill();
+      g.fillStyle='#ff9bb0'; g.beginPath(); g.moveTo(k*S*.26,-S*1.04); g.lineTo(k*S*.21,-S*1.28); g.lineTo(k*S*.08,-S*1.13); g.closePath(); g.fill(); }
   }
   const hg=g.createRadialGradient(-S*.1,-S*1.05,S*.04,0,-S*.88,S*.42); hg.addColorStop(0,light); hg.addColorStop(1,fur);
   g.fillStyle=hg; head(); g.fill();
   g.save(); head(); g.clip();
   if(it.patches){ g.fillStyle=it.patches[0]; g.beginPath(); g.ellipse(-S*.24,-S*1.0,S*.2,S*.2,0,0,6.283); g.fill(); g.fillStyle=it.patches[1]; g.beginPath(); g.ellipse(S*.3,-S*1.12,S*.17,S*.15,0,0,6.283); g.fill(); }
+  if(it.eyepatch){ g.fillStyle=it.eyepatch; for(const k of [-1,1]){ g.beginPath(); g.ellipse(k*S*.17,-S*.93,S*.11,S*.15,k*.45,0,6.283); g.fill(); } }
   if(it.mask){ g.fillStyle=pts; g.globalAlpha=.85; g.beginPath(); g.ellipse(0,-S*.78,S*.22,S*.2,0,0,6.283); g.fill(); g.globalAlpha=1; }
   if(it.tab){ g.strokeStyle=it.tab; g.globalAlpha=.65; g.lineWidth=S*.045; for(const x of [-.1,0,.1]){ g.beginPath(); g.moveTo(S*x,-S*1.24); g.lineTo(S*x*1.3,-S*1.1); g.stroke(); } g.globalAlpha=1; }
   g.fillStyle=light; for(const k of [-1,1]){ g.beginPath(); g.ellipse(k*S*.3,-S*.8,S*.1,S*.08,0,0,6.283); g.fill(); }  // cheeks
@@ -3001,7 +3006,7 @@ function paintCat(g,cx,sy,s0,it,tt,blink){
   for(const k of [-1,1]) for(const d of [-.04,.02,.08]){ g.beginPath(); g.moveTo(k*S*.1,-S*.76+S*d*.4); g.lineTo(k*S*.42,-S*.8+S*d); g.stroke(); }
   g.restore();
 }
-let hopT=-9;
+let hopT=-9, petMood=null;                      // the topper pet reacts: cheers at perfects, flinches at a miss or a bomb
 /* a flag or a star on a pole/glow, drawn standing on (cx, sy) like the cats */
 function paintTopper(g,it,cx,sy,s0,tt,blink){
   if(it.fur){ paintCat(g,cx,sy,s0,it,tt,blink); return; }
@@ -3025,7 +3030,13 @@ function drawTopper(){
   const top=stack[stack.length-1], sy=Y(top.y+BH);
   if(sy<-BH*3 || sy>H+BH) return;
   const hk=Math.max(0,1-(t-hopT)*3.2), hop=Math.sin(hk*Math.PI)*BH*.5;
-  paintTopper(ctx,it,top.x+top.w/2,sy+1-hop,BH*1.25,t,(t*.7)%5<.14);
+  const pm=petMood, pdt=pm?t-pm.t0:9; let ex=0,ey=0,rot=0,sq=1;
+  if(pm && !reduceOn()){ if(pm.k==='cheer' && pdt<.65){ const k=pdt/.65; ey=Math.sin(k*Math.PI)*BH*(.3+Math.min(.6,pm.pw*.05)); rot=Math.sin(pdt*28)*.14*(1-k); }
+    else if(pm.k==='oops' && pdt<.5){ const k=pdt/.5; ex=Math.sin(pdt*70)*5*u*(1-k); sq=1-.14*Math.sin(Math.min(1,pdt/.15)*Math.PI/2)*(1-k); } }
+  const cx0=top.x+top.w/2+ex;
+  ctx.save(); ctx.translate(cx0,sy+1-hop-ey); ctx.rotate(rot); ctx.scale(1,sq); ctx.translate(-cx0,-(sy+1-hop-ey));
+  paintTopper(ctx,it,cx0,sy+1-hop-ey,BH*1.25,t,(t*.7)%5<.14 || (pm&&pm.k==='oops'&&pdt<.45));
+  ctx.restore();
 }
 function drawBomb(b){
   const sy=Y(b.y+BH);
@@ -4093,7 +4104,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

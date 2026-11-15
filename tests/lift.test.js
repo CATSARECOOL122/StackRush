@@ -179,4 +179,13 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['pets: the topper reacts (cheers at a perfect, flinches at a miss); the new animal toppers can be worn and are drawn without errors', async(e,L)=>{
+  const p=await L.open(e); await BASE(p,{},[]);
+  await p.evaluate(()=>{ const S=__sr.S; for(const id of ['bunny','dog','panda','teddy','fox']) S.shop.owned.push('topper:'+id); S.shop.equip.topper='panda'; __sr.startMode('classic'); }); await p.waitForTimeout(200);
+  await L.perfects(p,2); assert.equal(await p.evaluate(()=>__sr.petMood&&__sr.petMood.k),'cheer'); await p.waitForTimeout(250);
+  for(const id of ['bunny','dog','teddy','fox','panda']){ await p.evaluate(id=>{ __sr.S.shop.equip.topper=id; },id); await p.waitForTimeout(120); }
+  await L.miss(p); assert.equal(await p.evaluate(()=>__sr.petMood.k),'oops'); await p.waitForTimeout(300);
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];
