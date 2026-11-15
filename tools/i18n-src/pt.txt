@@ -775,3 +775,9 @@
 775|Panda
 776|Cachorrinho
 777|Ursinho de pelúcia
+778|Um botão Voltar embaixo, ao alcance do polegar.
+779|Texto maior
+780|Blocos azuis e violetas em faixas claras e escuras (sem vermelho e verde).
+781|Cores para daltônicos
+782|Deixa os menus e o texto maiores.
+783|Modo de uma mão

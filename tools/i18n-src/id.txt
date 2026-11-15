@@ -775,3 +775,9 @@
 775|Panda
 776|Anak anjing
 777|Boneka beruang
+778|Tombol Kembali di bawah, mudah dijangkau jempol.
+779|Teks lebih besar
+780|Blok biru dan ungu dalam pita terang dan gelap yang jelas (tanpa merah dan hijau).
+781|Warna ramah buta warna
+782|Membuat menu dan teks lebih besar.
+783|Mode satu tangan

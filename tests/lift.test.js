@@ -188,4 +188,19 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['accessibility: colour-blind colours (blue to violet), bigger text, and a one-handed Back button; each is a Settings toggle that is remembered', async(e,L)=>{
+  const p=await L.open(e); await BASE(p,{},[]);
+  const h0=await p.evaluate(()=>__sr.look.h0);
+  await p.click('#openSettings'); await p.click('[data-set=cb]'); await p.click('[data-set=bigtext]'); await p.click('[data-set=onehand]'); await p.waitForTimeout(200);
+  const a=await p.evaluate(()=>({cb:__sr.S.cb,bt:document.body.classList.contains('bigtext'),oh:document.body.classList.contains('onehand'),h0:__sr.look.h0,hr:__sr.look.hr}));
+  assert.deepEqual([a.cb,a.bt,a.oh,a.h0,a.hr],[true,true,true,214,70],'all three on; blocks blue to violet');
+  assert.ok(await p.isVisible('#reachBack'),'the Back button is at the bottom on a sub-screen'); const r=await p.evaluate(()=>document.getElementById('reachBack').getBoundingClientRect().bottom>innerHeight*.8); assert.ok(r,'in the lower part of the screen');
+  await p.click('#reachBack'); await p.waitForTimeout(400); assert.ok(await p.isVisible('#menu'),'it goes back'); assert.equal(await p.isVisible('#reachBack'),false,'and is gone on the plain menu');
+  await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForTimeout(300);
+  assert.deepEqual(await p.evaluate(()=>[__sr.S.cb,document.body.classList.contains('bigtext')]),[true,true],'remembered');
+  const ov=await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2); assert.equal(ov,false,'bigger text does not make the page wider');
+  await p.click('[data-set=cb]').catch(()=>{}); 
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

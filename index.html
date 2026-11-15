@@ -215,6 +215,10 @@
   .ld small{font-size:9px;color:var(--mute)} .ld i{font-style:normal;width:22px;height:22px;display:grid;place-items:center;color:#9a9ab5} .ld b{font-size:11px;color:var(--gold)}
   #dmBox .wk span{display:block;font-size:12px;color:var(--mute);font-weight:700;margin-top:2px}
   .ld.past{opacity:.6} .ld.past i{color:#7dff9b} .ld.now{border-color:var(--gold);background:#ffc83d22;box-shadow:0 0 12px #ffc83d66} .ld.now i{color:var(--gold)}
+  body.bigtext .screen{zoom:1.14}
+  body.bigtext .sheet .shcard{zoom:1}
+  .reachback{position:absolute;left:14px;bottom:calc(env(safe-area-inset-bottom) + 18px);z-index:30;width:56px;height:56px;border-radius:50%;border:1.5px solid #ffffff44;background:#1d1245f2;color:#fff;display:grid;place-items:center;box-shadow:0 8px 22px #000a;pointer-events:auto}
+  .reachback .ic{width:26px;height:26px}
   .evbonus{color:#ffe27a;font-weight:800}
   #oLevel.lvpop{animation:lvpop .7s cubic-bezier(.2,1.6,.4,1)}
   @keyframes lvpop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.12);opacity:1}100%{transform:none}}
@@ -787,6 +791,9 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>Vibration</span><button class="btn" data-set="haptics"></button></div>
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-wind"/></svg>Reduce shake &amp; flashes</span><button class="btn" data-set="reduce"></button></div>
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg>Best-run outline<small>Dashed outline of your best run. The BEST line stays.</small></span><button class="btn" data-set="ghost"></button></div>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg>Colour-blind colours<small>Blue and violet blocks in clear light and dark bands (no red and green).</small></span><button class="btn" data-set="cb"></button></div>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg>Bigger text<small>Makes the menus and text larger.</small></span><button class="btn" data-set="bigtext"></button></div>
+      <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg>One-handed mode<small>A Back button at the bottom, within thumb reach.</small></span><button class="btn" data-set="onehand"></button></div>
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg>Language</span><button class="btn" data-set="language"></button></div>
       <h4>HELP</h4>
       <div class="set"><span><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg>Auto-use boosts<small>Off: you choose when, with the bolt during a round. On: they fire by themselves.</small></span><button class="btn" data-set="boostauto"></button></div>
@@ -870,6 +877,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     </div>
   </section>
 
+  <button id="reachBack" class="reachback hidden" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button>
   <button id="evToast" class="evtoast hidden" aria-live="polite"></button>
 
   <section id="evsheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Special event">
@@ -1154,7 +1162,7 @@ const ACH = [
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
              coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
-             tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
+             tutSeen:false,cb:false,bigText:false,oneHand:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
              lastClaim:'',streak:0,daily:{day:'',perfects:0,done:false},seenTip:false,weekly:{week:'',p:[0,0,0],claimed:false}};
 const store = {
@@ -1181,7 +1189,7 @@ function cleanSave(raw){
   const lc=raw.lastChal; if(lc && typeof lc==='object' && ['classic','timed','lives','hazard'].includes(lc.mode) && typeof lc.link==='string' && lc.link.length<3200 && /^https?:\/\/[^\s?#]{1,300}\?c=[A-Za-z0-9_.-]+$/.test(lc.link)) out.lastChal={mode:lc.mode,score:num(lc.score),link:lc.link,f:lc.f?1:0};
   if(Array.isArray(raw.duels)) out.duels=raw.duels.filter(d=>d && typeof d==='object' && ['classic','timed','lives','hazard'].includes(d.m)).slice(-40).map(d=>({m:d.m,a:num(d.a),b:num(d.b),t:num(d.t,9e12),x:d.x?1:0}));
   if(Array.isArray(raw.duelPaid)) out.duelPaid=raw.duelPaid.filter(v=>Number.isFinite(v)).slice(-60);
-  for(const k of ['mute','music','haptics','reduce','reduceSet','tutSeen','seenTip','ghostOutline','silentSound','boostAuto']) if(own(raw,k)) out[k]=!!raw[k];
+  for(const k of ['mute','music','haptics','reduce','reduceSet','tutSeen','seenTip','ghostOutline','silentSound','boostAuto','cb','bigText','oneHand']) if(own(raw,k)) out[k]=!!raw[k];
   if(typeof raw.theme==='string' && own(THEMES,raw.theme)) out.theme=raw.theme;
   if(Array.isArray(raw.owned)) out.owned=[...new Set(['sunset',...raw.owned.filter(id=>typeof id==='string' && own(THEMES,id))])];
   if(typeof raw.lastMode==='string' && own(MODES,raw.lastMode)) out.lastMode=raw.lastMode;
@@ -1275,6 +1283,8 @@ function redeemCode(code){
 save();
 
 const prefersReduce = (() => { try{ return matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){ return false; } })();
+function applyA11y(){ document.body.classList.toggle('bigtext',!!S.bigText); document.body.classList.toggle('onehand',!!S.oneHand); syncReach(); }
+function syncReach(){ const b=document.getElementById('reachBack'); if(!b) return; const show=!!S.oneHand && state!=='playing' && !onPlainMenu() && $('hatch').classList.contains('hidden') && $('evsheet').classList.contains('hidden')===$('evsheet').classList.contains('hidden'); b.classList.toggle('hidden',!show); }
 const reduceOn = () => S.reduceSet ? !!S.reduce : prefersReduce;
 
 /* The purchase-code dialog: after a Square checkout ('done': says what was unlocked and copies the code for the Home Screen app) and from the Shop / Settings ('redeem': paste a code). */
@@ -1318,6 +1328,11 @@ let previewId = null, previewSlot = null;      // trying something out: a whole 
 /* the look in use: the theme (or the one being previewed) with the equipped block style, colours and scene laid over it */
 let LK=null, lkT='', lkSt='', lkPa='', lkSc='';
 function buildLook(theme,style,pal,scene){
+  const look=buildLook0(theme,style,pal,scene);
+  if(S.cb){ look.h0=214; look.hr=70; look.hs=.5; look.s=78; look.ls=16; }          // colour-blind colours: blue to violet only, with clear light and dark bands
+  return look;
+}
+function buildLook0(theme,style,pal,scene){
   const T=THEMES[theme]||THEMES.sunset, SC=(scene!=='auto' && THEMES[scene]) ? THEMES[scene] : T, P=(pal!=='auto' && SHOP.palette[pal]) || null;
   const L=Object.assign({},T,{bg:SC.bg,sun:SC.sun,hill:SC.hill,ground:SC.ground,stars:SC.stars,amb:SC.amb,scan:SC.scan});
   if(P){ L.h0=P.h0; L.hr=P.hr; L.hs=P.hs; L.s=P.s; L.l=P.l; L.ls=P.ls||0; }
@@ -3196,7 +3211,7 @@ async function shareScore(){
 
 /* ================= Menu / UI ================= */
 const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet','evsheet','hatch'];
-function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); try{ hideEvToast(); }catch(e){} }
+function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); soon(syncReach); try{ hideEvToast(); }catch(e){} }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
   for(const [id,th] of Object.entries(THEMES)){
@@ -3348,6 +3363,7 @@ function evOverText(){
   $('oLabel').textContent=ucase(tr(ev.name)); $('oBest').innerHTML=tr('Best <b>{n}</b> / {g}',{n:st.best,g:nf(CFG.evGoal)}); $('oCoins').innerHTML=tr('{n} attempts left',{n:Math.max(0,evMax(st)-st.attempts)});
   $('oNext').innerHTML=st.best>=CFG.evGoal&&!st.hatched?`${I('gem','ic-gold')} ${tr('The egg is ready to hatch!')}`:'';
 }
+$('reachBack').onclick=()=>{ sfx.tap(); try{ handleBack(); }catch(e){} };
 $('evCard').onclick=()=>{ sfx.tap(); openEvent(); };
 $('evToast').onclick=()=>{ sfx.tap(); hideEvToast(); if(state==='menu') openEvent(); };
 $('evBg').onclick=$('evClose').onclick=()=>{ sfx.tap(); closeEvent(); };
@@ -3824,6 +3840,7 @@ function showSettings(){
   set('sound',S.mute?OFF:ON,!S.mute); set('music',(S.music&&!S.mute)?ON:OFF,S.music&&!S.mute); set('haptics',S.haptics?ON:OFF,S.haptics);
   set('reduce',reduceOn()?ON:OFF,reduceOn());
   set('ghost',S.ghostOutline!==false?ON:OFF,S.ghostOutline!==false);
+  set('cb',S.cb?ON:OFF,!!S.cb); set('bigtext',S.bigText?ON:OFF,!!S.bigText); set('onehand',S.oneHand?ON:OFF,!!S.oneHand);
   set('silent',S.silentSound!==false?ON:OFF,S.silentSound!==false);
   document.querySelector('[data-set=silent]').closest('.set').classList.toggle('hidden',!HAS_AUDIO_SESSION);   // only iPhone/iPad Safari has a silent switch to override
   set('assist',{auto:tr('Auto'),on:tr('Always'),off:tr('Off')}[S.assist],S.assist!=='off');
@@ -3897,7 +3914,7 @@ function armBack(){
   else if(backState==='popping') backWant=true;                // (arm again as soon as our own removal is done)
 }
 function disarmBack(){ if(backState==='armed'){ backState='popping'; try{ history.back(); }catch(e){ backState='off'; } } }
-function syncBack(){ if(onPlainMenu()) disarmBack(); else armBack(); }
+function syncBack(){ if(onPlainMenu()) disarmBack(); else armBack(); syncReach(); }
 function handleBack(){
   const open=id=>!$(id).classList.contains('hidden'), tap=id=>$(id).click();
   if(open('crash')) return;
@@ -4017,6 +4034,9 @@ document.querySelector('#settings').addEventListener('click',e=>{
   else if(k==='haptics'){ S.haptics=!S.haptics; }
   else if(k==='reduce'){ S.reduceSet=true; S.reduce=!reduceOn(); applyCalm(); }
   else if(k==='ghost'){ S.ghostOutline=!(S.ghostOutline!==false); }
+  else if(k==='cb'){ S.cb=!S.cb; LK=null; applyA11y(); }
+  else if(k==='bigtext'){ S.bigText=!S.bigText; applyA11y(); }
+  else if(k==='onehand'){ S.oneHand=!S.oneHand; applyA11y(); }
   else if(k==='assist'){ S.assist={auto:'on',on:'off',off:'auto'}[S.assist]; }
   else if(k==='boostauto'){ S.boostAuto=!(S.boostAuto===true); }
   else if(k==='language'){ sfx.tap(); showLangs(); return; }
@@ -4104,7 +4124,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;
@@ -4169,7 +4189,7 @@ setInterval(()=>checkForUpdate(),10*60*1000);
 $('updBtn').onclick=()=>reloadApp();
 $('crashBtn').onclick=()=>reloadApp();
 
-resize(); applyCalm(); applyAccent(); setMuteIcon(); requestAnimationFrame(loop);
+resize(); applyCalm(); applyAccent(); applyA11y(); setMuteIcon(); requestAnimationFrame(loop);
 loadLang(detectLang()).then(code=>{ lang=code; applyI18n(); showMenu(); setMuteIcon(); document.body.classList.add('ready'); if(inPlayApp()){ syncPurchases(false); loadPlayPrices(); } });
 })();
 </script>

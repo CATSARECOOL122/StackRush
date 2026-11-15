@@ -775,3 +775,9 @@
 775|Panda
 776|Chiot
 777|Ours en peluche
+778|Un bouton Retour en bas, à portée de pouce.
+779|Texte plus grand
+780|Blocs bleus et violets en bandes claires et sombres (sans rouge ni vert).
+781|Couleurs pour daltoniens
+782|Agrandit les menus et le texte.
+783|Mode une main

@@ -775,3 +775,9 @@
 775|Panda
 776|Köpek yavrusu
 777|Oyuncak ayı
+778|Başparmağın yetişeceği yerde, altta bir Geri düğmesi.
+779|Daha büyük yazı
+780|Mavi ve mor bloklar, net açık ve koyu bantlarla (kırmızı ve yeşil yok).
+781|Renk körlüğü dostu renkler
+782|Menüleri ve yazıyı büyütür.
+783|Tek el modu

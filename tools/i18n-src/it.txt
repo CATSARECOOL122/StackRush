@@ -775,3 +775,9 @@
 775|Panda
 776|Cucciolo
 777|Orsacchiotto
+778|Un pulsante Indietro in basso, a portata di pollice.
+779|Testo più grande
+780|Blocchi blu e viola in fasce chiare e scure (senza rosso e verde).
+781|Colori per daltonici
+782|Ingrandisce i menu e il testo.
+783|Modalità a una mano

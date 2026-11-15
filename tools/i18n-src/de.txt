@@ -775,3 +775,9 @@
 775|Panda
 776|Welpe
 777|Teddybär
+778|Ein Zurück-Knopf unten, in Daumenreichweite.
+779|Größerer Text
+780|Blaue und violette Blöcke in klaren hellen und dunklen Streifen (kein Rot und Grün).
+781|Farbenblind-freundliche Farben
+782|Macht die Menüs und den Text größer.
+783|Einhandmodus
