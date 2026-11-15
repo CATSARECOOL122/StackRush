@@ -788,3 +788,12 @@
 788|Boss vaincus <b>{n}</b> / {m} · {t}
 789|Bats le premier boss de la campagne pour le débloquer.
 790|COURSE TERMINÉE !
+791|Hauteur {n}
+792|Regarde ma tour Stack Rush !
+793|Mode photo
+794|MODE PHOTO
+795|Enregistrer
+796|Enregistré
+797|TES MEILLEURES PARTIES
+798|Épuré
+799|Or

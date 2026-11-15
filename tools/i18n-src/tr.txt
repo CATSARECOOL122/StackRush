@@ -788,3 +788,12 @@
 788|Yenilen patron <b>{n}</b> / {m} · {t}
 789|Açmak için kampanyadaki ilk patronu yen.
 790|KOŞU TAMAMLANDI!
+791|Yükseklik {n}
+792|Stack Rush kuleme bak!
+793|Fotoğraf modu
+794|FOTOĞRAF MODU
+795|Kaydet
+796|Kaydedildi
+797|EN İYİ TURLARIN
+798|Sade
+799|Altın

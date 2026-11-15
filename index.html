@@ -208,6 +208,8 @@
   .evbuy{display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#ffffff10,#ffffff04);border:1px solid #ffc83d55;border-radius:14px;padding:8px 12px}
   .evbuy i{font-style:normal;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#ffc83d22;color:#ffe27a;flex:none}
   .evbuy div{flex:1;min-width:0} .evbuy b{display:block;font-size:14px} .evbuy small{display:block;font-size:12px;color:var(--mute);font-weight:700;line-height:1.3}
+  #topBox{width:min(400px,100%);display:flex;flex-direction:column;gap:6px} #topBox h3{margin:6px 0 0;font-size:12px;letter-spacing:3px;color:var(--mute)}
+  .frow.top{display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--line);border-radius:12px;padding:6px 10px} .frow.top i{font-style:normal;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:#ffffff14;flex:none;font-weight:900} .frow.top.gold{border-color:#ffc83d99;background:#ffc83d14} .frow.top.gold i{color:#ffe27a;background:#ffc83d26} .frow.top div{flex:1;min-width:0} .frow.top b{display:block;font-size:15px} .frow.top small{display:block;font-size:11px;color:var(--mute);font-weight:700} .frow.top em{font-style:normal;font-size:12px;color:var(--mute);font-weight:700}
   #dmBox{width:min(400px,100%);display:flex;flex-direction:column;gap:8px}
   #dmBox h3{margin:6px 0 0;font-size:12px;letter-spacing:3px;color:var(--mute)}
   .lstrip{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
@@ -220,6 +222,8 @@
   .reachback{position:absolute;left:14px;bottom:calc(env(safe-area-inset-bottom) + 18px);z-index:30;width:56px;height:56px;border-radius:50%;border:1.5px solid #ffffff44;background:#1d1245f2;color:#fff;display:grid;place-items:center;box-shadow:0 8px 22px #000a;pointer-events:auto}
   .reachback .ic{width:26px;height:26px}
   .mode.lockd{opacity:.6}
+  #photoFrames button{min-height:44px;border-radius:14px;border:1px solid var(--line);background:#ffffff14;color:#fff;font-weight:900;font-size:14px;padding:6px} #photoFrames button.on{background:linear-gradient(180deg,var(--cta1,#ffb23d),var(--cta2,#ff6a3d));color:var(--ctaink,#2a0d00);border:0}
+  #photoFrames{grid-template-columns:repeat(3,1fr)}
   .evbonus{color:#ffe27a;font-weight:800}
   #oLevel.lvpop{animation:lvpop .7s cubic-bezier(.2,1.6,.4,1)}
   @keyframes lvpop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.12);opacity:1}100%{transform:none}}
@@ -774,7 +778,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 
   <section id="awards" class="screen hidden" aria-label="Awards">
     <div class="topbar"><button class="back" id="closeAwards" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>AWARDS</h2></div>
-    <div class="sbody" style="justify-content:flex-start"><div id="dmBox"></div><div id="wkBox"></div><button id="openMuseum" class="btn" style="width:min(400px,100%)"><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg> Tower museum</button><div id="aStats"></div><div class="sub" id="aCount"></div><div id="aList"></div></div>
+    <div class="sbody" style="justify-content:flex-start"><div id="topBox"></div><div id="dmBox"></div><div id="wkBox"></div><button id="openMuseum" class="btn" style="width:min(400px,100%)"><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg> Tower museum</button><div id="aStats"></div><div class="sub" id="aCount"></div><div id="aList"></div></div>
   </section>
 
   <section id="museum" class="screen hidden" aria-label="Tower museum">
@@ -900,6 +904,16 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     </div>
   </section>
 
+  <section id="photoSheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Photo mode">
+    <div class="shbg" id="photoBg"></div>
+    <div class="shcard cs">
+      <h2>PHOTO MODE</h2>
+      <img id="photoImg" alt="Your tower" style="width:min(300px,70%);border-radius:14px;align-self:center;box-shadow:0 10px 30px #000a">
+      <div id="photoFrames" class="fsm"></div>
+      <div class="row stickyfoot"><button id="photoSave" class="btn">Save</button><button id="photoShare" class="btn primary">Share</button><button id="photoClose" class="btn">Close</button></div>
+    </div>
+  </section>
+
   <section id="coinsSheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Coins">
     <div class="shbg" id="coinsBg"></div>
     <div class="shcard cs">
@@ -922,6 +936,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
   <section id="pause" class="screen hidden" style="background:#0a0620d9" aria-label="Paused"><div class="sbody">
     <h2>PAUSED</h2>
     <button id="resume" class="btn primary big">RESUME</button>
+    <button id="photoBtn" class="btn"><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg> Photo mode</button>
     <button id="quit" class="btn">Quit run</button>
   </div></section>
 </div>
@@ -1161,7 +1176,7 @@ const ACH = [
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',rushBest:0,rushTime:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',top:[],rushBest:0,rushTime:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,cb:false,bigText:false,oneHand:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -1182,6 +1197,7 @@ function cleanSave(raw){
   if(raw.ev && typeof raw.ev==='object' && typeof raw.ev.id==='string' && /^[a-z0-9]{3,20}$/.test(raw.ev.id)) out.ev={id:raw.ev.id,attempts:num(raw.ev.attempts,100000),more:num(raw.ev.more,999),easy:raw.ev.easy?1:0,fast:raw.ev.fast?1:0,best:num(raw.ev.best,1e6),hatched:raw.ev.hatched?1:0,chestOk:Array.isArray(raw.ev.chestOk)?[...new Set(raw.ev.chestOk.map(Number).filter(n=>n>=0&&n<8))]:[]};
   if(Array.isArray(raw.eggs)) out.eggs=[...new Set(raw.eggs.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}$/.test(v)))].slice(0,60);
   if(raw.dm && typeof raw.dm==='object'){ const a=v=>Array.isArray(v)?[0,1,2].map(i=>num(v[i],1e6)):[0,0,0]; out.dm={day:num(raw.dm.day,1e6),p:a(raw.dm.p),paid:a(raw.dm.paid).map(x=>x?1:0),all:raw.dm.all?1:0}; }
+  if(Array.isArray(raw.top)) out.top=raw.top.filter(r=>r&&typeof r==='object'&&['classic','timed','lives','hazard','daily'].includes(r.m)).slice(0,10).map(r=>({m:r.m,s:num(r.s,1e7),h:num(r.h,1e5),t:num(r.t,9e12)}));
   if(own(raw,'rushBest')) out.rushBest=num(raw.rushBest,7); if(own(raw,'rushTime')) out.rushTime=num(raw.rushTime,1e7);
   if(Array.isArray(raw.evWarn)) out.evWarn=raw.evWarn.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}:(10|5|3|last)$/.test(v)).slice(-40);
   if(typeof raw.evSeen==='string' && /^[a-z0-9]{0,20}$/.test(raw.evSeen)) out.evSeen=raw.evSeen;
@@ -2242,7 +2258,13 @@ function dailyRecord(r){
   if(!dm.all && dm.paid.every(Boolean)){ dm.all=1; S.coins+=DAILY_ALL; setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('All daily missions done! +{n} {coin}',{n:DAILY_ALL,coin:I('coin')})}`,3000),1700); }
   save(); setCoins();
 }
+function renderTop(){
+  const t=S.top||[]; if(!t.length){ $('topBox').innerHTML=''; return; }
+  const fmt=x=>{ try{ return new Intl.DateTimeFormat(lang==='auto'?undefined:lang,{month:'short',day:'numeric'}).format(new Date(x)); }catch(e){ return ''; } };
+  $('topBox').innerHTML=`<h3>${tr('YOUR BEST RUNS')}</h3>`+t.slice(0,5).map((r,i)=>`<div class="frow top${i===0?' gold':''}"><i>${i===0?I('trophy'):'<b>'+(i+1)+'</b>'}</i><div><b>${nf(r.s)}</b><small>${tr(MODES[r.m].name)} · ${tr('Height {n}',{n:r.h})}</small></div><em>${fmt(r.t)}</em></div>`).join('');
+}
 function renderDaily(){
+  renderTop();
   ensureDaily(); const dm=S.dm, ms=dailyPick();
   const done=S.lastClaim===today(), cur=done?S.streak:(S.lastClaim===yesterday()?S.streak+1:1), pos=((cur-1)%7)+1;
   const rw=[20,30,40,50,60,70,80], gift=[null,null,'shield',null,'slow',null,'regrow'];
@@ -2551,6 +2573,7 @@ function endRun(reason){
   if(!boosted){ S.bestCombo=Math.max(S.bestCombo||0,bestCombo); S.maxHeight=Math.max(S.maxHeight||0,stack.length-1); }
   if(mode==='daily') S.twist.best=Math.max(S.twist.best||0,score);
   const prevBest=boosted?(S.boostBests[mode]||0):bestGet(mode);
+  if(!soft() && !M.noBest && score>0 && !boosted && ['classic','timed','lives','hazard','daily'].includes(mode)){ S.top.push({m:mode,s:score,h:stack.length-1,t:Date.now()}); S.top.sort((a,b)=>b.s-a.s); S.top=S.top.slice(0,10); }       // your ten best runs
   const newBest=!M.noBest && score>prevBest && score>0;
   if(newBest){
     if(boosted) S.boostBests[mode]=score;                                              // a boosted run keeps its own record
@@ -3195,6 +3218,30 @@ function loop(ts){
 }
 
 /* ================= Share card ================= */
+/* Photo mode: from the pause screen, a framed picture of your tower right now, to save or share */
+let photoFrame='gold', photoBlob=null;
+const PHOTO_FRAMES={gold:'Gold',neon:'Neon',clean:'Clean'};
+function drawPhoto(){
+  const W2=1080, H2=1350, c=document.createElement('canvas'); c.width=W2; c.height=H2; const g=c.getContext('2d');
+  const sw=cv.width, sh=cv.height, sc=Math.max(W2/sw,H2/sh), dw=sw*sc, dh=sh*sc; g.drawImage(cv,(W2-dw)/2,(H2-dh)/2,dw,dh);
+  const vg=g.createLinearGradient(0,0,0,360); vg.addColorStop(0,'rgba(0,0,0,.72)'); vg.addColorStop(1,'rgba(0,0,0,0)'); g.fillStyle=vg; g.fillRect(0,0,W2,360);
+  g.textAlign='center'; g.font='900 92px ui-rounded,system-ui,sans-serif'; g.fillStyle='#fff'; g.shadowColor='#000a'; g.shadowBlur=14; g.fillText('STACK RUSH',W2/2,150); g.font='800 46px ui-rounded,system-ui,sans-serif'; g.fillStyle='#ffe27a';
+  g.fillText(`${tr(MODES[mode]?MODES[mode].name:'Classic')} · ${tr('Height {n}',{n:Math.max(0,stack.length-1)})} · ${score}`,W2/2,225); g.shadowBlur=0;
+  const col=photoFrame==='gold'?'#ffd36b':photoFrame==='neon'?'#7fe8ff':null;
+  if(col){ g.lineWidth=photoFrame==='gold'?26:14; g.strokeStyle=col; if(photoFrame==='neon'){ g.shadowColor=col; g.shadowBlur=36; } g.strokeRect(g.lineWidth/2,g.lineWidth/2,W2-g.lineWidth,H2-g.lineWidth); g.shadowBlur=0; if(photoFrame==='gold'){ g.lineWidth=4; g.strokeStyle='#fff6c2'; g.strokeRect(40,40,W2-80,H2-80); } }
+  return c;
+}
+function renderPhoto(){
+  $('photoFrames').innerHTML=Object.entries(PHOTO_FRAMES).map(([k,n])=>`<button data-pf="${k}" class="${photoFrame===k?'on':''}">${tr(n)}</button>`).join('');
+  const c=drawPhoto(); $('photoImg').src=c.toDataURL('image/jpeg',.9); c.toBlob(b=>{ photoBlob=b; },'image/png');
+}
+function openPhoto(){ if(!paused) return; texts.length=0; banner=null; speedCue=null; draw(); renderPhoto(); $('photoSheet').classList.remove('hidden'); soon(syncBack); }
+function closePhoto(){ $('photoSheet').classList.add('hidden'); soon(syncBack); }
+$('photoBtn').onclick=()=>{ sfx.tap(); openPhoto(); };
+$('photoBg').onclick=$('photoClose').onclick=()=>{ sfx.tap(); closePhoto(); };
+$('photoFrames').addEventListener('click',e=>{ const b=e.target.closest('[data-pf]'); if(!b) return; photoFrame=b.dataset.pf; sfx.tap(); renderPhoto(); });
+$('photoSave').onclick=()=>{ sfx.tap(); if(!photoBlob) return; const a=document.createElement('a'); a.href=URL.createObjectURL(photoBlob); a.download='stack-rush-photo.png'; document.body.appendChild(a); a.click(); a.remove(); toast(tr('Saved')); };
+$('photoShare').onclick=async()=>{ sfx.tap(); if(!photoBlob) return; try{ const f=new File([photoBlob],'stack-rush-photo.png',{type:'image/png'}); if(navigator.canShare && navigator.canShare({files:[f]})) await navigator.share({files:[f],text:tr('Look at my Stack Rush tower!')}); else $('photoSave').click(); }catch(e){ if(!(e&&e.name==='AbortError')) toast(tr('Could not share')); } };
 function makeShareCanvas(){
   const c=document.createElement('canvas'); c.width=1080; c.height=1350; const g=c.getContext('2d'); const th=TH();
   const bg=g.createLinearGradient(0,0,0,1350); bg.addColorStop(0,th.bg[0]); bg.addColorStop(.55,th.bg[1]); bg.addColorStop(1,th.bg[2]);
@@ -3235,7 +3282,7 @@ async function shareScore(){
 }
 
 /* ================= Menu / UI ================= */
-const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet','evsheet','hatch'];
+const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet','evsheet','hatch','photoSheet'];
 function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); soon(syncReach); try{ hideEvToast(); }catch(e){} }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
@@ -3934,7 +3981,7 @@ $('csBuy').addEventListener('click',e=>{ const b=e.target.closest('[data-pack]')
    the browser's own and the app can close. */
 function soon(f){ if(typeof queueMicrotask==='function') queueMicrotask(f); else setTimeout(f,0); }       // right after the current handler finishes, before anything else can happen
 let backState='off', backWant=false, backAfter=null;          // off: no sentinel · armed: one is in the history · popping: we are removing it ourselves
-const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('hzsheet').classList.contains('hidden') && $('evsheet').classList.contains('hidden') && $('hatch').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
+const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('hzsheet').classList.contains('hidden') && $('evsheet').classList.contains('hidden') && $('photoSheet').classList.contains('hidden') && $('hatch').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
 function armBack(){
   if(backState==='off'){ try{ history.pushState({sr:1},''); backState='armed'; }catch(e){} }
   else if(backState==='popping') backWant=true;                // (arm again as soon as our own removal is done)
@@ -3950,6 +3997,7 @@ function handleBack(){
   if(open('udlg')){ closeUnlockDlg(); return; }
   if(open('fsheet')){ closeFriend(); return; }
   if(open('hatch')){ if(hat.phase==='hold') closeHatch(); return; }
+  if(open('photoSheet')){ closePhoto(); return; }
   if(open('evsheet')){ closeEvent(); return; }
   if(open('hzsheet')){ closeHz(); return; }
   if(open('coinsSheet')){ closeCoins(); return; }
@@ -4151,7 +4199,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

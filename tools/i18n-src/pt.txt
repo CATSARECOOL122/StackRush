@@ -788,3 +788,12 @@
 788|Chefes derrotados <b>{n}</b> / {m} · {t}
 789|Derrote o primeiro chefe da campanha para desbloquear.
 790|CORRIDA COMPLETA!
+791|Altura {n}
+792|Olhe minha torre do Stack Rush!
+793|Modo foto
+794|MODO FOTO
+795|Salvar
+796|Salvo
+797|SUAS MELHORES PARTIDAS
+798|Limpo
+799|Ouro

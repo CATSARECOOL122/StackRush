@@ -203,4 +203,20 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['photo mode and best runs: pausing offers a framed picture of the tower (gold, neon or clean) to save or share; the ten best runs are kept and shown on Awards', async(e,L)=>{
+  const p=await L.open(e); await BASE(p,{},[]);
+  await p.evaluate(()=>{ __sr.S.top=[]; __sr.startMode('classic'); }); await p.waitForTimeout(150); await L.perfects(p,4);
+  await p.evaluate(()=>__sr.pause()); await p.waitForTimeout(200); await p.click('#photoBtn'); await p.waitForTimeout(400);
+  assert.ok(await p.isVisible('#photoSheet')); assert.equal(await p.locator('#photoFrames button').count(),3);
+  const src=await p.evaluate(()=>document.getElementById('photoImg').src); assert.match(src,/^data:image\/jpeg/); await p.click('#photoFrames [data-pf=neon]'); await p.waitForTimeout(200);
+  assert.notEqual(await p.evaluate(()=>document.getElementById('photoImg').src),src,'another frame, another picture');
+  const dl=p.waitForEvent('download',{timeout:5000}); await p.click('#photoSave'); const d=await dl; assert.match(d.suggestedFilename(),/stack-rush-photo\.png/);
+  await p.evaluate(()=>history.back()); await p.waitForTimeout(300); assert.equal(await p.isVisible('#photoSheet'),false,'Back closes it, still paused');
+  await p.click('#quit').catch(()=>{}); await endIt(p).catch(()=>{});
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.startMode('classic'); }); await p.waitForTimeout(150); await L.perfects(p,3); await endIt(p);
+  assert.ok(await p.evaluate(()=>__sr.S.top.length)>=1,'the run is in the list'); assert.ok(await p.evaluate(()=>__sr.S.top.every((r,i,a)=>!i||a[i-1].s>=r.s)),'best first');
+  await p.evaluate(()=>__sr.showMenu()); await p.click('#openAwards'); await p.waitForTimeout(300); assert.ok(await p.locator('#topBox .frow').count()>=1,'listed on Awards');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

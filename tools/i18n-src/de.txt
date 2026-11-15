@@ -788,3 +788,12 @@
 788|Bosse besiegt <b>{n}</b> / {m} · {t}
 789|Besiege den ersten Boss der Kampagne, um es freizuschalten.
 790|RUSH GESCHAFFT!
+791|Höhe {n}
+792|Schau dir meinen Stack-Rush-Turm an!
+793|Fotomodus
+794|FOTOMODUS
+795|Speichern
+796|Gespeichert
+797|DEINE BESTEN RUNDEN
+798|Schlicht
+799|Gold

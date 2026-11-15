@@ -788,3 +788,12 @@
 788|Bos dikalahkan <b>{n}</b> / {m} · {t}
 789|Kalahkan bos pertama di kampanye untuk membuka.
 790|RUSH SELESAI!
+791|Tinggi {n}
+792|Lihat menara Stack Rush-ku!
+793|Mode foto
+794|MODE FOTO
+795|Simpan
+796|Tersimpan
+797|RONDE TERBAIKMU
+798|Polos
+799|Emas

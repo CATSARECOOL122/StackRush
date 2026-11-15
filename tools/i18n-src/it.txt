@@ -788,3 +788,12 @@
 788|Boss sconfitti <b>{n}</b> / {m} · {t}
 789|Sconfiggi il primo boss della campagna per sbloccarlo.
 790|ASSALTO COMPLETATO!
+791|Altezza {n}
+792|Guarda la mia torre di Stack Rush!
+793|Modalità foto
+794|MODALITÀ FOTO
+795|Salva
+796|Salvato
+797|LE TUE PARTITE MIGLIORI
+798|Pulito
+799|Oro

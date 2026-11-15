@@ -788,5 +788,14 @@
  "BOSS RUSH",
  "Bosses beaten <b>{n}</b> / {m} · {t}",
  "Clear the first boss in the campaign to unlock.",
- "RUSH COMPLETE!"
+ "RUSH COMPLETE!",
+ "Height {n}",
+ "Look at my Stack Rush tower!",
+ "Photo mode",
+ "PHOTO MODE",
+ "Save",
+ "Saved",
+ "YOUR BEST RUNS",
+ "Clean",
+ "Gold"
 ]
