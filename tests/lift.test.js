@@ -167,4 +167,16 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+['daily missions: three a day (by the date), each pays coins when done, all three pay a bonus, progress resets the next day; the 7-day login strip shows today', async(e,L)=>{
+  const p=await L.open(e); await BASE(p,{},[]);
+  const c0=await p.evaluate(()=>{ const S=__sr.S; S.dm={day:0,p:[0,0,0],paid:[0,0,0],all:0}; return S.coins; });
+  await p.evaluate(()=>{ __sr.dailyRecord({blocks:100,perfects:100,runs:1,height:30,combo:20,score:200}); });
+  const r=await p.evaluate(()=>({p:__sr.S.dm.paid.slice(),all:__sr.S.dm.all,c:__sr.S.coins}));
+  assert.deepEqual(r.p,[1,1,1],'all three completed by one big round'); assert.equal(r.all,1); assert.ok(r.c>c0+40,'coins paid ('+(r.c-c0)+')');
+  await p.evaluate(()=>{ const c=__sr.S.coins; __sr.dailyRecord({blocks:100,perfects:100,runs:1,height:30,combo:20,score:200}); window.__cc=c; }); assert.equal(await p.evaluate(()=>__sr.S.coins),await p.evaluate(()=>window.__cc),'paid once');
+  await p.click('#openAwards'); await p.waitForTimeout(300); assert.equal(await p.locator('#dmBox .wk').count(),4,'three missions and the bonus'); assert.equal(await p.locator('#dmBox .ld').count(),7); assert.ok(await p.locator('#dmBox .ld.now').count()>=0);
+  await p.evaluate(()=>{ __sr.S.dm.day=1; __sr.showMenu(); }); await p.click('#openAwards'); await p.waitForTimeout(250); assert.deepEqual(await p.evaluate(()=>__sr.S.dm.paid),[0,0,0],'a new day starts fresh');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
 ];

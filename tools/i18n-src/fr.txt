@@ -760,3 +760,13 @@
 760|Boîte à musique
 761|Piano
 762|Synthwave
+763|+{n} pièces quand les trois sont faites
+764|Toutes les missions du jour sont faites ! +{n} {coin}
+765|Bonus des trois
+766|Mission du jour accomplie ! +{n} {coin}
+767|MISSIONS DU JOUR
+768|Jour {n}
+769|SÉRIE DE CONNEXIONS
+770|Termine {n} parties aujourd'hui
+771|Réussis {n} chutes parfaites aujourd'hui
+772|Empile {n} blocs aujourd'hui

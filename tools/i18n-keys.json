@@ -760,5 +760,15 @@
  "Midnight Drive",
  "Music Box",
  "Piano",
- "Synthwave"
+ "Synthwave",
+ "+{n} coins when all three are done",
+ "All daily missions done! +{n} {coin}",
+ "All three bonus",
+ "Daily mission complete! +{n} {coin}",
+ "DAILY MISSIONS",
+ "Day {n}",
+ "LOGIN STREAK",
+ "Finish {n} rounds today",
+ "Land {n} perfect drops today",
+ "Stack {n} blocks today"
 ]

@@ -760,3 +760,13 @@
 760|Spieluhr
 761|Klavier
 762|Synthwave
+763|+{n} Münzen, wenn alle drei erledigt sind
+764|Alle Tagesmissionen erledigt! +{n} {coin}
+765|Bonus für alle drei
+766|Tagesmission geschafft! +{n} {coin}
+767|TAGESMISSIONEN
+768|Tag {n}
+769|LOGIN-SERIE
+770|Beende heute {n} Runden
+771|Lande heute {n} perfekte Drops
+772|Staple heute {n} Blöcke

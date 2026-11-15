@@ -760,3 +760,13 @@
 760|Caixinha de música
 761|Piano
 762|Synthwave
+763|+{n} moedas quando as três estiverem prontas
+764|Todas as missões diárias concluídas! +{n} {coin}
+765|Bônus das três
+766|Missão diária concluída! +{n} {coin}
+767|MISSÕES DIÁRIAS
+768|Dia {n}
+769|SEQUÊNCIA DE LOGINS
+770|Termine {n} partidas hoje
+771|Faça {n} quedas perfeitas hoje
+772|Empilhe {n} blocos hoje

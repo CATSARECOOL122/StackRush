@@ -208,6 +208,13 @@
   .evbuy{display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#ffffff10,#ffffff04);border:1px solid #ffc83d55;border-radius:14px;padding:8px 12px}
   .evbuy i{font-style:normal;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#ffc83d22;color:#ffe27a;flex:none}
   .evbuy div{flex:1;min-width:0} .evbuy b{display:block;font-size:14px} .evbuy small{display:block;font-size:12px;color:var(--mute);font-weight:700;line-height:1.3}
+  #dmBox{width:min(400px,100%);display:flex;flex-direction:column;gap:8px}
+  #dmBox h3{margin:6px 0 0;font-size:12px;letter-spacing:3px;color:var(--mute)}
+  .lstrip{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+  .ld{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:12px;background:var(--glass);border:1px solid var(--line);font-weight:800}
+  .ld small{font-size:9px;color:var(--mute)} .ld i{font-style:normal;width:22px;height:22px;display:grid;place-items:center;color:#9a9ab5} .ld b{font-size:11px;color:var(--gold)}
+  #dmBox .wk span{display:block;font-size:12px;color:var(--mute);font-weight:700;margin-top:2px}
+  .ld.past{opacity:.6} .ld.past i{color:#7dff9b} .ld.now{border-color:var(--gold);background:#ffc83d22;box-shadow:0 0 12px #ffc83d66} .ld.now i{color:var(--gold)}
   .evbonus{color:#ffe27a;font-weight:800}
   #oLevel.lvpop{animation:lvpop .7s cubic-bezier(.2,1.6,.4,1)}
   @keyframes lvpop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.12);opacity:1}100%{transform:none}}
@@ -762,7 +769,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 
   <section id="awards" class="screen hidden" aria-label="Awards">
     <div class="topbar"><button class="back" id="closeAwards" aria-label="Back"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg></button><h2>AWARDS</h2></div>
-    <div class="sbody" style="justify-content:flex-start"><div id="wkBox"></div><button id="openMuseum" class="btn" style="width:min(400px,100%)"><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg> Tower museum</button><div id="aStats"></div><div class="sub" id="aCount"></div><div id="aList"></div></div>
+    <div class="sbody" style="justify-content:flex-start"><div id="dmBox"></div><div id="wkBox"></div><button id="openMuseum" class="btn" style="width:min(400px,100%)"><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg> Tower museum</button><div id="aStats"></div><div class="sub" id="aCount"></div><div id="aList"></div></div>
   </section>
 
   <section id="museum" class="screen hidden" aria-label="Tower museum">
@@ -1145,7 +1152,7 @@ const ACH = [
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',evWarn:[],hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -1165,6 +1172,7 @@ function cleanSave(raw){
   if(own(raw,'hintPow')) out.hintPow=num(raw.hintPow,9);
   if(raw.ev && typeof raw.ev==='object' && typeof raw.ev.id==='string' && /^[a-z0-9]{3,20}$/.test(raw.ev.id)) out.ev={id:raw.ev.id,attempts:num(raw.ev.attempts,100000),more:num(raw.ev.more,999),easy:raw.ev.easy?1:0,fast:raw.ev.fast?1:0,best:num(raw.ev.best,1e6),hatched:raw.ev.hatched?1:0,chestOk:Array.isArray(raw.ev.chestOk)?[...new Set(raw.ev.chestOk.map(Number).filter(n=>n>=0&&n<8))]:[]};
   if(Array.isArray(raw.eggs)) out.eggs=[...new Set(raw.eggs.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}$/.test(v)))].slice(0,60);
+  if(raw.dm && typeof raw.dm==='object'){ const a=v=>Array.isArray(v)?[0,1,2].map(i=>num(v[i],1e6)):[0,0,0]; out.dm={day:num(raw.dm.day,1e6),p:a(raw.dm.p),paid:a(raw.dm.paid).map(x=>x?1:0),all:raw.dm.all?1:0}; }
   if(Array.isArray(raw.evWarn)) out.evWarn=raw.evWarn.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}:(10|5|3|last)$/.test(v)).slice(-40);
   if(typeof raw.evSeen==='string' && /^[a-z0-9]{0,20}$/.test(raw.evSeen)) out.evSeen=raw.evSeen;
   if(['beginner','medium','advanced','ultra'].includes(raw.hzLevel)) out.hzLevel=raw.hzLevel;
@@ -2161,6 +2169,7 @@ function ensureWeek(){ const k=weekKey(); if(!S.weekly || S.weekly.week!==k) S.w
 const weeklyDone=()=>{ ensureWeek(); return weekMissions().every((m,i)=>S.weekly.p[i]>=m.n); };
 const weeklyReady=()=>weeklyDone() && !S.weekly.claimed;
 function weeklyRecord(r){                                          // r: what this round did: {blocks, perfects, height, combo, score}
+  try{ dailyRecord(r); }catch(e){}
   if(soft()) return;                                              // Zen and Practice cannot be farmed for the chest
   ensureWeek(); const w=S.weekly, ms=weekMissions(), before=ms.map((m,i)=>w.p[i]>=m.n), wasAll=before.every(Boolean);
   ms.forEach((m,i)=>{ const v=m.stat==='runs'?1:(r[m.stat]||0); w.p[i]=m.kind==='sum'?Math.min(1e6,w.p[i]+v):Math.max(w.p[i],v); });
@@ -2175,7 +2184,38 @@ function claimWeekly(){
   toast(`${I('gem','ic-cyan')} ${tr('Chest opened! +{n} {coin}, {name} ×{k}',{n:CFG.weeklyCoins,coin:I('coin'),name:tr(BOOSTS[b].name),k:2})}`,3200);
   renderWeekly(); renderMenu(); return true;
 }
+/* Daily missions: three small goals a day (picked by the date), each pays coins as it is completed, and all three together pay a bonus. */
+const DAILY=[
+  {text:'Land {n} perfect drops today',n:20,kind:'sum',stat:'perfects',coins:15},
+  {text:'Stack {n} blocks today',n:60,kind:'sum',stat:'blocks',coins:15},
+  {text:'Finish {n} rounds today',n:4,kind:'sum',stat:'runs',coins:15},
+  {text:'Reach {n} blocks high in one round',n:12,kind:'max',stat:'height',coins:25},
+  {text:'Hit a x{n} combo',n:7,kind:'max',stat:'combo',coins:25},
+  {text:'Score {n} in one round',n:40,kind:'max',stat:'score',coins:25},
+  {text:'Land {n} perfect drops today',n:50,kind:'sum',stat:'perfects',coins:35},
+  {text:'Reach {n} blocks high in one round',n:20,kind:'max',stat:'height',coins:40}];
+const DAILY_ALL=40;
+const dailyPick=()=>{ const d=dayNum(); return [d%3, 3+(d%3), 6+(d%2)].map(i=>DAILY[i]); };         // two easy-ish ones and one harder
+function ensureDaily(){ const d=dayNum(); if(!S.dm || S.dm.day!==d) S.dm={day:d,p:[0,0,0],paid:[0,0,0],all:0}; }
+function dailyRecord(r){
+  if(soft()) return; ensureDaily(); const dm=S.dm, ms=dailyPick();
+  ms.forEach((m,i)=>{ if(dm.paid[i]) return; const v=m.stat==='runs'?1:(r[m.stat]||0); dm.p[i]=m.kind==='sum'?Math.min(1e6,dm.p[i]+v):Math.max(dm.p[i],v);
+    if(dm.p[i]>=m.n){ dm.paid[i]=1; S.coins+=m.coins; setTimeout(()=>toast(`${I('target','ic-gold')} ${tr('Daily mission complete! +{n} {coin}',{n:m.coins,coin:I('coin')})}`,2400),400+i*600); } });
+  if(!dm.all && dm.paid.every(Boolean)){ dm.all=1; S.coins+=DAILY_ALL; setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('All daily missions done! +{n} {coin}',{n:DAILY_ALL,coin:I('coin')})}`,3000),1700); }
+  save(); setCoins();
+}
+function renderDaily(){
+  ensureDaily(); const dm=S.dm, ms=dailyPick();
+  const done=S.lastClaim===today(), cur=done?S.streak:(S.lastClaim===yesterday()?S.streak+1:1), pos=((cur-1)%7)+1;
+  const rw=[20,30,40,50,60,70,80], gift=[null,null,'shield',null,'slow',null,'regrow'];
+  const strip=rw.map((c,i)=>{ const d=i+1, past=d<pos||(d===pos&&done), now=d===pos&&!done;
+    return `<div class="ld${past?' past':''}${now?' now':''}"><small>${tr('Day {n}',{n:d})}</small><i>${past?I('check'):gift[i]?I(BOOSTS[gift[i]].icon):I('coin')}</i><b>${c}</b></div>`; }).join('');
+  $('dmBox').innerHTML=`<h3>${tr('LOGIN STREAK')}</h3><div class="lstrip">${strip}</div><h3>${tr('DAILY MISSIONS')}</h3>`+ms.map((m,i)=>{ const v=Math.min(dm.p[i],m.n), ok=!!dm.paid[i];
+    return `<div class="wk${ok?' on':''}"><div><b>${tr(m.text,{n:m.n})}</b><div class="bar"><i style="width:${v/m.n*100}%"></i></div></div><em>${ok?I('check','ic-green'):v+'/'+m.n}</em></div>`; }).join('')
+    +`<div class="wk${dm.all?' on':''}"><div><b>${I('gem','ic-cyan')} ${tr('All three bonus')}</b><span>${dm.all?tr('Claimed'):tr('+{n} coins when all three are done',{n:DAILY_ALL})}</span></div></div>`;
+}
 function renderWeekly(){
+  renderDaily();
   ensureWeek(); const w=S.weekly, ms=weekMissions(), ready=weeklyReady();
   $('wkBox').innerHTML=`<h3>${tr('WEEKLY MISSIONS')}</h3>`+ms.map((m,i)=>{ const v=Math.min(w.p[i],m.n), ok=v>=m.n;
     return `<div class="wk${ok?' on':''}"><div><b>${tr(m.text,{n:m.n})}</b><div class="bar"><i style="width:${v/m.n*100}%"></i></div></div><em>${ok?I('check','ic-green'):v+'/'+m.n}</em></div>`; }).join('')
@@ -4053,7 +4093,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

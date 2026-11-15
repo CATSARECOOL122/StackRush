@@ -760,3 +760,13 @@
 760|Carillon
 761|Pianoforte
 762|Synthwave
+763|+{n} monete quando tutte e tre sono fatte
+764|Tutte le missioni giornaliere completate! +{n} {coin}
+765|Bonus per tutte e tre
+766|Missione giornaliera completata! +{n} {coin}
+767|MISSIONI GIORNALIERE
+768|Giorno {n}
+769|SERIE DI ACCESSI
+770|Finisci {n} partite oggi
+771|Fai {n} cadute perfette oggi
+772|Impila {n} blocchi oggi

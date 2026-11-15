@@ -760,3 +760,13 @@
 760|Kotak Musik
 761|Piano
 762|Synthwave
+763|+{n} koin saat ketiganya selesai
+764|Semua misi harian selesai! +{n} {coin}
+765|Bonus ketiganya
+766|Misi harian selesai! +{n} {coin}
+767|MISI HARIAN
+768|Hari {n}
+769|RANGKAIAN LOGIN
+770|Selesaikan {n} ronde hari ini
+771|Raih {n} jatuhan sempurna hari ini
+772|Tumpuk {n} blok hari ini

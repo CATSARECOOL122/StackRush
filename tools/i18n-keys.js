@@ -38,6 +38,7 @@ const {serve}=require('./serve');
     for(const [, name] of sr.TABS) out.add(name);
     for(const hint of Object.values(sr.TAB_HINT)) out.add(hint);
     for(const e of sr.EVENTS){ out.add(e.name); out.add(e.tag); }                                                       // special events
+    for(const m of sr.DAILY) out.add(m.text);                                                                          // daily missions
     for(const l of Object.values(sr.HZ_LEVELS)){ out.add(l.name); out.add(l.desc); }                              // Hazard difficulty levels
     for(const m of sr.WEEKLY) out.add(m.text);                                      // weekly mission texts
     return [...out];

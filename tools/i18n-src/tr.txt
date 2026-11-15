@@ -760,3 +760,13 @@
 760|Müzik Kutusu
 761|Piyano
 762|Synthwave
+763|Üçü de bitince +{n} jeton
+764|Tüm günlük görevler tamam! +{n} {coin}
+765|Üçü birden bonusu
+766|Günlük görev tamamlandı! +{n} {coin}
+767|GÜNLÜK GÖREVLER
+768|{n}. gün
+769|GİRİŞ SERİSİ
+770|Bugün {n} tur bitir
+771|Bugün {n} kusursuz bırakış yap
+772|Bugün {n} blok yığ
