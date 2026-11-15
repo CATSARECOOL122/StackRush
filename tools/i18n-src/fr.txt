@@ -913,3 +913,44 @@
 913|PALIER
 914|Débloque une seconde récompense à chaque palier : {c} pièces, {b} Coffres mystère, {k} boosts et le chat exclusif de la saison.
 915|Aller au palier {n}
+916|1 manche
+917|2 JOUEURS
+918|Écran partagé à 2 joueurs
+919|2 JOUEURS
+920|Meilleur des {n}
+921|Les deux moitiés à l'endroit
+922|ÉGALITÉ
+923|Face à face
+924|PARTEZ !
+925|NOUVEAU
+926|DISPOSITION
+927|Chargement…
+928|Plus tard
+929|MENU
+930|Sur iPad, choisis face à face ou côte à côte.
+931|Sur iPhone, la moitié du haut est à l'envers pour jouer face à face.
+932|ADV.
+933|ADV. {n}
+934|ÉLIMINÉ
+935|Jouez quelques manches. Celui qui a la tour la plus haute gagne la manche !
+936|JOUEUR {n}
+937|LE JOUEUR {n} GAGNE LA PARTIE
+938|La manche est rejouée
+939|Quitter
+940|REVANCHE
+941|Reprendre
+942|MANCHE {n}
+943|MANCHES
+944|Côte à côte
+945|Écran partagé
+946|ÉCRAN PARTAGÉ
+947|L'écran partagé n'a pas pu démarrer. Réessaie.
+948|DÉMARRER
+949|La moitié du haut est à l'envers
+950|ESSAYER
+951|Deux joueurs en même temps sur un seul écran.
+952|Deux joueurs en même temps sur un seul écran. Dépasse la tour de l'autre ou tiens plus longtemps.
+953|Deux joueurs, un écran. Vous empilez en même temps.
+954|TOI
+955|PERDU
+956|GAGNÉ !

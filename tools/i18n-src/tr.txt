@@ -913,3 +913,44 @@
 913|KADEME
 914|Her kademede ikinci bir ödülün kilidini aç: {c} jeton, {b} Gizemli Kutu, {k} güçlendirici ve sezona özel kedi.
 915|{n}. kademeye git
+916|1 tur
+917|2 OYUNCU
+918|2 oyunculu bölünmüş ekran
+919|2 OYUNCU
+920|{n} turun en iyisi
+921|İki yarım da dik
+922|BERABERE
+923|Karşılıklı
+924|BAŞLA!
+925|YENİ
+926|DÜZEN
+927|Yükleniyor…
+928|Belki sonra
+929|MENÜ
+930|iPad'de karşılıklı veya yan yana seç.
+931|iPhone'da üst yarı baş aşağıdır, böylece karşılıklı oynayabilirsiniz.
+932|RAKİP
+933|RAKİP {n}
+934|ELENDİ
+935|Birkaç tur oynayın. Kulesi daha yüksek olan turu kazanır!
+936|OYUNCU {n}
+937|{n}. OYUNCU MAÇI KAZANDI
+938|Tur yeniden oynanır
+939|Çık
+940|RÖVANŞ
+941|Devam
+942|TUR {n}
+943|TURLAR
+944|Yan yana
+945|Bölünmüş ekran
+946|BÖLÜNMÜŞ EKRAN
+947|Bölünmüş ekran başlatılamadı. Tekrar dene.
+948|BAŞLA
+949|Üst yarı baş aşağıdır
+950|ŞİMDİ DENE
+951|Tek ekranda iki oyuncu aynı anda.
+952|Tek ekranda iki oyuncu aynı anda. Rakibin kulesini geç ya da ondan uzun dayan.
+953|İki oyuncu, tek ekran. İkiniz de aynı anda dizersiniz.
+954|SEN
+955|KAYBETTİN
+956|KAZANDIN!

@@ -913,3 +913,44 @@
 913|NIVEL
 914|Desbloquea una segunda recompensa en cada nivel: {c} monedas, {b} Cajas misteriosas, {k} potenciadores y el gato exclusivo de la temporada.
 915|Ir al nivel {n}
+916|1 ronda
+917|2 JUGADORES
+918|Pantalla dividida para 2 jugadores
+919|2 JUGADORES
+920|Mejor de {n}
+921|Ambas mitades en vertical
+922|EMPATE
+923|Cara a cara
+924|¡YA!
+925|PRESENTAMOS
+926|DISPOSICIÓN
+927|Cargando…
+928|Quizá luego
+929|MENÚ
+930|En iPad elige cara a cara o lado a lado.
+931|En iPhone la mitad de arriba está al revés, así que podéis jugar cara a cara.
+932|RIVAL
+933|RIVAL {n}
+934|FUERA
+935|Jugad unas rondas. ¡Gana cada ronda quien tenga la torre más alta!
+936|JUGADOR {n}
+937|EL JUGADOR {n} GANA LA PARTIDA
+938|Se repite la ronda
+939|Salir
+940|REVANCHA
+941|Seguir
+942|RONDA {n}
+943|RONDAS
+944|Lado a lado
+945|Pantalla dividida
+946|PANTALLA DIVIDIDA
+947|No se pudo iniciar la pantalla dividida. Inténtalo de nuevo.
+948|EMPEZAR
+949|La mitad de arriba está al revés
+950|PRUÉBALO YA
+951|Dos jugadores a la vez en una pantalla.
+952|Dos jugadores a la vez en una pantalla. Supera la torre del otro o aguanta más que él.
+953|Dos jugadores, una pantalla. Los dos apilan a la vez.
+954|TÚ
+955|¡PIERDES!
+956|¡GANAS!

@@ -56,6 +56,46 @@
   html,body{margin:0;height:100%;background:#14102b;color:var(--ink);overflow:hidden;
     font-family:ui-rounded,"SF Pro Rounded","Nunito","Segoe UI",system-ui,sans-serif;
     user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:none;overscroll-behavior:none}
+  html.splitchild #hudR,html.splitchild #coins,html.splitchild #powerBtn,html.splitchild #updBtn,html.splitchild #skipTut,html.splitchild #practiceBar,html.splitchild #rotate,html.splitchild #speedB,html.splitchild #tip,html.splitchild #hand{display:none!important}
+  html.splitchild #stage{width:100vw}
+  body.splitting #rotate{display:none!important}
+  #split{position:fixed;inset:0;z-index:70;background:#07041a;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none} #split.hidden{display:none}
+  .split .sph{position:absolute;overflow:hidden;background:#14102b} .split .spin{position:absolute;inset:0} .split iframe{display:block;width:100%;height:100%;border:0;background:#14102b}
+  .lay-tb .sph{left:0;right:0;height:50%} .lay-tb .sph[data-p="2"]{top:0;transform:rotate(180deg)} .lay-tb .sph[data-p="1"]{bottom:0}
+  .lay-tb .sph[data-p="2"] .spin{padding-bottom:env(safe-area-inset-top)} .lay-tb .sph[data-p="1"] .spin{padding-bottom:env(safe-area-inset-bottom)}
+  .lay-lr .sph{top:0;bottom:0;width:50%} .lay-lr .sph[data-p="1"]{left:0} .lay-lr .sph[data-p="2"]{right:0}
+  .spmid{position:absolute;z-index:6;pointer-events:none} .lay-tb .spmid{left:0;right:0;top:calc(50% - 2px);height:4px;background:linear-gradient(90deg,#4ad8ff,#fff,#ff7a59);box-shadow:0 0 16px #fff8}
+  .lay-lr .spmid{top:0;bottom:0;left:calc(50% - 2px);width:4px;background:linear-gradient(180deg,#4ad8ff,#fff,#ff7a59);box-shadow:0 0 16px #fff8}
+  .spmb{pointer-events:auto;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;border:2px solid #fff7;background:#150d33;color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px #000a;touch-action:manipulation} .spmb:disabled{opacity:.45} .spmb .pico{display:flex;gap:4px} .spmb .pico i{width:4px;height:15px;border-radius:2px;background:#fff}
+  .spov{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;pointer-events:none} .spov:empty{display:none} .spov .spres,.spov .spres *{pointer-events:auto}
+  .spcd{font-size:clamp(64px,22vmin,150px);font-weight:900;color:#fff;text-shadow:0 6px 0 #0008,0 0 36px #fff9;animation:spcd .8s cubic-bezier(.2,1.4,.4,1)} .spcd.go{color:#ffd54a;text-shadow:0 6px 0 #0008,0 0 40px #ffb23d} @keyframes spcd{from{transform:scale(.3);opacity:0}60%{opacity:1}}
+  .spn{font-size:14px;letter-spacing:3px;color:#fff;font-weight:900}
+  .spres{min-width:min(86%,250px);display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:16px 22px;border-radius:22px;max-width:min(92%,380px);background:linear-gradient(180deg,#1d1245f2,#0a0620f2);border:1px solid #ffffff2a;box-shadow:0 20px 50px #000b;animation:bxpop .45s cubic-bezier(.2,1.4,.4,1)}
+  .spres small{font-size:11px;letter-spacing:3px;font-weight:900;color:var(--mute)} .spres b{font-size:clamp(24px,6.5vmin,38px);letter-spacing:2px;line-height:1.1} .spres b.win{color:#ffd54a;text-shadow:0 0 22px #ffb23d88} .spres b.lose{color:#ff9a9a} .spres>span{font-weight:900;font-size:16px;color:#e8e0ff}
+  .spres .ic{width:1em;height:1em;vertical-align:-.1em} .sprow{display:flex;gap:10px;margin-top:6px;width:100%} .sprow .btn{flex:1;min-width:0;padding:12px 10px;font-size:14px;white-space:nowrap}
+  .spmini{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);z-index:4;font-size:10px;font-weight:900;letter-spacing:1.5px;padding:4px 12px;border-radius:999px;background:#150d33e6;border:1px solid #ffffff22;color:#e8e0ff;white-space:nowrap;pointer-events:none} .spmini b{color:#ffd54a}
+  .spmini:empty{display:none}
+  .spintro{text-align:center} .spi-eyebrow{font-size:11px;letter-spacing:5px;color:var(--gold);font-weight:900;margin-top:2px}
+  .spi-title{display:flex;flex-direction:column;font-size:26px;font-weight:900;letter-spacing:3px;line-height:1.05;margin:4px 0 6px;background:linear-gradient(90deg,#4ad8ff,#fff 50%,#ff7a59);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px #7a4dff88)}
+  .spi-art{position:relative;height:150px;border-radius:16px;overflow:hidden;background:#0007;border:1px solid var(--line);margin:6px 0;box-shadow:0 0 30px #7a4dff44}
+  .spi-art .a{position:absolute;left:0;right:0;height:50%;display:flex;flex-direction:column-reverse;align-items:center;justify-content:flex-start;gap:3px;padding-bottom:8px;background:linear-gradient(180deg,#3b1f7a,#e0705a)} .spi-art .a2{top:0;transform:rotate(180deg)} .spi-art .a1{bottom:0}
+  .spi-art .a u{display:block;height:10px;border-radius:4px;text-decoration:none;opacity:0;animation:spb 3.6s ease-in-out infinite;background:linear-gradient(180deg,hsl(var(--h,40) 95% 68%),hsl(var(--h,40) 95% 54%))}
+  .spi-art .a1 u{--h:195} .spi-art .a2 u{--h:12}
+  .spi-art u:nth-child(1){width:70px;animation-delay:0s} .spi-art u:nth-child(2){width:64px;animation-delay:.35s} .spi-art u:nth-child(3){width:58px;animation-delay:.7s} .spi-art u:nth-child(4){width:50px;animation-delay:1.05s}
+  .spi-art .a2 u:nth-child(1){animation-delay:.15s} .spi-art .a2 u:nth-child(2){animation-delay:.55s} .spi-art .a2 u:nth-child(3){animation-delay:.85s} .spi-art .a2 u:nth-child(4){animation-delay:1.3s}
+  @keyframes spb{0%,6%{transform:translateY(-46px);opacity:0}18%{transform:none;opacity:1}88%{opacity:1}100%{opacity:0}}
+  .spi-art .mid{position:absolute;left:0;right:0;top:calc(50% - 2px);height:4px;background:linear-gradient(90deg,#4ad8ff,#fff,#ff7a59);box-shadow:0 0 14px #fff8;z-index:2}
+  .spi-list{list-style:none;margin:6px 0;padding:0;display:flex;flex-direction:column;gap:9px;text-align:left;font-size:13px;font-weight:700;color:#e8e0ff} .spi-list li{display:flex;gap:10px;align-items:flex-start;line-height:1.3}
+  .spi-list i{flex:none;width:26px;height:26px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,#7a4dff,#c06aff)} .spi-list .ic{width:15px;height:15px}
+  .calm .spi-art u{animation:none;opacity:1}
+  #spBody{display:flex;flex-direction:column;gap:8px} .spnote{text-align:center;font-size:13px;color:var(--mute);font-weight:700;line-height:1.35} .spsec{font-size:11px;letter-spacing:3px;color:var(--mute);font-weight:900;text-align:center;margin-top:4px}
+  .spopts{display:flex;gap:10px} .spopts .spo{flex:1;border-radius:16px;padding:10px 8px;background:#ffffff0d;border:2px solid var(--line);color:#fff;font-family:inherit;text-align:center;cursor:pointer;display:flex;flex-direction:column;gap:4px;align-items:center;touch-action:manipulation} .spopts .spo.on{border-color:var(--gold);background:#ffc83d1a;box-shadow:0 0 18px #ffc83d33}
+  .spopts .spo b{font-size:14px} .spopts .spo small{font-size:11px;color:var(--mute);font-weight:700} .spopts.r .spo{padding:14px 6px}
+  .spo .mini::after{content:"";position:absolute;background:linear-gradient(90deg,#4ad8ff,#fff,#ff7a59);z-index:2} .spo .mini.tb::after{left:0;right:0;top:calc(50% - 1px);height:2px} .spo .mini.lr::after{top:0;bottom:0;left:calc(50% - 1px);width:2px;background:linear-gradient(180deg,#4ad8ff,#fff,#ff7a59)}
+  .spo .mini{width:100%;height:56px;border-radius:9px;position:relative;overflow:hidden;background:#0006;border:1px solid var(--line)} .spo .mini i{position:absolute;background:linear-gradient(180deg,#3b1f7a,#e0705a)}
+  .splitTile i{background:linear-gradient(135deg,#4ad8ff,#ff7a59)!important}
+  #spTag{position:absolute;left:10px;top:10px;z-index:8;font-size:11px;font-weight:900;letter-spacing:2px;padding:4px 10px;border-radius:999px;background:#0009;color:var(--pc,#fff);border:1px solid color-mix(in srgb,var(--pc,#fff) 55%,transparent);pointer-events:none}
+  #spOpp{position:absolute;right:10px;top:10px;z-index:8;font-size:11px;font-weight:900;letter-spacing:1px;padding:4px 10px;border-radius:999px;background:#0009;color:#ffe2d8;pointer-events:none} #spOpp:empty{display:none} #spOpp.out{color:#ff9a9a}
   #stage{visibility:hidden}
   body.ready #stage{visibility:visible}
   #stage{position:fixed;top:0;bottom:0;left:0;right:0;margin:0 auto;width:min(100vw,520px);overflow:hidden;background:#14102b}
@@ -923,6 +963,31 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     </div>
   </section>
 
+  <section id="splitIntro" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="2 player split screen">
+    <div class="shbg" id="splitIntroBg"></div>
+    <div class="shcard cs spintro">
+      <div class="spi-eyebrow">INTRODUCING</div>
+      <div class="spi-title"><span>2 PLAYER</span><span>SPLIT SCREEN</span></div>
+      <div class="spi-art" aria-hidden="true"><div class="a a2"><u></u><u></u><u></u><u></u></div><div class="mid"></div><div class="a a1"><u></u><u></u><u></u><u></u></div></div>
+      <ul class="spi-list">
+        <li><i><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg></i><span>Two players, one screen. Both stack at the same time.</span></li>
+        <li><i><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg></i><span>On iPhone the top half is upside down, so you can play face to face.</span></li>
+        <li><i><svg class="ic" aria-hidden="true"><use href="#i-expand"/></svg></i><span>On iPad choose face to face or side by side.</span></li>
+        <li><i><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg></i><span>Play a few rounds. The player with the taller tower wins each round!</span></li>
+      </ul>
+      <div class="row stickyfoot"><button id="splitIntroGo" class="btn primary">TRY IT NOW</button><button id="splitIntroNo" class="btn">Maybe later</button></div>
+    </div>
+  </section>
+
+  <section id="splitSetup" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Split screen">
+    <div class="shbg" id="splitSetupBg"></div>
+    <div class="shcard cs">
+      <h2>SPLIT SCREEN</h2>
+      <div id="spBody"></div>
+      <div class="row stickyfoot"><button id="spStart" class="btn primary">START</button><button id="spBack" class="btn">Back</button></div>
+    </div>
+  </section>
+
   <section id="seasonSheet" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Season pass">
     <div class="shbg" id="seasonBg"></div>
     <div class="shcard cs">
@@ -1004,6 +1069,12 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
 <script>
 (() => {
 'use strict';
+/* Split screen: each half of the screen is a whole separate copy of this game running inside an iframe (?split=1&p=1 or 2), driven by the page around it.
+   A copy like that never saves anything, shows no menus, and reports its score to the parent. */
+const SPLIT=(()=>{ try{ return window.parent!==window && /[?&]split=1(&|$)/.test(location.search); }catch(e){ return false; } })();
+const SPLIT_P=(()=>{ const m=/[?&]p=([12])/.exec(location.search); return m?+m[1]:1; })();
+if(SPLIT) document.documentElement.classList.add('splitchild');
+const spPost=m=>{ try{ parent.postMessage(Object.assign({sr:'split',p:SPLIT_P},m),location.origin); }catch(e){} };
 
 /* ================= Config ================= */
 const CFG = {
@@ -1415,14 +1486,14 @@ const ACH = [
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',top:[],rushBest:0,rushTime:0,rushCp:0,gifts:[],season:null,boxes:0,boxPity:0,boxN:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',top:[],rushBest:0,rushTime:0,rushCp:0,splitIntro:0,splitCfg:null,gifts:[],season:null,boxes:0,boxPity:0,boxN:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,cb:false,bigText:false,oneHand:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
              lastClaim:'',streak:0,daily:{day:'',perfects:0,done:false},seenTip:false,weekly:{week:'',p:[0,0,0],claimed:false}};
 const store = {
   get(){ try{ return JSON.parse(localStorage.getItem('stackrush.v2')||'{}'); }catch(e){ return {}; } },
-  set(v){ try{ localStorage.setItem('stackrush.v2', JSON.stringify(v)); }catch(e){} }
+  set(v){ if(SPLIT) return; try{ localStorage.setItem('stackrush.v2', JSON.stringify(v)); }catch(e){} }
 };
 function cleanSave(raw){
   const out=JSON.parse(JSON.stringify(DEF));
@@ -1438,6 +1509,8 @@ function cleanSave(raw){
   if(raw.dm && typeof raw.dm==='object'){ const a=v=>Array.isArray(v)?[0,1,2].map(i=>num(v[i],1e6)):[0,0,0]; out.dm={day:num(raw.dm.day,1e6),p:a(raw.dm.p),paid:a(raw.dm.paid).map(x=>x?1:0),all:raw.dm.all?1:0}; }
   if(Array.isArray(raw.top)) out.top=raw.top.filter(r=>r&&typeof r==='object'&&['classic','timed','lives','hazard','daily'].includes(r.m)).slice(0,10).map(r=>({m:r.m,s:num(r.s,1e7),h:num(r.h,1e5),t:num(r.t,9e12)}));
   if(raw.season && typeof raw.season==='object' && typeof raw.season.id==='string' && /^\d{4}-[0-5]$/.test(raw.season.id)){ const tl=a=>Array.isArray(a)?[...new Set(a.map(v=>Math.floor(Number(v))).filter(v=>v>=1&&v<=30))]:[]; out.season={id:raw.season.id,d:num(raw.season.d,1e6),xp:num(raw.season.xp,6000),f:tl(raw.season.f),p:tl(raw.season.p),prem:raw.season.prem?true:false}; }
+  if(own(raw,'splitIntro')) out.splitIntro=raw.splitIntro?1:0;
+  if(raw.splitCfg && typeof raw.splitCfg==='object') out.splitCfg={layout:raw.splitCfg.layout==='lr'?'lr':'tb',rounds:[1,3,5].includes(raw.splitCfg.rounds)?raw.splitCfg.rounds:3};
   if(Array.isArray(raw.gifts)) out.gifts=[...new Set(raw.gifts.filter(v=>typeof v==='string'&&/^[0-9a-f]{64}$/.test(v)))].slice(0,20);
   for(const k of ['boxes','boxN']) if(own(raw,k)) out[k]=num(raw[k],k==='boxes'?9999:1e6); if(own(raw,'boxPity')) out.boxPity=num(raw.boxPity,9);
   if(own(raw,'rushBest')) out.rushBest=num(raw.rushBest,37); if(own(raw,'rushCp')) out.rushCp=num(raw.rushCp,30); if(own(raw,'rushTime')) out.rushTime=num(raw.rushTime,1e7);
@@ -1484,6 +1557,7 @@ function cleanSave(raw){
   return out;
 }
 const S = cleanSave(store.get());
+if(SPLIT){ S.assist='off'; S.shop.pick=[]; S.ghostOutline=false; S.ghosts={}; S.mute=false; S.music=false; S.tutSeen=true; S.weekly=null; S.oneHand=false; S.bigText=false; S.shop.equip.view='flat'; S.shop.equip.vscene='grid'; }
 function sanitize(){
   if(!Array.isArray(S.owned) || !S.owned.length) S.owned = ['sunset'];
   const lv=levelOf(S.blocks||0);
@@ -1622,7 +1696,7 @@ function hue(th,i){ return (((th.h0 + th.hr*(.5+.5*Math.sin(i*th.hs))) % 360) + 
 const hsl = (h,s,l,a=1) => `hsla(${h.toFixed(1)},${s}%,${l}%,${a})`;
 function popEl(el,scale=1.22,ms=170){ if(reduceOn()) return; try{ el.animate([{transform:`scale(${scale})`},{transform:'scale(1)'}],{duration:ms,easing:'ease-out'}); }catch(e){} }
 const tq=[]; let tBusy=false;
-function toast(msg,ms=2200){ tq.push([msg,ms]); if(!tBusy) nextToast(); }
+function toast(msg,ms=2200){ if(SPLIT) return; tq.push([msg,ms]); if(!tBusy) nextToast(); }
 function nextToast(){
   const it=tq.shift(); if(!it){ tBusy=false; return; }
   tBusy=true; const el=$('toast'); el.innerHTML=it[0]; el.classList.add('show');
@@ -1659,7 +1733,7 @@ async function loadLang(code){
   }catch(e){ dict={}; return 'en'; }
 }
 /* containers whose content is generated by JS (already passed through tr()) */
-const I18N_SKIP='#seasonBody,#boxStage,#evCard,#evBody,#evTitle,#hatchMsg,#hatchRw,#unlockRows small,#csEarn,#csBuy,#powerList,#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
+const I18N_SKIP='#split,#spBody,#seasonBody,#boxStage,#evCard,#evBody,#evTitle,#hatchMsg,#hatchRw,#unlockRows small,#csEarn,#csBuy,#powerList,#mList,#chScore,#chText,#wkBox,#boostNote,#boostList,#boostN,#mGrid,#sGrid,#tGrid,#tTabs,#lGrid,#aList,#aStats,#aCount,#sInfo,#tInfo,#dailyCard,#nextCard,#oLabel,#oScore,#oBest,#oCoins,#oLevel,#oNext,#aux,#combo,#toast,#coachText,#ghostD,#speedB,#count,#live,#playSub,#modeName,#peekName,#peekSub,#peekAct,#revive,#tip,#score,#again,[data-set=sound],[data-set=music],[data-set=silent],[data-set=haptics],[data-set=reduce],[data-set=ghost],[data-set=assist],[data-set=language]';
 const origText=new WeakMap(), origAttr=new WeakMap();
 function staticTextNodes(root){
   const out=[];
@@ -1712,6 +1786,7 @@ function applyAudioSession(){ if(!HAS_AUDIO_SESSION) return; try{ navigator.audi
 function kickAudio(){ if(!ac) return; try{ const p=ac.resume(); if(p && p.catch) p.catch(()=>{}); }catch(e){} }
 /* What a car stereo, a Bluetooth speaker or the lock screen shows while the game makes sound: "Stack Rush", not the web address. */
 function setNowPlaying(){
+  if(SPLIT) return;
   try{
     if(!('mediaSession' in navigator) || typeof MediaMetadata!=='function') return;
     const base=location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,'');
@@ -1923,7 +1998,7 @@ let W=0,H=0,u=1,dpr=1,BH=34,baseLine=0;
 /* phones fill the screen; tablets (touch screens at least 600px on the short side, split-screen aware) get a centred
    column and a scaled-up UI. Runs before every measurement, so rotating or resizing a window just works. */
 function layoutDevice(st){
-  tablet=(IS_IPAD||COARSE) && Math.min(innerWidth,innerHeight)>=600;
+  tablet=!SPLIT && (IS_IPAD||COARSE) && Math.min(innerWidth,innerHeight)>=600;
   const b=document.body; b.classList.toggle('tablet',tablet); b.classList.toggle('ios',IS_IOS);
   const z=tablet ? clamp(Math.min(st.clientHeight/780,st.clientWidth/380),1,1.5) : 1;
   if(Math.abs(z-uiZ)>.004){ uiZ=z; b.style.setProperty('--z',z.toFixed(3)); }
@@ -1975,7 +2050,7 @@ function resize(){
   initAmb(); if(state==='playing') fitScore();
 }
 /* the tower sits a little higher in practice so the coaching card never covers it */
-function setBase(){ baseLine=H*(state==='playing' && mode==='practice' ? .66 : .8); }
+function setBase(){ baseLine=H*(state==='playing' && mode==='practice' ? .66 : SPLIT ? .86 : .8); }
 const scanCv=document.createElement('canvas'); scanCv.width=4; scanCv.height=3;
 { const c=scanCv.getContext('2d'); c.fillStyle='rgba(0,0,0,.16)'; c.fillRect(0,2,4,1); }
 let scanPat=null;
@@ -2487,7 +2562,8 @@ const WEEK_BOOSTS=['shield','slow','regrow','time'];
 function ensureWeek(){ const k=weekKey(); if(!S.weekly || S.weekly.week!==k) S.weekly={week:k,p:[0,0,0],claimed:false}; }
 const weeklyDone=()=>{ ensureWeek(); return weekMissions().every((m,i)=>S.weekly.p[i]>=m.n); };
 const weeklyReady=()=>weeklyDone() && !S.weekly.claimed;
-function weeklyRecord(r){                                          // r: what this round did: {blocks, perfects, height, combo, score}
+function weeklyRecord(r){
+  if(SPLIT) return;                                          // r: what this round did: {blocks, perfects, height, combo, score}
   try{ dailyRecord(r); }catch(e){}
   if(soft()) return;                                              // Zen and Practice cannot be farmed for the chest
   try{ seasonAddXp(seasonRunXp(r)); }catch(e){}
@@ -2557,6 +2633,7 @@ function giveGrant(a){
   if(name) setTimeout(()=>toast(`${I('gem','ic-gold')} ${tr('Unlocked: <b>{names}</b>',{names:name})}`,3200),900);
 }
 function checkAch(x){
+  if(SPLIT) return;
   if(mode==='practice') return;
   x=Object.assign({mode,height:Math.max(0,stack.length-1),combo:bestCombo,score},boosted?{height:0,combo:0,score:0}:{},x||{});    // a boosted run does not count for height / combo / score awards
   let any=false;
@@ -2829,6 +2906,7 @@ function applyXp(blocks){
 function endRun(reason){
   if(state!=='playing') return;
   if(cur){ addPiece(cur,dir); cur=null; }
+  if(SPLIT){ state='over'; $('tip').classList.add('hidden'); if(reason==='fail') shake=Math.max(shake,14*u); spPost({t:'over',score,blocks:Math.max(0,stack.length-1)}); return; }
   state='over'; $('tip').classList.add('hidden'); syncPower();
   const M=MODES[mode];
   if(reason==='fail'){ shake=Math.max(shake,14*u); }
@@ -2947,7 +3025,7 @@ function revive(regrow){
 let cdTimers=[];
 function clearCount(){ cdTimers.forEach(clearTimeout); cdTimers=[]; $('count').classList.add('hidden'); }
 function showCount(n){ const c=$('count'); c.classList.remove('hidden'); c.innerHTML=`<span>${n}</span>`; sfx.tick(); }
-function pause(){ if(state!=='playing'||paused) return; if(powerPhase!=='off') closePower(true); clearCount(); paused=true; $('pause').classList.remove('hidden'); }
+function pause(){ if(SPLIT || state!=='playing'||paused) return; if(powerPhase!=='off') closePower(true); clearCount(); paused=true; $('pause').classList.remove('hidden'); }
 function resume(){
   if(!paused) return;
   paused=false; grace=CFG.resumeGrace; $('pause').classList.add('hidden');
@@ -2967,7 +3045,7 @@ function fitScore(){
   const half=Math.min(mid-left,right-mid)-6;
   if(w/2>half) el.style.fontSize=(parseFloat(getComputedStyle(el).fontSize)*Math.max(.4,2*Math.max(half,20)/w)).toFixed(1)+'px';
 }
-function setScore(v){ const el=$('score'); el.textContent=v; fitScore(); popEl(el,1.18,140); }
+function setScore(v){ const el=$('score'); el.textContent=v; fitScore(); popEl(el,1.18,140); if(SPLIT) spPost({t:'score',score:+v||0}); }
 function setCombo(c){
   const el=$('combo');
   if(c>=2){ el.textContent=tr('COMBO x{n}',{n:c}); popEl(el,1.4,200); } else el.textContent='';
@@ -3842,6 +3920,7 @@ function draw(){
 
 let last=0, errStreak=0;
 function loop(ts){
+  if(SPL){ last=ts; requestAnimationFrame(loop); return; }
   /* the menu and the pause screen idle at ~30fps to save battery */
   if((state==='menu' || paused) && last && ts-last<30){ requestAnimationFrame(loop); return; }
   const dt=Math.min(.05,(ts-last)/1000||.016); last=ts;
@@ -3926,7 +4005,7 @@ async function shareScore(){
 }
 
 /* ================= Menu / UI ================= */
-const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet','evsheet','hatch','photoSheet','seasonSheet','boxSheet'];
+const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet','evsheet','hatch','photoSheet','seasonSheet','boxSheet','splitIntro','splitSetup'];
 function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); soon(syncReach); try{ hideEvToast(); }catch(e){} }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
@@ -4034,7 +4113,7 @@ function buyEasy(){
 /* reminders: a big banner the first time the app is opened with 10, 5 or 3 days left, and on the last day */
 function evWarnCheck(){
   const ev=activeEvent(); if(!ev || state!=='menu' || $('menu').classList.contains('hidden')) return;
-  for(const id of ['evsheet','hzsheet','fsheet','boosts','coinsSheet','udlg','hatch','seasonSheet','boxSheet']) if(!$(id).classList.contains('hidden')) return;       // never over an open sheet
+  for(const id of ['evsheet','hzsheet','fsheet','boosts','coinsSheet','udlg','hatch','seasonSheet','boxSheet','splitIntro','splitSetup']) if(!$(id).classList.contains('hidden')) return;       // never over an open sheet
   const ms=evEnd(ev)-evNow(), d=ms/864e5, key=ms<864e5?'last':d<=3?'3':d<=5?'5':d<=10?'10':null; if(!key) return;
   const tag=ev.id+':'+key; if(S.evWarn.includes(tag)) return;
   for(const k of ['10','5','3','last']){ const t=ev.id+':'+k; if(!S.evWarn.includes(t)) S.evWarn.push(t); if(k===key) break; }       // the earlier ones are not shown late
@@ -4194,6 +4273,7 @@ function claimDaily(){
   save(); sfx.coin(); toast(tr('+{n} {coin} · {s}-day streak!',{n:reward,coin:I('coin'),s:S.streak})+(gift?` · ${I(BOOSTS[gift].icon,'ic-cyan')} ${tr('+1 {name}',{name:tr(BOOSTS[gift].name)})}`:'')); renderMenu(); setCoins(); checkAch();
 }
 function showMenu(){
+  if(SPL){ while(spTimers.length) clearTimeout(spTimers.pop()); SPL=null; $('split').classList.add('hidden'); $('split').innerHTML=''; document.body.classList.remove('splitting'); }
   rollDay(); endPreview(true); clearCount();
   if(!S.shop.gift && S.played>=1){ S.shop.gift=true; for(const b of Object.keys(BOOSTS)) if(!BOOSTS[b].lift && !BOOSTS[b].camp) S.shop.boosts[b]=Math.min(999,(S.shop.boosts[b]||0)+1); save(); setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('Welcome gift: one of each boost. Pick them with the bolt button.')}`,3400),500); }
   passPlay=0; friendRun=false; rush=null; state='menu'; setBase(); paused=false; tut.on=false; $('pause').classList.add('hidden'); demoStack(); hideAll(); $('menu').classList.remove('hidden'); held=[]; syncPower();
@@ -4203,7 +4283,8 @@ function showMenu(){
   setCoins(); renderMenu(); setGhostD(); showUpdateIfIdle(); checkForUpdate(); stagger('#menu .sbody>*');
   if(incoming){ const ch=incoming; incoming=null; openChallenge(ch); }
   else if(unlockedNow){ unlockedNow=false; openUnlockDlg('done',unlockedKey); }
-  setTimeout(()=>{ try{ if(!offered && $('udlg').classList.contains('hidden')) evWarnCheck(); }catch(e){} },900);        // event reminders (10, 5, 3 days, last day)
+  setTimeout(()=>{ try{ if(!offered && $('udlg').classList.contains('hidden')) evWarnCheck(); }catch(e){} },900);
+  setTimeout(()=>{ try{ splitIntroCheck(); }catch(e){} },1500);        // event reminders (10, 5, 3 days, last day)
 }
 function showModes(){
   hideAll(); $('modes').classList.remove('hidden');
@@ -4220,8 +4301,129 @@ function showModes(){
   };
   const br=`<button class="mode tile${rushUnlocked()?'':' lockd'}" data-mode="bossrush"><i>${I('crown')}</i><b>${tr('Boss Rush')}</b><span>${rushUnlocked()?tr('Seven bosses, then a 30-boss Gauntlet. Lives carry over.'):tr('Clear the first boss in the campaign to unlock.')}</span><em>${rushUnlocked()?tr('BEST')+' '+(S.rushBest||0)+'/'+RUSH_TOTAL:I('lock')}</em></button>`;
   const fr=`<button class="mode tile" data-mode="friend"><i>${I('share')}</i><b>${tr('Friend race')}</b><span>${tr('Send a round to a friend, or play one they sent you.')}</span><em>${tr('LINK')}</em></button>`;
-  $('mGrid').innerHTML = feat.map(id=>card(id,'feat')).join('') + `<div class="tiles">${tiles.map(id=>card(id,'tile')).join('')}${fr}${br}</div>`; stagger('#mGrid .mode');
+  const spl=`<button class="mode tile splitTile" data-mode="split"><i>${I('expand')}</i><b>${tr('Split screen')}</b><span>${tr('Two players at once on one screen.')}</span><em>${tr('2 PLAYERS')}</em></button>`;
+  $('mGrid').innerHTML = feat.map(id=>card(id,'feat')).join('') + `<div class="tiles">${tiles.map(id=>card(id,'tile')).join('')}${fr}${br}${spl}</div>`; stagger('#mGrid .mode');
 }
+/* ================= Split screen: two players at once =================
+   The screen is cut in two. Each half holds a whole separate copy of the game (an iframe, see SPLIT above), so both players play at the same time with their own taps.
+   On a phone the top half is turned upside down so the players can sit face to face; on a tablet or computer they can also play side by side.
+   A round is one Classic run each (one life, same speed): it ends when both are out, or as soon as the one still playing passes the one who is out.
+   The higher tower wins the round; a draw is played again. First to win most of the rounds wins the match. Nothing here touches your save, coins or best scores. */
+let SPL=null;
+const SPLIT_ROUNDS=[1,3,5], SPLIT_T={afk:25000,idle:15000};
+const spCfg=()=>Object.assign({layout:'tb',rounds:3},S.splitCfg||{});
+const spCanLR=()=>Math.min(innerWidth,innerHeight)>=600;
+function renderSplitSetup(){
+  const c=spCfg(), lr=spCanLR(), lay=(c.layout==='lr'&&lr)?'lr':'tb';
+  const mini=(k)=>k==='tb'?`<div class="mini tb"><i style="left:0;right:0;top:0;height:50%;transform:rotate(180deg)"></i><i style="left:0;right:0;bottom:0;height:50%"></i></div>`:`<div class="mini lr"><i style="left:0;top:0;bottom:0;width:50%"></i><i style="right:0;top:0;bottom:0;width:50%"></i></div>`;
+  let h=`<div class="spnote">${tr('Two players at once on one screen. Beat the other player\'s tower, or outlast them.')}</div>`;
+  h+=`<div class="spsec">${tr('LAYOUT')}</div><div class="spopts">`;
+  h+=`<button class="spo${lay==='tb'?' on':''}" data-lay="tb">${mini('tb')}<b>${tr('Face to face')}</b><small>${tr('The top half is upside down')}</small></button>`;
+  if(lr) h+=`<button class="spo${lay==='lr'?' on':''}" data-lay="lr">${mini('lr')}<b>${tr('Side by side')}</b><small>${tr('Both halves upright')}</small></button>`;
+  h+=`</div><div class="spsec">${tr('ROUNDS')}</div><div class="spopts r">`+SPLIT_ROUNDS.map(n=>`<button class="spo${c.rounds===n?' on':''}" data-rounds="${n}"><b>${n===1?tr('1 round'):tr('Best of {n}',{n})}</b></button>`).join('')+`</div>`;
+  $('spBody').innerHTML=h;
+}
+function openSplitSetup(){ renderSplitSetup(); $('splitSetup').classList.remove('hidden'); soon(syncBack); }
+function closeSplitSetup(){ $('splitSetup').classList.add('hidden'); soon(syncBack); }
+function openSplitIntro(){ S.splitIntro=1; save(); $('splitIntro').classList.remove('hidden'); soon(syncBack); sfx.up(); }
+function closeSplitIntro(){ $('splitIntro').classList.add('hidden'); soon(syncBack); }
+function splitIntroCheck(){
+  if(SPLIT || S.splitIntro || SPL || state!=='menu') return;
+  if(!onPlainMenu()) return;
+  for(const id of ['tutOffer','udlg','chal']) if(!$(id).classList.contains('hidden')) return;
+  openSplitIntro();
+}
+/* --- the match --- */
+const spTimers=[]; const spLater=(f,ms)=>{ const id=setTimeout(()=>{ const i=spTimers.indexOf(id); if(i>=0) spTimers.splice(i,1); f(); },ms); spTimers.push(id); return id; };
+const spOther=p=>p===1?2:1;
+function spSend(p,m){ try{ const f=SPL&&SPL.frames[p-1]; if(f&&f.contentWindow) f.contentWindow.postMessage(Object.assign({sr:'split'},m),location.origin); }catch(e){} }
+const spBoth=m=>{ spSend(1,m); spSend(2,m); };
+function startSplit(){
+  const c=spCfg(); closeSplitSetup(); hideAll(); endPreview(true);
+  const lay=(c.layout==='lr'&&spCanLR())?'lr':'tb', dbg=location.hash==='#debug'?'#debug':'';
+  SPL={layout:lay,rounds:c.rounds,need:Math.ceil(c.rounds/2),rn:1,wins:[0,0],sc:[0,0],out:[false,false],act:[0,0],ready:[false,false],phase:'load',frames:[],paused:false,draws:0,over:null};
+  const root=$('split'); root.className='split lay-'+lay;
+  root.innerHTML=[2,1].map(p=>`<div class="sph" data-p="${p}"><div class="spin"><iframe title="${tr('PLAYER {n}',{n:p})}" src="index.html?split=1&p=${p}${dbg}" allow="autoplay"></iframe><div class="spov" data-p="${p}"></div><div class="spmini" data-p="${p}"></div></div></div>`).join('')+`<div class="spmid"><button id="spPause" class="spmb" aria-label="${tr('Pause')}"><span class="pico"><i></i><i></i></span></button></div>`;
+  SPL.frames=[root.querySelector('.sph[data-p="1"] iframe'),root.querySelector('.sph[data-p="2"] iframe')];
+  root.classList.remove('hidden'); document.body.classList.add('splitting'); soon(syncBack);
+  spOverlay('<b class="spn">'+tr('Loading…')+'</b>');
+  spLater(()=>{ if(SPL && SPL.phase==='load'){ splitQuit(); toast(tr('Split screen could not start. Try again.')); } },9000);
+}
+function splitQuit(){
+  while(spTimers.length) clearTimeout(spTimers.pop());
+  if(SPL){ SPL.frames.forEach(f=>{ try{ f.src='about:blank'; }catch(e){} }); }
+  SPL=null; const root=$('split'); root.classList.add('hidden'); root.innerHTML=''; document.body.classList.remove('splitting'); soon(syncBack);
+  if(state!=='menu' || $('menu').classList.contains('hidden')) showMenu();
+}
+/* what each half shows on top of its game, drawn the right way up for its player */
+function spOverlay(html,only){ if(!SPL) return; for(const p of [1,2]){ if(only && only!==p) continue; const el=$('split').querySelector('.spov[data-p="'+p+'"]'); if(el) el.innerHTML=typeof html==='function'?html(p):html; } }
+function spMini(){
+  if(!SPL) return; for(const p of [1,2]){ const el=$('split').querySelector('.spmini[data-p="'+p+'"]'); if(!el) continue; const me=SPL.wins[p-1], op=SPL.wins[spOther(p)-1];
+    el.innerHTML=`${tr('YOU')} <b>${me}</b> – <b>${op}</b> ${tr('OPP')} · ${tr('ROUND {n}',{n:SPL.rn})}`; }
+}
+function splitRound(){
+  if(!SPL) return; SPL.phase='count'; SPL.sc=[0,0]; SPL.out=[false,false]; SPL.paused=false; spMini(); $('spPause').disabled=true;
+  spBoth({t:'prepare'}); spBoth({t:'opp',score:0,out:false});
+  const steps=['3','2','1',tr('GO!')];
+  const run=i=>{ if(!SPL||SPL.phase!=='count') return; spOverlay(`<div class="spcd${i===3?' go':''}" key="${i}">${steps[i]}</div>`); if(i<3) sfx.tick(); else { sfx.up(); }
+    if(i<3) spLater(()=>run(i+1),800); else spLater(()=>{ if(!SPL||SPL.phase!=='count') return; SPL.phase='play'; const n=performance.now(); SPL.act=[n,n]; spBoth({t:'go'}); spOverlay(''); $('spPause').disabled=false; },650); };
+  spLater(()=>run(0),350);
+}
+function spDecide(){
+  if(!SPL||SPL.phase!=='play') return; const [a,b]=SPL.sc,[oa,ob]=SPL.out;
+  if(oa&&ob) return spEnd(a>b?1:b>a?2:0);
+  if(oa&&b>a) return spEnd(2); if(ob&&a>b) return spEnd(1);
+}
+function spEnd(w){
+  if(!SPL||SPL.phase!=='play') return; SPL.phase='result'; spBoth({t:'end'}); $('spPause').disabled=true;
+  const scores=[SPL.sc[0],SPL.sc[1]];
+  if(w>0) SPL.wins[w-1]++; spMini();
+  const matchDone=w>0 && SPL.wins[w-1]>=SPL.need;
+  spOverlay(p=>{ const me=p===w, tie=w===0;
+    return `<div class="spres"><small>${tie?tr('DRAW'):tr('ROUND {n}',{n:SPL.rn})}</small><b class="${tie?'':me?'win':'lose'}">${tie?tr('DRAW'):me?tr('YOU WIN!'):tr('YOU LOSE')}</b><span>${scores[p-1]} – ${scores[spOther(p)-1]}</span>${tie?`<small>${tr('Playing the round again')}</small>`:''}</div>`; });
+  sfx[w>0?'perfect':'tick'](w>0?5:1);
+  if(matchDone){ spLater(()=>spMatchOver(w),2300); return; }
+  spLater(()=>{ if(!SPL) return; if(w>0) SPL.rn++; splitRound(); },2700);
+}
+function spMatchOver(w){
+  if(!SPL) return; SPL.phase='match'; SPL.over=w; spMini();
+  spOverlay(p=>{ const me=p===w; return `<div class="spres final"><small>${tr('PLAYER {n} WINS THE MATCH',{n:w})}</small><b class="${me?'win':'lose'}">${me?I('trophy','ic-gold')+' '+tr('YOU WIN!'):tr('YOU LOSE')}</b><span>${SPL.wins[p-1]} – ${SPL.wins[spOther(p)-1]}</span><div class="sprow"><button class="btn primary" data-sp="again">${tr('REMATCH')}</button><button class="btn" data-sp="menu">${tr('MENU')}</button></div></div>`; });
+  sfx.up(); vib([30,40,30,40,60]);
+}
+function splitPause(){
+  if(!SPL||SPL.phase!=='play'||SPL.paused) return; SPL.paused=true; spBoth({t:'pause'});
+  spOverlay(`<div class="spres"><b>${tr('PAUSED')}</b><div class="sprow"><button class="btn primary" data-sp="resume">${tr('Resume')}</button><button class="btn" data-sp="menu">${tr('Quit')}</button></div></div>`);
+}
+function splitResume(){
+  if(!SPL||!SPL.paused) return; SPL.phase='count';
+  const steps=['3','2','1'], run=i=>{ if(!SPL||SPL.phase!=='count') return; if(i>=3){ SPL.paused=false; SPL.phase='play'; const n=performance.now(); SPL.act=[n,n]; spBoth({t:'resume'}); spOverlay(''); return; } spOverlay(`<div class="spcd" key="${i}">${steps[i]}</div>`); sfx.tick(); spLater(()=>run(i+1),700); };
+  run(0);
+}
+function splitBack(){                                               // the Back button / key
+  if(!SPL) return false;
+  if(SPL.phase==='play') splitPause(); else if(SPL.phase==='count'||SPL.phase==='result'||SPL.phase==='load') splitQuit(); else if(SPL.phase==='match') splitQuit();
+  return true;
+}
+addEventListener('message',e=>{
+  const d=e.data; if(!SPL || e.origin!==location.origin || !d || d.sr!=='split') return;
+  const i=SPL.frames.findIndex(f=>f.contentWindow===e.source); if(i<0) return; const p=i+1;
+  if(d.t==='ready'){ SPL.ready[i]=true; if(SPL.ready[0]&&SPL.ready[1]&&SPL.phase==='load') splitRound(); return; }
+  if(SPL.phase!=='play') return;
+  if(d.t==='score'){ SPL.sc[i]=d.score|0; SPL.act[i]=performance.now(); spSend(spOther(p),{t:'opp',score:SPL.sc[i],out:SPL.out[i]}); spDecide(); }
+  else if(d.t==='over'){ SPL.sc[i]=d.score|0; SPL.out[i]=true; spSend(spOther(p),{t:'opp',score:SPL.sc[i],out:true}); spDecide(); }
+});
+setInterval(()=>{                                                   // nobody can stall a round for ever
+  if(!SPL || SPL.phase!=='play' || SPL.paused) return; const n=performance.now();
+  for(let i=0;i<2;i++) if(!SPL.out[i] && n-SPL.act[i]>SPLIT_T.afk){ SPL.out[i]=true; spSend(spOther(i+1),{t:'opp',score:SPL.sc[i],out:true}); }
+  spDecide();
+  const [oa,ob]=SPL.out; if(oa!==ob){ const alive=oa?1:0; if(n-SPL.act[alive]>SPLIT_T.idle) spEnd(oa?1:2); }   // (the one still playing went quiet: they lose)
+},400);
+document.addEventListener('visibilitychange',()=>{ if(document.hidden) splitPause(); });
+document.addEventListener('click',e=>{
+  const b=e.target.closest&&e.target.closest('#split [data-sp],#spPause'); if(!b||!SPL) return; sfx.tap();
+  if(b.id==='spPause'){ splitPause(); return; }
+  const a=b.dataset.sp; if(a==='resume') splitResume(); else if(a==='menu') splitQuit(); else if(a==='again'){ SPL.wins=[0,0]; SPL.rn=1; SPL.over=null; splitRound(); }
+});
 function showStages(){
   hideAll(); $('stages').classList.remove('hidden');
   $('sInfo').innerHTML=tr('<b>{a}</b> / {b} {star} · 3 lives per stage, more lives left = more stars',{a:starsTotal(),b:STAGES.length*3,star:I('star','ic-gold fill')});
@@ -4650,12 +4852,13 @@ $('csBuy').addEventListener('click',e=>{ const b=e.target.closest('[data-pack]')
    the browser's own and the app can close. */
 function soon(f){ if(typeof queueMicrotask==='function') queueMicrotask(f); else setTimeout(f,0); }       // right after the current handler finishes, before anything else can happen
 let backState='off', backWant=false, backAfter=null;          // off: no sentinel · armed: one is in the history · popping: we are removing it ourselves
-const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('hzsheet').classList.contains('hidden') && $('evsheet').classList.contains('hidden') && $('photoSheet').classList.contains('hidden') && $('seasonSheet').classList.contains('hidden') && $('boxSheet').classList.contains('hidden') && $('hatch').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
+const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('hzsheet').classList.contains('hidden') && $('evsheet').classList.contains('hidden') && $('photoSheet').classList.contains('hidden') && $('seasonSheet').classList.contains('hidden') && $('boxSheet').classList.contains('hidden') && $('splitIntro').classList.contains('hidden') && $('splitSetup').classList.contains('hidden') && !SPL && $('hatch').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
 function armBack(){
+  if(SPLIT) return;                                            // a split-screen half never touches the browser history
   if(backState==='off'){ try{ history.pushState({sr:1},''); backState='armed'; }catch(e){} }
   else if(backState==='popping') backWant=true;                // (arm again as soon as our own removal is done)
 }
-function disarmBack(){ if(backState==='armed'){ backState='popping'; try{ history.back(); }catch(e){ backState='off'; } } }
+function disarmBack(){ if(SPLIT) return; if(backState==='armed'){ backState='popping'; try{ history.back(); }catch(e){ backState='off'; } } }
 function syncBack(){ if(onPlainMenu()) disarmBack(); else armBack(); syncReach(); }
 function handleBack(){
   const open=id=>!$(id).classList.contains('hidden'), tap=id=>$(id).click();
@@ -4666,6 +4869,9 @@ function handleBack(){
   if(open('udlg')){ closeUnlockDlg(); return; }
   if(open('fsheet')){ closeFriend(); return; }
   if(open('hatch')){ if(hat.phase==='hold') closeHatch(); return; }
+  if(SPL){ splitBack(); return; }
+  if(open('splitSetup')){ closeSplitSetup(); return; }
+  if(open('splitIntro')){ closeSplitIntro(); return; }
   if(open('boxSheet')){ closeBox(); return; }
   if(open('seasonSheet')){ closeSeason(); return; }
   if(open('photoSheet')){ closePhoto(); return; }
@@ -4699,7 +4905,7 @@ addEventListener('pointerdown',e=>{
       const nb=btn.closest('.nb'); if(nb){ nb.classList.remove('bounce'); void nb.offsetWidth; nb.classList.add('bounce'); }
     }
   }
-  if(!e.target.closest('#stage')) return;
+  if(!SPLIT && !e.target.closest('#stage')) return;
   if(e.target.closest('button, .screen, a, .peek, [role=button]')) return;
   drop();
 });
@@ -4728,6 +4934,7 @@ $('mGrid').addEventListener('click',e=>{
   if(b.dataset.mode==='friend') openFriend();
   else if(b.dataset.mode==='hazard') openHz();
   else if(b.dataset.mode==='bossrush') startRush();
+  else if(b.dataset.mode==='split') openSplitSetup();
   else if(b.dataset.mode==='campaign'){ stagesFrom='modes'; showStages(); } else startMode(b.dataset.mode);
 });
 $('sGrid').addEventListener('click',e=>{
@@ -4764,6 +4971,9 @@ $('overThemes').onclick=()=>{ sfx.tap(); openThemes('over'); };
 $('closeThemes').onclick=()=>{ sfx.tap(); closeThemes(); };
 $('openAwards').onclick=()=>{ sfx.tap(); showAwards(); };
 $('openSeason').onclick=()=>{ sfx.tap(); openSeason(); };
+$('splitIntroGo').onclick=()=>{ sfx.tap(); closeSplitIntro(); openSplitSetup(); }; $('splitIntroNo').onclick=()=>{ sfx.tap(); closeSplitIntro(); }; $('splitIntroBg').onclick=()=>closeSplitIntro();
+$('spBack').onclick=()=>{ sfx.tap(); closeSplitSetup(); }; $('splitSetupBg').onclick=()=>closeSplitSetup(); $('spStart').onclick=()=>{ sfx.tap(); startSplit(); };
+$('spBody').addEventListener('click',e=>{ const b=e.target.closest('[data-lay],[data-rounds]'); if(!b) return; const c=spCfg(); if(b.dataset.lay) c.layout=b.dataset.lay; if(b.dataset.rounds) c.rounds=+b.dataset.rounds; S.splitCfg=c; save(); sfx.tap(); renderSplitSetup(); });
 $('seasonClose').onclick=()=>{ sfx.tap(); closeSeason(); }; $('seasonBg').onclick=()=>closeSeason();
 $('seasonClaim').onclick=()=>{ const n=claimAllTiers(); if(n){ sparkleAt($('seasonClaim'),'#7dffaa'); sparkleAt($('seasonClaim'),'#ffd54a'); toast(`${I('crown','ic-gold')} ${tr('Rewards claimed!')}`,1800); renderSeason(); } };
 $('seasonBody').addEventListener('click',e=>{ const b=e.target.closest('[data-sc]'); if(!b) return; const k=b.dataset.sc;
@@ -4882,7 +5092,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ GIFTS, giftSha, redeemGift, seasonInfo, seasonTier, seasonReward, seasonAddXp, claimTier, claimAllTiers, buyPremium, ensureSeason, openSeason, rollBox, boxPools, buyBoxes, openBoxFlow, BOX_TIERS, SEASONS, RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ SPLIT_T, get SPL(){ return SPL; }, startSplit, openSplitIntro, splitIntroCheck, splitQuit, splitPause, spCfg, GIFTS, giftSha, redeemGift, seasonInfo, seasonTier, seasonReward, seasonAddXp, claimTier, claimAllTiers, buyPremium, ensureSeason, openSeason, rollBox, boxPools, buyBoxes, openBoxFlow, BOX_TIERS, SEASONS, RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;
@@ -4927,6 +5137,7 @@ const runningScript=biggestScript(document);
 function showUpdateIfIdle(){ const b=$('updBtn'); if(b) b.classList.toggle('hidden',!(updateReady && state!=='playing')); }
 function setUpdateReady(){ updateReady=true; showUpdateIfIdle(); }
 async function checkForUpdate(force){
+  if(SPLIT) return false;
   if(updateReady || !/^https?:/.test(location.protocol) || document.hidden || navigator.onLine===false) return false;
   const now=Date.now(); if(!force && now-lastUpdateCheck<UPDATE_EVERY) return false; lastUpdateCheck=now;
   try{
@@ -4936,7 +5147,7 @@ async function checkForUpdate(force){
   }catch(e){}
   return false;
 }
-if('serviceWorker' in navigator && /^https?:/.test(location.protocol)){
+if(!SPLIT && 'serviceWorker' in navigator && /^https?:/.test(location.protocol)){
   const hadController=!!navigator.serviceWorker.controller;
   addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
   navigator.serviceWorker.addEventListener('controllerchange',()=>{ if(hadController) setUpdateReady(); });
@@ -4948,9 +5159,26 @@ $('updBtn').onclick=()=>reloadApp();
 $('crashBtn').onclick=()=>reloadApp();
 
 resize(); applyCalm(); applyAccent(); applyA11y(); setMuteIcon(); requestAnimationFrame(loop);
-loadLang(detectLang()).then(code=>{ lang=code; applyI18n(); showMenu(); setMuteIcon(); document.body.classList.add('ready'); if(inPlayApp()){ syncPurchases(false); loadPlayPrices(); } });
+/* --- the split-screen copy: no menu, it only plays rounds the parent page tells it to --- */
+function splitChildBoot(){
+  const st=$('stage'), tag=document.createElement('div'), opp=document.createElement('div');
+  tag.id='spTag'; tag.textContent=tr('PLAYER {n}',{n:SPLIT_P}); tag.style.setProperty('--pc',SPLIT_P===1?'#4ad8ff':'#ff7a59'); opp.id='spOpp';
+  st.appendChild(tag); st.appendChild(opp); hideAll(); mode='classic'; mod={}; state='menu';
+  addEventListener('message',e=>{
+    const d=e.data; if(e.origin!==location.origin || e.source!==parent || !d || d.sr!=='split') return;
+    if(d.t==='prepare'){ mode='classic'; mod={}; newRun(); paused=true; $('tip').classList.add('hidden'); opp.textContent=''; opp.className=''; document.body.classList.remove('spdone'); }
+    else if(d.t==='go'){ if(state==='playing') paused=false; $('tip').classList.remove('hidden'); }
+    else if(d.t==='pause'){ if(state==='playing') paused=true; }
+    else if(d.t==='resume'){ if(state==='playing') paused=false; }
+    else if(d.t==='opp'){ opp.textContent=tr('OPP {n}',{n:d.score|0})+(d.out?' · '+tr('OUT'):''); opp.className=d.out?'out':''; }
+    else if(d.t==='end'){ if(state==='playing') paused=true; }
+  });
+  spPost({t:'ready'});
+}
+loadLang(detectLang()).then(code=>{ lang=code; applyI18n(); if(SPLIT) splitChildBoot(); else showMenu(); setMuteIcon(); document.body.classList.add('ready'); if(inPlayApp()){ syncPurchases(false); loadPlayPrices(); } });
 })();
 </script>
+<div id="split" class="split hidden" aria-label="Split screen game"></div>
 <div id="rotate" role="alert"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><b>Rotate your phone</b><span>Stack Rush plays in portrait.</span></div>
 </body>
 </html>

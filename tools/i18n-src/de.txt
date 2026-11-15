@@ -913,3 +913,44 @@
 913|STUFE
 914|Schalte auf jeder Stufe eine zweite Belohnung frei: {c} Münzen, {b} Mystery-Boxen, {k} Booster und die Saison-Katze.
 915|Zu Stufe {n}
+916|1 Runde
+917|2 SPIELER
+918|Geteilter Bildschirm für 2 Spieler
+919|2 SPIELER
+920|Best of {n}
+921|Beide Hälften aufrecht
+922|UNENTSCHIEDEN
+923|Gegenüber
+924|LOS!
+925|NEU
+926|ANORDNUNG
+927|Lädt…
+928|Vielleicht später
+929|MENÜ
+930|Auf dem iPad wählst du Gegenüber oder Nebeneinander.
+931|Auf dem iPhone steht die obere Hälfte auf dem Kopf, damit ihr euch gegenübersitzen könnt.
+932|GEGNER
+933|GEGNER {n}
+934|RAUS
+935|Spielt ein paar Runden. Wer den höheren Turm hat, gewinnt die Runde!
+936|SPIELER {n}
+937|SPIELER {n} GEWINNT DAS MATCH
+938|Die Runde wird wiederholt
+939|Beenden
+940|REVANCHE
+941|Weiter
+942|RUNDE {n}
+943|RUNDEN
+944|Nebeneinander
+945|Geteilter Bildschirm
+946|GETEILTER BILDSCHIRM
+947|Der geteilte Bildschirm konnte nicht starten. Versuche es erneut.
+948|START
+949|Die obere Hälfte steht auf dem Kopf
+950|JETZT AUSPROBIEREN
+951|Zwei Spieler gleichzeitig auf einem Bildschirm.
+952|Zwei Spieler gleichzeitig auf einem Bildschirm. Übertrumpfe den Turm des anderen oder halte länger durch.
+953|Zwei Spieler, ein Bildschirm. Beide stapeln gleichzeitig.
+954|DU
+955|DU VERLIERST
+956|DU GEWINNST!

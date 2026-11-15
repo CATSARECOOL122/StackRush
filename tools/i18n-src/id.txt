@@ -913,3 +913,44 @@
 913|TINGKAT
 914|Buka hadiah kedua di setiap tingkat: {c} koin, {b} Kotak Misteri, {k} booster, dan kucing khusus musim.
 915|Ke tingkat {n}
+916|1 ronde
+917|2 PEMAIN
+918|Layar terbelah untuk 2 pemain
+919|2 PEMAIN
+920|Terbaik dari {n}
+921|Kedua sisi tegak
+922|SERI
+923|Berhadapan
+924|MULAI!
+925|BARU
+926|TATA LETAK
+927|Memuat…
+928|Nanti saja
+929|MENU
+930|Di iPad pilih berhadapan atau berdampingan.
+931|Di iPhone separuh atas terbalik, jadi kalian bisa bermain berhadapan.
+932|LAWAN
+933|LAWAN {n}
+934|KELUAR
+935|Mainkan beberapa ronde. Pemilik menara yang lebih tinggi menang ronde!
+936|PEMAIN {n}
+937|PEMAIN {n} MENANG PERTANDINGAN
+938|Ronde diulang
+939|Keluar
+940|LAWAN ULANG
+941|Lanjut
+942|RONDE {n}
+943|RONDE
+944|Berdampingan
+945|Layar terbelah
+946|LAYAR TERBELAH
+947|Layar terbelah tidak bisa dimulai. Coba lagi.
+948|MULAI
+949|Separuh atas terbalik
+950|COBA SEKARANG
+951|Dua pemain sekaligus di satu layar.
+952|Dua pemain sekaligus di satu layar. Kalahkan menara lawan atau bertahan lebih lama.
+953|Dua pemain, satu layar. Keduanya menyusun bersamaan.
+954|KAMU
+955|KAMU KALAH
+956|KAMU MENANG!
