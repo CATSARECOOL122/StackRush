@@ -37,7 +37,7 @@ module.exports=[
 }],
 ['friend race tile: sits beside Zen, opens a how-to sheet; Send is offered only after a raceable round; Back closes it', async(e,L)=>{
   const p=await L.open(e); await quiet(p); await p.click('#openModes');
-  assert.deepEqual(await p.locator('#mGrid .tiles .mode').evaluateAll(a=>a.map(x=>x.dataset.mode).slice(-2)),['zen','friend'],'the tile pairs with Zen');
+  assert.deepEqual(await p.locator('#mGrid .tiles .mode').evaluateAll(a=>a.map(x=>x.dataset.mode).slice(-3)),['zen','friend','bossrush'],'the Friend race tile pairs with Zen (Boss Rush follows)');
   await p.click('#mGrid [data-mode=friend]'); assert.ok(await p.isVisible('#fsheet'));
   assert.equal(await p.isVisible('#fsShare'),false,'nothing to send yet'); assert.match(await p.textContent('#fsLast'),/No round to send yet/);
   await p.evaluate(()=>history.back()); await p.waitForTimeout(300); assert.equal(await p.isVisible('#fsheet'),false,'Back closes it'); assert.ok(await p.isVisible('#modes'));

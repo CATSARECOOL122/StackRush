@@ -22,7 +22,7 @@ module.exports=[
       await p.evaluate(t=>__sr.setTab(t),tab); await p.waitForTimeout(80);
       const r=await p.evaluate(()=>{ const t=document.getElementById('tTabs'), ts=[...t.querySelectorAll('.tab')], on=t.querySelector('.on'), a=on.getBoundingClientRect(), b=t.getBoundingClientRect();
         return {n:ts.length,rows:(Math.max(...ts.map(x=>x.getBoundingClientRect().top))-Math.min(...ts.map(x=>x.getBoundingClientRect().top))<3?1:2),icons:ts.every(x=>x.querySelector('svg')),onVisible:a.left>=b.left-1&&a.right<=b.right+1,h:Math.min(...ts.map(x=>x.getBoundingClientRect().height)),on:on.dataset.tab,page:document.documentElement.scrollWidth<=innerWidth+1}; });
-      assert.deepEqual([r.n,r.rows,r.icons,r.onVisible,r.on,r.page],[9,1,true,true,tab,true],`${w}px ${tab} ${JSON.stringify(r)}`); assert.ok(r.h>=44,'big enough to tap');
+      assert.deepEqual([r.n,r.rows,r.icons,r.onVisible,r.on,r.page],[10,1,true,true,tab,true],`${w}px ${tab} ${JSON.stringify(r)}`); assert.ok(r.h>=44,'big enough to tap');
     }
     await L.close(p);
   }
