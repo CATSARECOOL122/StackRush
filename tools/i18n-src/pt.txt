@@ -801,3 +801,10 @@
 801|ESTILO DE BLOCO
 802|Vista plana
 803|VISTA
+804|CENÁRIO 3D
+805|Oceano profundo
+806|Pôr do sol dourado
+807|Chão de grade
+808|Lago de montanha
+809|Os cenários aparecem no modo 3D.
+810|Desbloqueie o modo 3D primeiro

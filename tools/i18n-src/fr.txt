@@ -801,3 +801,10 @@
 801|STYLE DE BLOC
 802|Vue à plat
 803|VUE
+804|SCÈNE 3D
+805|Océan profond
+806|Coucher de soleil doré
+807|Sol quadrillé
+808|Lac de montagne
+809|Les scènes s'affichent en mode 3D.
+810|Débloque d'abord le mode 3D

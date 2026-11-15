@@ -801,3 +801,10 @@
 801|BLOCKSTIL
 802|Flache Ansicht
 803|ANSICHT
+804|3D-SZENE
+805|Tiefsee
+806|Goldener Sonnenuntergang
+807|Gitterboden
+808|Bergsee
+809|Szenen erscheinen im 3D-Modus.
+810|Schalte zuerst den 3D-Modus frei

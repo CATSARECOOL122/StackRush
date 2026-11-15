@@ -266,3 +266,13 @@ An ultra-rare, one-off map. While an event is on, a glowing card with a live cou
 ## 3D Mode
 
 Blocks tab → **View** → **3D Mode** (50,000 coins). It is a real perspective camera, not a drawing trick: every block is a solid box with a lit top and shaded sides, the camera looks down at the tower from an angle and drifts slowly around it (faster with a big combo), blocks shrink with distance, and the tower stands on a grid floor with a shadow. Ice, glue, lava, bombs, relics, falling pieces, rings, the friend's race tower and your tower topper all work in 3D, and two thin guide lines show where the moving block would land. The rules, taps and scoring are identical to the flat view; Reduce motion stops the camera drifting. Flat view stays free and is the default.
+
+### 3D scenes
+
+With 3D Mode unlocked, Blocks tab → **3D Scene** swaps the grid floor for a whole world behind your tower (6,000 coins each; tapping one in the shop previews it in 3D first):
+
+- **Deep Ocean** – sunbeams, drifting fish in three depth layers, a school of silver fish, glowing jellyfish, bubbles, a distant shark, and a seabed with coral and seaweed. As you climb you rise from the dark deep towards the bright surface.
+- **Golden Sunset** – a huge sun over a glittering sea with a gold path on the water, lit clouds and birds. The sun sinks as your tower grows, through magenta dusk into a starry night.
+- **Mountain Lake** – layered snow-capped peaks, mist, pines and a still lake that reflects them. As you climb you rise through the clouds to a starry sky with an aurora.
+
+Scenes are drawn in code (no image files), calm down with Reduce motion, and use fewer effects in performance mode.

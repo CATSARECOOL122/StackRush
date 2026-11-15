@@ -801,3 +801,10 @@
 801|STILE BLOCCO
 802|Vista piatta
 803|VISTA
+804|SCENA 3D
+805|Oceano profondo
+806|Tramonto dorato
+807|Pavimento a griglia
+808|Lago di montagna
+809|Le scene si vedono in modalità 3D.
+810|Sblocca prima la modalità 3D
