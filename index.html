@@ -138,6 +138,12 @@
   .screen.peeking{opacity:0;pointer-events:none}
   .logo{margin:0;display:flex;flex-direction:column;align-items:center;line-height:.86;font-size:68px;font-weight:900;letter-spacing:-2px;
     filter:drop-shadow(0 6px 18px #0008)}
+  .logo span{background-size:100% 220%!important;animation:logoshine 5s ease-in-out infinite}
+  @keyframes logoshine{0%,100%{background-position:0 0}50%{background-position:0 100%}}
+  #menu:not(.hidden) .sbody>*{animation:mup .5s cubic-bezier(.2,1.2,.4,1) both;animation-delay:calc(var(--i,0)*55ms)}
+  @keyframes mup{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){#menu .sbody>*,.logo span{animation:none!important}}
+  .calm #menu .sbody>*,.calm .logo span{animation:none!important}
   .logo span:first-child{background:linear-gradient(180deg,#fff,#ffd36b);-webkit-background-clip:text;background-clip:text;color:transparent}
   .logo span:last-child{background:linear-gradient(180deg,#ff8ad0,#7c5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
   .tag{margin:2px 0 8px;color:var(--mute);font-weight:700}
@@ -203,6 +209,8 @@
   .evbuy i{font-style:normal;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#ffc83d22;color:#ffe27a;flex:none}
   .evbuy div{flex:1;min-width:0} .evbuy b{display:block;font-size:14px} .evbuy small{display:block;font-size:12px;color:var(--mute);font-weight:700;line-height:1.3}
   .evbonus{color:#ffe27a;font-weight:800}
+  #oLevel.lvpop{animation:lvpop .7s cubic-bezier(.2,1.6,.4,1)}
+  @keyframes lvpop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.12);opacity:1}100%{transform:none}}
   .evcta.short{filter:saturate(.75)}
   .evneed{display:flex;flex-direction:column;gap:6px;align-items:stretch;padding:12px 14px;border-radius:16px;border:1.5px solid #ff8a8a;background:linear-gradient(180deg,#ff5a5a22,#ff5a5a0c);text-align:center}
   .evneed b{font-size:16px;color:#ffd0d0} .evneed span{font-size:13px;font-weight:700;color:#ffdede}
@@ -1695,6 +1703,7 @@ let lives=1, maxLives=1, timeLeft=0, timerOn=false, lastBomb=false, shield=false
 let armed={}, boosted=false, slowLeft=0, regrowUsed=0, boostShield=false;
 let titanLeft=0, magnetLeft=0, freezeT=0, waterLeft=0, relicTaken=new Set(), relicRun=0;      // campaign power-ups running
 let duelLogged=false;
+let sweep=null;                                  // the light that runs up the tower at every 10th perfect in a row
 let upDur=0, upT=0, upNext=8, upAng=0, upMin=6;      // the final boss turns the screen upside down for a few seconds now and then
 let passPlay=0;                                  // pass and play on one phone: 1 = Player 1's round, 2 = Player 2 racing Player 1's tower
 let freeBlocks=0;                               // blocks a Speed-up added for free: they do not count towards the speed-up of the game, only blocks you place do
@@ -2234,7 +2243,7 @@ function drop(){
   const prac=mode==='practice';
   let nb;
   if(perfect){
-    combo++; perfectsRun++; bestCombo=Math.max(bestCombo,combo);
+    combo++; perfectsRun++; bestCombo=Math.max(bestCombo,combo); if(combo%10===0 && !reduceOn()) sweep={t:0};
     let w=top.w, x=topX;
     if(!mod.noRegrow && combo>=CFG.regrowAfter && w<baseW){ const g=Math.min(baseW-w, baseW*CFG.regrowPct); w+=g; x-=g/2; x=clamp(x,0,W-w); }
     nb={x,w,y:cur.y,i:cur.i,sq:1};
@@ -2543,6 +2552,7 @@ function showOver(r){
   $('over').classList.remove('hidden');
   say(r.win?tr('Stage {n} cleared with {s} stars',{n:stage,s:r.stars}):tr('Game over. Score {n}',{n:score}));
   if(r.newBest){ sfx.up(); burst(W/2,stack.length*BH,40,60,500*u,600); }
+  if(r.lvl>r.prevLvl){ setTimeout(()=>{ sfx.up(); vib([20,30,20]); for(let k=0;k<3;k++) setTimeout(()=>burst(W*(.25+.25*k),cam+H*.55,[45,190,300][k],40,520*u,700),k*160); $('oLevel').classList.remove('lvpop'); void $('oLevel').offsetWidth; $('oLevel').classList.add('lvpop'); },350); }
   else if(lv) sfx.up();
   showUpdateIfIdle(); checkForUpdate();                                         // a round just ended: the right moment to offer a new version
 }
@@ -2658,6 +2668,7 @@ function update(dt){
   if(state==='playing' && challenge && ghost && ghost.live && !paused && ghost.live.sc[friendNow()]!==lastFs) setGhostD();
   const live = grace<=0; if(grace>0) grace-=dt;
   if(freezeT>0 && !paused) freezeT=Math.max(0,freezeT-dt);
+  if(sweep){ sweep.t+=dt; if(sweep.t>.8) sweep=null; }
   if(live && (state==='playing'||state==='menu') && cur){
     if(!(freezeT>0 && state==='playing')) cur.x+=dir*speed()*dt;
     if(cur.x<0){ cur.x=0; dir=1; }
@@ -3052,6 +3063,15 @@ function draw(){
     const k=1-speedCue.life; text(tr('SPEED UP'),W/2,H*.44-k*26,(30+Math.sin(k*3.1)*10)*u,'#ff9a5c',clamp(speedCue.life*2.2,0,1));
   }
   ctx.restore();
+  if(state==='playing' && combo>=3 && !reduceOn()){                             // the screen edges glow with the combo, pulsing in the theme's colour
+    const hh=hue(TH(),stack.length), a=Math.min(.26,.03+combo*.012)*(.75+.25*Math.sin(t*7)), eg=ctx.createRadialGradient(W/2,H*.5,Math.min(W,H)*.35,W/2,H*.5,Math.max(W,H)*.75);
+    eg.addColorStop(0,'rgba(0,0,0,0)'); eg.addColorStop(1,hsl(hh,95,60,a)); ctx.fillStyle=eg; ctx.fillRect(0,0,W,H);
+  }
+  if(sweep && state==='playing'){                                                 // a sweep of light up the tower
+    const p=sweep.t/.8, yb=Y(0), yt=Y(stack.length*BH), yy=yb+(yt-yb)*p, bh2=60*u, lg=ctx.createLinearGradient(0,yy-bh2,0,yy+bh2);
+    lg.addColorStop(0,'rgba(255,255,255,0)'); lg.addColorStop(.5,`rgba(255,250,210,${.55*(1-p)})`); lg.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.save(); ctx.globalCompositeOperation='lighter'; ctx.fillStyle=lg; ctx.fillRect(0,yy-bh2,W,bh2*2); ctx.restore();
+  }
   if(mod.dark && state==='playing'){                                              // a cave: only the top of the tower is lit, by a lantern that flickers
     let cx=W/2+windOff, cy=Y(stack.length*BH+BH*.5); if(upAng){ const dx=cx-W/2, dy=cy-H/2, c=Math.cos(upAng), sn=Math.sin(upAng); cx=W/2+dx*c-dy*sn; cy=H/2+dx*sn+dy*c; }
     const rad=(170+8*Math.sin(t*7)+5*Math.sin(t*13))*u, g=ctx.createRadialGradient(cx,cy,rad*.25,cx,cy,rad*1.25);
@@ -3396,7 +3416,7 @@ function showMenu(){
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden'); $('speedB').classList.add('hidden');
   $('hand').classList.add('hidden'); $('coach').classList.add('hidden'); $('skipTut').classList.add('hidden');
   challenge=null;
-  setCoins(); renderMenu(); setGhostD(); showUpdateIfIdle(); checkForUpdate();
+  setCoins(); renderMenu(); setGhostD(); showUpdateIfIdle(); checkForUpdate(); stagger('#menu .sbody>*');
   if(incoming){ const ch=incoming; incoming=null; openChallenge(ch); }
   else if(unlockedNow){ unlockedNow=false; openUnlockDlg('done',unlockedKey); }
   setTimeout(()=>{ try{ if(!offered && $('udlg').classList.contains('hidden')) evWarnCheck(); }catch(e){} },900);        // event reminders (10, 5, 3 days, last day)
