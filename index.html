@@ -836,6 +836,7 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     <div class="sub" id="oNext"></div>
     <button id="revive" class="btn gold hidden"></button>
     <button id="revive2" class="btn gold hidden"></button>
+    <button id="evCont" class="btn gold hidden"></button>
     <button id="next" class="btn primary big hidden">NEXT</button>
     <button id="again" class="btn primary big">AGAIN</button>
     <div class="ibtns">
@@ -1094,7 +1095,11 @@ const CFG = {
   dailyBonus: 50,
   milestone: 25,
   weeklyCoins: 400,
-  evCost: 20000, evAttempts: 100, evGoal: 1000, evMoreCost: 5000, evMore: 100, evEasyCost: 9000, evFastBonus: 50000,      // (50,000 more for hatching within the first 100 attempts, no extra attempts bought)      // (+100 attempts for 5,000; the map 50% easier for 9,000)      // the special event map: entry price, attempts allowed, score that hatches the egg
+evContinue: 1500,       // continue right after falling
+evResume: 2500,         // continue later, from the tower saved when you left the event map
+evContSlow: .5,         // a continued attempt runs this much slower (x0.5 less speed)
+evMaxSpeed: 2,         // the event map's top speed (x2 of the base speed, the ramp, its own x1.6 and wind included)
+    evCost: 20000, evAttempts: 100, evGoal: 1000, evMoreCost: 5000, evMore: 100, evEasyCost: 9000, evFastBonus: 50000,      // (50,000 more for hatching within the first 100 attempts, no extra attempts bought)      // (+100 attempts for 5,000; the map 50% easier for 9,000)      // the special event map: entry price, attempts allowed, score that hatches the egg
   duelBonus: 60,         // coins for beating a friend with a score of at least duelMin, without boosts (once per challenge)
   duelMin: 100,
   bossBonus: 60,         // extra coins the first time a boss stage is cleared
@@ -1487,7 +1492,7 @@ const ACH = [
 
 /* ================= Save data ================= */
 const DEF = {best:0,bests:{},ghosts:{},ach:{},camp:{},worldDone:{},twist:{day:'',done:false,best:0},twistDone:0,
-             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',top:[],rushBest:0,rushTime:0,rushCp:0,splitIntro:0,splitCfg:null,gifts:[],season:null,boxes:0,boxPity:0,boxN:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
+             coins:0,blocks:0,perfects:0,played:0,relics:0,untouch:0,ev:null,eggs:[],evSeen:'',top:[],rushBest:0,rushTime:0,rushCp:0,evSave:null,splitIntro:0,splitCfg:null,gifts:[],season:null,boxes:0,boxPity:0,boxN:0,evWarn:[],dm:{day:0,p:[0,0,0],paid:[0,0,0],all:0},hzLevel:'medium',hzBests:{beginner:0,advanced:0,ultra:0},friendWins:0,friendBig:0,lastChal:null,duels:[],duelPaid:[],revives:0,dodged:0,shields:0,bestCombo:0,maxHeight:0,
              owned:['sunset'],theme:'sunset',mute:false,music:true,haptics:true,reduce:false,reduceSet:false,assist:'auto',
              tutSeen:false,cb:false,bigText:false,oneHand:false,lastMode:'classic',lang:'auto',tips:{},ghostOutline:true,silentSound:true,fsHint:0,boostAuto:false,hintPow:0,
              shop:{owned:[],equip:Object.assign({},SHOP_DEFAULT),boosts:{shield:0,slow:0,regrow:0,time:0,up10:0,up20:0,up100:0,titan:0,magnet:0,freeze:0,windp:0,water:0},pick:[],gift:false,tokens:[]},boostBests:{},
@@ -1510,6 +1515,8 @@ function cleanSave(raw){
   if(raw.dm && typeof raw.dm==='object'){ const a=v=>Array.isArray(v)?[0,1,2].map(i=>num(v[i],1e6)):[0,0,0]; out.dm={day:num(raw.dm.day,1e6),p:a(raw.dm.p),paid:a(raw.dm.paid).map(x=>x?1:0),all:raw.dm.all?1:0}; }
   if(Array.isArray(raw.top)) out.top=raw.top.filter(r=>r&&typeof r==='object'&&['classic','timed','lives','hazard','daily'].includes(r.m)).slice(0,10).map(r=>({m:r.m,s:num(r.s,1e7),h:num(r.h,1e5),t:num(r.t,9e12)}));
   if(raw.season && typeof raw.season==='object' && typeof raw.season.id==='string' && /^\d{4}-[0-5]$/.test(raw.season.id)){ const tl=a=>Array.isArray(a)?[...new Set(a.map(v=>Math.floor(Number(v))).filter(v=>v>=1&&v<=30))]:[]; out.season={id:raw.season.id,d:num(raw.season.d,1e6),xp:num(raw.season.xp,6000),f:tl(raw.season.f),p:tl(raw.season.p),prem:raw.season.prem?true:false}; }
+  { const v=raw.evSave; if(v && typeof v==='object' && typeof v.id==='string' && /^[a-z0-9]{3,20}$/.test(v.id) && Array.isArray(v.blocks) && v.blocks.length>1 && v.blocks.length<=3000 && v.blocks.every(b=>Array.isArray(b)&&b.length===2&&Number.isFinite(b[0])&&Number.isFinite(b[1])&&b[1]>0&&b[1]<=1.5&&b[0]>-1&&b[0]<=1.5))
+      out.evSave={id:v.id,score:num(v.score,1e6),runBlocks:num(v.runBlocks,1e6),perfects:num(v.perfects,1e6),blocks:v.blocks.map(b=>[+b[0],+b[1]])}; }
   if(own(raw,'splitIntro')) out.splitIntro=raw.splitIntro?1:0;
   if(raw.splitCfg && typeof raw.splitCfg==='object') out.splitCfg={layout:raw.splitCfg.layout==='lr'?'lr':'tb',rounds:[1,3,5].includes(raw.splitCfg.rounds)?raw.splitCfg.rounds:3};
   if(Array.isArray(raw.gifts)) out.gifts=[...new Set(raw.gifts.filter(v=>typeof v==='string'&&/^[0-9a-f]{64}$/.test(v)))].slice(0,20);
@@ -2096,6 +2103,8 @@ const IS_IOS=IS_IPAD||/iPhone|iPod/.test(UA);
 const COARSE=(()=>{ try{ return matchMedia('(pointer:coarse)').matches; }catch(e){ return false; } })();
 const HAS_VIBRATE=typeof navigator.vibrate==='function';        // iPhone and iPad Safari have no vibration API
 let tablet=false, uiZ=1;
+let evEase=false;                              // this event attempt was continued from a saved tower: a little slower
+let evCont=null;                               // the tower as it stood when an event attempt ended, so it can be continued for coins
 let cam=0, shake=0, flash=0, t=0, banner=null, snap=null;   // snap: the save as it was before a run's payout, so Revive can undo just that payout
 let pieces=[], parts=[], rings=[], texts=[];
 let ghost=null, runRec={blocks:[],scores:[],ts:[0]}, runT0=0, lastFs=-1;
@@ -2169,6 +2178,7 @@ function speed(){
   if(mod.wind) m*=1+.42*Math.sin(t*1.7);
   if(cur && cur.bomb) m*=1.25;
   if(slowLeft>0) m*=.6;
+  if(mode==='event'){ m=Math.min(m,CFG.evMaxSpeed); if(evEase) m=Math.max(1,m-CFG.evContSlow); }      // the special event map never goes faster than x2 (a continued attempt: x0.5 less)
   return W*CFG.baseSpeed*m;
 }
 /* ----- more hazards (Hazard mode and the boss stages) -----
@@ -2910,6 +2920,7 @@ function applyXp(blocks){
 function endRun(reason){
   if(state!=='playing') return;
   if(cur){ addPiece(cur,dir); cur=null; }
+  if(mode==='event') evKeep(true);
   if(SPLIT){ state='over'; $('tip').classList.add('hidden'); if(reason==='fail') shake=Math.max(shake,14*u); spPost({t:'over',score,blocks:Math.max(0,stack.length-1)}); return; }
   state='over'; $('tip').classList.add('hidden'); syncPower();
   const M=MODES[mode];
@@ -2994,6 +3005,8 @@ function showOver(r){
   $('copyCode').classList.toggle('hidden',!viaMenu); $('share').classList.toggle('hidden',viaMenu);        // started from Friend race: copy a code (no link); after any other round Share still sends the link
   if(friendRun && !challenge && challengeOk()) $('oNext').innerHTML=`${I('share')} ${tr('Tap Share to challenge a friend.')}`;
   if(mode==='event') evOverText();
+  { const ec=$('evCont'), est=mode==='event'?evState(activeEvent()):null, ok=!!(est && evCont && evCont.blocks.length>1 && est.attempts<evMax(est)); ec.classList.toggle('hidden',!ok);
+    if(ok){ ec.innerHTML=tr('Continue from block {n} · {c} coins',{n:evCont.blocks.length-1,c:nf(CFG.evContinue)}); ec.classList.toggle('off',S.coins<CFG.evContinue); } }
   if(rush) rushOverText(r);
   rv.innerHTML=tr('Revive · {n} {coin}',{n:CFG.reviveCost,coin:I('coin')});
   rv.classList.toggle('off', S.coins<CFG.reviveCost);
@@ -3029,7 +3042,7 @@ function revive(regrow){
 let cdTimers=[];
 function clearCount(){ cdTimers.forEach(clearTimeout); cdTimers=[]; $('count').classList.add('hidden'); }
 function showCount(n){ const c=$('count'); c.classList.remove('hidden'); c.innerHTML=`<span>${n}</span>`; sfx.tick(); }
-function pause(){ if(SPLIT || state!=='playing'||paused) return; if(powerPhase!=='off') closePower(true); clearCount(); paused=true; $('pause').classList.remove('hidden'); }
+function pause(){ if(SPLIT || state!=='playing'||paused) return; if(mode==='event') evKeep(false); if(powerPhase!=='off') closePower(true); clearCount(); paused=true; $('pause').classList.remove('hidden'); }
 function resume(){
   if(!paused) return;
   paused=false; grace=CFG.resumeGrace; $('pause').classList.add('hidden');
@@ -4092,6 +4105,8 @@ function renderEvent(tick){
     h+=`<h4>${tr('MILESTONE CHESTS')}</h4>`+ev.chests.map((c,i)=>{ const got=st.chestOk.includes(i), can=st.best>=c.at && !got;
       return `<div class="evch${can?' ok':''}${got?' done':''}"><i>${I(got?'check':'gem')}</i><div><b>${tr('Chest at {n}',{n:c.at})}</b><small>${nf(c.coins)} ${I('coin')}${c.item?' · '+evItemName(c.item):''}</small></div>${can?`<button class="btn gold" data-ev="chest" data-i="${i}">${tr('Open')}</button>`:got?`<span class="evok">${tr('Opened')}</span>`:`<span class="evlock">${I('lock')}</span>`}</div>`; }).join('');
     if(!st.hatched){
+      const sv=evSaved();
+      if(sv && left2>0) h+=`<div class="evbuy"><i>${I('arrowup')}</i><div><b>${tr('Continue where you left off')}</b><small>${tr('Block {n}. The same map, a full-width top block and slower blocks. Uses one attempt.',{n:sv.blocks.length-1})}</small></div><button class="btn ${S.coins>=CFG.evResume?'gold':'off'}" data-ev="resume">${I('coin')} ${nf(CFG.evResume)}</button></div>`;
       h+=`<h4>${tr('KEEP GOING')}</h4>`
         +`<div class="evbuy${moreAsk?' warn':''}"><i>${I('heart')}</i><div><b>${tr('+{n} attempts',{n:CFG.evMore})}</b><small>${moreAsk?tr('Buying this gives up the {n} coin bonus. Tap again to buy.',{n:nf(CFG.evFastBonus)}):(st.more||0)===0&&st.best<CFG.evGoal?tr('Buy as many times as you like. (You lose the {n} coin bonus.)',{n:nf(CFG.evFastBonus)}):tr('Buy as many times as you like.')}</small></div><button class="btn ${S.coins>=CFG.evMoreCost?'gold':'off'}" data-ev="more">${moreAsk?tr('Tap again'):`${I('coin')} ${nf(CFG.evMoreCost)}`}</button></div>`
         +(st.easy?`<div class="evbuy done"><i>${I('check')}</i><div><b>${tr('Easier map')}</b><small>${tr('Active: everything is 50% gentler.')}</small></div></div>`
@@ -4143,11 +4158,36 @@ function claimChest(i){
   st.chestOk.push(i); S.coins+=c.coins; if(c.item) grantItem(c.item); save(); setCoins(); sfx.up(); burst(W/2,H*.4,50,40,400*u,600);
   toast(`${I('gem','ic-gold')} ${tr('Chest opened! +{n} {coin}',{n:nf(c.coins),coin:I('coin')})}${c.item?' · '+evItemName(c.item):''}`,3200); renderEvent();
 }
-function startEvent(){
+/* The tower of an event attempt, kept as fractions of the screen width so it survives a restart on any screen; the deepest one is kept in the save */
+function evSnapshot(ev){ return {id:ev.id,score,runBlocks,perfects:perfectsRun,blocks:stack.map(b=>[+(b.x/W).toFixed(4),+(b.w/W).toFixed(4)])}; }
+function evKeep(fromEnd){
+  const ev=activeEvent(); if(mode!=='event' || !ev || stack.length<2) return;
+  const sn=evSnapshot(ev); if(fromEnd) evCont=sn;
+  if(!S.evSave || S.evSave.id!==ev.id || sn.blocks.length>=S.evSave.blocks.length) S.evSave=sn;
+  save();
+}
+const evSaved=()=>{ const ev=activeEvent(); return (ev && S.evSave && S.evSave.id===ev.id && S.evSave.blocks.length>1) ? S.evSave : null; };
+function startEvent(snapIn){
   const ev=activeEvent(), st=evState(ev); if(!ev || !st){ showMenu(); return; }
   if(st.attempts>=evMax(st)){ toast(tr('No attempts left')); return; }
-  rollDay(); st.attempts++; save(); mode='event'; mod=Object.assign({lives:3,bombs:true},evMod(ev,st)); newRun();
+  const keep=(snapIn && snapIn.blocks && snapIn.blocks.length>1)?snapIn:null; evCont=null;
+  rollDay(); st.attempts++; if(keep) S.evSave=null; save(); mode='event'; mod=Object.assign({lives:3,bombs:true},evMod(ev,st)); newRun(); evEase=!!keep;
+  if(keep){                                                                      // the same map, picked up at the height where the last attempt ended; the top block is made full width again
+    stack=keep.blocks.map(([x,w],i)=>({x:x*W,w:w*W,y:i*BH,i,sq:0})); score=keep.score; runBlocks=keep.runBlocks; perfectsRun=keep.perfects; combo=0; setCombo(0);
+    { const top=stack[stack.length-1], cx=top.x+top.w/2; top.w=baseW; top.x=clamp(cx-baseW/2,0,W-baseW); }
+    cam=Math.max(0,stack.length*BH-H*.35); spawnCur(true); setScore(score);
+    texts.length=0; texts.push({x:W/2,y:stack.length*BH+60,vy:60,text:tr('Continuing from block {n}',{n:stack.length-1}),size:22*u,color:'#9ff3ff',life:1.4});
+  }
 }
+/* Continue where you fell (1,500 coins, right after the attempt) or later from the saved tower (2,500 coins). It is one of your attempts, the same map, a full-width top block and slower blocks. */
+function evPayContinue(snap,cost){
+  const ev=activeEvent(), st=evState(ev); if(!ev||!st||!snap) return;
+  if(st.attempts>=evMax(st)){ toast(tr('No attempts left')); return; }
+  if(S.coins<cost){ toast(tr('Need {n} {coin} to continue',{n:nf(cost),coin:I('coin')})); return; }
+  S.coins-=cost; save(); setCoins(); sfx.up(); startEvent(snap);
+}
+function evContinueNow(){ if(mode==='event' && state==='over' && evCont) evPayContinue(evCont,CFG.evContinue); }
+function evResumeSaved(){ const sv=evSaved(); if(sv){ closeEvent(); evPayContinue(sv,CFG.evResume); } }
 function evAfterRound(){
   const ev=activeEvent(), st=evState(ev); if(!st) return;
   const was=st.best; st.best=Math.max(st.best,score);
@@ -4168,7 +4208,7 @@ $('evToast').onclick=()=>{ sfx.tap(); hideEvToast(); if(state==='menu') openEven
 $('evBg').onclick=$('evClose').onclick=()=>{ sfx.tap(); closeEvent(); };
 $('evBody').addEventListener('click',e=>{ const b=e.target.closest('[data-ev]'); if(!b) return; const k=b.dataset.ev; sfx.tap();
   if(k==='coins'){ closeEvent(); openCoins(); return; }
-  if(k==='enter') enterEvent(); else if(k==='more') buyMore(); else if(k==='easy') buyEasy(); else if(k==='chest') claimChest(+b.dataset.i); else if(k==='play'){ closeEvent(); startEvent(); } else if(k==='hatch'){ closeEvent(); openHatch(); } });
+  if(k==='enter') enterEvent(); else if(k==='more') buyMore(); else if(k==='easy') buyEasy(); else if(k==='chest') claimChest(+b.dataset.i); else if(k==='resume') evResumeSaved(); else if(k==='play'){ closeEvent(); startEvent(); } else if(k==='hatch'){ closeEvent(); openHatch(); } });
 
 /* ----- hatching the egg: press and hold for about 15 seconds while it cracks and glows, then it bursts and the rewards are revealed one by one ----- */
 const hat={phase:'off',p:0,hold:false,t:0,raf:0,last:0,cracks:[],sparks:[],frags:[],conf:[],rays:0,flash:0,seenK:0,ev:null,shown:0};
@@ -4278,7 +4318,8 @@ function claimDaily(){
 }
 function showMenu(){
   if(SPL){ while(spTimers.length) clearTimeout(spTimers.pop()); SPL=null; $('split').classList.add('hidden'); $('split').innerHTML=''; document.body.classList.remove('splitting'); }
-  rollDay(); endPreview(true); clearCount();
+  if(mode==='event' && state==='playing') evKeep(false);
+  evCont=null; rollDay(); endPreview(true); clearCount();
   if(!S.shop.gift && S.played>=1){ S.shop.gift=true; for(const b of Object.keys(BOOSTS)) if(!BOOSTS[b].lift && !BOOSTS[b].camp) S.shop.boosts[b]=Math.min(999,(S.shop.boosts[b]||0)+1); save(); setTimeout(()=>toast(`${I('gem','ic-cyan')} ${tr('Welcome gift: one of each boost. Pick them with the bolt button.')}`,3400),500); }
   passPlay=0; friendRun=false; rush=null; state='menu'; setBase(); paused=false; tut.on=false; $('pause').classList.add('hidden'); demoStack(); hideAll(); $('menu').classList.remove('hidden'); held=[]; syncPower();
   $('hud').classList.add('hidden'); $('scoreWrap').classList.add('hidden'); $('tip').classList.add('hidden'); $('endZen').classList.add('hidden'); $('pauseBtn').classList.add('hidden'); $('speedB').classList.add('hidden');
@@ -4965,6 +5006,7 @@ $('toMenu').onclick=()=>{ sfx.tap(); showMenu(); };
 $('overModes').onclick=()=>{ sfx.tap(); showModes(); };
 $('revive').onclick=()=>revive();
 $('revive2').onclick=()=>revive(true);
+$('evCont').onclick=()=>evContinueNow();
 $('share').onclick=shareScore;
 /* a friend who already has the app does not need a link: they copy the code and paste it under Friend race > Paste a friend's challenge (the link and the plain Share are unchanged) */
 async function copyRaceCode(code){
@@ -5104,7 +5146,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ SPLIT_T, get SPL(){ return SPL; }, startSplit, openSplitIntro, splitIntroCheck, splitQuit, splitPause, spCfg, GIFTS, giftSha, redeemGift, seasonInfo, seasonTier, seasonReward, seasonAddXp, claimTier, claimAllTiers, buyPremium, ensureSeason, openSeason, rollBox, boxPools, buyBoxes, openBoxFlow, BOX_TIERS, SEASONS, RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ get evEase(){ return evEase; }, get stackTopW(){ return stack[stack.length-1].w; }, evResumeSaved, evSaved, evContinueNow, get evCont(){ return evCont; }, SPLIT_T, get SPL(){ return SPL; }, startSplit, openSplitIntro, splitIntroCheck, splitQuit, splitPause, spCfg, GIFTS, giftSha, redeemGift, seasonInfo, seasonTier, seasonReward, seasonAddXp, claimTier, claimAllTiers, buyPremium, ensureSeason, openSeason, rollBox, boxPools, buyBoxes, openBoxFlow, BOX_TIERS, SEASONS, RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;

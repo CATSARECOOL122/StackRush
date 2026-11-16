@@ -954,3 +954,8 @@
 954|DU
 955|DU VERLIERST
 956|DU GEWINNST!
+957|Ab Block {n} weitermachen · {c} Münzen
+958|Weiter ab Block {n}
+959|Du brauchst {n} {coin}, um weiterzumachen
+960|Block {n}. Dieselbe Karte, ein oberster Block in voller Breite und langsamere Blöcke. Verbraucht einen Versuch.
+961|Dort weitermachen, wo du aufgehört hast

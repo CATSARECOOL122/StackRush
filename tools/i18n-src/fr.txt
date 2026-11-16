@@ -954,3 +954,8 @@
 954|TOI
 955|PERDU
 956|GAGNÉ !
+957|Continuer depuis le bloc {n} · {c} pièces
+958|On repart du bloc {n}
+959|Il te faut {n} {coin} pour continuer
+960|Bloc {n}. La même carte, un bloc du haut pleine largeur et des blocs plus lents. Utilise un essai.
+961|Reprendre là où tu t'es arrêté

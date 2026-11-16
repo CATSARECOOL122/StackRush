@@ -954,5 +954,10 @@
  "Two players, one screen. Both stack at the same time.",
  "YOU",
  "YOU LOSE",
- "YOU WIN!"
+ "YOU WIN!",
+ "Continue from block {n} · {c} coins",
+ "Continuing from block {n}",
+ "Need {n} {coin} to continue",
+ "Block {n}. The same map, a full-width top block and slower blocks. Uses one attempt.",
+ "Continue where you left off"
 ]

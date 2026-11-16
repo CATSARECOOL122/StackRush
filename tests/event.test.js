@@ -123,4 +123,54 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
+
+['event: the map never goes faster than x2 (the ramp, its own x1.6 and the easy map included)', async(e,L)=>{
+  const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=30000; __sr.enterEvent(); __sr.CFG.rampMax=9; __sr.CFG.rampStart=0; __sr.CFG.rampTau=1; __sr.startEvent(); }); await p.waitForTimeout(250);
+  const r=await p.evaluate(()=>{ const w=document.getElementById('stage').clientWidth, b=__sr.CFG.baseSpeed*w; const early=__sr.sp/b; return {early,max:__sr.CFG.evMaxSpeed}; });
+  assert.ok(r.early<=2.0001 && r.early>1.5,'the event speed starts high but is capped: x'+r.early.toFixed(2)); assert.equal(r.max,2);
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['event: Continue from where you fell costs 1,500 coins and one attempt, restores the tower and score on the same map, needs the coins, and is not offered in other modes or with no attempts left', async(e,L)=>{
+  const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=30000; __sr.enterEvent(); __sr.startEvent(); }); await p.waitForTimeout(250);
+  await L.perfects(p,3); await p.evaluate(()=>{ __sr.S.coins=1499; }); await L.miss(p); await p.waitForTimeout(300); for(let i=0;i<4 && await p.evaluate(()=>__sr.state)==='playing';i++){ await L.miss(p); await p.waitForTimeout(250); } await p.waitForTimeout(1500);
+  assert.equal(await p.evaluate(()=>__sr.state),'over'); assert.ok(await p.isVisible('#evCont'),'the Continue button is on the event end screen'); assert.match(await p.textContent('#evCont'),/Continue from block \d+ · 1,500/);
+  const o=await p.evaluate(()=>({n:__sr.evCont.blocks.length,score:__sr.evCont.score,att:__sr.S.ev.attempts})); assert.ok(o.n>=2,'a tower worth continuing: '+o.n);
+  await p.evaluate(()=>{ __sr.S.coins=1499; }); await p.click('#evCont'); await p.waitForTimeout(200); assert.equal(await p.evaluate(()=>__sr.state),'over','1,499 coins is not enough'); assert.equal(await p.evaluate(()=>__sr.S.coins),1499); assert.equal(await p.evaluate(()=>__sr.S.ev.attempts),o.att);
+  await p.evaluate(()=>{ __sr.S.coins=2000; }); await p.click('#evCont'); await p.waitForTimeout(400);
+  const a=await p.evaluate(()=>({st:__sr.state,coins:__sr.S.coins,att:__sr.S.ev.attempts,n:__sr.stackLen,score:document.getElementById('score').textContent,mode:__sr.mode,cur:!!__sr.cur}));
+  assert.deepEqual([a.st,a.coins,a.att,a.n,a.mode,a.cur],['playing',500,o.att+1,o.n,'event',true],'paid 1,500, used one attempt, same tower'); assert.equal(+a.score,o.score,'and the same score');
+  assert.ok(await L.perfects(p,2)>=1); assert.ok(await p.evaluate(()=>__sr.stackLen)>o.n,'and it keeps going from there');
+  /* AGAIN is a fresh start (no leftover tower), and other modes never show the button */
+  await endIt(p,L); await p.click('#again'); await p.waitForTimeout(300); assert.equal(await p.evaluate(()=>__sr.stackLen),1,'AGAIN starts from the bottom');
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.startMode('classic'); }); await p.waitForTimeout(150); await L.miss(p); await p.waitForTimeout(1500); assert.equal(await p.isVisible('#evCont'),false,'not in Classic');
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.ev.attempts=99; __sr.S.coins=9000; __sr.startEvent(); }); await p.waitForTimeout(250); await L.perfects(p,3); await endIt(p,L); assert.equal(await p.evaluate(()=>__sr.S.ev.attempts),100); assert.equal(await p.isVisible('#evCont'),false,'no attempts left, no Continue');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['event: a continued attempt has a full-width top block and runs 0.5x slower; leaving the event (to other modes, a reload) keeps the tower, and it can be continued later for 2,500 coins from the event screen', async(e,L)=>{
+  const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=30000; __sr.enterEvent(); __sr.CFG.rampStart=0; __sr.CFG.rampTau=1; __sr.startEvent(); }); await p.waitForTimeout(250);
+  const fresh=await p.evaluate(()=>__sr.sp); await L.perfects(p,3); for(let i=0;i<5 && await p.evaluate(()=>__sr.state)==='playing';i++){ await L.miss(p); await p.waitForTimeout(250); } await p.waitForTimeout(1500);
+  const before=await p.evaluate(()=>({n:__sr.evCont.blocks.length,topW:__sr.evCont.blocks[__sr.evCont.blocks.length-1][1],sv:__sr.S.evSave&&__sr.S.evSave.blocks.length}));
+  assert.equal(before.sv,before.n,'the tower is saved when the attempt ends');
+  /* continue straight away (1,500): full-width top block, slower */
+  await p.evaluate(()=>{ __sr.S.coins=3000; }); await p.click('#evCont'); await p.waitForTimeout(400);
+  const c=await p.evaluate(()=>{ const w=document.getElementById('stage').clientWidth; return {topW:__sr.stackTopW/w,sp:__sr.sp/(__sr.CFG.baseSpeed*w),evEase:__sr.evEase,n:__sr.stackLen,sv:__sr.S.evSave}; });
+  assert.ok(c.topW>=before.topW-0.001,'the top block is resized to the full width ('+c.topW.toFixed(2)+' vs '+before.topW.toFixed(2)+')'); assert.ok(c.sp<=1.5001 && c.sp>=1,'speed is x0.5 less than the x2 limit: x'+c.sp.toFixed(2)); assert.equal(c.n,before.n); assert.equal(c.sv,null,'the saved tower is in the run now');
+  /* leave mid-run: the tower is saved; other modes work; the event screen offers the 2,500 coin continue */
+  await L.perfects(p,2); const n1=await p.evaluate(()=>__sr.stackLen); await p.evaluate(()=>{ __sr.showMenu(); }); await p.waitForTimeout(200);
+  assert.equal(await p.evaluate(()=>__sr.S.evSave&&__sr.S.evSave.blocks.length),n1,'leaving the event mid-run saves the tower'); assert.equal(await p.evaluate(()=>__sr.S.evSave.id),'aurora26');
+  await p.evaluate(()=>{ __sr.startMode('classic'); }); await p.waitForTimeout(200); await L.perfects(p,2); await p.evaluate(()=>{ __sr.showMenu(); });
+  assert.equal(await p.evaluate(()=>__sr.S.evSave.blocks.length),n1,'other modes do not touch the saved tower');
+  await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await base(p); assert.equal(await p.evaluate(()=>__sr.S.evSave.blocks.length),n1,'still saved after a reload');
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.coins=2499; }); await p.click('#evCard'); await p.waitForTimeout(300); assert.ok(await p.isVisible('#evBody [data-ev=resume]'),'Continue where you left off is on the event screen'); assert.match(await p.textContent('#evBody'),/Continue where you left off/); assert.match(await p.textContent('#evBody [data-ev=resume]'),/2,500/);
+  const att=await p.evaluate(()=>__sr.S.ev.attempts); await p.evaluate(()=>document.querySelector('#evBody [data-ev=resume]').click()); await p.waitForTimeout(250); assert.equal(await p.evaluate(()=>__sr.S.ev.attempts),att,'2,499 coins is not enough: nothing changes'); assert.equal(await p.evaluate(()=>__sr.S.coins),2499);
+  await p.evaluate(()=>{ __sr.S.coins=2600; }); await p.evaluate(()=>document.querySelector('#evBody [data-ev=resume]').click()); await p.waitForTimeout(500);
+  const r=await p.evaluate(()=>({st:__sr.state,mode:__sr.mode,n:__sr.stackLen,coins:__sr.S.coins,att:__sr.S.ev.attempts,sv:__sr.S.evSave,ease:__sr.evEase}));
+  assert.deepEqual([r.st,r.mode,r.n,r.coins,r.att,r.sv,r.ease],['playing','event',n1,100,att+1,null,true],'paid 2,500, one attempt, same tower, slower'); 
+  /* a shallow attempt never replaces a deeper saved tower; the save is checked on load */
+  await endIt(p,L); await p.evaluate(()=>{ __sr.S.evSave={id:'aurora26',score:1,runBlocks:1,perfects:0,blocks:Array.from({length:40},()=>[.3,.4])}; __sr.showMenu(); __sr.S.ev.attempts=10; __sr.startEvent(); }); await p.waitForTimeout(250); await L.perfects(p,2); await endIt(p,L);
+  assert.equal(await p.evaluate(()=>__sr.S.evSave.blocks.length),40,'a shallower attempt keeps the deeper saved tower');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
 ];

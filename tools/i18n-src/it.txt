@@ -954,3 +954,8 @@
 954|TU
 955|HAI PERSO
 956|HAI VINTO!
+957|Continua dal blocco {n} · {c} monete
+958|Si riparte dal blocco {n}
+959|Servono {n} {coin} per continuare
+960|Blocco {n}. La stessa mappa, il blocco in cima a larghezza piena e blocchi più lenti. Usa un tentativo.
+961|Riprendi da dove avevi lasciato

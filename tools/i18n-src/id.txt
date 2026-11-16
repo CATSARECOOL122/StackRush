@@ -954,3 +954,8 @@
 954|KAMU
 955|KAMU KALAH
 956|KAMU MENANG!
+957|Lanjut dari blok {n} · {c} koin
+958|Melanjutkan dari blok {n}
+959|Butuh {n} {coin} untuk melanjutkan
+960|Blok {n}. Peta yang sama, blok teratas selebar penuh, dan blok lebih lambat. Memakai satu percobaan.
+961|Lanjut dari tempat terakhir

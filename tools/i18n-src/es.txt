@@ -954,3 +954,8 @@
 954|TÚ
 955|¡PIERDES!
 956|¡GANAS!
+957|Continuar desde el bloque {n} · {c} monedas
+958|Continuando desde el bloque {n}
+959|Necesitas {n} {coin} para continuar
+960|Bloque {n}. El mismo mapa, un bloque superior de ancho completo y bloques más lentos. Usa un intento.
+961|Continuar donde lo dejaste

@@ -954,3 +954,8 @@
 954|SEN
 955|KAYBETTİN
 956|KAZANDIN!
+957|{n}. bloktan devam et · {c} jeton
+958|{n}. bloktan devam ediliyor
+959|Devam etmek için {n} {coin} gerekli
+960|{n}. blok. Aynı harita, tam genişlikte üst blok ve daha yavaş bloklar. Bir deneme harcar.
+961|Kaldığın yerden devam et
