@@ -41,6 +41,7 @@ const {serve}=require('./serve');
     for(const m of sr.DAILY) out.add(m.text);                                                                          // daily missions
     for(const n of Object.values(sr.PHOTO_FRAMES)) out.add(n);                                                         // photo mode frames
     for(const s of sr.SEASONS) out.add(s.name);                                                                        // season names
+    for(const b of Object.values(sr.RUN_POW)){ out.add(b.name); out.add(b.desc); }                                  // run-only power-ups
     for(const t of sr.BOX_TIERS) out.add(t[2]);                                                                      // box rarities
     for(const l of Object.values(sr.HZ_LEVELS)){ out.add(l.name); out.add(l.desc); }                              // Hazard difficulty levels
     for(const m of sr.WEEKLY) out.add(m.text);                                      // weekly mission texts

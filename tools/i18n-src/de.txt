@@ -959,3 +959,7 @@
 959|Du brauchst {n} {coin}, um weiterzumachen
 960|Block {n}. Dieselbe Karte, ein oberster Block in voller Breite und langsamere Blöcke. Verbraucht einen Versuch.
 961|Dort weitermachen, wo du aufgehört hast
+962|150 BLÖCKE!
+963|150 Blöcke! Du hast jetzt 3 Größenwechsel. Öffne deine Power-ups, um sie zu nutzen.
+964|GRÖSSE ZURÜCK!
+965|Größe zurück

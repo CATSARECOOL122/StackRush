@@ -173,4 +173,40 @@ module.exports=[
   assert.equal(await p.evaluate(()=>__sr.S.evSave.blocks.length),40,'a shallower attempt keeps the deeper saved tower');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
+
+['event: while playing, the number of attempts left is shown under the score and counts down with each attempt (a continue uses one too)', async(e,L)=>{
+  const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=30000; __sr.enterEvent(); __sr.startEvent(); }); await p.waitForTimeout(250);
+  assert.match(await p.textContent('#ghostD'),/99 attempts left/,'attempt 1 of 100 leaves 99'); assert.equal(await p.isVisible('#ghostD'),true);
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.ev.attempts=41; __sr.startEvent(); }); await p.waitForTimeout(250); assert.match(await p.textContent('#ghostD'),/58 attempts left/);
+  await L.perfects(p,3); await endIt(p,L); await p.evaluate(()=>{ __sr.S.coins=5000; }); await p.click('#evCont'); await p.waitForTimeout(300); assert.match(await p.textContent('#ghostD'),/57 attempts left/,'a continue is an attempt too');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['event: reaching 150 blocks adds 3 Resizes to the power-ups with a message, once; each restores the full width and is used up; they are not in the shop or the saved boosts; a continued tower past 150 has them too', async(e,L)=>{
+  const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=30000; __sr.S.seenTip=true; __sr.S.hintPow=9; __sr.enterEvent(); __sr.startEvent(); }); await p.waitForTimeout(250);
+  await p.evaluate(()=>{ Object.assign(__sr.mod,{bombMul:1e-9,hz:{lava:1e9,ice:1e9,glue:1e9,wind:1e9},chance:{lava:0,ice:0,glue:0,gust:0}}); __sr.CFG.rampStart=1e9; });
+  assert.equal(await p.evaluate(()=>__sr.evResizes),0); assert.ok(!(await p.evaluate(()=>__sr.held)).includes('resize'),'none before 150');
+  await p.evaluate(()=>{ __sr.fillTower(147); }); assert.equal(await p.evaluate(()=>__sr.stackLen),148,'147 blocks on the tower');
+  await L.perfects(p,2); assert.equal(await p.evaluate(()=>__sr.evResizes),0,'149 blocks: not yet');
+  assert.equal(await L.perfects(p,1),1); await p.waitForTimeout(250);
+  assert.equal(await p.evaluate(()=>__sr.evResizes),3,'150 blocks: three Resizes'); assert.ok((await p.evaluate(()=>__sr.held)).includes('resize'));
+  await p.waitForFunction(()=>/150 blocks! You now have 3 Resizes/.test(document.getElementById('toast').textContent),null,{timeout:9000}); assert.ok(true,'the player is told'); assert.ok(await p.isVisible('#powerBtn'),'the power-up button is there');
+  assert.equal(await p.evaluate(()=>Object.keys(__sr.S.shop.boosts).includes('resize')),false,'not an inventory boost');
+  assert.equal(await L.perfects(p,2),2); assert.equal(await p.evaluate(()=>__sr.evResizes),3,'given once');
+  /* use them from the power-up menu */
+  for(let k=0;k<3;k++){
+    await p.evaluate(()=>{ __sr.top.w=__sr.baseW*0.3; if(__sr.cur) __sr.cur.w=__sr.top.w; });
+    await p.evaluate(()=>{ document.getElementById('powerBtn').click(); }); await p.waitForFunction(()=>__sr.powerPhase==='open',null,{timeout:4000});
+    assert.match(await p.textContent('#powerList [data-power=resize]'),new RegExp('×'+(3-k)),'the count shows');
+    await p.evaluate(()=>{ document.querySelector('#powerList [data-power=resize]').click(); }); await p.waitForTimeout(500);
+    assert.equal(await p.evaluate(()=>__sr.evResizes),2-k); assert.ok(await p.evaluate(()=>Math.abs(__sr.top.w-__sr.baseW)<1.5),'width restored to the full width');
+  }
+  assert.ok(!(await p.evaluate(()=>__sr.held)).includes('resize'),'used up'); 
+  /* not in the shop, not given to everyone */
+  await p.evaluate(()=>{ __sr.showMenu(); }); await p.click('#openThemes'); await p.evaluate(()=>__sr.setTab('boosts')); assert.doesNotMatch(await p.textContent('#tGrid'),/Resize/,'not sold in the shop');
+  /* a continued tower that is already past 150 has them from the start */
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.coins=9000; __sr.S.evSave={id:'aurora26',score:160,runBlocks:160,perfects:10,blocks:Array.from({length:161},()=>[.3,.4])}; });
+  await p.evaluate(()=>__sr.evResumeSaved()); await p.waitForTimeout(400); assert.deepEqual(await p.evaluate(()=>[__sr.state,__sr.evResizes,__sr.held.includes('resize')]),['playing',3,true]);
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
 ];

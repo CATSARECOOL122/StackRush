@@ -959,3 +959,7 @@
 959|Servono {n} {coin} per continuare
 960|Blocco {n}. La stessa mappa, il blocco in cima a larghezza piena e blocchi più lenti. Usa un tentativo.
 961|Riprendi da dove avevi lasciato
+962|150 BLOCCHI!
+963|150 blocchi! Ora hai 3 Ridimensionamenti. Apri i potenziamenti per usarli.
+964|RIDIMENSIONA!
+965|Ridimensiona

@@ -959,3 +959,7 @@
 959|Il te faut {n} {coin} pour continuer
 960|Bloc {n}. La même carte, un bloc du haut pleine largeur et des blocs plus lents. Utilise un essai.
 961|Reprendre là où tu t'es arrêté
+962|150 BLOCS !
+963|150 blocs ! Tu as maintenant 3 Redimensionnements. Ouvre tes bonus pour les utiliser.
+964|REDIMENSION !
+965|Redimensionner

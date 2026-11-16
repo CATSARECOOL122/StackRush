@@ -959,3 +959,7 @@
 959|Você precisa de {n} {coin} para continuar
 960|Bloco {n}. O mesmo mapa, o bloco do topo com largura total e blocos mais lentos. Usa uma tentativa.
 961|Continuar de onde parou
+962|150 BLOCOS!
+963|150 blocos! Agora você tem 3 Redimensionar. Abra seus reforços para usá-los.
+964|REDIMENSIONAR!
+965|Redimensionar

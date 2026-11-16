@@ -959,3 +959,7 @@
 959|Butuh {n} {coin} untuk melanjutkan
 960|Blok {n}. Peta yang sama, blok teratas selebar penuh, dan blok lebih lambat. Memakai satu percobaan.
 961|Lanjut dari tempat terakhir
+962|150 BLOK!
+963|150 blok! Sekarang kamu punya 3 Ubah Ukuran. Buka booster untuk memakainya.
+964|UKURAN KEMBALI!
+965|Ubah ukuran

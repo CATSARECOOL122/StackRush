@@ -1704,7 +1704,7 @@ function hue(th,i){ return (((th.h0 + th.hr*(.5+.5*Math.sin(i*th.hs))) % 360) + 
 const hsl = (h,s,l,a=1) => `hsla(${h.toFixed(1)},${s}%,${l}%,${a})`;
 function popEl(el,scale=1.22,ms=170){ if(reduceOn()) return; try{ el.animate([{transform:`scale(${scale})`},{transform:'scale(1)'}],{duration:ms,easing:'ease-out'}); }catch(e){} }
 const tq=[]; let tBusy=false;
-function toast(msg,ms=2200){ if(SPLIT) return; tq.push([msg,ms]); if(!tBusy) nextToast(); }
+function toast(msg,ms=2200,front){ if(SPLIT) return; if(front) tq.unshift([msg,ms]); else tq.push([msg,ms]); if(!tBusy) nextToast(); }
 function nextToast(){
   const it=tq.shift(); if(!it){ tBusy=false; return; }
   tBusy=true; const el=$('toast'); el.innerHTML=it[0]; el.classList.add('show');
@@ -2090,8 +2090,16 @@ let held=[], powerPhase='off', tsc=1;       // the boosts in hand this round (yo
 const BOOST_MODES=['classic','timed','lives','hazard','campaign','event'];
 const boostsAllowed=m=>BOOST_MODES.includes(m);
 const prunePicks=()=>{ S.shop.pick=S.shop.pick.filter((k,i,a)=>(S.shop.boosts[k]||0)>0 && a.indexOf(k)===i).slice(0,2); };   // only boosts you still have can stay picked, at most two
+const RUN_POW={resize:{name:'Resize',icon:'expand',desc:'Restores your full width.'}};          // power-ups that exist only inside a run (not in the inventory or the shop)
+const powDef=id=>BOOSTS[id]||RUN_POW[id];
+const powCount=id=>id==='resize'?evResizes:(S.shop.boosts[id]||0);
+function evGrantResizes(){
+  if(evGot150 || mode!=='event') return; evGot150=true; evResizes=3; if(!held.includes('resize')) held.push('resize');
+  sfx.up(); vib([20,30,20]); texts.push({x:W/2,y:stack.length*BH+BH*3,vy:60,text:tr('Resize')+' ×3',size:30*u,color:'#7fe8ff',life:1.6});
+  toast(`${I('expand','ic-cyan')} ${tr('150 blocks! You now have 3 Resizes. Open your power-ups to use them.')}`,4200,true); syncPower(true);
+}
 function useBoost(id){
-  S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); boosted=true; armed[id]=false; if(friendRun && cuLeft[id]) cuLeft[id]--; prunePicks(); held=held.filter(k=>(S.shop.boosts[k]||0)>0 && (!friendRun || cuLeft[k]>0)); save(); syncPower();
+  S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); boosted=true; armed[id]=false; if(friendRun && cuLeft[id]) cuLeft[id]--; prunePicks(); held=held.filter(k=>powCount(k)>0 && (!friendRun || cuLeft[k]>0)); save(); syncPower();
   const bo=BOOSTS[id]; toast(`${I(bo.icon,'ic-cyan')} ${tr(bo.name)} · ${tr('{n} left',{n:S.shop.boosts[id]})}`,1800);
 }
 let paused=false, grace=0;
@@ -2103,6 +2111,7 @@ const IS_IOS=IS_IPAD||/iPhone|iPod/.test(UA);
 const COARSE=(()=>{ try{ return matchMedia('(pointer:coarse)').matches; }catch(e){ return false; } })();
 const HAS_VIBRATE=typeof navigator.vibrate==='function';        // iPhone and iPad Safari have no vibration API
 let tablet=false, uiZ=1;
+let evResizes=0, evGot150=false;               // the event's reward for reaching 150 blocks: three Resizes to use during the attempt
 let evEase=false;                              // this event attempt was continued from a saved tower: a little slower
 let evCont=null;                               // the tower as it stood when an event attempt ended, so it can be continued for coins
 let cam=0, shake=0, flash=0, t=0, banner=null, snap=null;   // snap: the save as it was before a run's payout, so Revive can undo just that payout
@@ -2337,7 +2346,7 @@ function newRun(){
   score=0; combo=0; bestCombo=0; perfectsRun=0; runBlocks=0; dodgedRun=0; revived=false; cam=0; shake=0; flash=0; lastBomb=false; shield=false;
   paused=false; grace=0; clearCount(); $('pause').classList.add('hidden');
   lives=mod.lives||M.lives; maxLives=lives; timeLeft=CFG.timedSeconds; timerOn=false;
-  lift=null; freeBlocks=0; duelLogged=false; titanLeft=0; magnetLeft=0; freezeT=0; waterLeft=0; relicTaken=new Set(); relicRun=0; upDur=0; upT=0; upAng=0; upMin=6; upNext=rand(6,10); armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
+  evResizes=0; evGot150=false; lift=null; freeBlocks=0; duelLogged=false; titanLeft=0; magnetLeft=0; freezeT=0; waterLeft=0; relicTaken=new Set(); relicRun=0; upDur=0; upT=0; upAng=0; upMin=6; upNext=rand(6,10); armed={}; boosted=false; slowLeft=0; regrowUsed=0; boostShield=false; windOff=0; gust=null; lastGustH=-99; windFx=[];
   if(challenge && challenge.mode!==mode) challenge=null;
   runSeed=challenge?challenge.seed:(mode==='event' && activeEvent())?activeEvent().seed:(Math.random()*2147483647)|0; assisted=assistOn();
   prunePicks(); held=[]; powerPhase='off'; tsc=1; $('power').classList.add('hidden');
@@ -2748,6 +2757,7 @@ function drop(){
   runRec.blocks.push({x:+(nb.x/W).toFixed(3),w:+(nb.w/W).toFixed(3)}); runRec.scores.push(score); runRec.ts.push(+(t-runT0).toFixed(2));
   if(cur.mat==='lava' && !wet) meltTwo();
   setScore(score); setCombo(combo); setSpeedBadge(true);
+  if(mode==='event' && !evGot150 && stack.length-1>=150) evGrantResizes();
   maybeGust();
   if(slowLeft>0) slowLeft--;
   if(armed.slow && slowLeft===0 && rampOf(placedN())>=1.5){                                 // Slow-Mo boost: once the speed has picked up
@@ -2778,6 +2788,7 @@ function powerWhy(id){                                                       // 
   const top=stack[stack.length-1];
   if(id==='shield') return shield ? tr('A shield is already up') : '';
   if(id==='slow') return slowLeft>0 ? tr('Active for {n} more drops',{n:slowLeft}) : '';
+  if(id==='resize') return top.w>=baseW-1 ? tr('Your tower is already full width') : '';
   if(id==='regrow') return regrowUsed>=2 ? tr('Two Regrows a round is the limit') : (top.w>=baseW-1 ? tr('Your tower is already full width') : '');
   if(id==='time') return !timerOn ? tr('The clock starts on your first tap') : '';
   if(id==='titan') return titanLeft>0 ? tr('Active for {n} more drops',{n:titanLeft}) : '';
@@ -2799,7 +2810,7 @@ function openPower(){
   powerPhase='slowing'; sfx.tap(); vib(8); $('powerLab').classList.add('hidden'); if((S.hintPow||0)<9){ S.hintPow=9; save(); }
 }
 function renderPower(){
-  $('powerList').innerHTML=held.map(id=>{ const bo=BOOSTS[id], n=S.shop.boosts[id]||0, why=powerWhy(id);
+  $('powerList').innerHTML=held.map(id=>{ const bo=powDef(id), n=powCount(id), why=powerWhy(id);
     return `<button class="bpick${why?' empty':' on'}" data-power="${id}" ${why?'aria-disabled="true"':''}><i>${I(bo.icon)}</i><div><b>${tr(bo.name)}</b><span>${why||tr(bo.desc)}</span></div><em>×${n}</em></button>`; }).join('');
 }
 function closePower(immediate){
@@ -2815,8 +2826,12 @@ function stepPower(dt){
 }
 function usePower(id){
   if(powerPhase!=='open' || !held.includes(id) || powerWhy(id)) return false;
-  const bo=BOOSTS[id], top=stack[stack.length-1], say1=(text,color='#7fe8ff')=>{ texts.length=0; texts.push({x:W/2,y:stack.length*BH+BH*2,vy:80,text,size:26*u,color,life:1}); };
+  const bo=powDef(id), top=stack[stack.length-1], say1=(text,color='#7fe8ff')=>{ texts.length=0; texts.push({x:W/2,y:stack.length*BH+BH*2,vy:80,text,size:26*u,color,life:1}); };
   if(id==='shield'){ shield=true; boostShield=true; say1(tr('SHIELD UP!')); sfx.shield(); burst(W/2,stack.length*BH+BH,190,26,300*u,500); }          // used up only when it saves you
+  else if(id==='resize'){
+    const cx=top.x+top.w/2; top.w=baseW; top.x=clamp(cx-baseW/2,0,W-baseW); top.sq=.6; if(cur){ cur.w=baseW; cur.x=clamp(cur.x,0,W-baseW); }
+    runRec.blocks[stack.length-1]={x:+(top.x/W).toFixed(3),w:+(top.w/W).toFixed(3)}; evResizes=Math.max(0,evResizes-1); if(evResizes<=0) held=held.filter(k=>k!=='resize'); say1(tr('RESIZE!')); burst(cx+windOff,top.y+BH,190,26,300*u,500); sfx.shield();
+  }
   else if(id==='slow'){ slowLeft=6; useBoost('slow'); say1(tr('SLOW-MO!')); sfx.speed(); }
   else if(id==='regrow'){
     const cx=top.x+top.w/2; top.w=baseW; top.x=clamp(cx-baseW/2,0,W-baseW); top.sq=.6; if(cur){ cur.w=baseW; cur.x=clamp(cur.x,0,W-baseW); }
@@ -2824,7 +2839,7 @@ function usePower(id){
   }
   else if(id==='time'){ timeLeft=Math.min(CFG.timedCap,timeLeft+CFG.timedExtra); useBoost('time'); say1(tr('EXTRA TIME!')); flash=.2; sfx.speed(); }
   else if(bo.camp){                                                                    // campaign power-ups are used up but do not make the round "boosted"
-    S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); held=held.filter(k=>(S.shop.boosts[k]||0)>0); save();
+    S.shop.boosts[id]=Math.max(0,(S.shop.boosts[id]||0)-1); held=held.filter(k=>powCount(k)>0); save();
     if(id==='titan'){ titanLeft=10; say1(tr('TITAN!'),'#ffd36b'); }
     else if(id==='magnet'){ magnetLeft=5; say1(tr('MAGNET!'),'#ffd36b'); }
     else if(id==='freeze'){ freezeT=2; say1(tr('FREEZE!')); }
@@ -3114,6 +3129,7 @@ function setSpeedBadge(cue){
 function setGhostD(){
   const el=$('ghostD');
   if(state==='menu' || mode==='practice'){ el.textContent=''; el.className=''; return; }
+  if(mode==='event'){ const est=evState(activeEvent()); if(est){ el.textContent=tr('{n} attempts left',{n:Math.max(0,evMax(est)-est.attempts)}); el.className=''; return; } }
   if(mode==='campaign'){ const g=stageDef(); el.textContent=`${goalLabel(g)} · ${Math.min(goalVal(g),g[1])}/${g[1]}`; el.className=''; return; }
   if(mode==='daily'){ el.innerHTML=S.twist.done?tr('Twist complete')+' '+I('check-circle','ic-green'):tr('Goal: score {n}',{n:CFG.twistGoal}); el.className=S.twist.done?'up':''; return; }
   if(challenge && challenge.mode===mode && ghost && ghost.live){ const fs=ghost.live.sc[friendNow()]; lastFs=fs; el.textContent=tr('Friend {n}',{n:fs}); el.className=score>fs?'up':score<fs?'down':''; return; }
@@ -4175,7 +4191,7 @@ function startEvent(snapIn){
   if(keep){                                                                      // the same map, picked up at the height where the last attempt ended; the top block is made full width again
     stack=keep.blocks.map(([x,w],i)=>({x:x*W,w:w*W,y:i*BH,i,sq:0})); score=keep.score; runBlocks=keep.runBlocks; perfectsRun=keep.perfects; combo=0; setCombo(0);
     { const top=stack[stack.length-1], cx=top.x+top.w/2; top.w=baseW; top.x=clamp(cx-baseW/2,0,W-baseW); }
-    cam=Math.max(0,stack.length*BH-H*.35); spawnCur(true); setScore(score);
+    cam=Math.max(0,stack.length*BH-H*.35); spawnCur(true); setScore(score); if(stack.length-1>=150) evGrantResizes();
     texts.length=0; texts.push({x:W/2,y:stack.length*BH+60,vy:60,text:tr('Continuing from block {n}',{n:stack.length-1}),size:22*u,color:'#9ff3ff',life:1.4});
   }
 }
@@ -5146,7 +5162,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ get evEase(){ return evEase; }, get stackTopW(){ return stack[stack.length-1].w; }, evResumeSaved, evSaved, evContinueNow, get evCont(){ return evCont; }, SPLIT_T, get SPL(){ return SPL; }, startSplit, openSplitIntro, splitIntroCheck, splitQuit, splitPause, spCfg, GIFTS, giftSha, redeemGift, seasonInfo, seasonTier, seasonReward, seasonAddXp, claimTier, claimAllTiers, buyPremium, ensureSeason, openSeason, rollBox, boxPools, buyBoxes, openBoxFlow, BOX_TIERS, SEASONS, RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ fillTower(n){ const t0=stack[stack.length-1]; for(let k=0;k<n;k++){ stack.push({x:t0.x,w:t0.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); } cur=null; spawnCur(true); }, RUN_POW, get evResizes(){ return evResizes; }, get held(){ return held; }, get evEase(){ return evEase; }, get stackTopW(){ return stack[stack.length-1].w; }, evResumeSaved, evSaved, evContinueNow, get evCont(){ return evCont; }, SPLIT_T, get SPL(){ return SPL; }, startSplit, openSplitIntro, splitIntroCheck, splitQuit, splitPause, spCfg, GIFTS, giftSha, redeemGift, seasonInfo, seasonTier, seasonReward, seasonAddXp, claimTier, claimAllTiers, buyPremium, ensureSeason, openSeason, rollBox, boxPools, buyBoxes, openBoxFlow, BOX_TIERS, SEASONS, RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;
