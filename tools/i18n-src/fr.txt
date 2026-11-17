@@ -963,3 +963,20 @@
 963|150 blocs ! Tu as maintenant 3 Redimensionnements. Ouvre tes bonus pour les utiliser.
 964|REDIMENSION !
 965|Redimensionner
+966|Il reste {n} essais. Atteins {g} pour gagner {w} pièces.
+967|Bats la même carte difficile en moins de {a} essais (sans essais bonus, continuations ni carte facile).
+968|L'entrée coûte {p}% de tes pièces (au moins {n}).
+969|Carte plus douce : la vitesse est limitée à x2 et continuer est un peu plus lent.
+970|Coffres d'étape à {a}, {b} et {c} en chemin.
+971|COFFRES MYSTÈRE
+972|Jouer un essai TRIPLE
+973|Touche encore pour payer {s} pièces
+974|TRIPLE · il reste {n} essais
+975|TRIPLE OU RIEN
+976|TRIPLE OU RIEN perdu : plus d'essais.
+977|TRIPLE TES PIÈCES OU RIEN
+978|TRIPLE ! +{n} pièces
+979|Gagné : +{w} pièces. Perdu : les {s} pièces payées maintenant sont perdues.
+980|Avec {n} essais restants, la carte devient un peu plus douce.
+981|Tu as fait éclore le dernier œuf, donc cette carte demande le double du score.
+982|Tu as triplé tes pièces.

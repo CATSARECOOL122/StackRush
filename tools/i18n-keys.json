@@ -963,5 +963,22 @@
  "150 BLOCKS!",
  "150 blocks! You now have 3 Resizes. Open your power-ups to use them.",
  "RESIZE!",
- "Resize"
+ "Resize",
+ "{n} attempts left. Reach {g} to win {w} coins.",
+ "Beat the same hard map in under {a} attempts (no extra attempts, continues or easier map).",
+ "Entry costs {p}% of your coins (at least {n}).",
+ "Gentler map: speed is capped at x2 and a continue is a little slower.",
+ "Milestone chests at {a}, {b} and {c} along the way.",
+ "MYSTERY BOXES",
+ "Play a TRIPLE attempt",
+ "Tap again to pay {s} coins",
+ "TRIPLE · {n} attempts left",
+ "TRIPLE OR NOTHING",
+ "TRIPLE OR NOTHING lost: out of attempts.",
+ "TRIPLE YOUR COINS OR NOTHING",
+ "TRIPLE! +{n} coins",
+ "Win: +{w} coins. Lose: the {s} coins you pay now are gone.",
+ "With {n} attempts left, the map gets a little gentler.",
+ "You hatched the last egg, so this map asks for double the score.",
+ "You tripled your coins."
 ]

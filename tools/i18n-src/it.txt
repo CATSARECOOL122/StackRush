@@ -963,3 +963,20 @@
 963|150 blocchi! Ora hai 3 Ridimensionamenti. Apri i potenziamenti per usarli.
 964|RIDIMENSIONA!
 965|Ridimensiona
+966|Restano {n} tentativi. Raggiungi {g} per vincere {w} monete.
+967|Supera la stessa mappa difficile in meno di {a} tentativi (niente tentativi extra, continuazioni o mappa facile).
+968|L'ingresso costa il {p}% delle tue monete (almeno {n}).
+969|Mappa più dolce: la velocità è limitata a x2 e continuare è un po' più lento.
+970|Forzieri di tappa a {a}, {b} e {c} lungo la strada.
+971|SCATOLE MISTERIOSE
+972|Gioca un tentativo TRIPLO
+973|Tocca ancora per pagare {s} monete
+974|TRIPLO · restano {n} tentativi
+975|TRIPLO O NIENTE
+976|TRIPLO O NIENTE perso: tentativi finiti.
+977|TRIPLICA LE TUE MONETE O NIENTE
+978|TRIPLO! +{n} monete
+979|Vinci: +{w} monete. Perdi: le {s} monete che paghi ora sono perse.
+980|Con {n} tentativi rimasti, la mappa diventa un po' più dolce.
+981|Hai fatto schiudere l'ultimo uovo, quindi questa mappa chiede il doppio del punteggio.
+982|Hai triplicato le tue monete.

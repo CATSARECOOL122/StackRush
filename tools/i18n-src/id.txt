@@ -963,3 +963,20 @@
 963|150 blok! Sekarang kamu punya 3 Ubah Ukuran. Buka booster untuk memakainya.
 964|UKURAN KEMBALI!
 965|Ubah ukuran
+966|Sisa {n} percobaan. Capai {g} untuk menang {w} koin.
+967|Selesaikan peta sulit yang sama dalam kurang dari {a} percobaan (tanpa percobaan tambahan, lanjutan, atau peta mudah).
+968|Masuk butuh {p}% koinmu (minimal {n}).
+969|Peta lebih ringan: kecepatan dibatasi x2 dan lanjut sedikit lebih lambat.
+970|Peti pencapaian di {a}, {b}, dan {c} sepanjang jalan.
+971|KOTAK MISTERI
+972|Main percobaan TIGA KALI LIPAT
+973|Ketuk lagi untuk membayar {s} koin
+974|TIGA KALI · sisa {n} percobaan
+975|TIGA KALI LIPAT ATAU NOL
+976|TIGA KALI LIPAT ATAU NOL kalah: percobaan habis.
+977|TIGA KALIKAN KOINMU ATAU NOL
+978|TIGA KALI! +{n} koin
+979|Menang: +{w} koin. Kalah: {s} koin yang kamu bayar sekarang hilang.
+980|Dengan sisa {n} percobaan, peta jadi sedikit lebih ringan.
+981|Kamu menetaskan telur terakhir, jadi peta ini meminta skor dua kali lipat.
+982|Kamu melipatgandakan koinmu tiga kali.

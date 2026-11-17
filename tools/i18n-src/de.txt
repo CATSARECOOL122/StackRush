@@ -963,3 +963,20 @@
 963|150 Blöcke! Du hast jetzt 3 Größenwechsel. Öffne deine Power-ups, um sie zu nutzen.
 964|GRÖSSE ZURÜCK!
 965|Größe zurück
+966|Noch {n} Versuche. Erreiche {g}, um {w} Münzen zu gewinnen.
+967|Schlage dieselbe schwere Karte in unter {a} Versuchen (keine Extra-Versuche, Fortsetzungen oder leichtere Karte).
+968|Der Eintritt kostet {p}% deiner Münzen (mindestens {n}).
+969|Mildere Karte: Das Tempo ist auf x2 begrenzt und eine Fortsetzung ist etwas langsamer.
+970|Meilenstein-Truhen bei {a}, {b} und {c} unterwegs.
+971|MYSTERY-BOXEN
+972|Einen DREIFACH-Versuch spielen
+973|Tippe erneut, um {s} Münzen zu zahlen
+974|DREIFACH · noch {n} Versuche
+975|DREIFACH ODER NICHTS
+976|DREIFACH ODER NICHTS verloren: keine Versuche mehr.
+977|VERDREIFACHE DEINE MÜNZEN ODER NICHTS
+978|DREIFACH! +{n} Münzen
+979|Gewinn: +{w} Münzen. Verlust: Die {s} Münzen, die du jetzt zahlst, sind weg.
+980|Mit noch {n} Versuchen wird die Karte etwas milder.
+981|Du hast das letzte Ei ausgebrütet, also verlangt diese Karte die doppelte Punktzahl.
+982|Du hast deine Münzen verdreifacht.

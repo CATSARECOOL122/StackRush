@@ -963,3 +963,20 @@
 963|150 blok! Artık 3 Yeniden Boyutlandırman var. Kullanmak için güçlendiricilerini aç.
 964|BOYUT GERİ!
 965|Yeniden boyutlandır
+966|{n} deneme kaldı. {w} jeton kazanmak için {g} puana ulaş.
+967|Aynı zor haritayı {a} denemeden az sürede geç (ekstra deneme, devam etme veya kolay harita yok).
+968|Giriş jetonlarının %{p}'ine mal olur (en az {n}).
+969|Daha yumuşak harita: hız x2 ile sınırlı ve devam etmek biraz daha yavaş.
+970|Yolda {a}, {b} ve {c} puanında sandıklar.
+971|GİZEMLİ KUTULAR
+972|ÜÇ KAT bir deneme oyna
+973|{s} jeton ödemek için tekrar dokun
+974|ÜÇ KAT · {n} deneme kaldı
+975|ÜÇ KAT YA DA HİÇ
+976|ÜÇ KAT YA DA HİÇ kaybedildi: deneme kalmadı.
+977|JETONLARINI ÜÇ KATINA ÇIKAR YA DA HİÇ
+978|ÜÇ KAT! +{n} jeton
+979|Kazan: +{w} jeton. Kaybet: şimdi ödediğin {s} jeton gider.
+980|{n} deneme kaldığında harita biraz yumuşar.
+981|Son yumurtayı çıkardın, bu yüzden bu harita iki kat puan ister.
+982|Jetonlarını üç katına çıkardın.

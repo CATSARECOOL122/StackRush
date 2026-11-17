@@ -963,3 +963,20 @@
 963|¡150 bloques! Ahora tienes 3 Redimensionar. Abre tus potenciadores para usarlos.
 964|¡REDIMENSIONAR!
 965|Redimensionar
+966|Quedan {n} intentos. Llega a {g} para ganar {w} monedas.
+967|Supera el mismo mapa difícil en menos de {a} intentos (sin intentos extra, continuaciones ni mapa fácil).
+968|La entrada cuesta el {p}% de tus monedas (mínimo {n}).
+969|Mapa más suave: la velocidad se limita a x2 y continuar es un poco más lento.
+970|Cofres de hito en {a}, {b} y {c} por el camino.
+971|CAJAS MISTERIOSAS
+972|Jugar un intento TRIPLE
+973|Toca otra vez para pagar {s} monedas
+974|TRIPLE · quedan {n} intentos
+975|TRIPLE O NADA
+976|TRIPLE O NADA perdido: sin intentos.
+977|TRIPLICA TUS MONEDAS O NADA
+978|¡TRIPLE! +{n} monedas
+979|Ganas: +{w} monedas. Pierdes: las {s} monedas que pagas ahora se pierden.
+980|Con {n} intentos restantes, el mapa se vuelve un poco más suave.
+981|Completaste el último huevo, así que este mapa pide el doble de puntuación.
+982|Triplicaste tus monedas.

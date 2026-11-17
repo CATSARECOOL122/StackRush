@@ -124,10 +124,14 @@ module.exports=[
 }],
 
 
-['event: the map never goes faster than x2 (the ramp, its own x1.6 and the easy map included)', async(e,L)=>{
+['event: the map is hard (no speed cap) until you have 25 attempts left or fewer; then the speed is capped at x2', async(e,L)=>{
   const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=30000; __sr.enterEvent(); __sr.CFG.rampMax=9; __sr.CFG.rampStart=0; __sr.CFG.rampTau=1; __sr.startEvent(); }); await p.waitForTimeout(250);
-  const r=await p.evaluate(()=>{ const w=document.getElementById('stage').clientWidth, b=__sr.CFG.baseSpeed*w; const early=__sr.sp/b; return {early,max:__sr.CFG.evMaxSpeed}; });
-  assert.ok(r.early<=2.0001 && r.early>1.5,'the event speed starts high but is capped: x'+r.early.toFixed(2)); assert.equal(r.max,2);
+  const ratio=()=>p.evaluate(()=>{ const w=document.getElementById('stage').clientWidth; return __sr.sp/(__sr.CFG.baseSpeed*w); });
+  assert.equal(await p.evaluate(()=>__sr.evMercy),false); assert.ok(await ratio()>2.5,'with attempts to spare the speed is not capped: x'+(await ratio()).toFixed(2));
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.ev.attempts=75; __sr.startEvent(); }); await p.waitForTimeout(250);
+  assert.equal(await p.evaluate(()=>__sr.evMercy),true,'attempt 76 leaves 24: the gentler map'); assert.ok(await ratio()<=2.0001 && await ratio()>1.5,'capped at x2 with 25 or fewer left: x'+(await ratio()).toFixed(2));
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.ev.attempts=74; __sr.startEvent(); }); await p.waitForTimeout(250); assert.equal(await p.evaluate(()=>__sr.evMercy),true,'exactly 25 left is gentler'); 
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.S.ev.attempts=73; __sr.startEvent(); }); await p.waitForTimeout(250); assert.equal(await p.evaluate(()=>__sr.evMercy),false,'26 left is not');
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
@@ -148,8 +152,8 @@ module.exports=[
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 
-['event: a continued attempt has a full-width top block and runs 0.5x slower; leaving the event (to other modes, a reload) keeps the tower, and it can be continued later for 2,500 coins from the event screen', async(e,L)=>{
-  const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=30000; __sr.enterEvent(); __sr.CFG.rampStart=0; __sr.CFG.rampTau=1; __sr.startEvent(); }); await p.waitForTimeout(250);
+['event: with 25 attempts or fewer left a continued attempt has a full-width top block and runs 0.5x slower (not before); leaving the event (to other modes, a reload) keeps the tower, and it can be continued later for 2,500 coins from the event screen', async(e,L)=>{
+  const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=30000; __sr.enterEvent(); __sr.S.ev.attempts=74; __sr.CFG.rampStart=0; __sr.CFG.rampTau=1; __sr.startEvent(); }); await p.waitForTimeout(250);
   const fresh=await p.evaluate(()=>__sr.sp); await L.perfects(p,3); for(let i=0;i<5 && await p.evaluate(()=>__sr.state)==='playing';i++){ await L.miss(p); await p.waitForTimeout(250); } await p.waitForTimeout(1500);
   const before=await p.evaluate(()=>({n:__sr.evCont.blocks.length,topW:__sr.evCont.blocks[__sr.evCont.blocks.length-1][1],sv:__sr.S.evSave&&__sr.S.evSave.blocks.length}));
   assert.equal(before.sv,before.n,'the tower is saved when the attempt ends');
@@ -207,6 +211,66 @@ module.exports=[
   /* a continued tower that is already past 150 has them from the start */
   await p.evaluate(()=>{ __sr.showMenu(); __sr.S.coins=9000; __sr.S.evSave={id:'aurora26',score:160,runBlocks:160,perfects:10,blocks:Array.from({length:161},()=>[.3,.4])}; });
   await p.evaluate(()=>__sr.evResumeSaved()); await p.waitForTimeout(400); assert.deepEqual(await p.evaluate(()=>[__sr.state,__sr.evResizes,__sr.held.includes('resize')]),['playing',3,true]);
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['event: with more than 25 attempts left a continue gives the tower back as it was (no resize, no slowdown)', async(e,L)=>{
+  const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=30000; __sr.enterEvent(); __sr.startEvent(); }); await p.waitForTimeout(250);
+  await L.perfects(p,3); await endIt(p,L); const before=await p.evaluate(()=>__sr.evCont.blocks[__sr.evCont.blocks.length-1][1]);
+  await p.evaluate(()=>{ __sr.S.coins=5000; }); await p.click('#evCont'); await p.waitForTimeout(400);
+  const a=await p.evaluate(()=>({ease:__sr.evEase,mercy:__sr.evMercy,w:__sr.stackTopW/document.getElementById('stage').clientWidth}));
+  assert.deepEqual([a.ease,a.mercy],[false,false]); assert.ok(Math.abs(a.w-before)<0.002,'the top block keeps its width: '+a.w.toFixed(3)+' vs '+before.toFixed(3));
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['event TRIPLE OR NOTHING: after hatching, with more than 30,000 coins; pays 85% to enter (confirm tap), 24 attempts of its own on the regular hard map, no continues; reaching the goal pays 3x the coins you had; running out loses the stake', async(e,L)=>{
+  const p=await L.open(e); await base(p); await p.evaluate(()=>{ __sr.S.coins=20500; __sr.enterEvent(); const st=__sr.S.ev; st.hatched=1; st.best=1000; st.easy=1; if(!__sr.S.eggs.includes('aurora26')) __sr.S.eggs.push('aurora26'); __sr.S.coins=30000; });
+  await p.evaluate(()=>{ __sr.showMenu(); }); await p.click('#evCard'); await p.waitForTimeout(300); assert.equal(await p.locator('#evBody [data-ev=tri]').count(),0,'30,000 coins exactly: no offer');
+  await p.evaluate(()=>{ __sr.S.coins=100000; __sr.openEvent(); }); await p.waitForTimeout(300); assert.equal(await p.locator('#evBody [data-ev=tri]').count(),1,'over 30,000: the offer'); assert.match(await p.textContent('#evBody .evtri'),/TRIPLE YOUR COINS OR NOTHING/); assert.match(await p.textContent('#evBody .evtri'),/300,000/); assert.match(await p.textContent('#evBody .evtri'),/85,000/);
+  await p.evaluate(()=>document.querySelector('#evBody [data-ev=tri]').click()); await p.waitForTimeout(200); assert.equal(await p.evaluate(()=>__sr.S.coins),100000,'the first tap only asks'); assert.match(await p.textContent('#evBody .evtri'),/Tap again/);
+  await p.evaluate(()=>document.querySelector('#evBody [data-ev=tri]').click()); await p.waitForTimeout(250);
+  assert.deepEqual(await p.evaluate(()=>{ const t=__sr.S.ev.tri; return [__sr.S.coins,t.c0,t.stake,t.att,t.done]; }),[15000,100000,85000,0,0],'paid 85% of 100,000');
+  const ev0=await p.evaluate(()=>__sr.S.ev.attempts);
+  await p.evaluate(()=>document.querySelector('#evBody [data-ev=triplay]').click()); await p.waitForTimeout(300);
+  assert.deepEqual(await p.evaluate(()=>[__sr.state,__sr.mode,__sr.evTri,__sr.evMercy,__sr.S.ev.tri.att,__sr.S.ev.attempts]),['playing','event',true,false,1,ev0],'a TRIPLE attempt: no gentler map even with the easier map bought, its own counter, event attempts untouched');
+  assert.match(await p.textContent('#ghostD'),/TRIPLE · 23 attempts left/);
+  await L.perfects(p,2); await endIt(p,L); assert.equal(await p.isVisible('#evCont'),false,'no continue in a TRIPLE attempt'); assert.match(await p.textContent('#oNext'),/TRIPLE OR NOTHING/);
+  /* winning: reach the goal in a TRIPLE attempt */
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.openEvent(); }); await p.waitForTimeout(200); await p.evaluate(()=>document.querySelector('#evBody [data-ev=triplay]').click()); await p.waitForTimeout(300);
+  const c1=await p.evaluate(()=>__sr.S.coins); await p.evaluate(()=>{ __sr.forceScore(1000); __sr.evTriCheck(); }); await p.waitForTimeout(1500);
+  assert.deepEqual(await p.evaluate(()=>[__sr.S.ev.tri.done,__sr.S.ev.tri.won]),[1,300000],'3x the coins you had (100,000)'); { const c2=await p.evaluate(()=>__sr.S.coins); assert.ok(c2>=c1+300000 && c2<c1+305000,'+300,000 on top of what you had left: '+c1+' -> '+c2); } assert.match(await p.textContent('#oNext'),/TRIPLE! \+300,000/);
+  await p.evaluate(()=>{ __sr.showMenu(); __sr.openEvent(); }); await p.waitForTimeout(200); assert.match(await p.textContent('#evBody'),/TRIPLE! \+300,000/); assert.equal(await p.locator('#evBody [data-ev=triplay]').count(),0,'one go only'); assert.equal(await p.locator('#evBody [data-ev=tri]').count(),0);
+  assert.deepEqual(p.errs,[]); await L.close(p);
+  /* losing: the 24th attempt ends below the goal */
+  const q=await L.open(e); await base(q); await q.evaluate(()=>{ __sr.S.coins=20500; __sr.enterEvent(); const st=__sr.S.ev; st.hatched=1; st.best=1000; __sr.S.coins=50000; st.tri={c0:50000,stake:42500,att:23,done:0,won:0}; __sr.S.coins=7500; __sr.showMenu(); });
+  await q.evaluate(()=>{ __sr.openEvent(); }); await q.waitForTimeout(200); await q.evaluate(()=>document.querySelector('#evBody [data-ev=triplay]').click()); await q.waitForTimeout(300); await L.perfects(q,2); await endIt(q,L);
+  assert.deepEqual(await q.evaluate(()=>[__sr.S.ev.tri.att,__sr.S.ev.tri.done]),[24,2],'24 attempts and no win: lost'); { const c=await q.evaluate(()=>__sr.S.coins); assert.ok(c>=7500 && c<15000,'the stake stays gone: '+c); } assert.match(await q.textContent('#oNext'),/lost/);
+  assert.deepEqual(q.errs,[]); await L.close(q);
+}],
+
+['next event (Ember Throne): entry costs 35% of your coins (at least 20,000), the goal doubles only if you hatched the last egg, the map is harder, and the prizes include 100 Mystery Boxes', async(e,L)=>{
+  const p=await L.open(e,{now:new Date(2027,0,20,12).getTime()}); await p.evaluate(()=>{ __sr.S.tutSeen=true; __sr.S.coins=100000; });
+  const r=await p.evaluate(()=>{ const ev=__sr.activeEvent(), a=__sr.EVENTS[0]; return {id:ev&&ev.id,cost:__sr.evEntryCost(ev),goal:__sr.evGoalOf(ev,null),spd:ev.mod.speed,aspd:a.mod.speed,boxes:ev.reward.boxes,coins:ev.reward.coins,ch:ev.chests.map(c=>c.boxes)}; });
+  assert.equal(r.id,'ember27'); assert.equal(r.cost,35000,'35% of 100,000'); assert.equal(r.goal,1000,'did not hatch the last egg: still 1,000'); assert.ok(r.spd>=1.9 && r.spd>r.aspd,'harder than the last map'); assert.equal(r.boxes,100); assert.deepEqual(r.ch,[10,20,30]);
+  assert.equal(await p.evaluate(()=>{ __sr.S.coins=25000; return __sr.evEntryCost(__sr.activeEvent()); }),20000,'never less than 20,000');
+  await p.evaluate(()=>{ __sr.S.eggs.push('aurora26'); __sr.S.coins=200000; }); assert.equal(await p.evaluate(()=>__sr.evGoalOf(__sr.activeEvent(),null)),2000,'hatched the last egg: 2,000'); assert.equal(await p.evaluate(()=>__sr.evEntryCost(__sr.activeEvent())),70000);
+  await p.evaluate(()=>{ __sr.openEvent(); }); await p.waitForTimeout(300); const rules=await p.textContent('#evBody'); assert.match(rules,/2,000/); assert.match(rules,/500, 1,000 and 1,500/,'chests move with the goal'); assert.match(rules,/35% of your coins/); assert.match(rules,/Mystery Box ×100/);
+  await p.evaluate(()=>document.querySelector('#evBody [data-ev=enter]').click()); await p.waitForTimeout(300);
+  assert.deepEqual(await p.evaluate(()=>[__sr.S.ev.id,__sr.S.ev.gm]),['ember27',2],'the doubled goal is locked in'); { const c=await p.evaluate(()=>__sr.S.coins); assert.ok(c>=130000 && c<140000,'paid 35% (70,000) of 200,000: '+c); }
+  /* a chest pays Mystery Boxes too (chest at 250 x2 = 500) */
+  await p.evaluate(()=>{ __sr.S.boxes=0; __sr.S.ev.best=520; __sr.claimChest(0); }); assert.deepEqual(await p.evaluate(()=>[__sr.S.boxes,__sr.S.ev.chestOk.join()]),[10,'0']);
+  /* a player who did not hatch the last egg keeps 1,000 */
+  const q=await L.open(e,{now:new Date(2027,0,20,12).getTime()}); await q.evaluate(()=>{ __sr.S.coins=60000; __sr.S.tutSeen=true; }); assert.equal(await q.evaluate(()=>__sr.evGoalOf(__sr.activeEvent(),null)),1000); await L.close(q);
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['next event: hatching the Ember Throne egg pays 15,000 coins and 100 Mystery Boxes', async(e,L)=>{
+  const p=await L.open(e,{now:new Date(2027,0,20,12).getTime()}); await p.evaluate(()=>{ const S=__sr.S; S.tutSeen=true; S.coins=200000; __sr.enterEvent(); S.ev.best=1000; S.boxes=0; S.coins=0; __sr.openEvent(); });
+  await p.waitForTimeout(300); await p.click('#evBody [data-ev=hatch]'); await p.waitForTimeout(300);
+  await p.evaluate(()=>{ __sr.hat.p=.985; __sr.hat.hold=true; }); await p.waitForFunction(()=>__sr.hat.phase!=='hold',null,{timeout:8000}); await p.evaluate(()=>{ __sr.hat.hold=false; });
+  await p.waitForSelector('#hatchOk:not(.hidden)',{timeout:25000});
+  const r=await p.evaluate(()=>({boxes:__sr.S.boxes,coins:__sr.S.coins,txt:document.getElementById('hatchRw').textContent}));
+  assert.equal(r.boxes,100,'100 Mystery Boxes'); assert.ok(r.coins>=15000,'15,000 coins: '+r.coins); assert.match(r.txt,/MYSTERY BOXES/);
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
 ];
