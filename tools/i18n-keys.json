@@ -980,5 +980,11 @@
  "Win: +{w} coins. Lose: the {s} coins you pay now are gone.",
  "With {n} attempts left, the map gets a little gentler.",
  "You hatched the last egg, so this map asks for double the score.",
- "You tripled your coins."
+ "You tripled your coins.",
+ "If you lose, the {s} coins you pay now are gone.",
+ "IF YOU WIN",
+ "We nicely lowered the goal to {n} for your last attempts.",
+ "Press on {name} to learn more.",
+ "Triple your coins",
+ "WIN A CHANCE TO TRIPLE YOUR COINS"
 ]

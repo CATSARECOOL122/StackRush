@@ -980,3 +980,9 @@
 980|Con {n} tentativi rimasti, la mappa diventa un po' più dolce.
 981|Hai fatto schiudere l'ultimo uovo, quindi questa mappa chiede il doppio del punteggio.
 982|Hai triplicato le tue monete.
+983|Se perdi, le {s} monete che paghi ora sono perse.
+984|SE VINCI
+985|Abbiamo gentilmente abbassato l'obiettivo a {n} per i tuoi ultimi tentativi.
+986|Tocca {name} per saperne di più.
+987|Triplica le tue monete
+988|VINCI LA POSSIBILITÀ DI TRIPLICARE LE TUE MONETE

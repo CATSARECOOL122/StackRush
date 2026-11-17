@@ -273,4 +273,27 @@ module.exports=[
   assert.equal(r.boxes,100,'100 Mystery Boxes'); assert.ok(r.coins>=15000,'15,000 coins: '+r.coins); assert.match(r.txt,/MYSTERY BOXES/);
   assert.deepEqual(p.errs,[]); await L.close(p);
 }],
+
+['next event: a doubled goal (2,000) is lowered for good to 1,500 once fewer than 20 attempts are left, with a message; the chests move with it; the rules do not mention the gentler map', async(e,L)=>{
+  const p=await L.open(e,{now:new Date(2027,0,20,12).getTime()}); await p.evaluate(()=>{ const S=__sr.S; S.tutSeen=true; S.eggs.push('aurora26'); S.coins=200000; __sr.enterEvent(); S.ev.attempts=70; __sr.openEvent(); });
+  await p.waitForTimeout(300); assert.doesNotMatch(await p.textContent('#evBody'),/gentler|Gentler/,'no hint of the gentler map'); await p.evaluate(()=>{ __sr.showMenu(); });
+  assert.equal(await p.evaluate(()=>__sr.evGoalOf(__sr.activeEvent(),__sr.S.ev)),2000); 
+  await p.evaluate(()=>{ __sr.S.ev.attempts=80; __sr.startEvent(); }); await p.waitForTimeout(300); assert.equal(await p.evaluate(()=>[__sr.S.ev.attempts,__sr.S.ev.low]).then(x=>x.join()),'81,1','19 attempts left: lowered');
+  await p.waitForFunction(()=>/lowered the goal to 1,500/.test(document.getElementById('toast').textContent),null,{timeout:9000});
+  assert.equal(await p.evaluate(()=>__sr.evGoalOf(__sr.activeEvent(),__sr.S.ev)),1500); await p.evaluate(()=>{ __sr.showMenu(); __sr.openEvent(); }); await p.waitForTimeout(300);
+  assert.match(await p.textContent('#evBody'),/Best \d+ \/ 1,500/); assert.match(await p.textContent('#evBody'),/Chest at 375/); assert.match(await p.textContent('#evBody'),/Chest at 1,125/);
+  await p.evaluate(()=>{ __sr.S.ev.more=1; }); assert.equal(await p.evaluate(()=>__sr.evGoalOf(__sr.activeEvent(),__sr.S.ev)),1500,'stays lowered even if more attempts are bought');
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
+
+['TRIPLE reminder: a minimal popup on opening the app for players who hatched the egg (and have the offer), once per opening, with the win amount and the event name; never for others', async(e,L)=>{
+  const p=await L.open(e,{tri:true}); await p.evaluate(()=>{ const s=__sr,S=s.S; S.tutSeen=true; s.setNow(new Date(2026,10,20,12).getTime()); S.coins=20500; s.enterEvent(); S.ev.hatched=1; S.ev.best=1000; S.coins=100000; s.showMenu(); });
+  await p.waitForSelector('#triPop:not(.hidden)',{timeout:6000}); const t=await p.textContent('#triPop');
+  assert.match(t,/WIN A CHANCE TO TRIPLE YOUR COINS/); assert.match(t,/\+300,000/); assert.match(t,/Press on Aurora Peak to learn more/); assert.match(t,/Close/);
+  await p.click('#triPopClose'); assert.equal(await p.isVisible('#triPop'),false); await p.evaluate(()=>{ __sr.showMenu(); }); await p.waitForTimeout(2800); assert.equal(await p.isVisible('#triPop'),false,'once per opening');
+  await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.waitForSelector('#triPop:not(.hidden)',{timeout:7000}); await p.evaluate(()=>history.back()).catch(()=>{}); await p.waitForTimeout(300); assert.equal(await p.isVisible('#triPop'),false,'Back closes it');
+  /* not for a player under 30,000 coins, one who has not hatched, or one already in it */
+  for(const f of [S=>{ S.coins=30000; },S=>{ S.ev.hatched=0; },S=>{ S.ev.tri={c0:1,stake:1,att:0,done:0,won:0}; }]){ await p.reload(); await p.waitForFunction(()=>document.body.classList.contains('ready')); await p.evaluate(src=>{ const s=__sr,S=s.S; s.setNow(new Date(2026,10,20,12).getTime()); S.coins=100000; S.ev.hatched=1; S.ev.tri=null; eval('('+src+')')(S); s.showMenu(); },f.toString()); await p.waitForTimeout(3000); assert.equal(await p.isVisible('#triPop'),false); }
+  assert.deepEqual(p.errs,[]); await L.close(p);
+}],
 ];

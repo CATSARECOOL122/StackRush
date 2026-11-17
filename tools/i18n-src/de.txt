@@ -980,3 +980,9 @@
 980|Mit noch {n} Versuchen wird die Karte etwas milder.
 981|Du hast das letzte Ei ausgebrütet, also verlangt diese Karte die doppelte Punktzahl.
 982|Du hast deine Münzen verdreifacht.
+983|Wenn du verlierst, sind die {s} Münzen, die du jetzt zahlst, weg.
+984|WENN DU GEWINNST
+985|Wir haben das Ziel für deine letzten Versuche freundlicherweise auf {n} gesenkt.
+986|Tippe auf {name}, um mehr zu erfahren.
+987|Verdreifache deine Münzen
+988|GEWINNE DIE CHANCE, DEINE MÜNZEN ZU VERDREIFACHEN

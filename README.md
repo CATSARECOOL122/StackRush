@@ -313,6 +313,6 @@ Modes → **Split screen** (a one-time introduction pops up the first time you o
 
 ## Event: harder, TRIPLE OR NOTHING, next event
 
-- **Difficulty:** the event map is hard again (a little harder than the first version, with no speed cap). It only gets gentler when you have **25 attempts left or fewer**: then the speed is capped at x2 and a continue gives you a full-width top block and slower blocks. With more than 25 left, a continue just gives the tower back as it was.
+- **Difficulty:** the event map is hard again (a little harder than the first version, with no speed cap).
 - **TRIPLE OR NOTHING** (after you hatch the egg, and only if you have more than 30,000 coins): pay **85% of your coins** (a second tap confirms), then beat the same hard map in **under 25 attempts** (24, counted separately, no extra attempts, continues or easier map). Win and you get **3x the coins you had** (+360,000 if you had 120,000); run out of attempts and the stake is gone. One go per event.
-- **Next event (Ember Throne):** entry costs **35% of your coins** (never less than 20,000); the goal is **2,000 instead of 1,000 only if you hatched the Aurora Peak egg** (chests move to 500 / 1,000 / 1,500); the map is harder; the chests also pay Mystery Boxes (10 / 20 / 30) and the egg pays 15,000 coins and **100 Mystery Boxes**.
+- **Next event (Ember Throne):** entry costs **35% of your coins** (never less than 20,000); the goal is **2,000 instead of 1,000 only if you hatched the Aurora Peak egg** (chests move with it); the map is harder; the chests also pay Mystery Boxes (10 / 20 / 30) and the egg pays 15,000 coins and **100 Mystery Boxes**.

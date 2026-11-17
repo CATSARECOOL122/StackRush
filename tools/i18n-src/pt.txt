@@ -980,3 +980,9 @@
 980|Com {n} tentativas restantes, o mapa fica um pouco mais suave.
 981|Você chocou o último ovo, então este mapa pede o dobro da pontuação.
 982|Você triplicou suas moedas.
+983|Se perder, as {s} moedas pagas agora se perdem.
+984|SE VOCÊ GANHAR
+985|Baixamos gentilmente a meta para {n} nas suas últimas tentativas.
+986|Toque em {name} para saber mais.
+987|Triplique suas moedas
+988|GANHE A CHANCE DE TRIPLICAR SUAS MOEDAS

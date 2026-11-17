@@ -980,3 +980,9 @@
 980|Con {n} intentos restantes, el mapa se vuelve un poco más suave.
 981|Completaste el último huevo, así que este mapa pide el doble de puntuación.
 982|Triplicaste tus monedas.
+983|Si pierdes, las {s} monedas que pagas ahora se pierden.
+984|SI GANAS
+985|Hemos bajado amablemente la meta a {n} para tus últimos intentos.
+986|Pulsa en {name} para saber más.
+987|Triplica tus monedas
+988|GANA LA OPORTUNIDAD DE TRIPLICAR TUS MONEDAS

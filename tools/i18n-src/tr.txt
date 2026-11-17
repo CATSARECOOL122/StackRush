@@ -980,3 +980,9 @@
 980|{n} deneme kaldığında harita biraz yumuşar.
 981|Son yumurtayı çıkardın, bu yüzden bu harita iki kat puan ister.
 982|Jetonlarını üç katına çıkardın.
+983|Kaybedersen şimdi ödediğin {s} jeton gider.
+984|KAZANIRSAN
+985|Son denemelerin için hedefi nazikçe {n} puana düşürdük.
+986|Daha fazlasını öğrenmek için {name} etkinliğine dokun.
+987|Jetonlarını üç katına çıkar
+988|JETONLARINI ÜÇ KATINA ÇIKARMA ŞANSI KAZAN

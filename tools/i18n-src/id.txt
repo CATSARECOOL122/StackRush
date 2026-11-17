@@ -980,3 +980,9 @@
 980|Dengan sisa {n} percobaan, peta jadi sedikit lebih ringan.
 981|Kamu menetaskan telur terakhir, jadi peta ini meminta skor dua kali lipat.
 982|Kamu melipatgandakan koinmu tiga kali.
+983|Jika kalah, {s} koin yang kamu bayar sekarang hilang.
+984|JIKA KAMU MENANG
+985|Kami dengan baik hati menurunkan target menjadi {n} untuk percobaan terakhirmu.
+986|Ketuk {name} untuk info lebih lanjut.
+987|Tiga kalikan koinmu
+988|MENANGKAN KESEMPATAN MELIPATGANDAKAN KOINMU TIGA KALI

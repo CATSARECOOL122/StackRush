@@ -980,3 +980,9 @@
 980|Avec {n} essais restants, la carte devient un peu plus douce.
 981|Tu as fait éclore le dernier œuf, donc cette carte demande le double du score.
 982|Tu as triplé tes pièces.
+983|Si tu perds, les {s} pièces payées maintenant sont perdues.
+984|SI TU GAGNES
+985|Nous avons gentiment baissé l'objectif à {n} pour tes derniers essais.
+986|Appuie sur {name} pour en savoir plus.
+987|Triple tes pièces
+988|GAGNE LA CHANCE DE TRIPLER TES PIÈCES

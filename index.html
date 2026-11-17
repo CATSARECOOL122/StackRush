@@ -76,6 +76,7 @@
   .spmini{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);z-index:4;font-size:10px;font-weight:900;letter-spacing:1.5px;padding:4px 12px;border-radius:999px;background:#150d33e6;border:1px solid #ffffff22;color:#e8e0ff;white-space:nowrap;pointer-events:none} .spmini b{color:#ffd54a}
   .spmini:empty{display:none}
   #splitIntro .stickyfoot .btn,#splitSetup .stickyfoot .btn{white-space:normal;line-height:1.15;padding-left:8px;padding-right:8px}
+  .tripop{text-align:center;gap:10px} .tp-title{font-size:16px;font-weight:900;letter-spacing:2px;color:#ffd54a;line-height:1.25;margin-top:4px} .tp-win{font-size:44px;font-weight:900;color:#ffd54a;text-shadow:0 0 26px #ffb23dbb,0 4px 0 #0006;line-height:1.05} .tp-win .ic{width:.78em;height:.78em;vertical-align:-.08em} .tp-note{font-size:13px;font-weight:700;color:#e8e0ff;line-height:1.35}
   .spintro{text-align:center} .spi-eyebrow{font-size:11px;letter-spacing:5px;color:var(--gold);font-weight:900;margin-top:2px}
   .spi-title{display:flex;flex-direction:column;font-size:26px;font-weight:900;letter-spacing:3px;line-height:1.05;margin:4px 0 6px;background:linear-gradient(90deg,#4ad8ff,#fff 50%,#ff7a59);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px #7a4dff88)}
   .spi-art{position:relative;height:150px;border-radius:16px;overflow:hidden;background:#0007;border:1px solid var(--line);margin:6px 0;box-shadow:0 0 30px #7a4dff44}
@@ -168,6 +169,7 @@
   .scell.k-box i{background:linear-gradient(135deg,#7a4dff,#c06aff);color:#fff} .scell.k-boost i{background:linear-gradient(135deg,#2fc8ff,#2f7bff);color:#fff} .scell.k-coin i{background:linear-gradient(135deg,#ffd54a,#ff9a3d);color:#3a1a00} .scell.k-item i{background:linear-gradient(135deg,#ff6ad0,#7a4dff,#2fd6ff);color:#fff}
   .scell i.art{width:76px;height:40px;border-radius:9px;overflow:hidden;background:#0006} .scell i.art img{width:100%;height:100%;object-fit:cover;display:block} .scell i.art .pal{display:flex;width:100%;height:100%} .scell i.art .pal span{flex:1}
   .evtri{display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:18px;text-align:center;background:linear-gradient(135deg,#ff4d6d33,#ffc83d22,#1d1245);border:2px solid #ffc83d99;box-shadow:0 0 24px #ffc83d33} .evtri>b{font-size:15px;letter-spacing:1.5px;color:#ffd54a} .evtri>b .ic{width:16px;height:16px;vertical-align:-2px} .evtri>span{font-size:12.5px;font-weight:700;color:#f0e8ff;line-height:1.35} .evtri.warn{border-color:#ff4d6d;box-shadow:0 0 30px #ff4d6d66} .evtri.warn>span:last-of-type{color:#ffb0b0}
+  .evtri .btn{font-size:16px;padding:13px 10px;line-height:1.15} .evwinl{font-size:10px;letter-spacing:3px;font-weight:900;color:#ffd54a99;margin-top:2px} .evtriwin{font-size:34px;font-weight:900;color:#ffd54a;text-shadow:0 0 22px #ffb23daa,0 3px 0 #0006;line-height:1.05} .evtriwin .ic{width:.8em;height:.8em;vertical-align:-.08em} .evlose{font-size:10px;font-weight:700;color:#b9aee8aa;line-height:1.3} .evtri.warn .evlose{color:#ff9a9a}
   .snjump{align-self:center;font-size:12px;padding:8px 14px} .rot180{transform:rotate(180deg)}
   .snsp{position:absolute;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:5;animation:snsp .75s ease-out forwards} @keyframes snsp{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
   .snprem{text-align:center;font-weight:900;font-size:13px;letter-spacing:1px;padding:8px;border-radius:12px;background:#ffc83d1c;border:1px solid #ffc83d55} .snbuy{width:100%}
@@ -966,6 +968,16 @@ body.tablet #ui{inset:auto;left:0;top:0;width:calc(100% / var(--z));height:calc(
     </div>
   </section>
 
+  <section id="triPop" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="Triple your coins">
+    <div class="shbg" id="triPopBg"></div>
+    <div class="shcard cs tripop">
+      <div class="tp-title">WIN A CHANCE TO TRIPLE YOUR COINS</div>
+      <div class="tp-win" id="tpWin"></div>
+      <div class="tp-note" id="tpNote"></div>
+      <div class="row stickyfoot"><button id="triPopClose" class="btn">Close</button></div>
+    </div>
+  </section>
+
   <section id="splitIntro" class="screen sheet hidden" role="dialog" aria-modal="true" aria-label="2 player split screen">
     <div class="shbg" id="splitIntroBg"></div>
     <div class="shcard cs spintro">
@@ -1099,6 +1111,7 @@ const CFG = {
 evContinue: 1500,       // continue right after falling
 evResume: 2500,         // continue later, from the tower saved when you left the event map
 evContSlow: .5,         // a continued attempt runs this much slower (x0.5 less speed)
+evLowerAt: 20,          // a doubled goal (2,000) is lowered to 1,500 once you have fewer than this many attempts left
 evMercyAt: 25,          // with this many attempts left (or fewer) the event map is a little gentler: x2 speed cap, a slower continue
 evMaxSpeed: 2,
 triAttempts: 24, triMinCoins: 30000, triStakePct: .85, triMult: 3,     // TRIPLE OR NOTHING (after hatching): under 25 attempts, 85% of your coins to enter, 3x your coins to win
@@ -1514,7 +1527,7 @@ function cleanSave(raw){
   for(const k of ['best','coins','blocks','perfects','played','revives','dodged','shields','bestCombo','maxHeight','streak','twistDone','friendWins','friendBig','relics','untouch']) if(own(raw,k)) out[k]=num(raw[k]);
   if(own(raw,'fsHint')) out.fsHint=num(raw.fsHint,99);
   if(own(raw,'hintPow')) out.hintPow=num(raw.hintPow,9);
-  if(raw.ev && typeof raw.ev==='object' && typeof raw.ev.id==='string' && /^[a-z0-9]{3,20}$/.test(raw.ev.id)) out.ev={id:raw.ev.id,attempts:num(raw.ev.attempts,100000),more:num(raw.ev.more,999),easy:raw.ev.easy?1:0,fast:raw.ev.fast?1:0,best:num(raw.ev.best,1e6),hatched:raw.ev.hatched?1:0,chestOk:Array.isArray(raw.ev.chestOk)?[...new Set(raw.ev.chestOk.map(Number).filter(n=>n>=0&&n<8))]:[],gm:raw.ev.gm===2?2:1};
+  if(raw.ev && typeof raw.ev==='object' && typeof raw.ev.id==='string' && /^[a-z0-9]{3,20}$/.test(raw.ev.id)) out.ev={id:raw.ev.id,attempts:num(raw.ev.attempts,100000),more:num(raw.ev.more,999),easy:raw.ev.easy?1:0,fast:raw.ev.fast?1:0,best:num(raw.ev.best,1e6),hatched:raw.ev.hatched?1:0,chestOk:Array.isArray(raw.ev.chestOk)?[...new Set(raw.ev.chestOk.map(Number).filter(n=>n>=0&&n<8))]:[],gm:raw.ev.gm===2?2:1,low:raw.ev.low?1:0};
   if(out.ev && raw.ev.tri && typeof raw.ev.tri==='object'){ const t=raw.ev.tri; out.ev.tri={c0:num(t.c0,1e9),stake:num(t.stake,1e9),att:num(t.att,99),done:[1,2].includes(t.done)?t.done:0,won:num(t.won,1e10)}; }
   if(Array.isArray(raw.eggs)) out.eggs=[...new Set(raw.eggs.filter(v=>typeof v==='string'&&/^[a-z0-9]{3,20}$/.test(v)))].slice(0,60);
   if(raw.dm && typeof raw.dm==='object'){ const a=v=>Array.isArray(v)?[0,1,2].map(i=>num(v[i],1e6)):[0,0,0]; out.dm={day:num(raw.dm.day,1e6),p:a(raw.dm.p),paid:a(raw.dm.paid).map(x=>x?1:0),all:raw.dm.all?1:0}; }
@@ -1622,7 +1635,7 @@ const WEB_KEYS=Object.keys(SQUARE_LINKS);
 const ownsWeb=k=>{ const [sl,id]=k.split(':'); return id ? S.shop.owned.includes(k) : S.owned.includes(k); };
 function unlockCode(){ let n=0; WEB_KEYS.forEach((k,i)=>{ if(ownsWeb(k)) n|=1<<i; }); const c=(n*31+7)%97; return 'SR-'+n.toString(36).toUpperCase().padStart(2,'0')+c.toString(36).toUpperCase().padStart(2,'0'); }
 /* One-time gift codes: only a salted SHA-256 of the code is stored here, so the code cannot be read from the page. A code works once per device (S.gifts remembers it). */
-const GIFTS=[];
+const GIFTS=[{h:'dc98c616e0bc27d68bbb678e60f8ffdd091ee208c4b7126504bdd9cccd6d79a9',coins:10000}];
 async function giftSha(code){ const d=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('stackrush-gift:'+String(code||'').trim().toUpperCase())); return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
 async function redeemGift(code){                                   // coins given, -1 already used on this device, 0 not a gift code
   try{ const h=await giftSha(code), g=GIFTS.find(x=>x.h===h); if(!g) return 0; if(S.gifts.includes(h)) return -1; S.gifts.push(h); S.coins+=g.coins; save(); setCoins(); return g.coins; }catch(e){ return 0; }
@@ -4046,7 +4059,7 @@ async function shareScore(){
 }
 
 /* ================= Menu / UI ================= */
-const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet','evsheet','hatch','photoSheet','seasonSheet','boxSheet','splitIntro','splitSetup'];
+const SCREENS=['menu','over','themes','modes','awards','settings','stages','tutOffer','langs','boosts','chal','museum','power','udlg','coinsSheet','fsheet','hzsheet','evsheet','hatch','photoSheet','seasonSheet','boxSheet','splitIntro','splitSetup','triPop'];
 function hideAll(){ for(const id of SCREENS) $(id).classList.add('hidden'); soon(syncBack); soon(syncReach); try{ hideEvToast(); }catch(e){} }
 function nextUnlock(){
   const lvl=levelOf(S.blocks); let best=null;
@@ -4078,9 +4091,11 @@ const evStart=e=>new Date(e.from[0],e.from[1],e.from[2]).getTime(), evEnd=e=>new
 const activeEvent=()=>{ const n=evNow(); return EVENTS.find(e=>n>=evStart(e)&&n<=evEnd(e))||null; };
 const evState=ev=>(ev && S.ev && S.ev.id===ev.id)?S.ev:null;
 const evMax=st=>CFG.evAttempts+CFG.evMore*((st&&st.more)||0);
-const evMul=(ev,st)=>(st&&st.gm)?st.gm:((ev&&ev.doubleIf&&(S.eggs||[]).includes(ev.doubleIf))?2:1);   // a later event asks for double the score, but only of players who hatched the one before
+const evMul=(ev,st)=>(st&&st.gm)?((st.gm===2&&st.low)?1.5:st.gm):((ev&&ev.doubleIf&&(S.eggs||[]).includes(ev.doubleIf))?2:1);   // a later event asks for double the score, but only of players who hatched the one before
 const evGoalOf=(ev,st)=>CFG.evGoal*evMul(ev,st);
 const evAt=(ev,c,st)=>c.at*evMul(ev,st);
+/* a doubled goal is lowered for good (and the player is told) once fewer than 20 attempts are left */
+function evLowCheck(st){ if(st && st.gm===2 && !st.low && Math.max(0,evMax(st)-st.attempts)<CFG.evLowerAt){ st.low=1; save(); return true; } return false; }
 const evEntryCost=ev=>Math.max(CFG.evCost,(ev&&ev.entryPct)?Math.floor(S.coins*ev.entryPct):0);
 const evLeftNow=st=>Math.max(0,evMax(st)-st.attempts);
 const evMercyNow=st=>!!st && evLeftNow(st)<=CFG.evMercyAt;
@@ -4114,13 +4129,13 @@ const EGG_CRACKS=['M43 40 l-6 9 l7 5 l-8 10 l5 8','M45 46 l8 6 l-3 8 l9 7','M40 
 const eggCracks=p=>{ const n=Math.min(EGG_CRACKS.length,Math.floor(p*EGG_CRACKS.length+.0001)); return n?`<svg viewBox="0 0 86 108" aria-hidden="true">${EGG_CRACKS.slice(0,n).map(d=>`<path d="${d}"/>`).join('')}</svg>`:''; };
 function renderEvent(tick){
   const ev=activeEvent(); if(!ev){ closeEvent(); return; }
-  const st=evState(ev), left=fmtLeft(evEnd(ev)-evNow());
+  const st=evState(ev), left=fmtLeft(evEnd(ev)-evNow()); evLowCheck(st);
   if(tick && $('evBody').querySelector('.evleft')){ $('evBody').querySelector('.evleft').textContent=left; return; }       // once a second: only the clock
   $('evTitle').textContent=tr(ev.name);
   const pct=st?clamp(st.best/evGoalOf(ev,st),0,1):0;
   let h=`<div class="evhero" style="--e0:${ev.egg[0]};--e1:${ev.egg[1]}"><div class="evegg2${st&&st.hatched?' open':''}" style="--crk:${pct.toFixed(3)}">${eggCracks(pct)}</div><p class="evtag">${tr(ev.tag)}</p><div class="evleft">${left}</div></div>`;
   if(!st){
-    h+=`<ul class="evrules"><li>${tr('Reach a score of {n} on one very hard map.',{n:nf(evGoalOf(ev,st))})}</li><li>${tr('You get {n} attempts.',{n:CFG.evAttempts})}</li><li>${tr('Milestone chests at {a}, {b} and {c} along the way.',{a:nf(evAt(ev,ev.chests[0],st)),b:nf(evAt(ev,ev.chests[1],st)),c:nf(evAt(ev,ev.chests[2],st))})}</li><li>${tr('Hatch the egg at {n} for a one-of-a-kind reward.',{n:nf(evGoalOf(ev,st))})}</li><li>${tr('Power-ups work here (not Speed-ups).')}</li><li>${tr('With {n} attempts left, the map gets a little gentler.',{n:CFG.evMercyAt})}</li>${ev.entryPct?`<li class="evbonus">${tr('Entry costs {p}% of your coins (at least {n}).',{p:Math.round(ev.entryPct*100),n:nf(CFG.evCost)})}</li>`:''}${evMul(ev,st)>1?`<li class="evbonus">${tr('You hatched the last egg, so this map asks for double the score.')}</li>`:''}<li class="evbonus">${tr('Hatch it within your first {a} attempts, without buying more, for a {n} coin bonus!',{a:CFG.evAttempts,n:nf(CFG.evFastBonus)})}</li></ul>`
+    h+=`<ul class="evrules"><li>${tr('Reach a score of {n} on one very hard map.',{n:nf(evGoalOf(ev,st))})}</li><li>${tr('You get {n} attempts.',{n:CFG.evAttempts})}</li><li>${tr('Milestone chests at {a}, {b} and {c} along the way.',{a:nf(evAt(ev,ev.chests[0],st)),b:nf(evAt(ev,ev.chests[1],st)),c:nf(evAt(ev,ev.chests[2],st))})}</li><li>${tr('Hatch the egg at {n} for a one-of-a-kind reward.',{n:nf(evGoalOf(ev,st))})}</li><li>${tr('Power-ups work here (not Speed-ups).')}</li>${ev.entryPct?`<li class="evbonus">${tr('Entry costs {p}% of your coins (at least {n}).',{p:Math.round(ev.entryPct*100),n:nf(CFG.evCost)})}</li>`:''}${evMul(ev,st)>1?`<li class="evbonus">${tr('You hatched the last egg, so this map asks for double the score.')}</li>`:''}<li class="evbonus">${tr('Hatch it within your first {a} attempts, without buying more, for a {n} coin bonus!',{a:CFG.evAttempts,n:nf(CFG.evFastBonus)})}</li></ul>`
       +`<h4>${tr('IN THE EGG')}</h4><div class="evegg">${evRewardNames(ev).map(x=>`<span>${x}</span>`).join('')}</div>`
       +`<button class="btn gold big evcta${S.coins<evEntryCost(ev)?' short':''}" data-ev="enter">${tr('Enter · {n} {coin}',{n:nf(evEntryCost(ev)),coin:I('coin')})}</button>`
       +(evNeed&&S.coins<evEntryCost(ev)?`<div class="evneed" role="alert"><b>${tr('Not enough coins yet')}</b><span>${tr('You have {m} of {n} coins. {k} more to go.',{m:nf(S.coins),n:nf(evEntryCost(ev)),k:nf(evEntryCost(ev)-S.coins)})}</span><div class="evneedbar"><i style="width:${clamp(S.coins/evEntryCost(ev),0,1)*100}%"></i></div><button class="btn gold" data-ev="coins">${I('coin')} ${tr('Get coins')}</button></div>`:'')
@@ -4132,17 +4147,16 @@ function renderEvent(tick){
     h+=bon===2?`<div class="evbonusline">${I('zap')} ${tr('Bonus {n} coins if you hatch it within your first {a} attempts.',{n:nf(CFG.evFastBonus),a:CFG.evAttempts})}</div>`:bon===1&&!st.hatched?`<div class="evbonusline">${I('zap')} ${tr('Bonus {n} coins secured! Hatch the egg to collect it.',{n:nf(CFG.evFastBonus)})}</div>`:'';
     if(st.hatched) h+=`<div class="evch done"><i>${I('trophy')}</i><div><b>${tr('Egg hatched!')}</b><small>${evRewardNames(ev).join(' · ')}</small></div></div>`;
     else if(st.best>=evGoalOf(ev,st)) h+=`<button class="btn gold big evcta glow" data-ev="hatch">${tr('HATCH THE EGG')}</button>`;
-    if(!st.hatched && left2>0 && left2<=CFG.evMercyAt) h+=`<div class="evbonusline">${I('leaf')} ${tr('Gentler map: speed is capped at x2 and a continue is a little slower.')}</div>`;
     { const t=st.tri;
       if(triOffer(st)){ const stake=triStake(), win=Math.min(1e9,S.coins*CFG.triMult);
-        h+=`<div class="evtri${triAsk?' warn':''}"><b>${I('zap')} ${tr('TRIPLE YOUR COINS OR NOTHING')}</b><span>${tr('Beat the same hard map in under {a} attempts (no extra attempts, continues or easier map).',{a:CFG.triAttempts+1})}</span><span>${tr('Win: +{w} coins. Lose: the {s} coins you pay now are gone.',{w:nf(win),s:nf(stake)})}</span>`
-          +`<button class="btn gold big" data-ev="tri">${triAsk?tr('Tap again to pay {s} coins',{s:nf(stake)}):tr('Enter · {n} {coin}',{n:nf(stake),coin:I('coin')})}</button></div>`; }
+        h+=`<div class="evtri${triAsk?' warn':''}"><b>${I('zap')} ${tr('TRIPLE YOUR COINS OR NOTHING')}</b><small class="evwinl">${tr('IF YOU WIN')}</small><div class="evtriwin">+${nf(win)} ${I('coin','ic-gold')}</div><span>${tr('Beat the same hard map in under {a} attempts (no extra attempts, continues or easier map).',{a:CFG.triAttempts+1})}</span>`
+          +`<button class="btn gold" data-ev="tri">${triAsk?tr('Tap again to pay {s} coins',{s:nf(stake)}):tr('Enter · {n} {coin}',{n:nf(stake),coin:I('coin')})}</button><small class="evlose">${tr('If you lose, the {s} coins you pay now are gone.',{s:nf(stake)})}</small></div>`; }
       else if(t && t.done===0) h+=`<div class="evtri on"><b>${I('zap')} ${tr('TRIPLE OR NOTHING')}</b><span>${tr('{n} attempts left. Reach {g} to win {w} coins.',{n:CFG.triAttempts-t.att,g:nf(evGoalOf(ev,st)),w:nf(t.c0*CFG.triMult)})}</span><button class="btn primary big" data-ev="triplay">${tr('Play a TRIPLE attempt')}</button></div>`;
       else if(t && t.done===1) h+=`<div class="evch done"><i>${I('trophy')}</i><div><b>${tr('TRIPLE! +{n} coins',{n:nf(t.won)})}</b><small>${tr('You tripled your coins.')}</small></div></div>`;
       else if(t && t.done===2) h+=`<div class="evch"><i>${I('lock')}</i><div><b>${tr('TRIPLE OR NOTHING lost: out of attempts.')}</b></div></div>`; }
     if(!st.hatched) h+=`<button class="btn primary big evcta${left2<=0?' off':''}" data-ev="play">${left2>0?tr('Play an attempt'):tr('No attempts left')}</button>`;
     h+=`<h4>${tr('MILESTONE CHESTS')}</h4>`+ev.chests.map((c,i)=>{ const got=st.chestOk.includes(i), can=st.best>=evAt(ev,c,st) && !got;
-      return `<div class="evch${can?' ok':''}${got?' done':''}"><i>${I(got?'check':'gem')}</i><div><b>${tr('Chest at {n}',{n:evAt(ev,c,st)})}</b><small>${nf(c.coins)} ${I('coin')}${c.boxes?' · '+tr('Mystery Box')+' ×'+c.boxes:''}${c.item?' · '+evItemName(c.item):''}</small></div>${can?`<button class="btn gold" data-ev="chest" data-i="${i}">${tr('Open')}</button>`:got?`<span class="evok">${tr('Opened')}</span>`:`<span class="evlock">${I('lock')}</span>`}</div>`; }).join('');
+      return `<div class="evch${can?' ok':''}${got?' done':''}"><i>${I(got?'check':'gem')}</i><div><b>${tr('Chest at {n}',{n:nf(evAt(ev,c,st))})}</b><small>${nf(c.coins)} ${I('coin')}${c.boxes?' · '+tr('Mystery Box')+' ×'+c.boxes:''}${c.item?' · '+evItemName(c.item):''}</small></div>${can?`<button class="btn gold" data-ev="chest" data-i="${i}">${tr('Open')}</button>`:got?`<span class="evok">${tr('Opened')}</span>`:`<span class="evlock">${I('lock')}</span>`}</div>`; }).join('');
     if(!st.hatched){
       const sv=evSaved();
       if(sv && left2>0) h+=`<div class="evbuy"><i>${I('arrowup')}</i><div><b>${tr('Continue where you left off')}</b><small>${tr('Block {n}. The same map, a full-width top block and slower blocks. Uses one attempt.',{n:sv.blocks.length-1})}</small></div><button class="btn ${S.coins>=CFG.evResume?'gold':'off'}" data-ev="resume">${I('coin')} ${nf(CFG.evResume)}</button></div>`;
@@ -4171,7 +4185,7 @@ function buyEasy(){
 /* reminders: a big banner the first time the app is opened with 10, 5 or 3 days left, and on the last day */
 function evWarnCheck(){
   const ev=activeEvent(); if(!ev || state!=='menu' || $('menu').classList.contains('hidden')) return;
-  for(const id of ['evsheet','hzsheet','fsheet','boosts','coinsSheet','udlg','hatch','seasonSheet','boxSheet','splitIntro','splitSetup']) if(!$(id).classList.contains('hidden')) return;       // never over an open sheet
+  for(const id of ['evsheet','hzsheet','fsheet','boosts','coinsSheet','udlg','hatch','seasonSheet','boxSheet','splitIntro','splitSetup','triPop']) if(!$(id).classList.contains('hidden')) return;       // never over an open sheet
   const ms=evEnd(ev)-evNow(), d=ms/864e5, key=ms<864e5?'last':d<=3?'3':d<=5?'5':d<=10?'10':null; if(!key) return;
   const tag=ev.id+':'+key; if(S.evWarn.includes(tag)) return;
   for(const k of ['10','5','3','last']){ const t=ev.id+':'+k; if(!S.evWarn.includes(t)) S.evWarn.push(t); if(k===key) break; }       // the earlier ones are not shown late
@@ -4216,7 +4230,8 @@ function startEvent(snapIn,tri){
   }
   if(st.attempts>=evMax(st)){ toast(tr('No attempts left')); return; }
   const keep=(snapIn && snapIn.blocks && snapIn.blocks.length>1)?snapIn:null;
-  rollDay(); st.attempts++; if(keep) S.evSave=null; save(); evTri=false; evMercy=evMercyNow(st); mode='event'; mod=Object.assign({lives:3,bombs:true},evMod(ev,st)); newRun(); evEase=!!keep && evMercy;
+  rollDay(); st.attempts++; if(keep) S.evSave=null; save(); evTri=false;
+  if(evLowCheck(st)) setTimeout(()=>toast(`${I('leaf','ic-green')} ${tr('We nicely lowered the goal to {n} for your last attempts.',{n:nf(evGoalOf(ev,st))})}`,5200,true),900); evMercy=evMercyNow(st); mode='event'; mod=Object.assign({lives:3,bombs:true},evMod(ev,st)); newRun(); evEase=!!keep && evMercy;
   if(keep){                                                                      // the same map, picked up at the height where the last attempt ended (with 25 attempts or fewer left: the top block is made full width again and blocks run slower)
     stack=keep.blocks.map(([x,w],i)=>({x:x*W,w:w*W,y:i*BH,i,sq:0})); score=keep.score; runBlocks=keep.runBlocks; perfectsRun=keep.perfects; combo=0; setCombo(0);
     if(evMercy){ const top=stack[stack.length-1], cx=top.x+top.w/2; top.w=baseW; top.x=clamp(cx-baseW/2,0,W-baseW); }
@@ -4397,7 +4412,8 @@ function showMenu(){
   if(incoming){ const ch=incoming; incoming=null; openChallenge(ch); }
   else if(unlockedNow){ unlockedNow=false; openUnlockDlg('done',unlockedKey); }
   setTimeout(()=>{ try{ if(!offered && $('udlg').classList.contains('hidden')) evWarnCheck(); }catch(e){} },900);
-  setTimeout(()=>{ try{ splitIntroCheck(); }catch(e){} },1500);        // event reminders (10, 5, 3 days, last day)
+  setTimeout(()=>{ try{ splitIntroCheck(); }catch(e){} },1500);
+  setTimeout(()=>{ try{ triPopupCheck(); }catch(e){} },2200);        // event reminders (10, 5, 3 days, last day)
 }
 function showModes(){
   hideAll(); $('modes').classList.remove('hidden');
@@ -4440,6 +4456,17 @@ function openSplitSetup(){ renderSplitSetup(); $('splitSetup').classList.remove(
 function closeSplitSetup(){ $('splitSetup').classList.add('hidden'); soon(syncBack); }
 function openSplitIntro(){ S.splitIntro=1; save(); $('splitIntro').classList.remove('hidden'); soon(syncBack); sfx.up(); }
 function closeSplitIntro(){ $('splitIntro').classList.add('hidden'); soon(syncBack); }
+/* A minimal reminder for players who hatched the egg: the TRIPLE OR NOTHING chance, once each time the app is opened */
+let triShown=false;
+function triPopupCheck(){
+  if(SPLIT || triShown || SPL || state!=='menu' || (window.__sr && window.__sr.noPop)) return;
+  const ev=activeEvent(), st=evState(ev); if(!ev || !triOffer(st)) return;
+  if(!onPlainMenu()) return;
+  for(const id of ['tutOffer','udlg','chal']) if(!$(id).classList.contains('hidden')) return;
+  triShown=true; $('tpWin').innerHTML=`+${nf(Math.min(1e9,S.coins*CFG.triMult))} ${I('coin','ic-gold')}`; $('tpNote').textContent=tr('Press on {name} to learn more.',{name:tr(ev.name)});
+  $('triPop').classList.remove('hidden'); soon(syncBack); sfx.up();
+}
+function closeTriPop(){ $('triPop').classList.add('hidden'); soon(syncBack); }
 function splitIntroCheck(){
   if(SPLIT || S.splitIntro || SPL || state!=='menu') return;
   if(!onPlainMenu()) return;
@@ -4973,7 +5000,7 @@ $('csBuy').addEventListener('click',e=>{ const b=e.target.closest('[data-pack]')
    the browser's own and the app can close. */
 function soon(f){ if(typeof queueMicrotask==='function') queueMicrotask(f); else setTimeout(f,0); }       // right after the current handler finishes, before anything else can happen
 let backState='off', backWant=false, backAfter=null;          // off: no sentinel · armed: one is in the history · popping: we are removing it ourselves
-const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('hzsheet').classList.contains('hidden') && $('evsheet').classList.contains('hidden') && $('photoSheet').classList.contains('hidden') && $('seasonSheet').classList.contains('hidden') && $('boxSheet').classList.contains('hidden') && $('splitIntro').classList.contains('hidden') && $('splitSetup').classList.contains('hidden') && !SPL && $('hatch').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
+const onPlainMenu=()=>!$('menu').classList.contains('hidden') && $('boosts').classList.contains('hidden') && !document.getElementById('diag') && $('udlg').classList.contains('hidden') && $('fsheet').classList.contains('hidden') && $('hzsheet').classList.contains('hidden') && $('evsheet').classList.contains('hidden') && $('photoSheet').classList.contains('hidden') && $('seasonSheet').classList.contains('hidden') && $('boxSheet').classList.contains('hidden') && $('splitIntro').classList.contains('hidden') && $('splitSetup').classList.contains('hidden') && $('triPop').classList.contains('hidden') && !SPL && $('hatch').classList.contains('hidden') && $('coinsSheet').classList.contains('hidden') && $('crash').classList.contains('hidden');
 function armBack(){
   if(SPLIT) return;                                            // a split-screen half never touches the browser history
   if(backState==='off'){ try{ history.pushState({sr:1},''); backState='armed'; }catch(e){} }
@@ -4991,6 +5018,7 @@ function handleBack(){
   if(open('fsheet')){ closeFriend(); return; }
   if(open('hatch')){ if(hat.phase==='hold') closeHatch(); return; }
   if(SPL){ splitBack(); return; }
+  if(open('triPop')){ closeTriPop(); return; }
   if(open('splitSetup')){ closeSplitSetup(); return; }
   if(open('splitIntro')){ closeSplitIntro(); return; }
   if(open('boxSheet')){ closeBox(); return; }
@@ -5093,6 +5121,7 @@ $('overThemes').onclick=()=>{ sfx.tap(); openThemes('over'); };
 $('closeThemes').onclick=()=>{ sfx.tap(); closeThemes(); };
 $('openAwards').onclick=()=>{ sfx.tap(); showAwards(); };
 $('openSeason').onclick=()=>{ sfx.tap(); openSeason(); };
+$('triPopClose').onclick=()=>{ sfx.tap(); closeTriPop(); }; $('triPopBg').onclick=()=>closeTriPop();
 $('splitIntroGo').onclick=()=>{ sfx.tap(); closeSplitIntro(); openSplitSetup(); }; $('splitIntroNo').onclick=()=>{ sfx.tap(); closeSplitIntro(); }; $('splitIntroBg').onclick=()=>closeSplitIntro();
 $('spBack').onclick=()=>{ sfx.tap(); closeSplitSetup(); }; $('splitSetupBg').onclick=()=>closeSplitSetup(); $('spStart').onclick=()=>{ sfx.tap(); startSplit(); };
 $('spBody').addEventListener('click',e=>{ const b=e.target.closest('[data-lay],[data-rounds]'); if(!b) return; const c=spCfg(); if(b.dataset.lay) c.layout=b.dataset.lay; if(b.dataset.rounds) c.rounds=+b.dataset.rounds; S.splitCfg=c; save(); sfx.tap(); renderSplitSetup(); });
@@ -5214,7 +5243,7 @@ function layoutInfo(){
 
 /* test hook: only with #debug in the URL */
 if(location.hash==='#debug' && ['','localhost','127.0.0.1'].includes(location.hostname)){
-  window.__sr={ evGoalOf, evEntryCost, evMul, triEnter, evTriCheck, get evMercy(){ return evMercy; }, get evTri(){ return evTri; }, fillTower(n){ const t0=stack[stack.length-1]; for(let k=0;k<n;k++){ stack.push({x:t0.x,w:t0.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); } cur=null; spawnCur(true); }, RUN_POW, get evResizes(){ return evResizes; }, get held(){ return held; }, get evEase(){ return evEase; }, get stackTopW(){ return stack[stack.length-1].w; }, evResumeSaved, evSaved, evContinueNow, get evCont(){ return evCont; }, SPLIT_T, get SPL(){ return SPL; }, startSplit, openSplitIntro, splitIntroCheck, splitQuit, splitPause, spCfg, GIFTS, giftSha, redeemGift, seasonInfo, seasonTier, seasonReward, seasonAddXp, claimTier, claimAllTiers, buyPremium, ensureSeason, openSeason, rollBox, boxPools, buyBoxes, openBoxFlow, BOX_TIERS, SEASONS, RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
+  window.__sr={ triPopupCheck, evGoalOf, evEntryCost, evMul, triEnter, evTriCheck, get evMercy(){ return evMercy; }, get evTri(){ return evTri; }, fillTower(n){ const t0=stack[stack.length-1]; for(let k=0;k<n;k++){ stack.push({x:t0.x,w:t0.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); } cur=null; spawnCur(true); }, RUN_POW, get evResizes(){ return evResizes; }, get held(){ return held; }, get evEase(){ return evEase; }, get stackTopW(){ return stack[stack.length-1].w; }, evResumeSaved, evSaved, evContinueNow, get evCont(){ return evCont; }, SPLIT_T, get SPL(){ return SPL; }, startSplit, openSplitIntro, splitIntroCheck, splitQuit, splitPause, spCfg, GIFTS, giftSha, redeemGift, seasonInfo, seasonTier, seasonReward, seasonAddXp, claimTier, claimAllTiers, buyPremium, ensureSeason, openSeason, rollBox, boxPools, buyBoxes, openBoxFlow, BOX_TIERS, SEASONS, RUSH_X, RUSH_TOTAL, rushPay, set lowFx(v){ lowFx=!!v; }, SCENES3, view3On, PHOTO_FRAMES, openPhoto, startRush, get rush(){ return rush; }, rushBossDown, get look(){ return TH(); }, get petMood(){ return petMood; }, DAILY, dailyRecord, forceScore(v){ score=v; setScore(score); }, endNow(){ endRun('fail'); }, buyMore, buyEasy, evWarnCheck, evMod, evMax, itemActOf:itemAct, EVENTS, hat, activeEvent, openEvent, enterEvent, claimChest, startEvent, openHatch, setNow(v){ fakeNow=v; }, hatchBurst, evState, fmtLeft, HZ_LEVELS, bestGet, meltTest(){ const t=stack[stack.length-1]; stack.push({x:t.x,w:t.w,y:stack.length*BH,i:stack.length,sq:0}); runRec.blocks.push({x:0,w:0}); runRec.scores.push(score); runRec.ts.push(0); meltTwo(); }, get relicTaken(){ return relicTaken; }, get waterLeft(){ return waterLeft; }, async renderMusic(id,sec,level){                      // test/preview: render a music style offline to samples (no sound is played)
     const sr=22050, oldAc=ac, oldG=mus.gain, oldStep=mus.step, oldNext=mus.next, oldLvl=musLvl, oldEq=S.shop.equip.music;
     try{ ac=new OfflineAudioContext(2,sr*sec,sr); mus.gain=ac.createGain(); mus.gain.gain.value=.45; mus.gain.connect(ac.destination); noiseBuf=null; musLvl=level||0; S.shop.equip.music=id;
       const M=MUSIC[id], eighth=M.lofi?60/M.bpm/4:60/M.bpm/2; let t=.05, st=0; const key=0;
